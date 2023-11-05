@@ -452,7 +452,7 @@ ggplot(data = df %>% filter(series == 'CP00'), aes(x = date, y = g_p))+
   ylab("Inflation rate (%)") +
   labs(title = "Monthly Inflation in France",
        subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
-       caption = "Source: Eurostat, series prc_hicp_midx.")
+       caption = "Source: Eurostat, series prc_hicp_midx.")+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),

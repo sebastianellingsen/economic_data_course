@@ -1029,7 +1029,6 @@ In all cases the increase is a weighted average of prices (Laspeyres).
 
 
 
-
 count: false
  
 
@@ -1684,7 +1683,7 @@ ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
   ylab("Inflation rate (%)") +
   labs(title = "Monthly Inflation in France",
        subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
-       caption = "Source: Eurostat, series prc_hicp_midx.")
+       caption = "Source: Eurostat, series prc_hicp_midx.")+
 * theme(plot.title = element_text(size=22),
 *       plot.subtitle = element_text(size=16),
 *       legend.title = element_blank(),
@@ -1707,149 +1706,6 @@ ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
  
 .panel2-chunk_4-auto[
 &lt;img src="lecture_6_files/figure-html/chunk_4_auto_07_output-1.png" width="432" /&gt;
-
-```
-List of 17
- $ axis.title       :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : num 18
-  ..$ hjust        : NULL
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text.x      :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : num 12
-  ..$ hjust        : num 1
-  ..$ vjust        : NULL
-  ..$ angle        : num 45
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text.y      :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : num 12
-  ..$ hjust        : NULL
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ legend.background:List of 5
-  ..$ fill         : chr "transparent"
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ linetype     : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
- $ legend.key       : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ legend.text      :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : num 14
-  ..$ hjust        : NULL
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ legend.title     : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ legend.position  : chr "bottom"
- $ panel.background :List of 5
-  ..$ fill         : chr "transparent"
-  ..$ colour       : logi NA
-  ..$ size         : NULL
-  ..$ linetype     : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
- $ panel.grid.major :List of 6
-  ..$ colour       : chr "grey"
-  ..$ size         : num 0.1
-  ..$ linetype     : chr "dashed"
-  ..$ lineend      : NULL
-  ..$ arrow        : logi FALSE
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_line" "element"
- $ panel.grid.minor :List of 6
-  ..$ colour       : chr "grey"
-  ..$ size         : num 0.1
-  ..$ linetype     : chr "dashed"
-  ..$ lineend      : NULL
-  ..$ arrow        : logi FALSE
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_line" "element"
- $ plot.background  :List of 5
-  ..$ fill         : chr "transparent"
-  ..$ colour       : logi NA
-  ..$ size         : NULL
-  ..$ linetype     : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
- $ plot.title       :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : num 22
-  ..$ hjust        : NULL
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ plot.subtitle    :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : num 16
-  ..$ hjust        : NULL
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ plot.caption     :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : num 12
-  ..$ hjust        : num 0
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ strip.background : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ strip.placement  : chr "outside"
- - attr(*, "class")= chr [1:2] "theme" "gg"
- - attr(*, "complete")= logi FALSE
- - attr(*, "validate")= logi TRUE
-```
 ]
 
 &lt;style&gt;
