@@ -336,34 +336,7 @@ In all cases the increase is a weighted average of prices (Laspeyres).
 
 
 
-
-
-
-
 ---
-
-## Some challenges
-   
-Remember the general price index
-
-$$P_{t} = \sum_{i=1}^N P_{it}Q_{it},$$
-where $Q_{it}$ denotes the quantity and $P_{it}$ the price of good $i$.
-
---
-
-**One** basket for everyone!
-
-- But quantities are likely to be very different for different people.
-
-- Policy response to inflation depends on the source of inflation.
-
-- It is useful to consider more *disaggregated* indices to understand the source.
-
-<!-- <br> -->
-
-
----
-
 
 ```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
 # Loading and cleaning the main dataset
@@ -440,9 +413,106 @@ p2 <- ggplot(data = df, aes(x = date, y = g_p, color = series))+
 
 ```
 
+
+
+`r chunk_reveal("chunk_3")`
+
+```{r chunk_3, include = FALSE}
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %>%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %>%
+  rename(country = geo) %>% 
+  rename(date    = TIME_PERIOD) %>% 
+  rename(p       = OBS_VALUE) %>% 
+  rename(series  = coicop) %>%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %>%
+  filter(country == 'FR') %>%
+  group_by(series) %>%
+  mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+         g_p = round(g_p, d = 1))  %>%
+  filter(date>'2018-01-01')
+```
+
+
+
+---
+`r chunk_reveal("chunk_4")`
+
+```{r chunk_4, include = FALSE}
+# Constructing a plot
+ggplot(data = df %>% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in France",
+       subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())
+```
+
+
+
+
+
+
+---
 ```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
 p1
 ```
+
+
+
+
+
+
+
+
+
+---
+
+## Some challenges
+   
+Remember the general price index
+
+$$P_{t} = \sum_{i=1}^N P_{it}Q_{it},$$
+where $Q_{it}$ denotes the quantity and $P_{it}$ the price of good $i$.
+
+--
+
+**One** basket for everyone!
+
+- But quantities are likely to be very different for different people.
+
+- Policy response to inflation depends on the source of inflation.
+
+- It is useful to consider more *disaggregated* indices to understand the source.
+
+<!-- <br> -->
+
+
+
 
 
 ---
