@@ -626,7 +626,7 @@ p1 <- ggplot(data = df %>%
   scale_y_continuous(label=comma)+
   xlab("") +
   ylab("GDP per capita") +
-  labs(title = "GDP per capita 2022 (national prices)",
+  labs(title = "GDP per capita 2022 (national currencies)",
        caption = "Source: Eurostat, series nama_10_pc")
 
 
@@ -784,7 +784,7 @@ $PPS/PPS^*$ therefore gives the relative price of the basket in home versus fore
 
 ## Price comparisons across regions
 
-A common application of $PPS$ measures is to adjust prices for international comparison. 
+$PPS$ can be used to adjust prices for international comparison. 
 
 $$\text{Price adjusted to PPS standards}_i = \frac{\text{Price national currency}_i}{PPS_i}$$
 
@@ -792,7 +792,9 @@ Can also be used to adjust prices to some base country
 
 $$\text{Price adjusted to j country standards}_i = \frac{\text{Price national currency}_i}{PPS_i}\times PPS_{j}$$
 
-<!-- price in i the same as something costing the second expression in j, fix the price level to country j -->
+A common application is to adjust nominal income differences across countries.
+
+
 
 ---
 
@@ -899,6 +901,30 @@ map
 
 
 
+---
+
+
+
+
+
+
+## Price comparisons across countries
+
+International income differences tend to be smaller when adjusting for price differences.
+
+This is known as the *Penn effect*.
+
+- Comes from the *Penn World Tables* dataset.
+
+In economics, this is known as the Balassa–Samuelson effect
+
+- The idea is that the difference between productivity in traded and non-traded sectors is higher in developed countries.
+
+- Can show that this leads to higher prices in non-traded sectors in developed countries.
+
+
+<!-- is the proposition that this can be explained by the greater variation in productivity between developed and less developed countries in the traded goods' sectors which in turn affects wages and prices in the non-tradable goods sectors. -->
+
 
 
 <!-- --- -->
@@ -914,6 +940,8 @@ map
 ## Summary
 
 After this lecture you should be able to:
+
+- Know how the coursework works.
 
 - How inflation is measured.
 
