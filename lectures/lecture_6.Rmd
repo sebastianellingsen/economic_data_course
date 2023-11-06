@@ -62,6 +62,23 @@ code.r.hljs.remark-code:hover{
 
 
 
+## Some announcements 
+
+Have received some questions about the coursework.
+
+The grade for the course will be based on the final coursework in December.
+
+- The 20 quiz questions $10\%$
+
+- 2 of the Mini Projects + 2 new Mini Projects $80\%$
+
+- 1 feedback exercise. $10\%$
+
+Released: Friday December 9th. Due: **December 15th, 11am**.
+
+
+
+---
 
 
 ## More about data on prices 
