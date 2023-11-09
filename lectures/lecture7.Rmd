@@ -65,9 +65,6 @@ code.r.hljs.remark-code:hover{
 
 
 
----
-
-
 ## After this lecture you should be able to
 
 1. Explain the difference between register and survey (or ILO) unemployment.
@@ -79,6 +76,7 @@ code.r.hljs.remark-code:hover{
 4. Explain and interpret the Beveridge curve.
 
 5. Explain the intuition behind seasonal adjustment. 
+---
 
 
 
@@ -109,21 +107,67 @@ class: inverse, center, middle
 
 ---
 
-## Working with data on inflation  
+## From population to labour force
 
-All statistical agencies collect data on prices and inflation.
+The overall population of the UK ($\approx$ 66 mio in the UK)
 
-- The primary reason is for monetary and fiscal policy. 
+- Children and elderly ($\approx$ 24 mio in the UK).
 
-The most common approach is the **annual inflation rate**:
+- Out of the labour force ($\approx$ 9 mio in the UK).
 
-$$\pi_t = \frac{P_{t} - P_{t-12}}{P_{t-12}},$$
-where $P_{t}$ is some price index at time $t$.
+- The labour force ($\approx$ 33 mio in the UK) (also called the economic active).
 
-The annual inflation rate compares prices for the latest month with the same month a year ago.
 
-- We can download data for the UK from the August 2023 report [here](https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2023).
 
+
+---
+## Out of the labour force
+
+Also known as: The economic inactive
+
+- Studying (≈ 27% in the UK)
+
+- Looking after the family/staying home (≈ 24% in the UK) 
+
+- Long-term sick (≈ 23% in the UK)
+
+- Retired (≈ 13% in the UK)
+
+
+
+
+
+
+---
+## The labour force
+
+The labour force = Unemployed + Employed
+
+Unemployed (ILO definition) (The ILO is the International Labour Organisation)
+
+- without a job, have been actively seeking work in the past four weeks and are available to start work in the next two weeks.
+
+- out of work, have found a job and are waiting to start it in the next two weeks.
+
+Employed (ILO definition)
+
+- work at least one hour for pay in a week.
+
+- temporarily away from jobs.
+
+- on Government-supported training/employment programs.
+
+- unpaid family work.
+
+
+---
+
+class: inverse, center, middle
+
+$$\Large \text{Unemployment rate} = \frac{\text{Unemployed}}{\text{Unemployed} + \text{Employed}}$$
+
+
+---
 
 
 
