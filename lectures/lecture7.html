@@ -56,11 +56,8 @@ code.r.hljs.remark-code:hover{
 
 2. Explain how the unemployment rate is calculated.
 
-3. Explain and interpret the Phillips curve.
+3. Explain the intuition behind seasonal adjustment. 
 
-4. Explain and interpret the Beveridge curve.
-
-5. Explain the intuition behind seasonal adjustment. 
 ---
 
 
@@ -1359,7 +1356,6 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
 *       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
 *       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
 *       legend.key = element_rect(fill = NA),
-*       text=element_text(family="Palatino"),
 *       axis.text.x=element_text(angle=45, hjust=1),
 *       panel.background = element_rect(fill = "transparent", colour = NA),
 *       plot.background = element_rect(fill = "transparent", colour = NA))
@@ -1390,7 +1386,6 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1422,7 +1417,6 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1455,7 +1449,6 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1489,7 +1482,6 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1525,7 +1517,6 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1750,7 +1741,6 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
 *       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
 *       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
 *       legend.key = element_rect(fill = NA),
-*       text=element_text(family="Palatino"),
 *       axis.text.x=element_text(angle=45, hjust=1),
 *       panel.background = element_rect(fill = "transparent", colour = NA),
 *       plot.background = element_rect(fill = "transparent", colour = NA))
@@ -1781,7 +1771,6 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1813,7 +1802,6 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1846,7 +1834,6 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1880,7 +1867,6 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
         legend.key = element_rect(fill = NA),
-        text=element_text(family="Palatino"),
         axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background = element_rect(fill = "transparent", colour = NA))+
@@ -1978,19 +1964,32 @@ Approach:
 
 ## The labour market: other topics
 
-Labour supply\vspace{-0.2cm}
+Labour supply
 
-- Extensive margin vs intensive margin\vspace{-0.2cm}
+- Extensive margin vs intensive margin
 
 - Hours worked
 
-Earnings\vspace{-0.2cm}
+Earnings
 
 - Wages, Salary, survey based, register based
 
-Gender disparities\vspace{-0.2cm}
+Gender disparities
 
 - Earnings &amp; promotions
+
+
+
+
+---
+
+## Summary
+
+1. Explain the difference between register and survey (or ILO) unemployment.
+
+2. Explain how the unemployment rate is calculated.
+
+3. Explain the intuition behind seasonal adjustment. 
 
 
 
