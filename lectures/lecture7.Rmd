@@ -73,22 +73,6 @@ code.r.hljs.remark-code:hover{
 
 3. Explain the intuition behind seasonal adjustment. 
 
----
-
-
-
-## Data about the labour market
-
-1) From the population to the labour force
-
-2) The supply side (people supplying work)
-
-3) The demand side (employers looking for workers)
-
-4) The labour market and prices: The Phillips Curve
-
-5) Demand meets Supply: The Beveridge Curve
-
 
 
 
@@ -875,7 +859,7 @@ Approach:
 
 - Subtract the seasonal component from the raw series
 
-
+There is a large and very advanced literature in econometrics and statistics on filtering time series!
 
 
 
