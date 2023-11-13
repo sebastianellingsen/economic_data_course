@@ -90,13 +90,13 @@ class: inverse, center, middle
 
 ## From population to labour force
 
-The overall population of the UK ($\approx$ 66 mio in the UK)
+The overall population of the UK (≈ 66 mio in the UK)
 
-- Children and elderly ($\approx$ 24 mio in the UK).
+- Children and elderly (≈ 24 mio in the UK).
 
-- Out of the labour force ($\approx$ 9 mio in the UK).
+- Out of the labour force (≈ 9 mio in the UK).
 
-- The labour force ($\approx$ 33 mio in the UK) (also called the economic active).
+- The labour force (≈ 33 mio in the UK) (also called the economic active).
 
 
 
@@ -142,10 +142,36 @@ Also known as: The economic inactive
 
 
 ---
-
 class: inverse, center, middle
 
 $$\Large \text{Unemployment rate} = \frac{\text{Unemployed}}{\text{Unemployed} + \text{Employed}}$$
+
+
+
+---
+## Where the data comes from
+
+Labour Force Surveys (standardised survey across the world)
+
+- Ask a random subset of the population about their labour market status
+
+- Often done monthly – but reported quarterly
+
+- Advantage: complies with ILO definition: comparable across time and countries
+
+Administrative data
+
+- Unemployed $\approx$ number of unemployment benefit claimants
+
+- Advantage: cheap and precise
+
+Note: Age definition for working age population can vary! ONS (UK): 16-64y, Eurostat: 15-74y, US: Age 15y and over
+
+
+
+
+
+
 
 
 ---
