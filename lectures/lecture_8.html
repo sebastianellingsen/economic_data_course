@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Economic Data - Lecture 7</title>
+    <title>Economic Data - Lecture 8</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
     <meta name="date" content="2023-11-18" />
@@ -11,7 +11,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Economic Data - Lecture 7
+# Economic Data - Lecture 8
 ## Sebastian Ellingsen
 ### School of Economics - University of Bristol
 ### 2023-11-18
@@ -44,113 +44,30 @@ code.r.hljs.remark-code:hover{
 }
 &lt;/style&gt;
 
+&lt;style&gt;
 
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 
-
-
+&lt;/style&gt;
 
 
 ## After this lecture you should be able to
 
-1. Explain the difference between register and survey (or ILO) unemployment.
+Explain basic inequality measures 
 
-2. Explain how the unemployment rate is calculated.
+- Lorenz curves
 
-3. Explain the intuition behind seasonal adjustment. 
+- Gini index
 
+Explain how to calculate these.
 
-
-
-
-
----
-class: inverse, center, middle
-
-# Data About the Labor Market
-
-
-
-
----
-
-## From population to labour force
-
-The overall population of the UK (≈ 66 mio in the UK)
-
-- Children and elderly (≈ 24 mio in the UK).
-
-- Out of the labour force (≈ 9 mio in the UK).
-
-- The labour force (≈ 33 mio in the UK) (also called the economic active).
-
-
-
-
----
-## Out of the labour force
-
-Also known as: The economic inactive
-
-- Studying (≈ 27% in the UK)
-
-- Looking after the family/staying home (≈ 24% in the UK) 
-
-- Long-term sick (≈ 23% in the UK)
-
-- Retired (≈ 13% in the UK)
-
-
-
-
-
-
----
-## The labour force
-
-**The labour force = Unemployed + Employed**
-
-*Unemployed* (ILO definition) 
-
-- Without a job, have been actively seeking work in the past four weeks and are available to start work in the next two weeks.
-
-- Out of work, have found a job and are waiting to start it in the next two weeks.
-
-*Employed* (ILO definition)
-
-- Work at least one hour for pay in a week.
-
-- Temporarily away from jobs.
-
-- On Government-supported training/employment programs.
-
-- Unpaid family work.
-
-
----
-class: inverse, center, middle
-
-`$$\Large \text{Unemployment rate} = \frac{\text{Unemployed}}{\text{Unemployed} + \text{Employed}}$$`
-
-
-
----
-## Where the data comes from
-
-Labour Force Surveys (standardised survey across the world)
-
-- Ask a random subset of the population about their labour market status
-
-- Often done monthly – but reported quarterly
-
-- Advantage: complies with ILO definition: comparable across time and countries
-
-Administrative data
-
-- Unemployed `\(\approx\)` number of unemployment benefit claimants
-
-- Advantage: cheap and precise
-
-Note: Age definition for working age population can vary! ONS (UK): 16-64y, Eurostat: 15-74y, US: Age 15y and over
 
 
 
@@ -160,12 +77,91 @@ Note: Age definition for working age population can vary! ONS (UK): 16-64y, Euro
 
 
 ---
+class: inverse, center, middle
+
+# Inequality 
 
 
 
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-3-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
+---
+
+## Quantifying inequality: Concepts
+
+**Domain**:
+
+- Income or wealth
+
+- Health, education, etc.
+
+- Gender
+
+**Net and gross**:
+
+- Income before (gross) or after taxes and transfers (net)
+
+**Unit**:
+
+- Individuals or households?
+
+- How to compare across households?
+
+
+
+
+
+---
+
+## Quantifying inequality: Domain
+
+Requires access to micro level data – that is data on the *individual level*.
+
+- So far: macro data - aggregated over units.
+
+**Income**
+
+- From sample surveys or tax records (record flow)
+
+**Wealth**
+
+- Stock - difficult to measure: bank accounts, value of house, etc.
+
+- Education, health etc.
+
+- Inequality in life expectancy, neonatal mortality etc.
+
+
+
+
+
+---
+
+## Quantifying inequality: Concepts
+
+We use weights to adjust for the household size.
+
+**OECD equivalence scale**: 
+
+- 1st person &gt;=14y: weight of 1
+
+- All other &gt;=14y: weight of 0.7
+
+- &lt;14y: weight of 0.5
+
+
+**OECD modified scale**: 
+
+- 1st person &gt;=14y: weight of 1
+
+- All other &gt;=14y: weight of 0.5
+
+- &lt;14y: weight of 0.3
+
+
+&lt;!-- **Square root scale** --&gt;
+
+&lt;!-- - Household weight: square root of number of household members --&gt;
 
 
 
@@ -175,34 +171,28 @@ Note: Age definition for working age population can vary! ONS (UK): 16-64y, Euro
 ---
 
 
+## The Lorenz curve
 
+.pull-left[
+**Domain**:
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-5-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+- Income
 
+**Net and gross**:
 
+- Net (before housing costs)
 
+**Unit**:
 
----
+- Households
 
+- OECD equivalence scale
+]
 
-## Seasonal variation 
+.pull-right[
 
-Labor market data has a substantial seasonal component.
-
-- Night: fewer work, fewer travel etc.
-
-- Weekends: fewer work, fewer commute, more in museums and at the beach.
-
-- August: fewer work, more travel.
-
-- December: private consumption is higher in UK.
-
-This is an issue if we want to compare changes between periods. 
-
-- Unemployment is always lower in December, does that mean "the economy" is doing better?
-
-- We might want to understand if unemployment is lower *over and beyond* what we can expect from seasonal variation or the trend. 
-
+&lt;img src="images/inequality.png" width="597.6" style="display: block; margin: auto;" /&gt;
+]
 
 
 
@@ -210,14 +200,54 @@ This is an issue if we want to compare changes between periods.
 ---
 
 
+## How to quantify inequality
+
+It is useful to have a number to summarize the income distribution. 
+
+Point of departure: Income shares
+
+- Sort households by income (low to high)
+
+- Assign rank
+
+- Calculate the total income
+
+- Calculate the income share for each rank
 
 
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-7-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+.center2[
+&lt;img src="images/quant_ineq.png" width="669.6" style="display: block; margin: auto;" /&gt;
+]
 
 
 
+---
 
+## The Lorenz Curve
+
+.pull-left[
+The Lorenz curve
+
+- Calculate cumulative shares of income for each income rank.
+
+- Plot cumulative share against income rank.
+
+This gives the Lorenz curve.
+
+It will have a different shape for different domains of inequality.
+
+The Lorenz curve forms the basis of the *Gini index*.
+]
+
+.pull-right[
+
+&lt;img src="images/lorenz_curve.png" width="453.6" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 
@@ -225,70 +255,35 @@ This is an issue if we want to compare changes between periods.
 
 
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-9-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
 
 
 
----
+## The Gini Index
 
+.pull-left[
+The Gini coefficient is defined as
 
+`$$G = \frac{A}{A+B}$$`
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-11-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+Gini coefficient close to 0: 
 
+- A is very small `\(\Rightarrow\)` distribution close to perfect equality.
 
+Gini coefficient close to 1: 
 
+- A is large `\(\Rightarrow\)` far from perfect equality.
+]
 
----
+.pull-right[
 
-
-
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-13-1.png" width="1008" style="display: block; margin: auto;" /&gt;
-
-
-
-
-
----
-## Decomposing a time series
-
-
-We can decompose the variation in the unemployment rate `\(u_t\)` as follows
-
-`$$u_t = s_t+\lambda_t +\varepsilon_t$$`
-- `\(\lambda_t\)` is a trend component.
-
-- `\(s_t\)` is a seasonal compononent. 
-
-- `\(\varepsilon_t\)` are random shocks.
-
-Some statistical agencies provide data where the different compononents have been isolated.
-
-There is a wide nariety of ways to decompose a time series and the correct method depends on the series and application.
-
-Let's create our own decomposition to get a sense of how it works. 
+&lt;img src="images/lorenz_desc.png" width="453.6" style="display: block; margin: auto;" /&gt;
+]
 
 
 
 ---
 
-## Finding the trend component
-
-One way to remove seasonality and other shocks is through the use of linear filters. 
-
-One such filter is the moving average or MA filter.
-
-The MA filter of order k or `\(MA(k)\)` is given by
-
-`$$\lambda_t = \frac{1}{2k + 1}\sum_{t-k}^{t+k}y_t$$`
-
-A moving average is commonly used with time series data to smooth out short-term fluctuations and highlight longer-term trends.
-
-Let's try this with our unemployment data.
-
-
-
----
 
 
 
@@ -296,71 +291,34 @@ Let's try this with our unemployment data.
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-*library(tidyverse)
+# Loading data for China 1980 and 2014
+*read_excel("../data/GCIPrawdata.xlsx", skip = 2)
 ```
 ]
  
-.panel2-chunk_1-auto[
-
-]
-
----
-count: false
- 
-
-.panel1-chunk_1-auto[
-
-```r
-# Loading packages
-library(tidyverse)
-*library(lubridate)
-```
-]
- 
-.panel2-chunk_1-auto[
-
-]
-
----
-count: false
- 
-
-.panel1-chunk_1-auto[
-
-```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
-
-# Loading and cleaning the data
-*read_csv('../data/STLABOUR_10112023115611842.csv')
-```
-]
- 
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 19
-   LOCATION Country SUBJECT Subject MEASURE Measure FREQUENCY Frequency TIME 
-   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;
- 1 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 2 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 3 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 4 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 5 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 6 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 7 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 8 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
- 9 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
-10 GBR      United… LRHUTT… Unempl… ST      Level,… M         Monthly   2000…
-# … with 554 more rows, and 10 more variables: Time &lt;chr&gt;, `Unit Code` &lt;chr&gt;,
-#   Unit &lt;chr&gt;, `PowerCode Code` &lt;int&gt;, PowerCode &lt;chr&gt;, `Reference Period
-#   Code` &lt;chr&gt;, `Reference Period` &lt;chr&gt;, Value &lt;dbl&gt;, `Flag Codes` &lt;chr&gt;,
-#   Flags &lt;chr&gt;
+# A tibble: 4,799 x 14
+   Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+   &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+ 1 Afghan…  1980              206              350              455
+ 2 Afghan…  1981              212              361              469
+ 3 Afghan…  1982              221              377              490
+ 4 Afghan…  1983              238              405              527
+ 5 Afghan…  1984              249              424              551
+ 6 Afghan…  1985              256              435              566
+ 7 Afghan…  1986              268              457              594
+ 8 Afghan…  1987              243              414              539
+ 9 Afghan…  1988              223              380              493
+10 Afghan…  1989              202              344              447
+# … with 4,789 more rows, and 9 more variables: `Decile 4 Income` &lt;dbl&gt;,
+#   `Decile 5 Income` &lt;dbl&gt;, `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;,
+#   `Decile 8 Income` &lt;dbl&gt;, `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;,
+#   `Mean Income` &lt;dbl&gt;, Population &lt;dbl&gt;
 ```
 ]
 
@@ -368,36 +326,27 @@ library(lubridate)
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
-
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-* select(TIME, Measure, Value)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+* filter(Country == 'China', Year %in% c(1980, 2014))
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 3
-   TIME    Measure                        Value
-   &lt;chr&gt;   &lt;chr&gt;                          &lt;dbl&gt;
- 1 2000-01 Level, rate or quantity series   5.7
- 2 2000-02 Level, rate or quantity series   5.8
- 3 2000-03 Level, rate or quantity series   5.7
- 4 2000-04 Level, rate or quantity series   5.5
- 5 2000-05 Level, rate or quantity series   5.4
- 6 2000-06 Level, rate or quantity series   5.3
- 7 2000-07 Level, rate or quantity series   5.5
- 8 2000-08 Level, rate or quantity series   5.5
- 9 2000-09 Level, rate or quantity series   5.5
-10 2000-10 Level, rate or quantity series   5.3
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
 ```
 ]
 
@@ -405,37 +354,30 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-* rename(date  = TIME)
+# Income deciles for China 1980
+*decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 3
-   date    Measure                        Value
-   &lt;chr&gt;   &lt;chr&gt;                          &lt;dbl&gt;
- 1 2000-01 Level, rate or quantity series   5.7
- 2 2000-02 Level, rate or quantity series   5.8
- 3 2000-03 Level, rate or quantity series   5.7
- 4 2000-04 Level, rate or quantity series   5.5
- 5 2000-05 Level, rate or quantity series   5.4
- 6 2000-06 Level, rate or quantity series   5.3
- 7 2000-07 Level, rate or quantity series   5.5
- 8 2000-08 Level, rate or quantity series   5.5
- 9 2000-09 Level, rate or quantity series   5.5
-10 2000-10 Level, rate or quantity series   5.3
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
 ```
 ]
 
@@ -443,38 +385,40 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-* rename(adj   = Measure)
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+*decs_c80
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 3
-   date    adj                            Value
-   &lt;chr&gt;   &lt;chr&gt;                          &lt;dbl&gt;
- 1 2000-01 Level, rate or quantity series   5.7
- 2 2000-02 Level, rate or quantity series   5.8
- 3 2000-03 Level, rate or quantity series   5.7
- 4 2000-04 Level, rate or quantity series   5.5
- 5 2000-05 Level, rate or quantity series   5.4
- 6 2000-06 Level, rate or quantity series   5.3
- 7 2000-07 Level, rate or quantity series   5.5
- 8 2000-08 Level, rate or quantity series   5.5
- 9 2000-09 Level, rate or quantity series   5.5
-10 2000-10 Level, rate or quantity series   5.3
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
 ```
 ]
 
@@ -482,39 +426,43 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-* rename(unemp = Value)
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+*total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 3
-   date    adj                            unemp
-   &lt;chr&gt;   &lt;chr&gt;                          &lt;dbl&gt;
- 1 2000-01 Level, rate or quantity series   5.7
- 2 2000-02 Level, rate or quantity series   5.8
- 3 2000-03 Level, rate or quantity series   5.7
- 4 2000-04 Level, rate or quantity series   5.5
- 5 2000-05 Level, rate or quantity series   5.4
- 6 2000-06 Level, rate or quantity series   5.3
- 7 2000-07 Level, rate or quantity series   5.5
- 8 2000-08 Level, rate or quantity series   5.5
- 9 2000-09 Level, rate or quantity series   5.5
-10 2000-10 Level, rate or quantity series   5.3
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
 ```
 ]
 
@@ -522,40 +470,48 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-  rename(unemp = Value) %&gt;%
-* mutate(adj  = ifelse(adj == 'Level, rate or quantity series', 'No seasonal adjustment', 'Seasonal adjustment'))
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
+*total_inc_80
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 3
-   date    adj                    unemp
-   &lt;chr&gt;   &lt;chr&gt;                  &lt;dbl&gt;
- 1 2000-01 No seasonal adjustment   5.7
- 2 2000-02 No seasonal adjustment   5.8
- 3 2000-03 No seasonal adjustment   5.7
- 4 2000-04 No seasonal adjustment   5.5
- 5 2000-05 No seasonal adjustment   5.4
- 6 2000-06 No seasonal adjustment   5.3
- 7 2000-07 No seasonal adjustment   5.5
- 8 2000-08 No seasonal adjustment   5.5
- 9 2000-09 No seasonal adjustment   5.5
-10 2000-10 No seasonal adjustment   5.3
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
+```
+
+```
+[1] 2520
 ```
 ]
 
@@ -563,41 +519,51 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-  rename(unemp = Value) %&gt;%
-  mutate(adj  = ifelse(adj == 'Level, rate or quantity series', 'No seasonal adjustment', 'Seasonal adjustment')) %&gt;%
-* mutate(date = paste(date, "01", sep="-"))
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
+total_inc_80
+
+# Cumulative income shares in 1980
+*cum_inc_share_c80 &lt;-  cumsum(decs_c80) / total_inc_80
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 3
-   date       adj                    unemp
-   &lt;chr&gt;      &lt;chr&gt;                  &lt;dbl&gt;
- 1 2000-01-01 No seasonal adjustment   5.7
- 2 2000-02-01 No seasonal adjustment   5.8
- 3 2000-03-01 No seasonal adjustment   5.7
- 4 2000-04-01 No seasonal adjustment   5.5
- 5 2000-05-01 No seasonal adjustment   5.4
- 6 2000-06-01 No seasonal adjustment   5.3
- 7 2000-07-01 No seasonal adjustment   5.5
- 8 2000-08-01 No seasonal adjustment   5.5
- 9 2000-09-01 No seasonal adjustment   5.5
-10 2000-10-01 No seasonal adjustment   5.3
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
+```
+
+```
+[1] 2520
 ```
 ]
 
@@ -605,42 +571,61 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-  rename(unemp = Value) %&gt;%
-  mutate(adj  = ifelse(adj == 'Level, rate or quantity series', 'No seasonal adjustment', 'Seasonal adjustment')) %&gt;%
-  mutate(date = paste(date, "01", sep="-")) %&gt;%
-* mutate(date = as.Date(date, format = "%Y-%m-%d"))
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
+total_inc_80
+
+# Cumulative income shares in 1980
+cum_inc_share_c80 &lt;-  cumsum(decs_c80) / total_inc_80
+*cum_inc_share_c80
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 3
-   date       adj                    unemp
-   &lt;date&gt;     &lt;chr&gt;                  &lt;dbl&gt;
- 1 2000-01-01 No seasonal adjustment   5.7
- 2 2000-02-01 No seasonal adjustment   5.8
- 3 2000-03-01 No seasonal adjustment   5.7
- 4 2000-04-01 No seasonal adjustment   5.5
- 5 2000-05-01 No seasonal adjustment   5.4
- 6 2000-06-01 No seasonal adjustment   5.3
- 7 2000-07-01 No seasonal adjustment   5.5
- 8 2000-08-01 No seasonal adjustment   5.5
- 9 2000-09-01 No seasonal adjustment   5.5
-10 2000-10-01 No seasonal adjustment   5.3
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
+```
+
+```
+[1] 2520
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+      0.03134921       0.07619048       0.13412698       0.20436508 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+      0.28769841       0.38492063       0.49841270       0.63174603 
+ Decile 9 Income Decile 10 Income 
+      0.79206349       0.99841270 
 ```
 ]
 
@@ -648,43 +633,64 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-  rename(unemp = Value) %&gt;%
-  mutate(adj  = ifelse(adj == 'Level, rate or quantity series', 'No seasonal adjustment', 'Seasonal adjustment')) %&gt;%
-  mutate(date = paste(date, "01", sep="-")) %&gt;%
-  mutate(date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
-* mutate(month = month(date), year = year(date))
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
+total_inc_80
+
+# Cumulative income shares in 1980
+cum_inc_share_c80 &lt;-  cumsum(decs_c80) / total_inc_80
+cum_inc_share_c80
+
+# Calculations for 2014
+*decs_c14          &lt;- unlist(decile_data_china[2, 3:12])
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 564 x 5
-   date       adj                    unemp month  year
-   &lt;date&gt;     &lt;chr&gt;                  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 2000-01-01 No seasonal adjustment   5.7     1  2000
- 2 2000-02-01 No seasonal adjustment   5.8     2  2000
- 3 2000-03-01 No seasonal adjustment   5.7     3  2000
- 4 2000-04-01 No seasonal adjustment   5.5     4  2000
- 5 2000-05-01 No seasonal adjustment   5.4     5  2000
- 6 2000-06-01 No seasonal adjustment   5.3     6  2000
- 7 2000-07-01 No seasonal adjustment   5.5     7  2000
- 8 2000-08-01 No seasonal adjustment   5.5     8  2000
- 9 2000-09-01 No seasonal adjustment   5.5     9  2000
-10 2000-10-01 No seasonal adjustment   5.3    10  2000
-# … with 554 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
+```
+
+```
+[1] 2520
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+      0.03134921       0.07619048       0.13412698       0.20436508 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+      0.28769841       0.38492063       0.49841270       0.63174603 
+ Decile 9 Income Decile 10 Income 
+      0.79206349       0.99841270 
 ```
 ]
 
@@ -692,44 +698,65 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-  rename(unemp = Value) %&gt;%
-  mutate(adj  = ifelse(adj == 'Level, rate or quantity series', 'No seasonal adjustment', 'Seasonal adjustment')) %&gt;%
-  mutate(date = paste(date, "01", sep="-")) %&gt;%
-  mutate(date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
-  mutate(month = month(date), year = year(date)) %&gt;%
-* filter(adj == 'No seasonal adjustment')
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
+total_inc_80
+
+# Cumulative income shares in 1980
+cum_inc_share_c80 &lt;-  cumsum(decs_c80) / total_inc_80
+cum_inc_share_c80
+
+# Calculations for 2014
+decs_c14          &lt;- unlist(decile_data_china[2, 3:12])
+*total_inc_14      &lt;- decile_data_china$`Mean Income`[2] * 10
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 282 x 5
-   date       adj                    unemp month  year
-   &lt;date&gt;     &lt;chr&gt;                  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 2000-01-01 No seasonal adjustment   5.7     1  2000
- 2 2000-02-01 No seasonal adjustment   5.8     2  2000
- 3 2000-03-01 No seasonal adjustment   5.7     3  2000
- 4 2000-04-01 No seasonal adjustment   5.5     4  2000
- 5 2000-05-01 No seasonal adjustment   5.4     5  2000
- 6 2000-06-01 No seasonal adjustment   5.3     6  2000
- 7 2000-07-01 No seasonal adjustment   5.5     7  2000
- 8 2000-08-01 No seasonal adjustment   5.5     8  2000
- 9 2000-09-01 No seasonal adjustment   5.5     9  2000
-10 2000-10-01 No seasonal adjustment   5.3    10  2000
-# … with 272 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
+```
+
+```
+[1] 2520
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+      0.03134921       0.07619048       0.13412698       0.20436508 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+      0.28769841       0.38492063       0.49841270       0.63174603 
+ Decile 9 Income Decile 10 Income 
+      0.79206349       0.99841270 
 ```
 ]
 
@@ -737,47 +764,66 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-  rename(unemp = Value) %&gt;%
-  mutate(adj  = ifelse(adj == 'Level, rate or quantity series', 'No seasonal adjustment', 'Seasonal adjustment')) %&gt;%
-  mutate(date = paste(date, "01", sep="-")) %&gt;%
-  mutate(date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
-  mutate(month = month(date), year = year(date)) %&gt;%
-  filter(adj == 'No seasonal adjustment') %&gt;%
-* mutate(trend = (lag(unemp, n=4)   + lag(unemp, n=3)   + lag(unemp, n=2)  + lag(unemp, n=1)  +
-*                 lead(unemp, n=4)  + lead(unemp, n=3)  + lead(unemp, n=2) + lead(unemp, n=1) +
-*                 unemp)/9)
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
+total_inc_80
+
+# Cumulative income shares in 1980
+cum_inc_share_c80 &lt;-  cumsum(decs_c80) / total_inc_80
+cum_inc_share_c80
+
+# Calculations for 2014
+decs_c14          &lt;- unlist(decile_data_china[2, 3:12])
+total_inc_14      &lt;- decile_data_china$`Mean Income`[2] * 10
+*cum_inc_share_c14 &lt;-  cumsum(decs_c14) / total_inc_14
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 282 x 6
-   date       adj                    unemp month  year trend
-   &lt;date&gt;     &lt;chr&gt;                  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 2000-01-01 No seasonal adjustment   5.7     1  2000 NA   
- 2 2000-02-01 No seasonal adjustment   5.8     2  2000 NA   
- 3 2000-03-01 No seasonal adjustment   5.7     3  2000 NA   
- 4 2000-04-01 No seasonal adjustment   5.5     4  2000 NA   
- 5 2000-05-01 No seasonal adjustment   5.4     5  2000  5.54
- 6 2000-06-01 No seasonal adjustment   5.3     6  2000  5.5 
- 7 2000-07-01 No seasonal adjustment   5.5     7  2000  5.42
- 8 2000-08-01 No seasonal adjustment   5.5     8  2000  5.34
- 9 2000-09-01 No seasonal adjustment   5.5     9  2000  5.3 
-10 2000-10-01 No seasonal adjustment   5.3    10  2000  5.27
-# … with 272 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
+```
+
+```
+[1] 2520
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+      0.03134921       0.07619048       0.13412698       0.20436508 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+      0.28769841       0.38492063       0.49841270       0.63174603 
+ Decile 9 Income Decile 10 Income 
+      0.79206349       0.99841270 
 ```
 ]
 
@@ -785,52 +831,71 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 count: false
  
 
-.panel1-chunk_1-auto[
+.panel1-chunk_11-auto[
 
 ```r
-# Loading packages
-library(tidyverse)
-library(lubridate)
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+  filter(Country == 'China', Year %in% c(1980, 2014))
 
-# Loading and cleaning the data
-read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
-  select(TIME, Measure, Value) %&gt;%
-  rename(date  = TIME) %&gt;%
-  rename(adj   = Measure) %&gt;%
-  rename(unemp = Value) %&gt;%
-  mutate(adj  = ifelse(adj == 'Level, rate or quantity series', 'No seasonal adjustment', 'Seasonal adjustment')) %&gt;%
-  mutate(date = paste(date, "01", sep="-")) %&gt;%
-  mutate(date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
-  mutate(month = month(date), year = year(date)) %&gt;%
-  filter(adj == 'No seasonal adjustment') %&gt;%
-  mutate(trend = (lag(unemp, n=4)   + lag(unemp, n=3)   + lag(unemp, n=2)  + lag(unemp, n=1)  +
-                  lead(unemp, n=4)  + lead(unemp, n=3)  + lead(unemp, n=2) + lead(unemp, n=1) +
-                  unemp)/9)
+# Income deciles for China 1980
+decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
+decs_c80
+
+# Total income for China 1980
+total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
+total_inc_80
+
+# Cumulative income shares in 1980
+cum_inc_share_c80 &lt;-  cumsum(decs_c80) / total_inc_80
+cum_inc_share_c80
+
+# Calculations for 2014
+decs_c14          &lt;- unlist(decile_data_china[2, 3:12])
+total_inc_14      &lt;- decile_data_china$`Mean Income`[2] * 10
+cum_inc_share_c14 &lt;-  cumsum(decs_c14) / total_inc_14
 ```
 ]
  
-.panel2-chunk_1-auto[
+.panel2-chunk_11-auto[
 
 ```
-# A tibble: 282 x 6
-   date       adj                    unemp month  year trend
-   &lt;date&gt;     &lt;chr&gt;                  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 2000-01-01 No seasonal adjustment   5.7     1  2000 NA   
- 2 2000-02-01 No seasonal adjustment   5.8     2  2000 NA   
- 3 2000-03-01 No seasonal adjustment   5.7     3  2000 NA   
- 4 2000-04-01 No seasonal adjustment   5.5     4  2000 NA   
- 5 2000-05-01 No seasonal adjustment   5.4     5  2000  5.54
- 6 2000-06-01 No seasonal adjustment   5.3     6  2000  5.5 
- 7 2000-07-01 No seasonal adjustment   5.5     7  2000  5.42
- 8 2000-08-01 No seasonal adjustment   5.5     8  2000  5.34
- 9 2000-09-01 No seasonal adjustment   5.5     9  2000  5.3 
-10 2000-10-01 No seasonal adjustment   5.3    10  2000  5.27
-# … with 272 more rows
+# A tibble: 2 x 14
+  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
+  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 China    1980               79              113              146
+2 China    2014              448              927             1440
+# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+              79              113              146              177 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+             210              245              286              336 
+ Decile 9 Income Decile 10 Income 
+             404              520 
+```
+
+```
+[1] 2520
+```
+
+```
+ Decile 1 Income  Decile 2 Income  Decile 3 Income  Decile 4 Income 
+      0.03134921       0.07619048       0.13412698       0.20436508 
+ Decile 5 Income  Decile 6 Income  Decile 7 Income  Decile 8 Income 
+      0.28769841       0.38492063       0.49841270       0.63174603 
+ Decile 9 Income Decile 10 Income 
+      0.79206349       0.99841270 
 ```
 ]
 
 &lt;style&gt;
-.panel1-chunk_1-auto {
+.panel1-chunk_11-auto {
   color: black;
   width: 38.6060606060606%;
   hight: 32%;
@@ -838,7 +903,7 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
   padding-left: 1%;
   font-size: 80%
 }
-.panel2-chunk_1-auto {
+.panel2-chunk_11-auto {
   color: black;
   width: 59.3939393939394%;
   hight: 32%;
@@ -846,7 +911,7 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
   padding-left: 1%;
   font-size: 80%
 }
-.panel3-chunk_1-auto {
+.panel3-chunk_11-auto {
   color: black;
   width: NA%;
   hight: 33%;
@@ -860,145 +925,943 @@ read_csv('../data/STLABOUR_10112023115611842.csv') %&gt;%
 
 
 
----
 
+---
 
 count: false
  
 
-.panel1-chunk_2-auto[
+.panel1-chunk_21-auto[
 
 ```r
 # Plotting the data
-*ggplot(data = df, aes(x = date, y = trend))
+*plot(cum_inc_share_c80, type = "l", col = "blue",
+*    lwd = 2, ylab = "Cumulative income share")
 ```
 ]
  
-.panel2-chunk_2-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_2_auto_01_output-1.png" width="432" /&gt;
+.panel2-chunk_21-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_21_auto_01_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_2-auto[
+.panel1-chunk_21-auto[
 
 ```r
 # Plotting the data
-ggplot(data = df, aes(x = date, y = trend))+
-* geom_line(stat='identity', lwd = 1)
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lwd = 2, ylab = "Cumulative income share")
+
+*abline(a = 0, b = 0.1, col = "black", lwd = 2)
 ```
 ]
  
-.panel2-chunk_2-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_2_auto_02_output-1.png" width="432" /&gt;
+.panel2-chunk_21-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_21_auto_02_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_2-auto[
+.panel1-chunk_21-auto[
 
 ```r
 # Plotting the data
-ggplot(data = df, aes(x = date, y = trend))+
-  geom_line(stat='identity', lwd = 1)+
-*   scale_x_date(date_breaks = "4 month", date_labels = "%m-%Y")
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lwd = 2, ylab = "Cumulative income share")
+
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+*title("Lorenz curve, China, 1980")
 ```
 ]
  
-.panel2-chunk_2-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_2_auto_03_output-1.png" width="432" /&gt;
+.panel2-chunk_21-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_21_auto_03_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_2-auto[
+.panel1-chunk_21-auto[
 
 ```r
 # Plotting the data
-ggplot(data = df, aes(x = date, y = trend))+
-  geom_line(stat='identity', lwd = 1)+
-    scale_x_date(date_breaks = "4 month", date_labels = "%m-%Y")+
-* xlab("")
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lwd = 2, ylab = "Cumulative income share")
+
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+title("Lorenz curve, China, 1980")
 ```
 ]
  
-.panel2-chunk_2-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_2_auto_04_output-1.png" width="432" /&gt;
+.panel2-chunk_21-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_21_auto_04_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
+
+&lt;style&gt;
+.panel1-chunk_21-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_21-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_21-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
 
 ---
 count: false
  
 
-.panel1-chunk_2-auto[
+.panel1-chunk_31-auto[
 
 ```r
 # Plotting the data
-ggplot(data = df, aes(x = date, y = trend))+
-  geom_line(stat='identity', lwd = 1)+
-    scale_x_date(date_breaks = "4 month", date_labels = "%m-%Y")+
-  xlab("") +
-* ylab("Unemp. rate (%)")
+*plot(cum_inc_share_c14, type = "l", col = "blue",
+*    lwd = 2, ylab = "Cumulative income share")
 ```
 ]
  
-.panel2-chunk_2-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_2_auto_05_output-1.png" width="432" /&gt;
+.panel2-chunk_31-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_31_auto_01_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_2-auto[
+.panel1-chunk_31-auto[
 
 ```r
 # Plotting the data
-ggplot(data = df, aes(x = date, y = trend))+
-  geom_line(stat='identity', lwd = 1)+
-    scale_x_date(date_breaks = "4 month", date_labels = "%m-%Y")+
-  xlab("") +
-  ylab("Unemp. rate (%)") +
-* labs(title = "Trend component",
-*      caption = "")
+plot(cum_inc_share_c14, type = "l", col = "blue",
+     lwd = 2, ylab = "Cumulative income share")
+
+*abline(a = 0, b = 0.1, col = "black", lwd = 2)
 ```
 ]
  
-.panel2-chunk_2-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_2_auto_06_output-1.png" width="432" /&gt;
+.panel2-chunk_31-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_31_auto_02_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_2-auto[
+.panel1-chunk_31-auto[
 
 ```r
 # Plotting the data
-ggplot(data = df, aes(x = date, y = trend))+
-  geom_line(stat='identity', lwd = 1)+
-    scale_x_date(date_breaks = "4 month", date_labels = "%m-%Y")+
-  xlab("") +
-  ylab("Unemp. rate (%)") +
-  labs(title = "Trend component",
-       caption = "")+
+plot(cum_inc_share_c14, type = "l", col = "blue",
+     lwd = 2, ylab = "Cumulative income share")
+
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+*title("Lorenz curve, China, 2014")
+```
+]
+ 
+.panel2-chunk_31-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_31_auto_03_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_31-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c14, type = "l", col = "blue",
+     lwd = 2, ylab = "Cumulative income share")
+
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+title("Lorenz curve, China, 2014")
+```
+]
+ 
+.panel2-chunk_31-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_31_auto_04_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;style&gt;
+.panel1-chunk_31-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_31-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_31-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+*plot(cum_inc_share_c80, type = "l", col = "blue",
+*    lty = 2, lwd = 2, xlab = "Deciles",
+*    ylab = "Cumulative income share")
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_01_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+*abline(a = 0, b = 0.1, col = "black", lwd = 2)
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_02_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+*lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_03_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
+
+*title("Lorenz curves, China (1980 and 2014)")
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_04_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
+
+title("Lorenz curves, China (1980 and 2014)")
+
+*legend("topleft", lty = 2:1, lwd = 2, legend = c("China, 1980", "China, 2014"),
+*      col = c("blue", "green"))
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_05_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
+
+title("Lorenz curves, China (1980 and 2014)")
+
+legend("topleft", lty = 2:1, lwd = 2, legend = c("China, 1980", "China, 2014"),
+       col = c("blue", "green"))
+
+# Calculating the Gini index for 1980 and 2014
+*library(ineq)
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_06_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
+
+title("Lorenz curves, China (1980 and 2014)")
+
+legend("topleft", lty = 2:1, lwd = 2, legend = c("China, 1980", "China, 2014"),
+       col = c("blue", "green"))
+
+# Calculating the Gini index for 1980 and 2014
+library(ineq)
+
+*Gini(decs_c80)
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_07_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+
+```
+[1] 0.2908585
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
+
+title("Lorenz curves, China (1980 and 2014)")
+
+legend("topleft", lty = 2:1, lwd = 2, legend = c("China, 1980", "China, 2014"),
+       col = c("blue", "green"))
+
+# Calculating the Gini index for 1980 and 2014
+library(ineq)
+
+Gini(decs_c80)
+*Gini(decs_c14)
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_08_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+
+```
+[1] 0.2908585
+```
+
+```
+[1] 0.5107188
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_41-auto[
+
+```r
+# Plotting the data
+plot(cum_inc_share_c80, type = "l", col = "blue",
+     lty = 2, lwd = 2, xlab = "Deciles",
+     ylab = "Cumulative income share")
+
+# Add the perfect equality line
+abline(a = 0, b = 0.1, col = "black", lwd = 2)
+
+lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
+
+title("Lorenz curves, China (1980 and 2014)")
+
+legend("topleft", lty = 2:1, lwd = 2, legend = c("China, 1980", "China, 2014"),
+       col = c("blue", "green"))
+
+# Calculating the Gini index for 1980 and 2014
+library(ineq)
+
+Gini(decs_c80)
+Gini(decs_c14)
+```
+]
+ 
+.panel2-chunk_41-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_41_auto_09_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+
+```
+[1] 0.2908585
+```
+
+```
+[1] 0.5107188
+```
+]
+
+&lt;style&gt;
+.panel1-chunk_41-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_41-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_41-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-8-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-10-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-12-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+---
+count: false
+ 
+
+.panel1-chunk_51-auto[
+
+```r
+*read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4)
+```
+]
+ 
+.panel2-chunk_51-auto[
+
+```
+# A tibble: 266 x 68
+   `Country Name` `Country Code` `Indicator Name` `Indicator Code` `1960` `1961`
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt; 
+ 1 Aruba          ABW            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 2 Africa Easter… AFE            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 3 Afghanistan    AFG            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 4 Africa Wester… AFW            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 5 Angola         AGO            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 6 Albania        ALB            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 7 Andorra        AND            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 8 Arab World     ARB            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+ 9 United Arab E… ARE            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+10 Argentina      ARG            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
+# … with 256 more rows, and 62 more variables: `1962` &lt;chr&gt;, `1963` &lt;dbl&gt;,
+#   `1964` &lt;dbl&gt;, `1965` &lt;dbl&gt;, `1966` &lt;dbl&gt;, `1967` &lt;dbl&gt;, `1968` &lt;dbl&gt;,
+#   `1969` &lt;dbl&gt;, `1970` &lt;dbl&gt;, `1971` &lt;dbl&gt;, `1972` &lt;dbl&gt;, `1973` &lt;dbl&gt;,
+#   `1974` &lt;dbl&gt;, `1975` &lt;dbl&gt;, `1976` &lt;dbl&gt;, `1977` &lt;dbl&gt;, `1978` &lt;dbl&gt;,
+#   `1979` &lt;dbl&gt;, `1980` &lt;dbl&gt;, `1981` &lt;dbl&gt;, `1982` &lt;dbl&gt;, `1983` &lt;dbl&gt;,
+#   `1984` &lt;dbl&gt;, `1985` &lt;dbl&gt;, `1986` &lt;dbl&gt;, `1987` &lt;dbl&gt;, `1988` &lt;dbl&gt;,
+#   `1989` &lt;dbl&gt;, `1990` &lt;dbl&gt;, `1991` &lt;dbl&gt;, `1992` &lt;dbl&gt;, `1993` &lt;dbl&gt;,
+#   `1994` &lt;dbl&gt;, `1995` &lt;dbl&gt;, `1996` &lt;dbl&gt;, `1997` &lt;dbl&gt;, `1998` &lt;dbl&gt;,
+#   `1999` &lt;dbl&gt;, `2000` &lt;dbl&gt;, `2001` &lt;dbl&gt;, `2002` &lt;dbl&gt;, `2003` &lt;dbl&gt;,
+#   `2004` &lt;dbl&gt;, `2005` &lt;dbl&gt;, `2006` &lt;dbl&gt;, `2007` &lt;dbl&gt;, `2008` &lt;dbl&gt;,
+#   `2009` &lt;dbl&gt;, `2010` &lt;dbl&gt;, `2011` &lt;dbl&gt;, `2012` &lt;dbl&gt;, `2013` &lt;dbl&gt;,
+#   `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;, `2017` &lt;dbl&gt;, `2018` &lt;dbl&gt;,
+#   `2019` &lt;dbl&gt;, `2020` &lt;dbl&gt;, `2021` &lt;dbl&gt;, `2022` &lt;dbl&gt;, X68 &lt;chr&gt;
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_51-auto[
+
+```r
+read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
+* select("Country Name", "2019")
+```
+]
+ 
+.panel2-chunk_51-auto[
+
+```
+# A tibble: 266 x 2
+   `Country Name`              `2019`
+   &lt;chr&gt;                        &lt;dbl&gt;
+ 1 Aruba                         NA  
+ 2 Africa Eastern and Southern   NA  
+ 3 Afghanistan                   NA  
+ 4 Africa Western and Central    NA  
+ 5 Angola                        NA  
+ 6 Albania                       30.1
+ 7 Andorra                       NA  
+ 8 Arab World                    NA  
+ 9 United Arab Emirates          NA  
+10 Argentina                     42.9
+# … with 256 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_51-auto[
+
+```r
+read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
+  select("Country Name", "2019") %&gt;%
+* rename(country = "Country Name",
+*        gini = "2019")
+```
+]
+ 
+.panel2-chunk_51-auto[
+
+```
+# A tibble: 266 x 2
+   country                      gini
+   &lt;chr&gt;                       &lt;dbl&gt;
+ 1 Aruba                        NA  
+ 2 Africa Eastern and Southern  NA  
+ 3 Afghanistan                  NA  
+ 4 Africa Western and Central   NA  
+ 5 Angola                       NA  
+ 6 Albania                      30.1
+ 7 Andorra                      NA  
+ 8 Arab World                   NA  
+ 9 United Arab Emirates         NA  
+10 Argentina                    42.9
+# … with 256 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_51-auto[
+
+```r
+read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
+  select("Country Name", "2019") %&gt;%
+  rename(country = "Country Name",
+         gini = "2019") %&gt;%
+* filter(!is.na(gini),
+*        gini&gt;0)
+```
+]
+ 
+.panel2-chunk_51-auto[
+
+```
+# A tibble: 71 x 2
+   country    gini
+   &lt;chr&gt;     &lt;dbl&gt;
+ 1 Albania    30.1
+ 2 Argentina  42.9
+ 3 Armenia    30  
+ 4 Austria    30.2
+ 5 Belgium    27.2
+ 6 Bulgaria   40.3
+ 7 Belarus    25.3
+ 8 Bolivia    41.6
+ 9 Brazil     53.5
+10 Canada     31.7
+# … with 61 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_51-auto[
+
+```r
+read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
+  select("Country Name", "2019") %&gt;%
+  rename(country = "Country Name",
+         gini = "2019") %&gt;%
+  filter(!is.na(gini),
+         gini&gt;0) %&gt;%
+* mutate(country = fct_reorder(country, gini))
+```
+]
+ 
+.panel2-chunk_51-auto[
+
+```
+# A tibble: 71 x 2
+   country    gini
+   &lt;fct&gt;     &lt;dbl&gt;
+ 1 Albania    30.1
+ 2 Argentina  42.9
+ 3 Armenia    30  
+ 4 Austria    30.2
+ 5 Belgium    27.2
+ 6 Bulgaria   40.3
+ 7 Belarus    25.3
+ 8 Bolivia    41.6
+ 9 Brazil     53.5
+10 Canada     31.7
+# … with 61 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_51-auto[
+
+```r
+read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
+  select("Country Name", "2019") %&gt;%
+  rename(country = "Country Name",
+         gini = "2019") %&gt;%
+  filter(!is.na(gini),
+         gini&gt;0) %&gt;%
+  mutate(country = fct_reorder(country, gini))
+```
+]
+ 
+.panel2-chunk_51-auto[
+
+```
+# A tibble: 71 x 2
+   country    gini
+   &lt;fct&gt;     &lt;dbl&gt;
+ 1 Albania    30.1
+ 2 Argentina  42.9
+ 3 Armenia    30  
+ 4 Austria    30.2
+ 5 Belgium    27.2
+ 6 Bulgaria   40.3
+ 7 Belarus    25.3
+ 8 Bolivia    41.6
+ 9 Brazil     53.5
+10 Canada     31.7
+# … with 61 more rows
+```
+]
+
+&lt;style&gt;
+.panel1-chunk_51-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_51-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_51-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_61-auto[
+
+```r
+*ggplot(df, aes(x=country, y=gini))
+```
+]
+ 
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_01_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_61-auto[
+
+```r
+ggplot(df, aes(x=country, y=gini)) +
+* geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8))
+```
+]
+ 
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_02_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_61-auto[
+
+```r
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+* geom_hline(yintercept = 0)
+```
+]
+ 
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_03_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_61-auto[
+
+```r
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+* geom_point()
+```
+]
+ 
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_04_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_61-auto[
+
+```r
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+* coord_flip()
+```
+]
+ 
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_05_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_61-auto[
+
+```r
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+  coord_flip() +
+* theme_tufte()
+```
+]
+ 
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_06_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_61-auto[
+
+```r
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+  coord_flip() +
+  theme_tufte() +
 * theme(plot.title = element_text(size=22),
 *       plot.subtitle = element_text(size=16),
 *       legend.title = element_blank(),
 *       legend.text=element_text(size=14),
-*       legend.position="bottom",
+*       legend.position="none",
 *       plot.caption = element_text(size=12, hjust = 0),
 *       axis.title = element_text(size = 18),
 *       strip.background = element_blank(),
-*       axis.text.x=element_text(angle=45, hjust=1, size = 12),
-*       axis.text.y=element_text(size = 12),
+*       axis.text.x=element_text(size = 14),
+*       axis.text.y=element_text(size = 8.75),
 *       strip.placement = "outside",
 *       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
 *       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
@@ -1009,541 +1872,173 @@ ggplot(data = df, aes(x = date, y = trend))+
 ```
 ]
  
-.panel2-chunk_2-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_2_auto_07_output-1.png" width="432" /&gt;
-]
-
-&lt;style&gt;
-.panel1-chunk_2-auto {
-  color: black;
-  width: 38.6060606060606%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel2-chunk_2-auto {
-  color: black;
-  width: 59.3939393939394%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel3-chunk_2-auto {
-  color: black;
-  width: NA%;
-  hight: 33%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-&lt;/style&gt;
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-16-1.png" width="1008" style="display: block; margin: auto;" /&gt;
-
-
----
-
-## Finding the season component
-
-To extract the season component, we can average over each month. 
-
-The part of the unemployment not explained by the trend is given by
-
-`$$u_t - \lambda_t$$`
-
-Let's calcualte the average of this value for each month of the year. 
-
-This will be our seasonal (monthly) component.
-
-
-
-
----
-
-
-
-
-
-count: false
- 
-
-.panel1-chunk_3-auto[
-
-```r
-*df
-```
-]
- 
-.panel2-chunk_3-auto[
-
-```
-# A tibble: 74 x 8
-   month unemp_month date       adj                unemp  year trend unemp_shock
-   &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
- 1     1     -0.0222 2014-01-01 No seasonal adjus…   6.8  2014  6.81      0.0111
- 2     1     -0.0222 2015-01-01 No seasonal adjus…   5.5  2015  5.61     -0.0889
- 3     1     -0.0222 2016-01-01 No seasonal adjus…   5    2016  5.        0.0222
- 4     1     -0.0222 2017-01-01 No seasonal adjus…   4.6  2017  4.59      0.0333
- 5     1     -0.0222 2018-01-01 No seasonal adjus…   4.1  2018  4.17     -0.0444
- 6     1     -0.0222 2019-01-01 No seasonal adjus…   3.9  2019  3.88      0.0444
- 7     1     -0.0222 2020-01-01 No seasonal adjus…   3.9  2020  3.9       0.0222
- 8     2      0.0507 2014-02-01 No seasonal adjus…   6.7  2014  6.67     -0.0174
- 9     2      0.0507 2015-02-01 No seasonal adjus…   5.5  2015  5.54     -0.0952
-10     2      0.0507 2016-02-01 No seasonal adjus…   5.1  2016  4.96      0.0937
-# … with 64 more rows
-```
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_07_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_3-auto[
+.panel1-chunk_61-auto[
 
 ```r
-df %&gt;%
-* mutate(month = month(date), year = year(date))
-```
-]
- 
-.panel2-chunk_3-auto[
-
-```
-# A tibble: 74 x 8
-   month unemp_month date       adj                unemp  year trend unemp_shock
-   &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
- 1     1     -0.0222 2014-01-01 No seasonal adjus…   6.8  2014  6.81      0.0111
- 2     1     -0.0222 2015-01-01 No seasonal adjus…   5.5  2015  5.61     -0.0889
- 3     1     -0.0222 2016-01-01 No seasonal adjus…   5    2016  5.        0.0222
- 4     1     -0.0222 2017-01-01 No seasonal adjus…   4.6  2017  4.59      0.0333
- 5     1     -0.0222 2018-01-01 No seasonal adjus…   4.1  2018  4.17     -0.0444
- 6     1     -0.0222 2019-01-01 No seasonal adjus…   3.9  2019  3.88      0.0444
- 7     1     -0.0222 2020-01-01 No seasonal adjus…   3.9  2020  3.9       0.0222
- 8     2      0.0507 2014-02-01 No seasonal adjus…   6.7  2014  6.67     -0.0174
- 9     2      0.0507 2015-02-01 No seasonal adjus…   5.5  2015  5.54     -0.0952
-10     2      0.0507 2016-02-01 No seasonal adjus…   5.1  2016  4.96      0.0937
-# … with 64 more rows
-```
-]
-
----
-count: false
- 
-
-.panel1-chunk_3-auto[
-
-```r
-df %&gt;%
-  mutate(month = month(date), year = year(date)) %&gt;%
-* group_by(month)
-```
-]
- 
-.panel2-chunk_3-auto[
-
-```
-# A tibble: 74 x 8
-# Groups:   month [12]
-   month unemp_month date       adj                unemp  year trend unemp_shock
-   &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
- 1     1     -0.0222 2014-01-01 No seasonal adjus…   6.8  2014  6.81      0.0111
- 2     1     -0.0222 2015-01-01 No seasonal adjus…   5.5  2015  5.61     -0.0889
- 3     1     -0.0222 2016-01-01 No seasonal adjus…   5    2016  5.        0.0222
- 4     1     -0.0222 2017-01-01 No seasonal adjus…   4.6  2017  4.59      0.0333
- 5     1     -0.0222 2018-01-01 No seasonal adjus…   4.1  2018  4.17     -0.0444
- 6     1     -0.0222 2019-01-01 No seasonal adjus…   3.9  2019  3.88      0.0444
- 7     1     -0.0222 2020-01-01 No seasonal adjus…   3.9  2020  3.9       0.0222
- 8     2      0.0507 2014-02-01 No seasonal adjus…   6.7  2014  6.67     -0.0174
- 9     2      0.0507 2015-02-01 No seasonal adjus…   5.5  2015  5.54     -0.0952
-10     2      0.0507 2016-02-01 No seasonal adjus…   5.1  2016  4.96      0.0937
-# … with 64 more rows
-```
-]
-
----
-count: false
- 
-
-.panel1-chunk_3-auto[
-
-```r
-df %&gt;%
-  mutate(month = month(date), year = year(date)) %&gt;%
-  group_by(month) %&gt;%
-* summarise(unemp_month = mean(unemp - trend, na.rm = T))
-```
-]
- 
-.panel2-chunk_3-auto[
-
-```
-# A tibble: 12 x 2
-   month unemp_month
- * &lt;dbl&gt;       &lt;dbl&gt;
- 1     1     -0.0222
- 2     2      0.0444
- 3     3     -0.0778
- 4     4     -0.180 
- 5     5     -0.0833
- 6     6      0.0333
- 7     7      0.156 
- 8     8      0.163 
- 9     9      0.154 
-10    10     -0.0167
-11    11     -0.163 
-12    12     -0.111 
-```
-]
-
----
-count: false
- 
-
-.panel1-chunk_3-auto[
-
-```r
-df %&gt;%
-  mutate(month = month(date), year = year(date)) %&gt;%
-  group_by(month) %&gt;%
-  summarise(unemp_month = mean(unemp - trend, na.rm = T)) %&gt;%
-* full_join(df, by = 'month')
-```
-]
- 
-.panel2-chunk_3-auto[
-
-```
-# A tibble: 74 x 9
-   month unemp_month.x unemp_month.y date       adj   unemp  year trend
-   &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1     1       -0.0222       -0.0222 2014-01-01 No s…   6.8  2014  6.81
- 2     1       -0.0222       -0.0222 2015-01-01 No s…   5.5  2015  5.61
- 3     1       -0.0222       -0.0222 2016-01-01 No s…   5    2016  5.  
- 4     1       -0.0222       -0.0222 2017-01-01 No s…   4.6  2017  4.59
- 5     1       -0.0222       -0.0222 2018-01-01 No s…   4.1  2018  4.17
- 6     1       -0.0222       -0.0222 2019-01-01 No s…   3.9  2019  3.88
- 7     1       -0.0222       -0.0222 2020-01-01 No s…   3.9  2020  3.9 
- 8     2        0.0444        0.0507 2014-02-01 No s…   6.7  2014  6.67
- 9     2        0.0444        0.0507 2015-02-01 No s…   5.5  2015  5.54
-10     2        0.0444        0.0507 2016-02-01 No s…   5.1  2016  4.96
-# … with 64 more rows, and 1 more variable: unemp_shock &lt;dbl&gt;
-```
-]
-
----
-count: false
- 
-
-.panel1-chunk_3-auto[
-
-```r
-df %&gt;%
-  mutate(month = month(date), year = year(date)) %&gt;%
-  group_by(month) %&gt;%
-  summarise(unemp_month = mean(unemp - trend, na.rm = T)) %&gt;%
-  full_join(df, by = 'month')
-```
-]
- 
-.panel2-chunk_3-auto[
-
-```
-# A tibble: 74 x 9
-   month unemp_month.x unemp_month.y date       adj   unemp  year trend
-   &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1     1       -0.0222       -0.0222 2014-01-01 No s…   6.8  2014  6.81
- 2     1       -0.0222       -0.0222 2015-01-01 No s…   5.5  2015  5.61
- 3     1       -0.0222       -0.0222 2016-01-01 No s…   5    2016  5.  
- 4     1       -0.0222       -0.0222 2017-01-01 No s…   4.6  2017  4.59
- 5     1       -0.0222       -0.0222 2018-01-01 No s…   4.1  2018  4.17
- 6     1       -0.0222       -0.0222 2019-01-01 No s…   3.9  2019  3.88
- 7     1       -0.0222       -0.0222 2020-01-01 No s…   3.9  2020  3.9 
- 8     2        0.0444        0.0507 2014-02-01 No s…   6.7  2014  6.67
- 9     2        0.0444        0.0507 2015-02-01 No s…   5.5  2015  5.54
-10     2        0.0444        0.0507 2016-02-01 No s…   5.1  2016  4.96
-# … with 64 more rows, and 1 more variable: unemp_shock &lt;dbl&gt;
-```
-]
-
-&lt;style&gt;
-.panel1-chunk_3-auto {
-  color: black;
-  width: 38.6060606060606%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel2-chunk_3-auto {
-  color: black;
-  width: 59.3939393939394%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel3-chunk_3-auto {
-  color: black;
-  width: NA%;
-  hight: 33%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-&lt;/style&gt;
-
-
-
-
-
-
----
-
-
-
-count: false
- 
-
-.panel1-chunk_4-auto[
-
-```r
-*ggplot(data = df, aes(x = date, y = unemp_month))
-```
-]
- 
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_01_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_4-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_month))+
-* geom_line(stat='identity')
-```
-]
- 
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_02_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_4-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_month))+
-  geom_line(stat='identity')+
-* theme(plot.title = element_text(size=12),
-*       plot.subtitle = element_text(size=9),
-*       legend.title = element_blank(),
-*       legend.position="bottom",
-*       plot.caption = element_text(size=6, hjust = 0),
-*       axis.title = element_text(size = 11),
-*       strip.background = element_blank(),
-*       strip.placement = "outside",
-*       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-*       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-*       legend.key = element_rect(fill = NA),
-*       axis.text.x=element_text(angle=45, hjust=1),
-*       panel.background = element_rect(fill = "transparent", colour = NA),
-*       plot.background = element_rect(fill = "transparent", colour = NA))
-```
-]
- 
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_03_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_4-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_month))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+  coord_flip() +
+  theme_tufte() +
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
         strip.background = element_blank(),
+        axis.text.x=element_text(size = 14),
+        axis.text.y=element_text(size = 8.75),
         strip.placement = "outside",
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-* scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")
-```
-]
- 
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_04_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_4-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_month))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
-        legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
-        strip.background = element_blank(),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-  scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")+
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
 * xlab("")
 ```
 ]
  
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_05_output-1.png" width="432" /&gt;
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_08_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_4-auto[
+.panel1-chunk_61-auto[
 
 ```r
-ggplot(data = df, aes(x = date, y = unemp_month))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+  coord_flip() +
+  theme_tufte() +
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
         strip.background = element_blank(),
+        axis.text.x=element_text(size = 14),
+        axis.text.y=element_text(size = 8.75),
         strip.placement = "outside",
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-  scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")+
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
   xlab("") +
-* ylab("Unemployment rate (%)")
+* ylab("")
 ```
 ]
  
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_06_output-1.png" width="432" /&gt;
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_09_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_4-auto[
+.panel1-chunk_61-auto[
 
 ```r
-ggplot(data = df, aes(x = date, y = unemp_month))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+  coord_flip() +
+  theme_tufte() +
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
         strip.background = element_blank(),
+        axis.text.x=element_text(size = 14),
+        axis.text.y=element_text(size = 8.75),
         strip.placement = "outside",
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-  scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")+
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
   xlab("") +
-  ylab("Unemployment rate (%)") +
-* labs(title = "Seasonal component",
-*      caption = "")
+  ylab("") +
+* labs(title = "The Gini Index",
+*      subtitle = "Selected countries, 2019",
+*      caption = "Source: World Bank, World Development Indicators.")
 ```
 ]
  
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_07_output-1.png" width="432" /&gt;
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_10_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 count: false
  
 
-.panel1-chunk_4-auto[
+.panel1-chunk_61-auto[
 
 ```r
-ggplot(data = df, aes(x = date, y = unemp_month))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
+ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+  coord_flip() +
+  theme_tufte() +
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
         strip.background = element_blank(),
+        axis.text.x=element_text(size = 14),
+        axis.text.y=element_text(size = 8.75),
         strip.placement = "outside",
         panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
         panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
         panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-  scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")+
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
   xlab("") +
-  ylab("Unemployment rate (%)") +
-  labs(title = "Seasonal component",
-       caption = "")
+  ylab("") +
+  labs(title = "The Gini Index",
+       subtitle = "Selected countries, 2019",
+       caption = "Source: World Bank, World Development Indicators.")
 ```
 ]
  
-.panel2-chunk_4-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_4_auto_08_output-1.png" width="432" /&gt;
+.panel2-chunk_61-auto[
+&lt;img src="lecture_8_files/figure-html/chunk_61_auto_11_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
 ]
 
 &lt;style&gt;
-.panel1-chunk_4-auto {
+.panel1-chunk_61-auto {
   color: black;
   width: 38.6060606060606%;
   hight: 32%;
@@ -1551,7 +2046,7 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
   padding-left: 1%;
   font-size: 80%
 }
-.panel2-chunk_4-auto {
+.panel2-chunk_61-auto {
   color: black;
   width: 59.3939393939394%;
   hight: 32%;
@@ -1559,7 +2054,7 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
   padding-left: 1%;
   font-size: 80%
 }
-.panel3-chunk_4-auto {
+.panel3-chunk_61-auto {
   color: black;
   width: NA%;
   hight: 33%;
@@ -1574,351 +2069,13 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
 
 
 
----
-
-
-
-
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-18-1.png" width="1008" style="display: block; margin: auto;" /&gt;
-
 
 
 ---
 
 
 
-
-
-
-
-## Finding the shock component
-
-Finally, the shock is just what is not explained by the seasonal variation or the trend, 
-
-`$$\varepsilon = u_t - \lambda_t - s_t$$`
-This can be thought of as "surprises", something we did not expect by looking at the trend or the month of the year.
-
-- This can be some positive or negative economic event for example.
-
-This component can tell us if the labor market is doing better than what is explained by seasonal variation or just a trend.
-
-
----
-
-
-count: false
- 
-
-.panel1-chunk_5-auto[
-
-```r
-*df
-```
-]
- 
-.panel2-chunk_5-auto[
-
-```
-# A tibble: 74 x 8
-   month unemp_month date       adj                unemp  year trend unemp_shock
-   &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
- 1     1     -0.0222 2014-01-01 No seasonal adjus…   6.8  2014  6.81      0.0111
- 2     1     -0.0222 2015-01-01 No seasonal adjus…   5.5  2015  5.61     -0.0889
- 3     1     -0.0222 2016-01-01 No seasonal adjus…   5    2016  5.        0.0222
- 4     1     -0.0222 2017-01-01 No seasonal adjus…   4.6  2017  4.59      0.0333
- 5     1     -0.0222 2018-01-01 No seasonal adjus…   4.1  2018  4.17     -0.0444
- 6     1     -0.0222 2019-01-01 No seasonal adjus…   3.9  2019  3.88      0.0444
- 7     1     -0.0222 2020-01-01 No seasonal adjus…   3.9  2020  3.9       0.0222
- 8     2      0.0507 2014-02-01 No seasonal adjus…   6.7  2014  6.67     -0.0174
- 9     2      0.0507 2015-02-01 No seasonal adjus…   5.5  2015  5.54     -0.0952
-10     2      0.0507 2016-02-01 No seasonal adjus…   5.1  2016  4.96      0.0937
-# … with 64 more rows
-```
-]
-
----
-count: false
- 
-
-.panel1-chunk_5-auto[
-
-```r
-df %&gt;%
-* mutate(unemp_shock = unemp - (trend + unemp_month))
-```
-]
- 
-.panel2-chunk_5-auto[
-
-```
-# A tibble: 74 x 8
-   month unemp_month date       adj                unemp  year trend unemp_shock
-   &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
- 1     1     -0.0222 2014-01-01 No seasonal adjus…   6.8  2014  6.81      0.0111
- 2     1     -0.0222 2015-01-01 No seasonal adjus…   5.5  2015  5.61     -0.0889
- 3     1     -0.0222 2016-01-01 No seasonal adjus…   5    2016  5.        0.0222
- 4     1     -0.0222 2017-01-01 No seasonal adjus…   4.6  2017  4.59      0.0333
- 5     1     -0.0222 2018-01-01 No seasonal adjus…   4.1  2018  4.17     -0.0444
- 6     1     -0.0222 2019-01-01 No seasonal adjus…   3.9  2019  3.88      0.0444
- 7     1     -0.0222 2020-01-01 No seasonal adjus…   3.9  2020  3.9       0.0222
- 8     2      0.0507 2014-02-01 No seasonal adjus…   6.7  2014  6.67     -0.0174
- 9     2      0.0507 2015-02-01 No seasonal adjus…   5.5  2015  5.54     -0.0952
-10     2      0.0507 2016-02-01 No seasonal adjus…   5.1  2016  4.96      0.0937
-# … with 64 more rows
-```
-]
-
-&lt;style&gt;
-.panel1-chunk_5-auto {
-  color: black;
-  width: 38.6060606060606%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel2-chunk_5-auto {
-  color: black;
-  width: 59.3939393939394%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel3-chunk_5-auto {
-  color: black;
-  width: NA%;
-  hight: 33%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-&lt;/style&gt;
-
-
-
-
-
-
----
-count: false
- 
-
-.panel1-chunk_6-auto[
-
-```r
-*ggplot(data = df, aes(x = date, y = unemp_shock))
-```
-]
- 
-.panel2-chunk_6-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_6_auto_01_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_6-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_shock))+
-* geom_line(stat='identity')
-```
-]
- 
-.panel2-chunk_6-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_6_auto_02_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_6-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_shock))+
-  geom_line(stat='identity')+
-* theme(plot.title = element_text(size=12),
-*       plot.subtitle = element_text(size=9),
-*       legend.title = element_blank(),
-*       legend.position="bottom",
-*       plot.caption = element_text(size=6, hjust = 0),
-*       axis.title = element_text(size = 11),
-*       strip.background = element_blank(),
-*       strip.placement = "outside",
-*       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-*       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-*       legend.key = element_rect(fill = NA),
-*       axis.text.x=element_text(angle=45, hjust=1),
-*       panel.background = element_rect(fill = "transparent", colour = NA),
-*       plot.background = element_rect(fill = "transparent", colour = NA))
-```
-]
- 
-.panel2-chunk_6-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_6_auto_03_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_6-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_shock))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
-        legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
-        strip.background = element_blank(),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-* scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")
-```
-]
- 
-.panel2-chunk_6-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_6_auto_04_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_6-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_shock))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
-        legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
-        strip.background = element_blank(),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-  scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")+
-* xlab("")
-```
-]
- 
-.panel2-chunk_6-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_6_auto_05_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_6-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_shock))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
-        legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
-        strip.background = element_blank(),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-  scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")+
-  xlab("") +
-* ylab("Unemployment rate (%)")
-```
-]
- 
-.panel2-chunk_6-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_6_auto_06_output-1.png" width="432" /&gt;
-]
-
----
-count: false
- 
-
-.panel1-chunk_6-auto[
-
-```r
-ggplot(data = df, aes(x = date, y = unemp_shock))+
-  geom_line(stat='identity')+
-  theme(plot.title = element_text(size=12),
-        plot.subtitle = element_text(size=9),
-        legend.title = element_blank(),
-        legend.position="bottom",
-        plot.caption = element_text(size=6, hjust = 0),
-        axis.title = element_text(size = 11),
-        strip.background = element_blank(),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        legend.key = element_rect(fill = NA),
-        axis.text.x=element_text(angle=45, hjust=1),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background = element_rect(fill = "transparent", colour = NA))+
-  scale_x_date(date_breaks = "12 month", date_labels = "%m-%Y")+
-  xlab("") +
-  ylab("Unemployment rate (%)") +
-* labs(title = "Shock component",
-*      caption = "Source: OECD, Short-term Unemployment Statistics")
-```
-]
- 
-.panel2-chunk_6-auto[
-&lt;img src="lecture_8_files/figure-html/chunk_6_auto_07_output-1.png" width="432" /&gt;
-]
-
-&lt;style&gt;
-.panel1-chunk_6-auto {
-  color: black;
-  width: 38.6060606060606%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel2-chunk_6-auto {
-  color: black;
-  width: 59.3939393939394%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel3-chunk_6-auto {
-  color: black;
-  width: NA%;
-  hight: 33%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-&lt;/style&gt;
-
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-14-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1927,81 +2084,70 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
 ---
 
 
+## How to quantify inequality
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-20-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+Most popular quantification
 
+- Gini coefficient: smaller value `\(\Rightarrow\)` lower inequality.
 
----
+Alternatives
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-21-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+- Income shares
 
+- 20:20 ratio (top 20 vs bottom 20)
 
+- Hoover index (percentage of all income to redistributed to achieve perfect equality)
 
-
-
-&lt;!-- then show how to do that with the series for the uk, that way we get the trend  --&gt;
-
-&lt;!-- then we remove the seasonality, just average by quarter and remove it  --&gt;
-
-
----
+- Wage share (from GDP income approach)
 
 
+Related measures
 
-## Seasonal adjustments: summary
+- Segregation/concentration
 
-Goal: remove seasonal component
-
-Approach:
-
-- Estimate trend level
-
-- Remove trend from raw series
-
-- What is left: seasonal component + error
-
-- Use that to identify seasonal component
-
-- Subtract the seasonal component from the raw series
-
-There is a large and very advanced literature in econometrics and statistics on filtering time series!
-
-
-
+- Measures: Duncan’s dissimilarity index, Herfindahl index (competition)
 
 
 ---
 
-## The labour market: other topics
-
-Labour supply
-
-- Extensive margin vs intensive margin
-
-- Hours worked
-
-Earnings
-
-- Wages, Salary, survey based, register based
-
-Gender disparities
-
-- Earnings &amp; promotions
 
 
 
 
----
-
-## Summary
-
-1. Explain the difference between register and survey (or ILO) unemployment.
-
-2. Explain how the unemployment rate is calculated.
-
-3. Explain the intuition behind seasonal adjustment. 
 
 
+
+
+
+
+
+
+
+
+
+## Inequality: Summary
+
+**Data sources**:
+
+- Administrative or survey
+
+**Domains**:
+
+- Income or wealth? – gross or net?
+
+- Health, education, etc.
+
+- Gender
+
+**Units**:
+
+- Individuals or equivalised households
+
+**Measurement**:
+
+- Income shares
+
+- Gini coefficient
 
 
 
