@@ -186,7 +186,7 @@ We use weights to adjust for the household size.
 ---
 
 
-## The Lorenz curve
+## Income inequality in the UK
 
 .pull-left[
 **Domain**:
@@ -718,7 +718,7 @@ Related measures
 
 
 
-## Inequality: Summary
+## Summary
 
 **Data sources**:
 
