@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Economic Data - Lecture 8</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="School of Economics - University of Bristol" />
+    <meta name="date" content="2023-11-24" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Economic Data - Lecture 8
+## Sebastian Ellingsen
+### School of Economics - University of Bristol
+### 2023-11-24
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+&lt;/style&gt;
+
+&lt;style&gt;
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+&lt;/style&gt;
+
+
+
+## After this lecture you should be able to
+
+Explain the 3 different types of interest rates.
+
+Explain why interest vary 
+
+Describe exchange rates
+
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Interest Rates 
+
+
+
+
+
+---
+
+## What is an interest rate?
+
+Assume you borrow some amount from a bank. 
+
+The interest rate is then 
+
+$$ i = \frac{\text{amount to repay}}{\text{amount borrowed}} - 1$$
+
+Why do you have to pay interest to borrow? 
+
+- Banks borrow and lend money on the money market. 
+
+- Money in the future might be worth less due to inflation. 
+
+- The bank could have invested the amount in stocks or bonds.
+
+- Risk of the loan not being repaid.
+
+
+---
+
+## Annual or monthly interest rates
+
+Data on interest rates are reported at different term periods.
+
+Assume you borrow amount `\(B\)` at time time and pay back `\(B^{\prime}\)` in one year.
+
+The annual interest: 
+
+`$$i = \frac{B^{\prime}}{B} - 1$$`
+
+The monthly interest: 
+
+`$$i = \frac{B^{\prime}}{B} - 1$$`
+
+The daily interest: 
+
+`$$i = \frac{B^{\prime}}{B} - 1$$`
+
+
+
+
+
+
+
+
+---
+
+## Three important interest rates 
+
+**Policy Rate**
+
+- Set by the central bank
+
+- Often based on an inflation target
+
+- UK: "Bank of England Base Rate"
+
+
+
+**Interbank Interest Rate**
+
+- Banks charge each other
+
+- UK: "Sterling OverNight Indexed Average" or "SONIA"
+
+
+**Commercial lending rate**
+
+- depends on repayment schedule, security/information, flexibility.
+
+
+
+
+
+---
+
+## plots here 
+
+
+
+
+
+---
+
+## The real interest rate
+
+Interest rates are (typically) stated in nominal terms
+
+- If I lend you money for a 2% annual interest rate and the inflation is 3%, I lose consumption possibilities.
+
+- I can buy more for the 100£ I give you today, than for the 102£ you give me in one year.
+
+The link between the real ($r$) and nominal interest `\(i\)` rates are is the following: 
+
+`$$(1+i) = (1+r)(1+\pi) = 1 + r + \pi + \pi r$$`
+
+The *Fisher equation*: `\(r = i - \pi\)`
+
+- The indentity is based on the assumption that `\(\pi r\approx 0\)`.
+
+
+
+
+
+
+
+---
+
+## Summary
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? `\(\texttt{sebastian.ellingsen@bristol.ac.uk}\)`.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

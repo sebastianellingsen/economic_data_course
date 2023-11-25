@@ -73,15 +73,15 @@ code.r.hljs.remark-code:hover{
 </style>
 
 
+
 ## After this lecture you should be able to
 
-Explain basic inequality measures 
+Explain the 3 different types of interest rates.
 
-- Lorenz curves
+Explain why interest vary 
 
-- Gini index
+Describe exchange rates
 
-Explain how to calculate these.
 
 
 
@@ -94,7 +94,7 @@ Explain how to calculate these.
 ---
 class: inverse, center, middle
 
-# Inequality 
+# Interest Rates 
 
 
 
@@ -102,372 +102,45 @@ class: inverse, center, middle
 
 ---
 
-## Quantifying inequality: Concepts
+## What is an interest rate?
 
-**Domain**:
+Assume you borrow some amount from a bank. 
 
-- Income or wealth
+The interest rate is then 
 
-- Health, education, etc.
+$$ i = \frac{\text{amount to repay}}{\text{amount borrowed}} - 1$$
 
-- Gender
+Why do you have to pay interest to borrow? 
 
-**Net and gross**:
+- Banks borrow and lend money on the money market. 
 
-- Income before (gross) or after taxes and transfers (net)
+- Money in the future might be worth less due to inflation. 
 
-**Unit**:
+- The bank could have invested the amount in stocks or bonds.
 
-- Individuals or households?
-
-- How to compare across households?
-
-
-
+- Risk of the loan not being repaid.
 
 
 ---
 
-## Quantifying inequality: Domain
+## Annual or monthly interest rates
 
-Requires access to micro level data – that is data on the *individual level*.
+Data on interest rates are reported at different term periods.
 
-- So far: macro data - aggregated over units.
+Assume you borrow amount $B$ at time time and pay back $B^{\prime}$ in one year.
 
-**Income**
+The annual interest: 
 
-- From sample surveys or tax records (record flow)
+$$i = \frac{B^{\prime}}{B} - 1$$
 
-**Wealth**
+The monthly interest: 
 
-- Stock - difficult to measure: bank accounts, value of house, etc.
+$$i = \frac{B^{\prime}}{B} - 1$$
 
-- Education, health etc.
+The daily interest: 
 
-- Inequality in life expectancy, neonatal mortality etc.
+$$i = \frac{B^{\prime}}{B} - 1$$
 
-
-
-
-
----
-
-## Quantifying inequality: Concepts
-
-We use weights to adjust for the household size.
-
-**OECD equivalence scale**: 
-
-- 1st person >=14y: weight of 1
-
-- All other >=14y: weight of 0.7
-
-- <14y: weight of 0.5
-
-
-**OECD modified scale**: 
-
-- 1st person >=14y: weight of 1
-
-- All other >=14y: weight of 0.5
-
-- <14y: weight of 0.3
-
-
-<!-- **Square root scale** -->
-
-<!-- - Household weight: square root of number of household members -->
-
-
-
-
-
-
----
-
-
-## Income inequality in the UK
-
-.pull-left[
-**Domain**:
-
-- Income
-
-**Net and gross**:
-
-- Net (before housing costs)
-
-**Unit**:
-
-- Households
-
-- OECD equivalence scale
-]
-
-.pull-right[
-
-```{r echo = FALSE, fig.height = 8, fig.width = 8.3}
-knitr::include_graphics("images/inequality.png")
-```
-]
-
-
-
-
----
-
-
-## How to quantify inequality
-
-It is useful to have a number to summarize the income distribution. 
-
-Point of departure: Income shares
-
-- Sort households by income (low to high)
-
-- Assign rank
-
-- Calculate the total income
-
-- Calculate the income share for each rank
-
-
-
-
-
----
-
-.center2[
-```{r echo = FALSE, fig.height = 9, fig.width = 9.3}
-knitr::include_graphics("images/quant_ineq.png")
-```
-]
-
-
-
----
-
-## The Lorenz Curve
-
-.pull-left[
-The Lorenz curve
-
-- Calculate cumulative shares of income for each income rank.
-
-- Plot cumulative share against income rank.
-
-This gives the Lorenz curve.
-
-It will have a different shape for different domains of inequality.
-
-The Lorenz curve forms the basis of the *Gini index*.
-]
-
-.pull-right[
-
-```{r echo = FALSE, fig.height = 6, fig.width = 6.3}
-knitr::include_graphics("images/lorenz_curve.png")
-```
-]
-
----
-
-
-
-
-
-
-
-
-
-## The Gini Index
-
-.pull-left[
-The Gini coefficient is defined as
-
-$$G = \frac{A}{A+B}$$
-
-Gini coefficient close to 0: 
-
-- A is very small $\Rightarrow$ distribution close to perfect equality.
-
-Gini coefficient close to 1: 
-
-- A is large $\Rightarrow$ far from perfect equality.
-]
-
-.pull-right[
-
-```{r echo = FALSE, fig.height = 6, fig.width = 6.3}
-knitr::include_graphics("images/lorenz_desc.png")
-```
-]
-
-
-
----
-
-
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-# Loading packages
-library(readxl) 
-
-decile_data <- read_excel("../data/GCIPrawdata.xlsx", skip = 2)  
-
-# Calcualting the lorenz curves in R for China 
-decile_data_china <- decile_data %>% 
-  filter(Country == 'China', Year %in% c(1980, 2014))
-
-decs_c80          <- unlist(decile_data_china[1, 3:12])
-total_inc_80      <- decile_data_china$`Mean Income`[1] * 10
-cum_inc_share_c80 <-  cumsum(decs_c80) / total_inc_80
-
-decs_c14          <- unlist(decile_data_china[2, 3:12])
-total_inc_14      <- decile_data_china$`Mean Income`[2] * 10
-cum_inc_share_c14 <-  cumsum(decs_c14) / total_inc_14
-```
-
-
-`r chunk_reveal("chunk_11")`
-
-```{r chunk_11, include = FALSE}
-# Loading data for China 1980 and 2014 
-read_excel("../data/GCIPrawdata.xlsx", skip = 2) %>% 
-  filter(Country == 'China', Year %in% c(1980, 2014))
-
-# Income deciles for China 1980
-decs_c80          <- unlist(decile_data_china[1, 3:12])
-decs_c80
-
-# Total income for China 1980
-total_inc_80      <- decile_data_china$`Mean Income`[1] * 10
-total_inc_80
-
-# Cumulative income shares in 1980
-cum_inc_share_c80 <-  cumsum(decs_c80) / total_inc_80
-cum_inc_share_c80
-
-# Calculations for 2014
-decs_c14          <- unlist(decile_data_china[2, 3:12])
-total_inc_14      <- decile_data_china$`Mean Income`[2] * 10
-cum_inc_share_c14 <-  cumsum(decs_c14) / total_inc_14
-
-```
-
-
----
-
-`r chunk_reveal("chunk_21")`
-
-```{r chunk_21, include = FALSE}
-# Plotting the data
-plot(cum_inc_share_c80, type = "l", col = "blue", 
-     lwd = 2, ylab = "Cumulative income share")  
-
-abline(a = 0, b = 0.1, col = "black", lwd = 2)
-
-title("Lorenz curve, China, 1980") 
-
-```
-
-
-
-
-
----
-`r chunk_reveal("chunk_31")`
-
-```{r chunk_31, include = FALSE}
-# Plotting the data
-plot(cum_inc_share_c14, type = "l", col = "blue", 
-     lwd = 2, ylab = "Cumulative income share")  
-
-abline(a = 0, b = 0.1, col = "black", lwd = 2)
-
-title("Lorenz curve, China, 2014") 
-
-```
-
-
-
----
-`r chunk_reveal("chunk_41")`
-
-```{r chunk_41, include = FALSE}
-# Plotting the data
-plot(cum_inc_share_c80, type = "l", col = "blue", 
-     lty = 2, lwd = 2, xlab = "Deciles", 
-     ylab = "Cumulative income share")  
-
-# Add the perfect equality line 
-abline(a = 0, b = 0.1, col = "black", lwd = 2)  
-
-lines(cum_inc_share_c14, col = "green", lty = 1, lwd = 2)
-
-title("Lorenz curves, China (1980 and 2014)")  
-
-legend("topleft", lty = 2:1, lwd = 2, legend = c("China, 1980", "China, 2014"),  
-       col = c("blue", "green"))  
-
-# Calculating the Gini index for 1980 and 2014
-library(ineq)
-
-Gini(decs_c80)
-Gini(decs_c14)
-
-```
-
-
-
-
-
----
-
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-library(lubridate)
-library(tidyverse)
-library(ggpubr)
-library(ggthemes)
-
-df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
-  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"X68") %>% 
-  gather(year, gini, 2:64) %>% 
-  rename(country = 'Country Name') %>% 
-  filter(country == 'China',
-         !is.na(gini)) %>% 
-  mutate(gini = as.numeric(gini),
-         year = as.numeric(year))
-
-p1 <- ggplot(data = df, aes(x = year, y = 100*(gini/32.2)))+
-  geom_line(lwd = 1)+
-  geom_point(size = 3)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(size = 14),
-        axis.text.y=element_text(size = 8.75),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  xlab("") +
-  ylab("Gini Index (1990=100)") +
-  labs(title = "The Gini Index for China, 1990-2020",
-       caption = "Source: World Bank, World Development Indicators.")+
-  scale_x_continuous(n.breaks = 6)
-```
-
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
-p1
-```
 
 
 
@@ -477,198 +150,28 @@ p1
 
 ---
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-df <- read_delim("../data/WID_Data_18112023-150151.csv", ";", escape_double = FALSE, trim_ws = TRUE,  skip = 1) %>% 
-  slice(4:612) %>% 
-  rename(measure = Percentile,
-         year = Year,
-         value = `sptinc_z_CN\nPre-tax national income \nTop 10% | share\nChina`)
+## Three important interest rates 
 
+**Policy Rate**
 
-p1 <- ggplot(data = df %>% filter(year>=1980), aes(x = year, y = value, color = measure))+
-  geom_line(lwd = 1.5)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="bottom",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(size = 14),
-        axis.text.y=element_text(size = 8.75),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  xlab("") +
-  ylab("Share of income") +
-  labs(title = "Income inequality in China, 1980-2022",
-       caption = "Source: World Inequality Database.")+
-  scale_x_continuous(n.breaks = 6)
+- Set by the central bank
 
-```
+- Often based on an inflation target
 
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
-p1
-```
+- UK: "Bank of England Base Rate"
 
 
 
+**Interbank Interest Rate**
 
----
+- Banks charge each other
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
-  select("Country Name", "2019") %>% 
-  rename(country = "Country Name", 
-         gini = "2019") %>% 
-  filter(!is.na(gini), 
-         gini>0) %>% 
-  mutate(country = fct_reorder(country, gini)) 
-
-gini_plot <- ggplot(df, aes(x=country, y=gini)) +
-  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
-  geom_hline(yintercept = 0)+
-  geom_point()+
-  coord_flip() +
-  theme_tufte() +
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(size = 14),
-        axis.text.y=element_text(size = 8.75),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  xlab("") +
-  ylab("") +
-  labs(title = "The Gini Index",
-       subtitle = "Selected countries, 2019",
-       caption = "Source: World Bank, World Development Indicators.")
-
-```
-
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
-gini_plot
-```
+- UK: "Sterling OverNight Indexed Average" or "SONIA"
 
 
----
-`r chunk_reveal("chunk_51")`
+**Commercial lending rate**
 
-```{r chunk_51, include = FALSE}
-read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
-  select("Country Name", "2019") %>% 
-  rename(country = "Country Name", 
-         gini = "2019") %>% 
-  filter(!is.na(gini), 
-         gini>0) %>% 
-  mutate(country = fct_reorder(country, gini)) 
-
-```
-
-
-
-
----
-`r chunk_reveal("chunk_61")`
-
-```{r chunk_61, include = FALSE}
-ggplot(df, aes(x=country, y=gini)) +
-  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
-  geom_hline(yintercept = 0)+
-  geom_point()+
-  coord_flip() +
-  theme_tufte() +
-  theme(plot.title = element_text(size=22))+
-  theme(plot.subtitle = element_text(size=16))+
-  theme(legend.title = element_blank())+
-  theme(legend.text=element_text(size=14))+
-  theme(legend.position="none")+
-  theme(plot.caption = element_text(size=12, hjust = 0))+
-  theme(axis.title = element_text(size = 18))+
-  theme(strip.background = element_blank())+
-  theme(axis.text.x=element_text(size = 14))+
-  theme(axis.text.y=element_text(size = 8.75))+
-  theme(strip.placement = "outside")+
-  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
-  theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))+
-  theme(panel.background = element_rect(fill = "transparent", colour = NA))+
-  theme(plot.background  = element_rect(fill = "transparent", colour = NA))+
-  theme(legend.background = element_rect(fill='transparent'))+
-  theme(legend.key=element_blank())+
-  xlab("") +
-  ylab("") +
-  labs(title = "The Gini Index",
-       subtitle = "Selected countries, 2019",
-       caption = "Source: World Bank, World Development Indicators.")
-
-```
-
-
-
-
----
-
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-library(lubridate)
-library(tidyverse)
-library(ggpubr)
-library(ggthemes)
-
-df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
-  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"X68") %>% 
-  gather(year, gini, 2:64) %>% 
-  rename(country = 'Country Name') %>% 
-  filter(country == 'United Kingdom',
-         !is.na(gini)) %>% 
-  mutate(gini = as.numeric(gini),
-         year = as.numeric(year))
-
-p1 <- ggplot(data = df, aes(x = year, y = 100*(gini/26.8)))+
-  geom_line(lwd = 1)+
-  geom_point(size = 3)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(size = 14),
-        axis.text.y=element_text(size = 8.75),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  xlab("") +
-  ylab("Gini Index (1968=100)") +
-  labs(title = "The Gini Index for the United Kingdom",
-       caption = "Source: World Bank, World Development Indicators.")+
-  scale_x_continuous(n.breaks = 6)
-
-```
-
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
-p1
-```
+- depends on repayment schedule, security/information, flexibility.
 
 
 
@@ -676,33 +179,30 @@ p1
 
 ---
 
-
-## How to quantify inequality
-
-Most popular quantification
-
-- Gini coefficient: smaller value $\Rightarrow$ lower inequality.
-
-Alternatives
-
-- Income shares
-
-- 20:20 ratio (top 20 vs bottom 20)
-
-- Hoover index (percentage of all income to redistributed to achieve perfect equality)
-
-- Wage share (from GDP income approach)
+## plots here 
 
 
-Related measures
 
-- Segregation/concentration
-
-- Measures: Duncan’s dissimilarity index, Herfindahl index (competition)
 
 
 ---
 
+## The real interest rate
+
+Data on interest rates are typically stated in nominal terms
+
+- If I lend you money for a 2% annual interest rate and the inflation is 3% I lose.
+
+- I can buy more for the 100£ I give you today, than for the 102£ you give me in one year.
+
+
+The link between the real ($r$) and nominal interest $i$ rates are is the following: 
+
+$$(1+i) = (1+r)(1+\pi) = 1 + r + \pi + \pi r$$
+
+The *Fisher equation*: $r = i - \pi$
+
+- The indentity is based on the assumption that $\pi r\approx 0$.
 
 
 
@@ -710,37 +210,9 @@ Related measures
 
 
 
-
-
-
-
-
-
-
+---
 
 ## Summary
-
-**Data sources**:
-
-- Administrative or survey
-
-**Domains**:
-
-- Income or wealth? – gross or net?
-
-- Health, education, etc.
-
-- Gender
-
-**Units**:
-
-- Individuals or equivalised households
-
-**Measurement**:
-
-- Income shares
-
-- Gini coefficient
 
 
 
