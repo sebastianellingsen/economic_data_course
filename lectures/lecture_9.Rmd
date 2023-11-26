@@ -177,9 +177,159 @@ $$i = \frac{B^{\prime}}{B} - 1$$
 
 
 
+
 ---
 
-## plots here 
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+library(lubridate)
+library(tidyverse)
+library(ggpubr)
+library(ggthemes)
+
+policy_rate <- read_csv("../data/IUMABEDR  Bank of England  Database.csv", 
+                         col_names = FALSE, skip = 1) %>% 
+  rename(rate = X2,
+         date = X1) %>% 
+  mutate(date = as.Date(date, format = "%d %b %y")) %>% 
+  mutate(type = 'Policy rate')
+
+
+
+mortgage_rate <- read_csv("../data/IUMTLMV  Bank of England  Database.csv", 
+                        col_names = FALSE, skip = 1) %>% 
+  rename(rate = X2,
+         date = X1) %>% 
+  mutate(date = as.Date(date, format = "%d %b %y")) %>% 
+  mutate(type = 'Av. mortgage rate')
+
+
+overdraft_rate <- read_csv("../data/IUMODTL  Bank of England  Database.csv", 
+                          col_names = FALSE, skip = 1) %>% 
+  rename(rate = X2,
+         date = X1) %>% 
+  mutate(date = as.Date(date, format = "%d %b %y")) %>% 
+  mutate(type = 'Av. overdraft rate')
+
+rates <- rbind(policy_rate, mortgage_rate, overdraft_rate)
+
+p1 <- ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+  geom_line(lwd = 1)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(size = 14, hjust = 0, angle = 45),
+        axis.text.y=element_text(size = 8.75),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("interest rate (%)") +
+  labs(title = "Interest rates in the United Kingdom, 1995-2023",
+       caption = "Source: Bank of England. Series: IUMABEDR, IUMODTL and IUMTLMV.")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8.7, fig.width = 14, fig.align="center"}
+p1
+```
+
+
+
+
+
+---
+`r chunk_reveal("chunk_11")`
+
+```{r chunk_11, include = FALSE}
+read_csv("../data/IUMABEDR  Bank of England  Database.csv", 
+                         col_names = FALSE, skip = 1) %>% 
+  rename(rate = X2,
+         date = X1) %>% 
+  mutate(date = as.Date(date, format = "%d %b %y")) %>% 
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv", 
+                        col_names = FALSE, skip = 1) %>% 
+  rename(rate = X2,
+         date = X1) %>% 
+  mutate(date = as.Date(date, format = "%d %b %y")) %>% 
+  mutate(type = 'Av. mortgage rate')
+
+
+mortgage_rate <- read_csv("../data/IUMODTL  Bank of England  Database.csv", 
+                          col_names = FALSE, skip = 1) %>% 
+  rename(rate = X2,
+         date = X1) %>% 
+  mutate(date = as.Date(date, format = "%d %b %y")) %>% 
+  mutate(type = 'Av. overdraft rate')
+
+rates <- rbind(policy_rate, mortgage_rate, overdraft_rate)
+```
+
+
+
+
+---
+`r chunk_reveal("chunk_12")`
+
+```{r chunk_12, include = FALSE}
+ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+  geom_line(lwd = 1)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("interest rate (%)") +
+  labs(title = "Interest rates in the United Kingdom, 1995-2023",
+       caption = "Source: Bank of England. Series: IUMABEDR, IUMODTL and IUMTLMV.")+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(size = 14, hjust = 0, angle = 45),
+        axis.text.y=element_text(size = 8.75),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())
+```
+
+
+
+
+
+---
+
+## Factors affecting the interest rate
+
+There are many factors shaping the interest rates in the economy: 
+
+- The cost of obtaining money (i.e. the base rate and the interbank interest rate).
+
+- The risk of the loan.
+
+- The time span of the loan.
+
+- Whether the interest rate is fixed or flexible.
+
+
 
 
 
@@ -211,8 +361,255 @@ The *Fisher equation*: $r = i - \pi$
 
 
 ---
+class: inverse, center, middle
 
-## Summary
+# Exchange Rates 
+
+---
+
+
+
+## Exchange rates
+
+The rate at which we are willing to trade on currency to another currency
+
+“An exchange rate of 1.39 US Dollar to the British Pound.”
+
+“An exchange rate of 1.39 US Dollar to buy one British Pound.”
+
+
+
+
+---
+
+
+
+
+
+## Exchange rates: ups and downs
+
+What determines the exchange rate?
+
+- Financial institutions trade currencies on the foreign exchange market (forex).
+
+... and then buy and sell them to us (we pay a premium)
+
+**Appreciates**: the currency increases in value – ex. 1£ from costing 1.39$ to 1.45$
+
+**Depreciates**: the currency loses in value – ex. 1£ from costing 1.39$ to 1.28$
+
+
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+ex_rate <- read_table2("../data/Exchange_Rate_Report.tsv", 
+                                    skip = 2) %>% 
+  rename(rate = `U.K.`) %>% 
+  mutate(date = as.Date(Date, format = "%d-%b-%Y")) %>% 
+  select(date, rate) %>% 
+  mutate(g = (rate - lag(rate, n = 1))/lag(rate, n = 1))
+
+
+p1 <- ggplot(data = ex_rate, aes(x = date, y = rate))+
+  geom_line()+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(size = 14, angle=45, hjust=1),
+        axis.text.y=element_text(size = 8.75),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("USD/GBP") +
+  labs(title = "GBP against the US dollar, 1995-2023",
+       caption = "Source: International Monetary Fund. Series: Representative rates.")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8.7, fig.width = 14, fig.align="center"}
+p1
+```
+
+
+
+
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+ex_rate <- read_table2("../data/Exchange_Rate_Report.tsv", 
+                                    skip = 2) %>% 
+  rename(rate = `U.K.`) %>% 
+  mutate(date = as.Date(Date, format = "%d-%b-%Y")) %>% 
+  select(date, rate) %>% 
+  mutate(g = (rate - lag(rate, n = 1))/lag(rate, n = 1))
+
+
+p1 <- ggplot(data = ex_rate, aes(x = date, y = g))+
+  geom_line(lwd = 0.5)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(size = 14, angle=45, hjust=1),
+        axis.text.y=element_text(size = 8.75),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("USD/GBP") +
+  labs(title = "GBP against the US dollar, 1995-2023",
+       caption = "Source: International Monetary Fund. Series: Representative rates.")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8.7, fig.width = 14, fig.align="center"}
+p1
+```
+
+
+
+
+
+
+---
+`r chunk_reveal("chunk_21")`
+
+```{r chunk_21, include = FALSE}
+read_table2("../data/Exchange_Rate_Report.tsv", 
+                                    skip = 2) %>% 
+  rename(rate = `U.K.`) %>% 
+  mutate(date = as.Date(Date, format = "%d-%b-%Y")) %>% 
+  select(date, rate) %>% 
+  mutate(g = (rate - lag(rate, n = 1))/lag(rate, n = 1))
+```
+
+
+
+
+---
+`r chunk_reveal("chunk_22")`
+
+```{r chunk_22, include = FALSE}
+ggplot(data = ex_rate, aes(x = date, y = g))+
+  geom_line(lwd = 0.5)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("USD/GBP") +
+  labs(title = "GBP against the US dollar, 1995-2023",
+       caption = "Source: International Monetary Fund. Series: Representative rates.")+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(size = 14, angle=45, hjust=1),
+        axis.text.y=element_text(size = 8.75),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())
+```
+
+
+---
+## Some date formats in R
+
+
+%d = Day number of month (5, 17, 28, etc.)
+
+%a = Abbreviated weekday (Mon, Tue, Wed, etc.)
+
+%A = Full weekday (Monday, Tuesday, etc.) %w = Weekday number (0-6, Sunday is 0)
+
+%u = Weekday number (1-7, Monday is 1)
+
+%W = Week number (00-53, Monday is week start)
+
+%U = Week number (01-53, Sunday is week start)
+
+%m = Month number (e.g. 01, 02, 03, 04)
+
+%b = Abbreviated month (Jan, Feb, etc.)
+
+%B = Full month (January, February, etc.)
+
+%y = 2-digit year (e.g. 89)
+
+%Y = 4-digit year (e.g. 1989)
+
+
+
+
+
+
+
+---
+
+
+
+## After this lecture you should be able to
+
+Explain the 3 different types of interest rates.
+
+- Bank rate (Policy rate): The central bank’s rate
+
+- Interbank rate: the rate between banks
+
+- Household rate: the rate we are paying.
+
+
+Explain why interest vary 
+
+- Information and security
+
+- Flexibility
+
+- Duration
+
+
+Describe exchange rates
+
+- Expressed in how much it costs to buy 1 currency unit.
+
+- Appreciation/depcreciation: changes relative to other currencies.
+
+
 
 
 

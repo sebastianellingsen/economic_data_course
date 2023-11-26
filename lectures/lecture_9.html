@@ -162,9 +162,968 @@ The daily interest:
 
 
 
+
 ---
 
-## plots here 
+
+
+&lt;img src="lecture_9_files/figure-html/unnamed-chunk-3-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+*read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+*                        col_names = FALSE, skip = 1)
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 2
+   X1           X2
+   &lt;chr&gt;     &lt;dbl&gt;
+ 1 31 Oct 23  5.25
+ 2 30 Sep 23  5.25
+ 3 31 Aug 23  5.23
+ 4 31 Jul 23  5   
+ 5 30 Jun 23  4.66
+ 6 31 May 23  4.42
+ 7 30 Apr 23  4.25
+ 8 31 Mar 23  4.08
+ 9 28 Feb 23  3.98
+10 31 Jan 23  3.5 
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+* rename(rate = X2,
+*        date = X1)
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 2
+   date       rate
+   &lt;chr&gt;     &lt;dbl&gt;
+ 1 31 Oct 23  5.25
+ 2 30 Sep 23  5.25
+ 3 31 Aug 23  5.23
+ 4 31 Jul 23  5   
+ 5 30 Jun 23  4.66
+ 6 31 May 23  4.42
+ 7 30 Apr 23  4.25
+ 8 31 Mar 23  4.08
+ 9 28 Feb 23  3.98
+10 31 Jan 23  3.5 
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+* mutate(date = as.Date(date, format = "%d %b %y"))
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 2
+   date        rate
+   &lt;date&gt;     &lt;dbl&gt;
+ 1 2023-10-31  5.25
+ 2 2023-09-30  5.25
+ 3 2023-08-31  5.23
+ 4 2023-07-31  5   
+ 5 2023-06-30  4.66
+ 6 2023-05-31  4.42
+ 7 2023-04-30  4.25
+ 8 2023-03-31  4.08
+ 9 2023-02-28  3.98
+10 2023-01-31  3.5 
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+* mutate(type = 'Policy rate')
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+*read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+*                       col_names = FALSE, skip = 1)
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 2
+   X1           X2
+   &lt;chr&gt;     &lt;dbl&gt;
+ 1 31 Oct 23  8.01
+ 2 30 Sep 23  7.93
+ 3 31 Aug 23  7.85
+ 4 31 Jul 23  7.6 
+ 5 30 Jun 23  7.47
+ 6 31 May 23  7.38
+ 7 30 Apr 23  7.3 
+ 8 31 Mar 23  7.16
+ 9 28 Feb 23  6.97
+10 31 Jan 23  6.61
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+* rename(rate = X2,
+*        date = X1)
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 2
+   date       rate
+   &lt;chr&gt;     &lt;dbl&gt;
+ 1 31 Oct 23  8.01
+ 2 30 Sep 23  7.93
+ 3 31 Aug 23  7.85
+ 4 31 Jul 23  7.6 
+ 5 30 Jun 23  7.47
+ 6 31 May 23  7.38
+ 7 30 Apr 23  7.3 
+ 8 31 Mar 23  7.16
+ 9 28 Feb 23  6.97
+10 31 Jan 23  6.61
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+* mutate(date = as.Date(date, format = "%d %b %y"))
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 2
+   date        rate
+   &lt;date&gt;     &lt;dbl&gt;
+ 1 2023-10-31  8.01
+ 2 2023-09-30  7.93
+ 3 2023-08-31  7.85
+ 4 2023-07-31  7.6 
+ 5 2023-06-30  7.47
+ 6 2023-05-31  7.38
+ 7 2023-04-30  7.3 
+ 8 2023-03-31  7.16
+ 9 2023-02-28  6.97
+10 2023-01-31  6.61
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+* mutate(type = 'Av. mortgage rate')
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 3
+   date        rate type             
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
+ 1 2023-10-31  8.01 Av. mortgage rate
+ 2 2023-09-30  7.93 Av. mortgage rate
+ 3 2023-08-31  7.85 Av. mortgage rate
+ 4 2023-07-31  7.6  Av. mortgage rate
+ 5 2023-06-30  7.47 Av. mortgage rate
+ 6 2023-05-31  7.38 Av. mortgage rate
+ 7 2023-04-30  7.3  Av. mortgage rate
+ 8 2023-03-31  7.16 Av. mortgage rate
+ 9 2023-02-28  6.97 Av. mortgage rate
+10 2023-01-31  6.61 Av. mortgage rate
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Av. mortgage rate')
+
+
+*mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+*                         col_names = FALSE, skip = 1)
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 3
+   date        rate type             
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
+ 1 2023-10-31  8.01 Av. mortgage rate
+ 2 2023-09-30  7.93 Av. mortgage rate
+ 3 2023-08-31  7.85 Av. mortgage rate
+ 4 2023-07-31  7.6  Av. mortgage rate
+ 5 2023-06-30  7.47 Av. mortgage rate
+ 6 2023-05-31  7.38 Av. mortgage rate
+ 7 2023-04-30  7.3  Av. mortgage rate
+ 8 2023-03-31  7.16 Av. mortgage rate
+ 9 2023-02-28  6.97 Av. mortgage rate
+10 2023-01-31  6.61 Av. mortgage rate
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Av. mortgage rate')
+
+
+mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+                          col_names = FALSE, skip = 1) %&gt;%
+* rename(rate = X2,
+*        date = X1)
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 3
+   date        rate type             
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
+ 1 2023-10-31  8.01 Av. mortgage rate
+ 2 2023-09-30  7.93 Av. mortgage rate
+ 3 2023-08-31  7.85 Av. mortgage rate
+ 4 2023-07-31  7.6  Av. mortgage rate
+ 5 2023-06-30  7.47 Av. mortgage rate
+ 6 2023-05-31  7.38 Av. mortgage rate
+ 7 2023-04-30  7.3  Av. mortgage rate
+ 8 2023-03-31  7.16 Av. mortgage rate
+ 9 2023-02-28  6.97 Av. mortgage rate
+10 2023-01-31  6.61 Av. mortgage rate
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Av. mortgage rate')
+
+
+mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+                          col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+* mutate(date = as.Date(date, format = "%d %b %y"))
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 3
+   date        rate type             
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
+ 1 2023-10-31  8.01 Av. mortgage rate
+ 2 2023-09-30  7.93 Av. mortgage rate
+ 3 2023-08-31  7.85 Av. mortgage rate
+ 4 2023-07-31  7.6  Av. mortgage rate
+ 5 2023-06-30  7.47 Av. mortgage rate
+ 6 2023-05-31  7.38 Av. mortgage rate
+ 7 2023-04-30  7.3  Av. mortgage rate
+ 8 2023-03-31  7.16 Av. mortgage rate
+ 9 2023-02-28  6.97 Av. mortgage rate
+10 2023-01-31  6.61 Av. mortgage rate
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Av. mortgage rate')
+
+
+mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+                          col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+* mutate(type = 'Av. overdraft rate')
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 3
+   date        rate type             
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
+ 1 2023-10-31  8.01 Av. mortgage rate
+ 2 2023-09-30  7.93 Av. mortgage rate
+ 3 2023-08-31  7.85 Av. mortgage rate
+ 4 2023-07-31  7.6  Av. mortgage rate
+ 5 2023-06-30  7.47 Av. mortgage rate
+ 6 2023-05-31  7.38 Av. mortgage rate
+ 7 2023-04-30  7.3  Av. mortgage rate
+ 8 2023-03-31  7.16 Av. mortgage rate
+ 9 2023-02-28  6.97 Av. mortgage rate
+10 2023-01-31  6.61 Av. mortgage rate
+# … with 336 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+```r
+read_csv("../data/IUMABEDR  Bank of England  Database.csv",
+                         col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Policy rate')
+
+
+
+read_csv("../data/IUMTLMV  Bank of England  Database.csv",
+                        col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Av. mortgage rate')
+
+
+mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+                          col_names = FALSE, skip = 1) %&gt;%
+  rename(rate = X2,
+         date = X1) %&gt;%
+  mutate(date = as.Date(date, format = "%d %b %y")) %&gt;%
+  mutate(type = 'Av. overdraft rate')
+
+*rates &lt;- rbind(policy_rate, mortgage_rate, overdraft_rate)
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 346 x 3
+   date        rate type       
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
+ 1 2023-10-31  5.25 Policy rate
+ 2 2023-09-30  5.25 Policy rate
+ 3 2023-08-31  5.23 Policy rate
+ 4 2023-07-31  5    Policy rate
+ 5 2023-06-30  4.66 Policy rate
+ 6 2023-05-31  4.42 Policy rate
+ 7 2023-04-30  4.25 Policy rate
+ 8 2023-03-31  4.08 Policy rate
+ 9 2023-02-28  3.98 Policy rate
+10 2023-01-31  3.5  Policy rate
+# … with 336 more rows
+```
+
+```
+# A tibble: 346 x 3
+   date        rate type             
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
+ 1 2023-10-31  8.01 Av. mortgage rate
+ 2 2023-09-30  7.93 Av. mortgage rate
+ 3 2023-08-31  7.85 Av. mortgage rate
+ 4 2023-07-31  7.6  Av. mortgage rate
+ 5 2023-06-30  7.47 Av. mortgage rate
+ 6 2023-05-31  7.38 Av. mortgage rate
+ 7 2023-04-30  7.3  Av. mortgage rate
+ 8 2023-03-31  7.16 Av. mortgage rate
+ 9 2023-02-28  6.97 Av. mortgage rate
+10 2023-01-31  6.61 Av. mortgage rate
+# … with 336 more rows
+```
+]
+
+&lt;style&gt;
+.panel1-chunk_11-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_11-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_11-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_12-auto[
+
+```r
+*ggplot(data = rates, aes(x = date, y = rate, linetype = type))
+```
+]
+ 
+.panel2-chunk_12-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_12_auto_01_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_12-auto[
+
+```r
+ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+* geom_line(lwd = 1)
+```
+]
+ 
+.panel2-chunk_12-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_12_auto_02_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_12-auto[
+
+```r
+ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+  geom_line(lwd = 1)+
+*   scale_x_date(date_breaks = "24 month", date_labels = "%Y")
+```
+]
+ 
+.panel2-chunk_12-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_12_auto_03_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_12-auto[
+
+```r
+ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+  geom_line(lwd = 1)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+* xlab("")
+```
+]
+ 
+.panel2-chunk_12-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_12_auto_04_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_12-auto[
+
+```r
+ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+  geom_line(lwd = 1)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+* ylab("interest rate (%)")
+```
+]
+ 
+.panel2-chunk_12-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_12_auto_05_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_12-auto[
+
+```r
+ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+  geom_line(lwd = 1)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("interest rate (%)") +
+* labs(title = "Interest rates in the United Kingdom, 1995-2023",
+*      caption = "Source: Bank of England. Series: IUMABEDR, IUMODTL and IUMTLMV.")
+```
+]
+ 
+.panel2-chunk_12-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_12_auto_06_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_12-auto[
+
+```r
+ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
+  geom_line(lwd = 1)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("interest rate (%)") +
+  labs(title = "Interest rates in the United Kingdom, 1995-2023",
+       caption = "Source: Bank of England. Series: IUMABEDR, IUMODTL and IUMTLMV.")+
+* theme(plot.title = element_text(size=22),
+*       plot.subtitle = element_text(size=16),
+*       legend.title = element_blank(),
+*       legend.text=element_text(size=14),
+*       legend.position="bottom",
+*       plot.caption = element_text(size=12, hjust = 0),
+*       axis.title = element_text(size = 18),
+*       strip.background = element_blank(),
+*       axis.text.x=element_text(size = 14, hjust = 0, angle = 45),
+*       axis.text.y=element_text(size = 8.75),
+*       strip.placement = "outside",
+*       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+*       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+*       panel.background = element_rect(fill = "transparent", colour = NA),
+*       plot.background  = element_rect(fill = "transparent", colour = NA),
+*       legend.background = element_rect(fill='transparent'),
+*       legend.key=element_blank())
+```
+]
+ 
+.panel2-chunk_12-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_12_auto_07_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;style&gt;
+.panel1-chunk_12-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_12-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_12-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+---
+
+## Factors affecting the interest rate
+
+There are many factors shaping the interest rates in the economy: 
+
+- The cost of obtaining money (i.e. the base rate and the interbank interest rate).
+
+- The risk of the loan.
+
+- The time span of the loan.
+
+- Whether the interest rate is fixed or flexible.
+
+
 
 
 
@@ -196,8 +1155,517 @@ The *Fisher equation*: `\(r = i - \pi\)`
 
 
 ---
+class: inverse, center, middle
 
-## Summary
+# Exchange Rates 
+
+---
+
+
+
+## Exchange rates
+
+The rate at which we are willing to trade on currency to another currency
+
+“An exchange rate of 1.39 US Dollar to the British Pound.”
+
+“An exchange rate of 1.39 US Dollar to buy one British Pound.”
+
+
+
+
+---
+
+
+
+
+
+## Exchange rates: ups and downs
+
+What determines the exchange rate?
+
+- Financial institutions trade currencies on the foreign exchange market (forex).
+
+... and then buy and sell them to us (we pay a premium)
+
+**Appreciates**: the currency increases in value – ex. 1£ from costing 1.39$ to 1.45$
+
+**Depreciates**: the currency loses in value – ex. 1£ from costing 1.39$ to 1.28$
+
+
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_9_files/figure-html/unnamed-chunk-5-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_9_files/figure-html/unnamed-chunk-7-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_21-auto[
+
+```r
+*read_table2("../data/Exchange_Rate_Report.tsv",
+*                                   skip = 2)
+```
+]
+ 
+.panel2-chunk_21-auto[
+
+```
+# A tibble: 7,458 x 4
+   Date         U.K. `pound(GBP)` X4   
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;
+ 1 04-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
+ 2 05-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+ 3 06-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
+ 4 07-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
+ 5 10-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+ 6 11-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+ 7 12-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
+ 8 13-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
+ 9 14-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+10 17-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+# … with 7,448 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_21-auto[
+
+```r
+read_table2("../data/Exchange_Rate_Report.tsv",
+                                    skip = 2) %&gt;%
+* rename(rate = `U.K.`)
+```
+]
+ 
+.panel2-chunk_21-auto[
+
+```
+# A tibble: 7,458 x 4
+   Date         rate `pound(GBP)` X4   
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;
+ 1 04-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
+ 2 05-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+ 3 06-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
+ 4 07-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
+ 5 10-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+ 6 11-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+ 7 12-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
+ 8 13-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
+ 9 14-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+10 17-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
+# … with 7,448 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_21-auto[
+
+```r
+read_table2("../data/Exchange_Rate_Report.tsv",
+                                    skip = 2) %&gt;%
+  rename(rate = `U.K.`) %&gt;%
+* mutate(date = as.Date(Date, format = "%d-%b-%Y"))
+```
+]
+ 
+.panel2-chunk_21-auto[
+
+```
+# A tibble: 7,458 x 5
+   Date         rate `pound(GBP)` X4    date      
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt; &lt;date&gt;    
+ 1 04-Jan-1994  1.48 "\xa0"       &lt;NA&gt;  1994-01-04
+ 2 05-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-05
+ 3 06-Jan-1994  1.48 "\xa0"       &lt;NA&gt;  1994-01-06
+ 4 07-Jan-1994  1.48 "\xa0"       &lt;NA&gt;  1994-01-07
+ 5 10-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-10
+ 6 11-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-11
+ 7 12-Jan-1994  1.50 "\xa0"       &lt;NA&gt;  1994-01-12
+ 8 13-Jan-1994  1.50 "\xa0"       &lt;NA&gt;  1994-01-13
+ 9 14-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-14
+10 17-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-17
+# … with 7,448 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_21-auto[
+
+```r
+read_table2("../data/Exchange_Rate_Report.tsv",
+                                    skip = 2) %&gt;%
+  rename(rate = `U.K.`) %&gt;%
+  mutate(date = as.Date(Date, format = "%d-%b-%Y")) %&gt;%
+* select(date, rate)
+```
+]
+ 
+.panel2-chunk_21-auto[
+
+```
+# A tibble: 7,458 x 2
+   date        rate
+   &lt;date&gt;     &lt;dbl&gt;
+ 1 1994-01-04  1.48
+ 2 1994-01-05  1.49
+ 3 1994-01-06  1.48
+ 4 1994-01-07  1.48
+ 5 1994-01-10  1.49
+ 6 1994-01-11  1.49
+ 7 1994-01-12  1.50
+ 8 1994-01-13  1.50
+ 9 1994-01-14  1.49
+10 1994-01-17  1.49
+# … with 7,448 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_21-auto[
+
+```r
+read_table2("../data/Exchange_Rate_Report.tsv",
+                                    skip = 2) %&gt;%
+  rename(rate = `U.K.`) %&gt;%
+  mutate(date = as.Date(Date, format = "%d-%b-%Y")) %&gt;%
+  select(date, rate) %&gt;%
+* mutate(g = (rate - lag(rate, n = 1))/lag(rate, n = 1))
+```
+]
+ 
+.panel2-chunk_21-auto[
+
+```
+# A tibble: 7,458 x 3
+   date        rate         g
+   &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1 1994-01-04  1.48 NA       
+ 2 1994-01-05  1.49  0.00283 
+ 3 1994-01-06  1.48 -0.00128 
+ 4 1994-01-07  1.48 -0.000472
+ 5 1994-01-10  1.49  0.00600 
+ 6 1994-01-11  1.49 -0.00201 
+ 7 1994-01-12  1.50  0.00504 
+ 8 1994-01-13  1.50  0.00114 
+ 9 1994-01-14  1.49 -0.00447 
+10 1994-01-17  1.49  0.00101 
+# … with 7,448 more rows
+```
+]
+
+&lt;style&gt;
+.panel1-chunk_21-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_21-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_21-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_22-auto[
+
+```r
+*ggplot(data = ex_rate, aes(x = date, y = g))
+```
+]
+ 
+.panel2-chunk_22-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_22_auto_01_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_22-auto[
+
+```r
+ggplot(data = ex_rate, aes(x = date, y = g))+
+* geom_line(lwd = 0.5)
+```
+]
+ 
+.panel2-chunk_22-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_22_auto_02_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_22-auto[
+
+```r
+ggplot(data = ex_rate, aes(x = date, y = g))+
+  geom_line(lwd = 0.5)+
+*   scale_x_date(date_breaks = "24 month", date_labels = "%Y")
+```
+]
+ 
+.panel2-chunk_22-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_22_auto_03_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_22-auto[
+
+```r
+ggplot(data = ex_rate, aes(x = date, y = g))+
+  geom_line(lwd = 0.5)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+* xlab("")
+```
+]
+ 
+.panel2-chunk_22-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_22_auto_04_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_22-auto[
+
+```r
+ggplot(data = ex_rate, aes(x = date, y = g))+
+  geom_line(lwd = 0.5)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+* ylab("USD/GBP")
+```
+]
+ 
+.panel2-chunk_22-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_22_auto_05_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_22-auto[
+
+```r
+ggplot(data = ex_rate, aes(x = date, y = g))+
+  geom_line(lwd = 0.5)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("USD/GBP") +
+* labs(title = "GBP against the US dollar, 1995-2023",
+*      caption = "Source: International Monetary Fund. Series: Representative rates.")
+```
+]
+ 
+.panel2-chunk_22-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_22_auto_06_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_22-auto[
+
+```r
+ggplot(data = ex_rate, aes(x = date, y = g))+
+  geom_line(lwd = 0.5)+
+    scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
+  xlab("") +
+  ylab("USD/GBP") +
+  labs(title = "GBP against the US dollar, 1995-2023",
+       caption = "Source: International Monetary Fund. Series: Representative rates.")+
+* theme(plot.title = element_text(size=22),
+*       plot.subtitle = element_text(size=16),
+*       legend.title = element_blank(),
+*       legend.text=element_text(size=14),
+*       legend.position="bottom",
+*       plot.caption = element_text(size=12, hjust = 0),
+*       axis.title = element_text(size = 18),
+*       strip.background = element_blank(),
+*       axis.text.x=element_text(size = 14, angle=45, hjust=1),
+*       axis.text.y=element_text(size = 8.75),
+*       strip.placement = "outside",
+*       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+*       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+*       panel.background = element_rect(fill = "transparent", colour = NA),
+*       plot.background  = element_rect(fill = "transparent", colour = NA),
+*       legend.background = element_rect(fill='transparent'),
+*       legend.key=element_blank())
+```
+]
+ 
+.panel2-chunk_22-auto[
+&lt;img src="lecture_9_files/figure-html/chunk_22_auto_07_output-1.png" width="432" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;style&gt;
+.panel1-chunk_22-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_22-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_22-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+## Some date formats in R
+
+
+%d = Day number of month (5, 17, 28, etc.)
+
+%a = Abbreviated weekday (Mon, Tue, Wed, etc.)
+
+%A = Full weekday (Monday, Tuesday, etc.) %w = Weekday number (0-6, Sunday is 0)
+
+%u = Weekday number (1-7, Monday is 1)
+
+%W = Week number (00-53, Monday is week start)
+
+%U = Week number (01-53, Sunday is week start)
+
+%m = Month number (e.g. 01, 02, 03, 04)
+
+%b = Abbreviated month (Jan, Feb, etc.)
+
+%B = Full month (January, February, etc.)
+
+%y = 2-digit year (e.g. 89)
+
+%Y = 4-digit year (e.g. 1989)
+
+
+
+
+
+
+
+---
+
+
+
+## After this lecture you should be able to
+
+Explain the 3 different types of interest rates.
+
+- Bank rate (Policy rate): The central bank’s rate
+
+- Interbank rate: the rate between banks
+
+- Household rate: the rate we are paying.
+
+
+Explain why interest vary 
+
+- Information and security
+
+- Flexibility
+
+- Duration
+
+
+Describe exchange rates
+
+- Expressed in how much it costs to buy 1 currency unit.
+
+- Appreciation/depcreciation: changes relative to other currencies.
+
+
 
 
 
