@@ -131,15 +131,15 @@ Assume you borrow amount $B$ at time time and pay back $B^{\prime}$ in one year.
 
 The annual interest: 
 
-$$i = \frac{B^{\prime}}{B} - 1$$
+$$i^a = \frac{B^{\prime}}{B} - 1$$
 
 The monthly interest: 
 
-$$i = \frac{B^{\prime}}{B} - 1$$
+$$i^m = \left(\frac{B^{\prime}}{B}\right)^{\frac{1}{12}} - 1$$
 
 The daily interest: 
 
-$$i = \frac{B^{\prime}}{B} - 1$$
+$$i^d = \left(\frac{B^{\prime}}{B}\right)^{\frac{1}{365}} - 1$$
 
 
 
