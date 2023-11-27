@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 9</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2023-11-26" />
+    <meta name="date" content="2023-11-27" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 # Economic Data - Lecture 9
 ## Sebastian Ellingsen
 ### School of Economics - University of Bristol
-### 2023-11-26
+### 2023-11-27
 
 ---
 
@@ -575,7 +575,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
   mutate(type = 'Av. mortgage rate')
 
 
-*mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+*overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
 *                         col_names = FALSE, skip = 1)
 ```
 ]
@@ -641,7 +641,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
   mutate(type = 'Av. mortgage rate')
 
 
-mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
                           col_names = FALSE, skip = 1) %&gt;%
 * rename(rate = X2,
 *        date = X1)
@@ -709,7 +709,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
   mutate(type = 'Av. mortgage rate')
 
 
-mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
                           col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
          date = X1) %&gt;%
@@ -778,7 +778,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
   mutate(type = 'Av. mortgage rate')
 
 
-mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
                           col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
          date = X1) %&gt;%
@@ -848,7 +848,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
   mutate(type = 'Av. mortgage rate')
 
 
-mortgage_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
+overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
                           col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
          date = X1) %&gt;%
@@ -1113,6 +1113,8 @@ ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
 
 ## Factors affecting the interest rate
 
+There are many interest rates in the economy. 
+
 There are many factors shaping the interest rates in the economy: 
 
 - The cost of obtaining money (i.e. the base rate and the interbank interest rate).
@@ -1140,13 +1142,15 @@ Data on interest rates are typically stated in nominal terms
 - I can buy more for the 100£ I give you today, than for the 102£ you give me in one year.
 
 
-The link between the real ($r$) and nominal interest `\(i\)` rates are is the following: 
+The link between the real interest rate `\(r\)` and nominal interest `\(i\)` rates are is the following: 
 
 `$$(1+i) = (1+r)(1+\pi) = 1 + r + \pi + \pi r$$`
 
-The *Fisher equation*: `\(r = i - \pi\)`
+The *Fisher equation*: 
 
-- The indentity is based on the assumption that `\(\pi r\approx 0\)`.
+`$$r = i - \pi$$`
+
+The indentity is based on the assumption that `\(\pi r\approx 0\)`.
 
 
 
@@ -1167,9 +1171,9 @@ class: inverse, center, middle
 
 The rate at which we are willing to trade on currency to another currency
 
-“An exchange rate of 1.39 US Dollar to the British Pound.”
+- “An exchange rate of 1.39 US Dollar to the British Pound.”
 
-“An exchange rate of 1.39 US Dollar to buy one British Pound.”
+- “An exchange rate of 1.39 US Dollar to buy one British Pound.”
 
 
 
@@ -1180,19 +1184,19 @@ The rate at which we are willing to trade on currency to another currency
 
 
 
-## Exchange rates: ups and downs
+## Exchange rates
 
 What determines the exchange rate?
 
 - Financial institutions trade currencies on the foreign exchange market (forex).
 
-... and then buy and sell them to us (we pay a premium)
+- ... and then buy and sell them to us (we pay a premium)
 
 **Appreciates**: the currency increases in value – ex. 1£ from costing 1.39$ to 1.45$
 
 **Depreciates**: the currency loses in value – ex. 1£ from costing 1.39$ to 1.28$
 
-
+Exchange rates, like many other prices, are determined by supply and demand.
 
 
 
@@ -1639,9 +1643,9 @@ ggplot(data = ex_rate, aes(x = date, y = g))+
 
 
 
-## After this lecture you should be able to
+## Summary
 
-Explain the 3 different types of interest rates.
+Three different types of interest rates:
 
 - Bank rate (Policy rate): The central bank’s rate
 
@@ -1650,7 +1654,7 @@ Explain the 3 different types of interest rates.
 - Household rate: the rate we are paying.
 
 
-Explain why interest vary 
+Why do interest rates vary?
 
 - Information and security
 
@@ -1659,7 +1663,7 @@ Explain why interest vary
 - Duration
 
 
-Describe exchange rates
+Describing exchange rates:
 
 - Expressed in how much it costs to buy 1 currency unit.
 
