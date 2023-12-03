@@ -81,6 +81,63 @@ code.r.hljs.remark-code:hover{
 
 
 
+---
+class: inverse, center, middle
+
+# Coursework 
+
+---
+
+## Coursework structure
+
+1. The 20 quiz questions (10%)
+
+2. Two of the four mini projects chosen at random (20%) 
+
+3. Two new mini projects (20%) 
+
+4. A feedback exercise (10%) 
+
+
+---
+
+## Coursework structure
+
+The coursework will be uploaded on Friday. 
+
+It should be handed in by the following Friday. 
+
+You can use whatever software you wish. 
+
+The final project should be handed in as **one pdf document**. 
+
+It must contain your student number. 
+
+
+
+---
+
+## Coursework evaluation
+
+
+
+
+
+
+
+
+
+
+---
+
+## Evaluation
+
+
+
+
+
+
+
 
 ---
 class: inverse, center, middle
@@ -93,23 +150,384 @@ class: inverse, center, middle
 
 ---
 
-## What is an interest rate?
+## Presenting data
 
-Assume you borrow some amount from a bank. 
+**Table**: values represented by text.
 
-The interest rate is then 
+- $+$ Precise
 
-$$ i = \frac{\text{amount to repay}}{\text{amount borrowed}} - 1$$
+- $-$ Cognitively demanding (can only show a limited number of data points)
 
-Why do you have to pay interest to borrow? 
+**Chart**: values represented by position, shape, or colour.
 
-- Banks borrow and lend money on the money market. 
+- $+$ Less demanding: can show many data points.
 
-- Money in the future might be worth less due to inflation. 
+- $-$ Imprecise
 
-- The bank could have invested the amount in stocks or bonds.
 
-- Risk of the loan not being repaid.
+
+---
+
+
+## Data visualization
+
+We have seen some important principlies for visualization:
+
+- The *data to ink ratio*.
+
+- The *lie factor*.
+
+- Tables and figures need to be reproducible to be useful. 
+
+
+---
+
+
+## Chart recommendations
+
+Trends over time: line charts
+
+Correlation between two variables: scatter plot
+
+Compare values across (categorical groups): bar chart
+
+Series that constitute a whole: area chart/bars
+
+Part of a whole: A pie chart
+
+
+---
+
+## Data sources we have used
+
+1. Register data (administrative data)
+
+- Part of a register/system
+
+- Often collected for administrative purposes
+
+- Example: Tax records
+
+2. Sample survey data
+
+- Survey (view/look/investigate) a sample (part/subset) of the population
+
+3. Census survey data
+
+- Survey the entire population
+
+
+
+---
+## Data about people
+
+Population data you have worked with in this course is typically an estimate.
+
+- Net migration and natural population growth.
+
+- Also a statistical discrapency.
+
+We saw how to measure fertility and life expectancy.
+
+
+
+
+
+---
+
+## Measuring economic activity
+
+Sum of all *spending flows*: expenditure approach
+
+Sum of all *income flows*: income approach
+
+Sum of all *production flows*: output approach (or output approach)
+
+GDP is based on the national accounts.
+
+There are international standards for what is included in GDP
+
+GDP is used for measuring economic growth, defining business cycles, measuring productivity, measuring wellbeing.
+
+
+
+---
+## Measuring welfare
+
+
+Subjective wellbeing measures:
+
+- ”Overall, how satisfied are you with your life nowadays?” (life satisfaction).
+
+- ”Overall, how happy did you feel yesterday?” (happiness).
+
+
+Objective wellbeing measures:
+
+- Use various proxies.
+
+- Environment: Air and water Pollution
+
+- Crime and safety: Crime rates
+
+- Education: Completed education
+
+- Health: Life expectancy
+
+- Example: Human Development Index (HDI), education, life expectancy.
+
+
+
+
+## Prices over time
+
+A price index as a weighted aggregation of many prices.
+
+Two main types: Paasche and Laspeyres price index 
+
+- Considering the price of an initial basket of goods vs updating the basket.
+
+- Chain linking.
+
+We used these indices to calculate inflation 
+
+Nominal and real values: nominal (or current) does not account for changes in price levels, real (or volumes) do.
+
+---
+
+
+
+## Prices across space
+
+Goal: Eliminate price differences across countries
+
+Just like we eliminated price differences across time, with a the consumer price index.
+
+Solution: Compare price of representative basket of goods across countries.
+
+Purchasing power: how much we can buy.
+
+
+---
+
+## The labour force
+
+**The labour force = Unemployed + Employed**
+
+*Unemployed* (ILO definition) 
+
+- Without a job, have been actively seeking work in the past four weeks and are available to start work in the next two weeks.
+
+- Out of work, have found a job and are waiting to start it in the next two weeks.
+
+*Employed* (ILO definition)
+
+- Work at least one hour for pay in a week.
+
+- Temporarily away from jobs.
+
+- On Government-supported training/employment programs.
+
+- Unpaid family work.
+
+We explored the role of seasonality adjustment in monthly tie series data.
+
+
+---
+
+## Inequality
+
+Most popular quantification
+
+- Gini coefficient: smaller value $\Rightarrow$ lower inequality.
+
+Alternatives
+
+- Income shares
+
+- 20:20 ratio (top 20 vs bottom 20)
+
+- Wage share (from GDP income approach)
+
+We saw how to work on data on inequality and how to calcualte the Gini index.
+
+---
+
+
+
+## Interest rates 
+
+**Policy Rate**
+
+- Set by the central bank
+
+- Often based on an inflation target
+
+
+
+**Interbank Interest Rate**
+
+- Banks charge each other
+
+- UK: "Sterling OverNight Indexed Average" or "SONIA"
+
+
+**Commercial lending rate**
+
+- depends on repayment schedule, security/information, flexibility.
+
+
+
+---
+
+## Exchange rates
+
+What determines the exchange rate?
+
+- Financial institutions trade currencies on the foreign exchange market (forex).
+
+- ... and then buy and sell them to us (we pay a premium)
+
+**Appreciates**: the currency increases in value – ex. 1£ from costing 1.39$ to 1.45$
+
+**Depreciates**: the currency loses in value – ex. 1£ from costing 1.39$ to 1.28$
+
+Exchange rates, like many other prices, are determined by supply and demand.
+
+
+
+---
+## What comes next
+
+1. More complext data structures.
+
+2. Econometrics. 
+
+
+
+
+---
+## Data structures
+
+So far all the data we have worked with have very clean structure.
+
+They have been collected by professionals for the purpose of analysis.
+
+The come in familiar formats and are cleaned.
+
+We don't need to put in that much work to get the data tidied.
+
+- Observations as rows and variables as columns.
+
+Many useful data sources do not come in that format.
+
+
+
+
+---
+
+.center2[
+```{r echo = FALSE, fig.height = 9, fig.width = 9.3}
+knitr::include_graphics("images/nightlights_europe.png")
+```
+]
+
+
+---
+
+.center2[
+```{r echo = FALSE, fig.height = 9, fig.width = 9.3}
+knitr::include_graphics("images/bristol_nightlights.png")
+```
+]
+
+---
+## Spatial data
+
+Spatial data provides the information that identifies the location of features on Earth.
+
+This has wide applicability in economics. 
+
+- Each entry in your data is indexed by a location.
+
+- Can calculate distances between observations.
+
+- Calculate the intersection between areas
+
+- Match datasets by location etc. 
+
+Other examples: 
+
+- Monitoring agricultural productivity.
+
+- Measuring consumption through car parking occupancy
+
+- Mobility data from cellphone location.
+
+
+
+---
+## Text data
+
+Another widely used unconventional datasourse used in economics is text. 
+
+- Any information that is stored and written in a text format. 
+
+- It can be anything from emails to blog posts to social media posts, online forum comments etc.s
+
+These kinds of data become more and more useful as more of the economy is digital.
+
+There are several examples in economics. 
+
+- Measure Inflation Expectations Using Twitter data.
+
+- Measuring sentiments from social media posts. 
+
+- Measuring media bias/political slant etc. 
+
+
+
+
+
+---
+## Alternative data 
+
+Working on these kinds of datasources requires programming knowledge. 
+
+- The data sources are unstructured, extensive work to get them into a useful format.
+
+- More computational resources avaiable to work on these data in the last decade. 
+
+Novel statistical models to understand the properties of these data. 
+
+- Often very high dimensional.
+
+- Need tools to reduce the dimension, eg. machine learning. 
+
+
+
+
+---
+## Econometrics 
+
+So far we have focused on economic data as an object of analysis. 
+
+Moving forward you the approach will be slightly different. 
+
+We will assume the data are a realization from some probability distribution
+
+$$F(\mu, \sigma)$$.
+
+We are faced with a sample of size $N$ from this distribution denoted ${x_i}_{i=1}^N$.
+
+Our task is to learn about the population model $F(\mu, \sigma)$ using the sample. 
+
+To do this precisely, we need to learn more probability theory and statistics.
+
+Econometrics is the academic discipline that does this for economic data. 
+
+
+
 
 
 
