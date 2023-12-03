@@ -1,0 +1,133 @@
+---
+title: "Economic Data - Lecture 10"
+subtitle: "Sebastian Ellingsen"
+author: "School of Economics - University of Bristol"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      navigation:
+        scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253")
+
+options(htmltools.dir.version = FALSE)
+
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scratch can be time consuming
+knitr::opts_chunk$set(fig.width = 6, fig.align="center",small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
+library(flipbookr)
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggthemes)
+```
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+```
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Revision 
+
+
+
+
+
+---
+
+## What is an interest rate?
+
+Assume you borrow some amount from a bank. 
+
+The interest rate is then 
+
+$$ i = \frac{\text{amount to repay}}{\text{amount borrowed}} - 1$$
+
+Why do you have to pay interest to borrow? 
+
+- Banks borrow and lend money on the money market. 
+
+- Money in the future might be worth less due to inflation. 
+
+- The bank could have invested the amount in stocks or bonds.
+
+- Risk of the loan not being repaid.
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? $\texttt{sebastian.ellingsen@bristol.ac.uk}$.
+
+
+
+
+
+
+
