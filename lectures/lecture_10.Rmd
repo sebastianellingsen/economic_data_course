@@ -80,11 +80,14 @@ code.r.hljs.remark-code:hover{
 
 
 
-
 ---
 class: inverse, center, middle
 
 # Coursework 
+
+
+
+
 
 ---
 
@@ -119,21 +122,11 @@ It must contain your student number.
 
 ## Coursework evaluation
 
+Data visualisations: self-explanatory, clear, appropriate type.
 
+Description: concise, non-speculative.
 
-
-
-
-
-
-
-
----
-
-## Evaluation
-
-
-
+Coherence: close link between text and visualisations, coherent, readability.
 
 
 
@@ -276,7 +269,7 @@ Objective wellbeing measures:
 
 - Example: Human Development Index (HDI), education, life expectancy.
 
-
+---
 
 
 ## Prices over time
@@ -525,8 +518,6 @@ Our task is to learn about the population model $F(\mu, \sigma)$ using the sampl
 To do this precisely, we need to learn more probability theory and statistics.
 
 Econometrics is the academic discipline that does this for economic data. 
-
-
 
 
 
