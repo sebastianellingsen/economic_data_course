@@ -95,9 +95,9 @@ class: inverse, center, middle
 
 1. The 20 quiz questions (10%)
 
-2. Two of the four mini projects chosen at random (20%) 
+2. Two of the four mini projects chosen at random (40%) 
 
-3. Two new mini projects (20%) 
+3. Two new mini projects (40%) 
 
 4. A feedback exercise (10%) 
 
