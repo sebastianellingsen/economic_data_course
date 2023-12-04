@@ -428,7 +428,7 @@ Moving forward you the approach will be slightly different.
 
 We will assume the data are a realization from some probability distribution
 
-$$F(\mu, \sigma)$$.
+$$F(\mu, \sigma)$$
 
 We are faced with a sample of size $N$ from this distribution denoted ${x_i}_{i=1}^N$.
 
