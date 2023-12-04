@@ -172,7 +172,7 @@ We have seen some important principles for visualization:
 
 - The *lie factor*.
 
-- Reproducibility. 
+- Reproducibility $\Rightarrow$ Programming.
 
 
 ---
