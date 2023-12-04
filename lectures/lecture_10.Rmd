@@ -106,13 +106,13 @@ class: inverse, center, middle
 
 ## Coursework structure
 
-The coursework will be uploaded on Friday. 
+The coursework will be uploaded on **Friday December 8**. 
 
-It should be handed in by the following Friday. 
+It should be handed in on Friday **Friday December 15**. 
 
 You can use whatever software you wish. 
 
-The final project should be handed in as **one pdf document**. 
+The final project should be handed in as *one pdf document*. 
 
 It must contain your student number. 
 
@@ -122,12 +122,14 @@ It must contain your student number.
 
 ## Coursework evaluation
 
+
+For the mini projects the below marking criteria are applied.
+
 Data visualisations: self-explanatory, clear, appropriate type.
 
 Description: concise, non-speculative.
 
 Coherence: close link between text and visualisations, coherent, readability.
-
 
 
 
@@ -164,13 +166,13 @@ class: inverse, center, middle
 
 ## Data visualization
 
-We have seen some important principlies for visualization:
+We have seen some important principles for visualization:
 
 - The *data to ink ratio*.
 
 - The *lie factor*.
 
-- Tables and figures need to be reproducible to be useful. 
+- Reproducibility. 
 
 
 ---
@@ -189,6 +191,9 @@ Series that constitute a whole: area chart/bars
 Part of a whole: A pie chart
 
 
+
+
+
 ---
 
 ## Data sources we have used
@@ -197,9 +202,7 @@ Part of a whole: A pie chart
 
 - Part of a register/system
 
-- Often collected for administrative purposes
-
-- Example: Tax records
+- Mostly collected for administrative purposes
 
 2. Sample survey data
 
@@ -218,7 +221,7 @@ Population data you have worked with in this course is typically an estimate.
 
 - Net migration and natural population growth.
 
-- Also a statistical discrapency.
+- Also a statistical discrepancy.
 
 We saw how to measure fertility and life expectancy.
 
@@ -234,13 +237,14 @@ Sum of all *spending flows*: expenditure approach
 
 Sum of all *income flows*: income approach
 
-Sum of all *production flows*: output approach (or output approach)
+Sum of all *production flows*: output approach
 
 GDP is based on the national accounts.
 
 There are international standards for what is included in GDP
 
 GDP is used for measuring economic growth, defining business cycles, measuring productivity, measuring wellbeing.
+
 
 
 
@@ -278,7 +282,7 @@ A price index as a weighted aggregation of many prices.
 
 Two main types: Paasche and Laspeyres price index 
 
-- Considering the price of an initial basket of goods vs updating the basket.
+- Considering the price of an initial basket of goods vs. updating the basket.
 
 - Chain linking.
 
@@ -294,7 +298,7 @@ Nominal and real values: nominal (or current) does not account for changes in pr
 
 Goal: Eliminate price differences across countries
 
-Just like we eliminated price differences across time, with a the consumer price index.
+Just like we eliminated price differences across time, with the consumer price index.
 
 Solution: Compare price of representative basket of goods across countries.
 
@@ -323,7 +327,7 @@ Purchasing power: how much we can buy.
 
 - Unpaid family work.
 
-We explored the role of seasonality adjustment in monthly tie series data.
+We explored the role of seasonality adjustment in monthly time series data.
 
 
 ---
@@ -342,7 +346,7 @@ Alternatives
 
 - Wage share (from GDP income approach)
 
-We saw how to work on data on inequality and how to calcualte the Gini index.
+We saw how to work on data on inequality and how to calculate the Gini index.
 
 ---
 
@@ -371,6 +375,7 @@ We saw how to work on data on inequality and how to calcualte the Gini index.
 
 
 
+
 ---
 
 ## Exchange rates
@@ -389,13 +394,49 @@ Exchange rates, like many other prices, are determined by supply and demand.
 
 
 
+
+
+---
+class: inverse, center, middle
+
+# What Comes Next 
+
+
+
+
+
+
 ---
 ## What comes next
 
-1. More complext data structures.
+We have barely scraped the surface of the use of economic data in this course.
 
-2. Econometrics. 
+Two direction you will build on this course.
 
+1. Econometrics. 
+
+2. More complex data structures.
+
+
+
+---
+## Econometrics 
+
+So far we have focused on economic data as an object of analysis. 
+
+Moving forward you the approach will be slightly different. 
+
+We will assume the data are a realization from some probability distribution
+
+$$F(\mu, \sigma)$$.
+
+We are faced with a sample of size $N$ from this distribution denoted ${x_i}_{i=1}^N$.
+
+Our task is to learn about the population model $F(\mu, \sigma)$ using the sample. 
+
+To do this precisely, we need to learn more probability theory and statistics.
+
+Econometrics is the academic discipline that does this for economic data. 
 
 
 
@@ -462,11 +503,11 @@ Other examples:
 ---
 ## Text data
 
-Another widely used unconventional datasourse used in economics is text. 
+Another widely used unconventional data source used in economics is text. 
 
 - Any information that is stored and written in a text format. 
 
-- It can be anything from emails to blog posts to social media posts, online forum comments etc.s
+- It can be anything from emails to blog posts to social media posts, online forum comments etc.
 
 These kinds of data become more and more useful as more of the economy is digital.
 
@@ -485,39 +526,21 @@ There are several examples in economics.
 ---
 ## Alternative data 
 
-Working on these kinds of datasources requires programming knowledge. 
+Working on these kinds of data sources requires programming knowledge. 
 
 - The data sources are unstructured, extensive work to get them into a useful format.
 
-- More computational resources avaiable to work on these data in the last decade. 
+- More computational resources available to work on these data in the last decade. 
 
 Novel statistical models to understand the properties of these data. 
 
 - Often very high dimensional.
 
-- Need tools to reduce the dimension, eg. machine learning. 
+- Need tools to reduce the dimension, e.g. machine learning. 
 
 
 
 
----
-## Econometrics 
-
-So far we have focused on economic data as an object of analysis. 
-
-Moving forward you the approach will be slightly different. 
-
-We will assume the data are a realization from some probability distribution
-
-$$F(\mu, \sigma)$$.
-
-We are faced with a sample of size $N$ from this distribution denoted ${x_i}_{i=1}^N$.
-
-Our task is to learn about the population model $F(\mu, \sigma)$ using the sample. 
-
-To do this precisely, we need to learn more probability theory and statistics.
-
-Econometrics is the academic discipline that does this for economic data. 
 
 
 
