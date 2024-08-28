@@ -147,7 +147,7 @@ library(readxl)
 library(scales)
 
 df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
-  rename(date    = X1) %>%
+  rename(date    = `...1`) %>%
   mutate(date = paste(date, "01", sep=" "),
          date = as.Date(date, format = "%b %Y %d")) %>%
   gather(series, p, 2:4, -date)
@@ -190,7 +190,7 @@ library(readxl)
 
 # Loading and cleaning the data
 read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
-  rename(date    = X1) %>%
+  rename(date    = `...1`) %>%
   mutate(date = paste(date, "01", sep=" "),
          date = as.Date(date, format = "%b %Y %d")) %>%
   gather(series, p, 2:4, -date)
@@ -236,7 +236,7 @@ ggplot(data = df, aes(x = date, y = p, color = series))+
 library(tidyverse)
 
 df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
-  rename(date    = X1) %>%
+  rename(date    = `...1`) %>%
   mutate(date = paste(date, "01", sep=" "),
          date = as.Date(date, format = "%b %Y %d")) %>% 
   gather(series, p, 2:4, -date)  
@@ -283,7 +283,7 @@ p1
 library(tidyverse)
 
 df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
-  rename(date    = X1) %>%
+  rename(date    = `...1`) %>%
   mutate(date = paste(date, "01", sep=" "),
          date = as.Date(date, format = "%b %Y %d")) %>% 
   gather(series, p, 2:4, -date)  

@@ -4,17 +4,26 @@
     <title>Economic Data - Lecture 6</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2023-11-09" />
+    <meta name="date" content="2024-08-28" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Economic Data - Lecture 6
+]
+.subtitle[
 ## Sebastian Ellingsen
+]
+.author[
 ### School of Economics - University of Bristol
-### 2023-11-09
+]
+.date[
+### 2024-08-28
+]
 
 ---
 
@@ -131,7 +140,7 @@ count: false
 
 .panel1-chunk_1-auto[
 
-```r
+``` r
 # Loading packages
 *library(tidyverse)
 ```
@@ -147,7 +156,7 @@ count: false
 
 .panel1-chunk_1-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 *library(readxl)
@@ -164,7 +173,7 @@ count: false
 
 .panel1-chunk_1-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -177,8 +186,8 @@ library(readxl)
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 121 x 4
-   X1        CPIH   CPI   OOH
+# A tibble: 121 × 4
+   ...1      CPIH   CPI   OOH
    &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 Aug 2013   2.4   2.7   1.4
  2 Sep 2013   2.4   2.7   1.2
@@ -190,7 +199,7 @@ library(readxl)
  8 Mar 2014   1.5   1.6   1.2
  9 Apr 2014   1.7   1.8   1.3
 10 May 2014   1.5   1.5   1.3
-# … with 111 more rows
+# ℹ 111 more rows
 ```
 ]
 
@@ -200,21 +209,21 @@ count: false
 
 .panel1-chunk_1-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
 read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
-* rename(date    = X1)
+* rename(date    = `...1`)
 ```
 ]
  
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 121 x 4
+# A tibble: 121 × 4
    date      CPIH   CPI   OOH
    &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 Aug 2013   2.4   2.7   1.4
@@ -227,7 +236,7 @@ read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_i
  8 Mar 2014   1.5   1.6   1.2
  9 Apr 2014   1.7   1.8   1.3
 10 May 2014   1.5   1.5   1.3
-# … with 111 more rows
+# ℹ 111 more rows
 ```
 ]
 
@@ -237,14 +246,14 @@ count: false
 
 .panel1-chunk_1-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
 read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
-  rename(date    = X1) %&gt;%
+  rename(date    = `...1`) %&gt;%
 * mutate(date = paste(date, "01", sep=" "),
 *        date = as.Date(date, format = "%b %Y %d"))
 ```
@@ -253,7 +262,7 @@ read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_i
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 121 x 4
+# A tibble: 121 × 4
    date        CPIH   CPI   OOH
    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 2013-08-01   2.4   2.7   1.4
@@ -266,7 +275,7 @@ read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_i
  8 2014-03-01   1.5   1.6   1.2
  9 2014-04-01   1.7   1.8   1.3
 10 2014-05-01   1.5   1.5   1.3
-# … with 111 more rows
+# ℹ 111 more rows
 ```
 ]
 
@@ -276,14 +285,14 @@ count: false
 
 .panel1-chunk_1-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
 read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
-  rename(date    = X1) %&gt;%
+  rename(date    = `...1`) %&gt;%
   mutate(date = paste(date, "01", sep=" "),
          date = as.Date(date, format = "%b %Y %d")) %&gt;%
 * gather(series, p, 2:4, -date)
@@ -293,7 +302,7 @@ read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_i
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 363 x 3
+# A tibble: 363 × 3
    date       series     p
    &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
  1 2013-08-01 CPIH     2.4
@@ -306,7 +315,7 @@ read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_i
  8 2014-03-01 CPIH     1.5
  9 2014-04-01 CPIH     1.7
 10 2014-05-01 CPIH     1.5
-# … with 353 more rows
+# ℹ 353 more rows
 ```
 ]
 
@@ -349,7 +358,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 *ggplot(data = df, aes(x = date, y = p, color = series))
 ```
@@ -365,7 +374,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
 * geom_line(stat='identity')
@@ -382,7 +391,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -400,7 +409,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -419,7 +428,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -439,7 +448,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -460,7 +469,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -482,7 +491,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -505,7 +514,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -529,7 +538,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -554,7 +563,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -580,7 +589,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -607,7 +616,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -635,7 +644,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -664,7 +673,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -694,7 +703,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -725,7 +734,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -757,7 +766,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -790,7 +799,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -824,7 +833,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -859,7 +868,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -895,7 +904,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -932,7 +941,7 @@ count: false
 
 .panel1-chunk_2-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df, aes(x = date, y = p, color = series))+
   geom_line(stat='identity')+
@@ -1051,7 +1060,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 *library(tidyverse)
 ```
@@ -1067,7 +1076,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 *library(readxl)
@@ -1084,7 +1093,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1097,20 +1106,21 @@ library(readxl)
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 14,988 x 9
-   DATAFLOW `LAST UPDATE` freq  unit  coicop geo   TIME_PERIOD OBS_VALUE
-   &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;
- 1 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2015-12          100 
- 2 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-01          101 
- 3 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-02          102.
- 4 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-03          103.
- 5 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-04          102.
- 6 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-05          101.
- 7 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-06          100.
- 8 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-07          100.
- 9 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-08          101.
-10 ESTAT:P… 31/10/23 11:… M     I15   CP00   AL    2016-09          102.
-# … with 14,978 more rows, and 1 more variable: OBS_FLAG &lt;chr&gt;
+# A tibble: 14,988 × 9
+   DATAFLOW         `LAST UPDATE` freq  unit  coicop geo   TIME_PERIOD OBS_VALUE
+   &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;
+ 1 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2015-12          100 
+ 2 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-01          101 
+ 3 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-02          102.
+ 4 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-03          103.
+ 5 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-04          102.
+ 6 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-05          101.
+ 7 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-06          100.
+ 8 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-07          100.
+ 9 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-08          101.
+10 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-09          102.
+# ℹ 14,978 more rows
+# ℹ 1 more variable: OBS_FLAG &lt;chr&gt;
 ```
 ]
 
@@ -1120,7 +1130,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1134,7 +1144,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 14,988 x 4
+# A tibble: 14,988 × 4
    geo   TIME_PERIOD OBS_VALUE coicop
    &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; 
  1 AL    2015-12          100  CP00  
@@ -1147,7 +1157,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  8 AL    2016-07          100. CP00  
  9 AL    2016-08          101. CP00  
 10 AL    2016-09          102. CP00  
-# … with 14,978 more rows
+# ℹ 14,978 more rows
 ```
 ]
 
@@ -1157,7 +1167,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1172,7 +1182,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 14,988 x 4
+# A tibble: 14,988 × 4
    country TIME_PERIOD OBS_VALUE coicop
    &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; 
  1 AL      2015-12          100  CP00  
@@ -1185,7 +1195,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  8 AL      2016-07          100. CP00  
  9 AL      2016-08          101. CP00  
 10 AL      2016-09          102. CP00  
-# … with 14,978 more rows
+# ℹ 14,978 more rows
 ```
 ]
 
@@ -1195,7 +1205,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1211,7 +1221,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 14,988 x 4
+# A tibble: 14,988 × 4
    country date    OBS_VALUE coicop
    &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; 
  1 AL      2015-12      100  CP00  
@@ -1224,7 +1234,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  8 AL      2016-07      100. CP00  
  9 AL      2016-08      101. CP00  
 10 AL      2016-09      102. CP00  
-# … with 14,978 more rows
+# ℹ 14,978 more rows
 ```
 ]
 
@@ -1234,7 +1244,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1251,7 +1261,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 14,988 x 4
+# A tibble: 14,988 × 4
    country date        p coicop
    &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; 
  1 AL      2015-12  100  CP00  
@@ -1264,7 +1274,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  8 AL      2016-07  100. CP00  
  9 AL      2016-08  101. CP00  
 10 AL      2016-09  102. CP00  
-# … with 14,978 more rows
+# ℹ 14,978 more rows
 ```
 ]
 
@@ -1274,7 +1284,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1292,7 +1302,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 14,988 x 4
+# A tibble: 14,988 × 4
    country date        p series
    &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; 
  1 AL      2015-12  100  CP00  
@@ -1305,7 +1315,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  8 AL      2016-07  100. CP00  
  9 AL      2016-08  101. CP00  
 10 AL      2016-09  102. CP00  
-# … with 14,978 more rows
+# ℹ 14,978 more rows
 ```
 ]
 
@@ -1315,7 +1325,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1335,7 +1345,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 14,988 x 4
+# A tibble: 14,988 × 4
    country date           p series
    &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt; 
  1 AL      2015-12-01  100  CP00  
@@ -1348,7 +1358,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  8 AL      2016-07-01  100. CP00  
  9 AL      2016-08-01  101. CP00  
 10 AL      2016-09-01  102. CP00  
-# … with 14,978 more rows
+# ℹ 14,978 more rows
 ```
 ]
 
@@ -1358,7 +1368,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1379,7 +1389,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 424 x 4
+# A tibble: 424 × 4
    country date           p series
    &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt; 
  1 FR      2015-01-01  98.7 CP00  
@@ -1390,9 +1400,9 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  6 FR      2015-06-01 100.  CP00  
  7 FR      2015-07-01 100   CP00  
  8 FR      2015-08-01 100.  CP00  
- 9 FR      2015-09-01 100.0 CP00  
+ 9 FR      2015-09-01 100.  CP00  
 10 FR      2015-10-01 100.  CP00  
-# … with 414 more rows
+# ℹ 414 more rows
 ```
 ]
 
@@ -1402,7 +1412,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1424,7 +1434,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 424 x 4
+# A tibble: 424 × 4
 # Groups:   series [4]
    country date           p series
    &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt; 
@@ -1436,9 +1446,9 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  6 FR      2015-06-01 100.  CP00  
  7 FR      2015-07-01 100   CP00  
  8 FR      2015-08-01 100.  CP00  
- 9 FR      2015-09-01 100.0 CP00  
+ 9 FR      2015-09-01 100.  CP00  
 10 FR      2015-10-01 100.  CP00  
-# … with 414 more rows
+# ℹ 414 more rows
 ```
 ]
 
@@ -1448,7 +1458,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1472,7 +1482,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 424 x 5
+# A tibble: 424 × 5
 # Groups:   series [4]
    country date           p series   g_p
    &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
@@ -1484,9 +1494,9 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  6 FR      2015-06-01 100.  CP00      NA
  7 FR      2015-07-01 100   CP00      NA
  8 FR      2015-08-01 100.  CP00      NA
- 9 FR      2015-09-01 100.0 CP00      NA
+ 9 FR      2015-09-01 100.  CP00      NA
 10 FR      2015-10-01 100.  CP00      NA
-# … with 414 more rows
+# ℹ 414 more rows
 ```
 ]
 
@@ -1496,7 +1506,7 @@ count: false
 
 .panel1-chunk_3-auto[
 
-```r
+``` r
 # Loading packages
 library(tidyverse)
 library(readxl)
@@ -1521,7 +1531,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
 .panel2-chunk_3-auto[
 
 ```
-# A tibble: 276 x 5
+# A tibble: 276 × 5
 # Groups:   series [4]
    country date           p series   g_p
    &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
@@ -1535,7 +1545,7 @@ read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
  8 FR      2018-09-01  104. CP00     2.5
  9 FR      2018-10-01  104. CP00     2.5
 10 FR      2018-11-01  104  CP00     2.2
-# … with 266 more rows
+# ℹ 266 more rows
 ```
 ]
 
@@ -1578,7 +1588,7 @@ count: false
 
 .panel1-chunk_4-auto[
 
-```r
+``` r
 # Constructing a plot
 *ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))
 ```
@@ -1594,7 +1604,7 @@ count: false
 
 .panel1-chunk_4-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
 * geom_line(stat='identity', lwd = 1)
@@ -1611,7 +1621,7 @@ count: false
 
 .panel1-chunk_4-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
   geom_line(stat='identity', lwd = 1)+
@@ -1629,7 +1639,7 @@ count: false
 
 .panel1-chunk_4-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
   geom_line(stat='identity', lwd = 1)+
@@ -1648,7 +1658,7 @@ count: false
 
 .panel1-chunk_4-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
   geom_line(stat='identity', lwd = 1)+
@@ -1668,7 +1678,7 @@ count: false
 
 .panel1-chunk_4-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
   geom_line(stat='identity', lwd = 1)+
@@ -1691,7 +1701,7 @@ count: false
 
 .panel1-chunk_4-auto[
 
-```r
+``` r
 # Constructing a plot
 ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
   geom_line(stat='identity', lwd = 1)+
@@ -2003,6 +2013,13 @@ class: inverse, center, middle
 # See you in the labs! 
 
 Questions? `\(\texttt{sebastian.ellingsen@bristol.ac.uk}\)`.
+
+
+
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -2054,6 +2071,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
