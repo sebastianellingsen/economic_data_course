@@ -1,0 +1,970 @@
+---
+title: "Economic Data - Lecture 6"
+subtitle: "Sebastian Ellingsen"
+author: "School of Economics - University of Bristol"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      navigation:
+        scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253")
+
+options(htmltools.dir.version = FALSE)
+
+# This is a recommended set up for flipbooks
+knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
+library(flipbookr)
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggthemes)
+```
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+```
+
+
+
+
+## Some announcements 
+
+Have received some questions about the coursework.
+
+The grade for the course will be based on the final coursework in December.
+
+- The 20 quiz questions $10\%$
+
+- 2 of the Mini Projects + 2 new Mini Projects $80\%$
+
+- 1 feedback exercise. $10\%$
+
+Released: Friday December 9th. Due: **December 15th, 11am**.
+
+
+
+---
+
+
+## More about data on prices 
+
+**Previous** lecture: 
+
+- Price index: a weighted aggregation of many prices.
+
+- Paasche and Laspeyres price index: considering the price of an initial basket of goods vs updating the basket.
+
+- Chain-linked price indices.
+
+- Nominal and real values: nominal does not account for changes in price levels, real does.
+
+
+**This** lecture:
+
+- Measuring prices over time.
+
+- Measuring prices across space.
+
+
+
+
+---
+class: inverse, center, middle
+
+# Measuring Prices Over Time
+
+
+
+
+---
+
+## Working with data on inflation  
+
+All statistical agencies collect data on prices and inflation.
+
+- The primary reason is for monetary and fiscal policy. 
+
+The most common approach is the **annual inflation rate**:
+
+$$\pi_t = \frac{P_{t} - P_{t-12}}{P_{t-12}},$$
+where $P_{t}$ is some price index at time $t$.
+
+The annual inflation rate compares prices for the latest month with the same month a year ago.
+
+- We can download data for the UK from the August 2023 report [here](https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2023).
+
+
+
+<!-- The most common approach to measuring inflation is the 12-month or annual inflation rate, which compares prices for the latest month with the same month a year ago -->
+
+
+
+
+---
+
+
+```{r, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scratch can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = F)
+library(flipbookr)
+library(tidyverse)
+library(readxl)
+library(scales)
+
+df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
+  rename(date    = `...1`) %>%
+  mutate(date = paste(date, "01", sep=" "),
+         date = as.Date(date, format = "%b %Y %d")) %>%
+  gather(series, p, 2:4, -date)
+
+p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity', lwd = 1.2)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK",
+       subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.",
+       caption = "Source: ONS.")
+```
+
+
+`r chunk_reveal("chunk_1")`
+
+```{r chunk_1, include = FALSE}
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
+  rename(date    = `...1`) %>%
+  mutate(date = paste(date, "01", sep=" "),
+         date = as.Date(date, format = "%b %Y %d")) %>%
+  gather(series, p, 2:4, -date)
+```
+
+
+
+---
+`r chunk_reveal("chunk_2")`
+
+```{r chunk_2, include = FALSE}
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.background = element_rect(fill = "transparent", colour = NA))+
+  theme(plot.background  = element_rect(fill = "transparent", colour = NA))+
+  theme(legend.background = element_rect(fill='transparent'))+
+  theme(legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")
+```
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+library(tidyverse)
+
+df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
+  rename(date    = `...1`) %>%
+  mutate(date = paste(date, "01", sep=" "),
+         date = as.Date(date, format = "%b %Y %d")) %>% 
+  gather(series, p, 2:4, -date)  
+  
+p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity', lwd = 1.2)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK",
+       subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.",
+       caption = "Source: ONS.") 
+
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+library(tidyverse)
+
+df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
+  rename(date    = `...1`) %>%
+  mutate(date = paste(date, "01", sep=" "),
+         date = as.Date(date, format = "%b %Y %d")) %>% 
+  gather(series, p, 2:4, -date)  
+  
+p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity', lwd = 1.2)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  geom_hline(yintercept = 2, alpha = 0.5)+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK",
+       subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.",
+       caption = "Source: ONS.") 
+
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+---
+
+
+### The UK Inflation Rate
+
+The plot depicts a substantial increase in inflation over the last few years.
+
+- **CPI**: Consumer Prices Index.
+
+- **OOH**: Occupiers' housing costs.
+
+- **CPIH**: CPI including owner occupiers' housing costs.
+
+--
+
+In all cases the increase is a weighted average of prices (Laspeyres).
+
+- Weights are based on expenditure surveys and national account flows.
+
+- We buy *more* of it $\Rightarrow$ it gets *higher* weight!
+
+- Weights updated regularly and linked (chain-linking).
+
+
+
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+df <- read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %>%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %>%
+  rename(country = geo,
+         date    = TIME_PERIOD,
+         p       = OBS_VALUE,
+         series  = coicop) %>%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %>%
+  filter(country == 'FR') %>%
+  group_by(series) %>%
+  mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+         g_p = round(g_p, d = 1))  %>%
+  filter(date>'2018-01-01')
+
+
+p1 <- ggplot(data = df %>% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in France",
+       subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")
+
+
+p2 <- ggplot(data = df, aes(x = date, y = g_p, color = series))+
+  geom_line(stat='identity', lwd = 1.2)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in France by main aggregates",
+       subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")+
+  scale_color_discrete(labels=c('All items-HICP', 'Food', 'Energy', 'HICP ex. energy'))
+
+```
+
+
+
+`r chunk_reveal("chunk_3")`
+
+```{r chunk_3, include = FALSE}
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %>%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %>%
+  rename(country = geo) %>% 
+  rename(date    = TIME_PERIOD) %>% 
+  rename(p       = OBS_VALUE) %>% 
+  rename(series  = coicop) %>%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %>%
+  filter(country == 'FR') %>%
+  group_by(series) %>%
+  mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+         g_p = round(g_p, d = 1))  %>%
+  filter(date>'2018-01-01')
+```
+
+
+
+---
+`r chunk_reveal("chunk_4")`
+
+```{r chunk_4, include = FALSE}
+# Constructing a plot
+ggplot(data = df %>% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in France",
+       subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())
+```
+
+
+
+
+
+
+---
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+
+
+
+
+
+---
+
+## Some challenges
+   
+Remember the general price index
+
+$$P_{t} = \sum_{i=1}^N P_{it}Q_{it},$$
+where $Q_{it}$ denotes the quantity and $P_{it}$ the price of good $i$.
+
+--
+
+**One** basket for everyone!
+
+- But quantities are likely to be very different for different people.
+
+- Policy response to inflation depends on the source of inflation.
+
+- It is useful to consider more *disaggregated* indices to understand the source.
+
+<!-- <br> -->
+
+
+
+
+
+---
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p2
+```
+
+
+
+---
+
+## Measuring prices over time
+
+In all cases the increase is a weighted average of prices (Laspeyres).
+
+- Weights are based on expenditure surveys and national account flows.
+
+- We buy *more* of it $\Rightarrow$ it gets *higher* weight!
+
+- Weights updated regularly and linked (chain-linking).
+
+Then we study how the index changes over time.
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Measuring Prices Across Space
+
+
+
+
+
+---
+
+## Measuring prices across space
+
+Like we removed price differences across time, with a CPI, we can remove price differences across countries. 
+
+- 100 euros can buy you less in Ireland than in Spain.
+
+- Having double the money doesn’t make a difference if everything costs the double!
+
+- We need to adjust for this!
+
+--
+
+**Solution**: Compare the price of a representative basket of goods across locations.
+
+
+
+
+
+
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+
+df <- read_csv('../data/nama_10_pc__custom_8307407_linear.csv') %>% 
+  select(geo, unit, OBS_VALUE) 
+
+
+p1 <- ggplot(data = df %>% 
+         filter(unit == 'CP_NAC_HAB') %>% 
+         mutate(name = fct_reorder(geo, OBS_VALUE)), aes(x = name, y = OBS_VALUE))+
+  geom_bar(stat='identity', lwd = 1)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  xlab("") +
+  ylab("GDP per capita") +
+  labs(title = "GDP per capita 2022 (national currencies)",
+       caption = "Source: Eurostat, series nama_10_pc")
+
+
+
+
+p2 <- ggplot(data = df %>% 
+               filter(unit == 'CP_EUR_HAB') %>% 
+               mutate(name = fct_reorder(geo, OBS_VALUE)), aes(x = name, y = OBS_VALUE))+
+  geom_bar(stat='identity', lwd = 1)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  xlab("") +
+  ylab("GDP per capita") +
+  labs(title = "GDP per capita 2022 (euros)",
+       caption = "Source: Eurostat, series nama_10_pc")
+
+
+
+
+
+p3 <- ggplot(data = df %>% 
+               filter(unit == 'CP_PPS_EU27_2020_HAB') %>% 
+               mutate(name = fct_reorder(geo, OBS_VALUE)), aes(x = name, y = OBS_VALUE))+
+  geom_bar(stat='identity', lwd = 1)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  xlab("") +
+  ylab("GDP per capita") +
+  labs(title = "GDP per capita 2022 (euros, PPS)",
+       caption = "Source: Eurostat, series nama_10_pc")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p2
+```
+
+---
+
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+# Purchasing power parities 
+df <- read_csv('../data/big-mac-full-index.csv') %>% 
+  arrange(name, date) %>% 
+  filter(!is.na(USD_adjusted)) %>% 
+  mutate(USD_adjusted = 100*USD_adjusted,
+         USD_raw = 100*USD_raw)
+
+
+
+p_bm <- ggplot(df %>% 
+               filter(date == '2022-07-01') %>% 
+               mutate(name = fct_reorder(name, dollar_price)), 
+             aes(x=name, y=dollar_price)) +
+  # geom_hline(yintercept = 0) +
+  geom_linerange(aes(ymin=0, ymax=dollar_price), alpha = 0.6, lwd = 1.1) +
+  geom_point(alpha = 0.6, size=2.3) +
+  theme_tufte() +
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("") +
+  ylab("Current US Dollars") +
+  labs(title = "The Big Mac Price",
+       subtitle = "Dollar price of a Big Mac, selected currencies, %, July 2022",
+       caption = "Source: The Economist")
+
+```
+
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p_bm
+```
+
+---
+
+## Price comparisons across regions
+
+Consider a price index for a basket of goods in the home country
+
+$$PPS = \sum_{i=1}^N P_iQ_i$$
+
+Let the price of the basket in the foreign country be defined as 
+
+$$PPS^* = \sum_{i=1}^N P_i^*Q_i^*$$
+
+We assume that $Q_i^* = Q_i$ for all the goods $i$ $\Rightarrow$ compare the same basket in the two countries.
+
+$PPS/PPS^*$ therefore gives the relative price of the basket in home versus foreign.
+
+
+
+---
+
+
+## Price comparisons across regions
+
+$PPS$ can be used to adjust prices for international comparison. 
+
+$$\text{Price adjusted to PPS standards}_i = \frac{\text{Price national currency}_i}{PPS_i}$$
+
+Can also be used to adjust prices to some base country
+
+$$\text{Price adjusted to j country standards}_i = \frac{\text{Price national currency}_i}{PPS_i}\times PPS_{j}$$
+
+A common application is to adjust nominal income differences across countries.
+
+
+
+---
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p2
+```
+
+
+
+---
+
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p3
+```
+
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+
+if (!require(pacman)) install.packages("pacman")
+p_load(eurostat,
+       sf)
+
+
+# Loading and cleaning GDP per capita data 
+p <- read_csv('../data/prc_ppp_ind__custom_8308502_linear.csv') %>% 
+  select(geo, TIME_PERIOD, OBS_VALUE) %>% 
+  rename(CNTR_CODE = geo,
+         year    = TIME_PERIOD, 
+         p     = OBS_VALUE) 
+
+
+
+SHP_0 <- get_eurostat_geospatial(resolution = 10, 
+                                 nuts_level = 0, 
+                                 year = 2013)
+
+
+SHP_0_3035 <- st_transform(SHP_0, crs = 3035)
+
+
+df <- SHP_0_3035 %>% full_join(p, by = 'CNTR_CODE')
+
+map <- df %>% 
+  ggplot(aes(fill = p)) +
+  geom_sf(
+    size = 0.05, 
+    color = "white") +
+  scale_fill_distiller(direction = 1,
+                       guide = guide_colorbar(
+                         direction = "horizontal",
+                         title.position = "left",
+                         barwidth = unit(4, "cm"),
+                         barheight = unit(0.2, "cm"),
+                         ticks = TRUE)) +
+  scale_x_continuous(limits = c(2750000, 6500000)) +
+  scale_y_continuous(limits = c(1530000, 5300000)) +
+  theme_tufte() +
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.text=element_text(size=12),
+        legend.position="bottom", 
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 11),
+        strip.background = element_rect(fill="transparent", colour = NA),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        legend.key = element_rect(fill = NA),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA))+
+  xlab("") +
+  ylab("") +
+  labs(title = "Price level index, 2022",
+       # subtitle = "GDP is PPP adjusted at constant 2015 prices",
+       fill = 'Price index (EU average = 100):',
+       caption = "Source: Eurostat, series prc_ppp_ind")
+
+
+```
+
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 14, fig.align="center"}
+map
+```
+
+
+
+---
+
+
+
+
+
+
+## Price comparisons across countries
+
+International income differences tend to be smaller when adjusting for price differences.
+
+This is known as the *Penn effect*.
+
+- Comes from the *Penn World Tables* dataset.
+
+In economics, this is known as the Balassa–Samuelson effect
+
+- The idea is that the difference between productivity in traded and non-traded sectors is higher in developed countries.
+
+- Can show that this leads to higher prices in non-traded sectors in developed countries.
+
+
+<!-- is the proposition that this can be explained by the greater variation in productivity between developed and less developed countries in the traded goods' sectors which in turn affects wages and prices in the non-tradable goods sectors. -->
+
+
+
+<!-- --- -->
+<!-- ## PPP and exchange rates -->
+
+<!-- We have seen one application of purchasing power parities so far: to make prices comparable across locations. -->
+
+
+
+---
+
+
+## Summary
+
+After this lecture you should be able to:
+
+- Know how the coursework works.
+
+- How inflation is measured.
+
+- Explain and use the PPS adjustment to compare prices across regions.
+
+- Adjustment for price level differences across countries.
+
+- Used to adjust monetary values across countries. 
+
+We will work more on this material in this weeks lab.
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? $\texttt{sebastian.ellingsen@bristol.ac.uk}$.
+
+
+
+
+
+
+

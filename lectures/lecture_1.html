@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Economic Data - Lecture 6</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="School of Economics - University of Bristol" />
+    <meta name="date" content="2024-08-28" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Economic Data - Lecture 6
+]
+.subtitle[
+## Sebastian Ellingsen
+]
+.author[
+### School of Economics - University of Bristol
+]
+.date[
+### 2024-08-28
+]
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+&lt;/style&gt;
+
+
+
+
+## Some announcements 
+
+Have received some questions about the coursework.
+
+The grade for the course will be based on the final coursework in December.
+
+- The 20 quiz questions `\(10\%\)`
+
+- 2 of the Mini Projects + 2 new Mini Projects `\(80\%\)`
+
+- 1 feedback exercise. `\(10\%\)`
+
+Released: Friday December 9th. Due: **December 15th, 11am**.
+
+
+
+---
+
+
+## More about data on prices 
+
+**Previous** lecture: 
+
+- Price index: a weighted aggregation of many prices.
+
+- Paasche and Laspeyres price index: considering the price of an initial basket of goods vs updating the basket.
+
+- Chain-linked price indices.
+
+- Nominal and real values: nominal does not account for changes in price levels, real does.
+
+
+**This** lecture:
+
+- Measuring prices over time.
+
+- Measuring prices across space.
+
+
+
+
+---
+class: inverse, center, middle
+
+# Measuring Prices Over Time
+
+
+
+
+---
+
+## Working with data on inflation  
+
+All statistical agencies collect data on prices and inflation.
+
+- The primary reason is for monetary and fiscal policy. 
+
+The most common approach is the **annual inflation rate**:
+
+`$$\pi_t = \frac{P_{t} - P_{t-12}}{P_{t-12}},$$`
+where `\(P_{t}\)` is some price index at time `\(t\)`.
+
+The annual inflation rate compares prices for the latest month with the same month a year ago.
+
+- We can download data for the UK from the August 2023 report [here](https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2023).
+
+
+
+&lt;!-- The most common approach to measuring inflation is the 12-month or annual inflation rate, which compares prices for the latest month with the same month a year ago --&gt;
+
+
+
+
+---
+
+
+
+
+
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+*library(tidyverse)
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+*library(readxl)
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+*read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6)
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+```
+# A tibble: 121 × 4
+   ...1      CPIH   CPI   OOH
+   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Aug 2013   2.4   2.7   1.4
+ 2 Sep 2013   2.4   2.7   1.2
+ 3 Oct 2013   2     2.2   1.3
+ 4 Nov 2013   1.9   2.1   1.4
+ 5 Dec 2013   1.9   2     1.3
+ 6 Jan 2014   1.8   1.9   1.3
+ 7 Feb 2014   1.6   1.7   1.3
+ 8 Mar 2014   1.5   1.6   1.2
+ 9 Apr 2014   1.7   1.8   1.3
+10 May 2014   1.5   1.5   1.3
+# ℹ 111 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
+* rename(date    = `...1`)
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+```
+# A tibble: 121 × 4
+   date      CPIH   CPI   OOH
+   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Aug 2013   2.4   2.7   1.4
+ 2 Sep 2013   2.4   2.7   1.2
+ 3 Oct 2013   2     2.2   1.3
+ 4 Nov 2013   1.9   2.1   1.4
+ 5 Dec 2013   1.9   2     1.3
+ 6 Jan 2014   1.8   1.9   1.3
+ 7 Feb 2014   1.6   1.7   1.3
+ 8 Mar 2014   1.5   1.6   1.2
+ 9 Apr 2014   1.7   1.8   1.3
+10 May 2014   1.5   1.5   1.3
+# ℹ 111 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
+  rename(date    = `...1`) %&gt;%
+* mutate(date = paste(date, "01", sep=" "),
+*        date = as.Date(date, format = "%b %Y %d"))
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+```
+# A tibble: 121 × 4
+   date        CPIH   CPI   OOH
+   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2013-08-01   2.4   2.7   1.4
+ 2 2013-09-01   2.4   2.7   1.2
+ 3 2013-10-01   2     2.2   1.3
+ 4 2013-11-01   1.9   2.1   1.4
+ 5 2013-12-01   1.9   2     1.3
+ 6 2014-01-01   1.8   1.9   1.3
+ 7 2014-02-01   1.6   1.7   1.3
+ 8 2014-03-01   1.5   1.6   1.2
+ 9 2014-04-01   1.7   1.8   1.3
+10 2014-05-01   1.5   1.5   1.3
+# ℹ 111 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
+  rename(date    = `...1`) %&gt;%
+  mutate(date = paste(date, "01", sep=" "),
+         date = as.Date(date, format = "%b %Y %d")) %&gt;%
+* gather(series, p, 2:4, -date)
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+```
+# A tibble: 363 × 3
+   date       series     p
+   &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
+ 1 2013-08-01 CPIH     2.4
+ 2 2013-09-01 CPIH     2.4
+ 3 2013-10-01 CPIH     2  
+ 4 2013-11-01 CPIH     1.9
+ 5 2013-12-01 CPIH     1.9
+ 6 2014-01-01 CPIH     1.8
+ 7 2014-02-01 CPIH     1.6
+ 8 2014-03-01 CPIH     1.5
+ 9 2014-04-01 CPIH     1.7
+10 2014-05-01 CPIH     1.5
+# ℹ 353 more rows
+```
+]
+
+&lt;style&gt;
+.panel1-chunk_1-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_1-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_1-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+*ggplot(data = df, aes(x = date, y = p, color = series))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_01_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+* geom_line(stat='identity')
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_02_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+*   xlab("")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_03_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+* ylab("Inflation rate (%)")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_04_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+* labs(title = "Monthly Inflation in UK")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_05_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+* labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_06_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+* labs(caption = "Source: ONS.")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_07_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+* theme(plot.title = element_text(size=12))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_08_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+* theme(plot.subtitle = element_text(size=9))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_09_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+* theme(legend.title = element_blank())
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_10_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+* theme(legend.position="bottom")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_11_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+* theme(plot.caption = element_text(size=6, hjust = 0))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_12_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+* theme(axis.title = element_text(size = 11))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_13_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+* theme(strip.background = element_blank())
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_14_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+* theme(axis.text.x=element_text(angle=45, hjust=1))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_15_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+* theme(strip.placement = "outside")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_16_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+* theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_17_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
+* theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_18_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))+
+* theme(panel.background = element_rect(fill = "transparent", colour = NA))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_19_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.background = element_rect(fill = "transparent", colour = NA))+
+* theme(plot.background  = element_rect(fill = "transparent", colour = NA))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_20_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.background = element_rect(fill = "transparent", colour = NA))+
+  theme(plot.background  = element_rect(fill = "transparent", colour = NA))+
+* theme(legend.background = element_rect(fill='transparent'))
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_21_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.background = element_rect(fill = "transparent", colour = NA))+
+  theme(plot.background  = element_rect(fill = "transparent", colour = NA))+
+  theme(legend.background = element_rect(fill='transparent'))+
+* theme(legend.key=element_blank())
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_22_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_2-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df, aes(x = date, y = p, color = series))+
+  geom_line(stat='identity')+
+    xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in UK")+
+  labs(subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.")+
+  labs(caption = "Source: ONS.")+
+  theme(plot.title = element_text(size=12))+
+  theme(plot.subtitle = element_text(size=9))+
+  theme(legend.title = element_blank())+
+  theme(legend.position="bottom")+
+  theme(plot.caption = element_text(size=6, hjust = 0))+
+  theme(axis.title = element_text(size = 11))+
+  theme(strip.background = element_blank())+
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(strip.placement = "outside")+
+  theme(panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'))+
+  theme(panel.background = element_rect(fill = "transparent", colour = NA))+
+  theme(plot.background  = element_rect(fill = "transparent", colour = NA))+
+  theme(legend.background = element_rect(fill='transparent'))+
+  theme(legend.key=element_blank())+
+* scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")
+```
+]
+ 
+.panel2-chunk_2-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_2_auto_23_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.panel1-chunk_2-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_2-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_2-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-4-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-6-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+### The UK Inflation Rate
+
+The plot depicts a substantial increase in inflation over the last few years.
+
+- **CPI**: Consumer Prices Index.
+
+- **OOH**: Occupiers' housing costs.
+
+- **CPIH**: CPI including owner occupiers' housing costs.
+
+--
+
+In all cases the increase is a weighted average of prices (Laspeyres).
+
+- Weights are based on expenditure surveys and national account flows.
+
+- We buy *more* of it `\(\Rightarrow\)` it gets *higher* weight!
+
+- Weights updated regularly and linked (chain-linking).
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+*library(tidyverse)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+*library(readxl)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+*read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv")
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 14,988 × 9
+   DATAFLOW         `LAST UPDATE` freq  unit  coicop geo   TIME_PERIOD OBS_VALUE
+   &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;
+ 1 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2015-12          100 
+ 2 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-01          101 
+ 3 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-02          102.
+ 4 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-03          103.
+ 5 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-04          102.
+ 6 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-05          101.
+ 7 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-06          100.
+ 8 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-07          100.
+ 9 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-08          101.
+10 ESTAT:PRC_HICP_… 31/10/23 11:… M     I15   CP00   AL    2016-09          102.
+# ℹ 14,978 more rows
+# ℹ 1 more variable: OBS_FLAG &lt;chr&gt;
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+* select(geo, TIME_PERIOD, OBS_VALUE, coicop)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 14,988 × 4
+   geo   TIME_PERIOD OBS_VALUE coicop
+   &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; 
+ 1 AL    2015-12          100  CP00  
+ 2 AL    2016-01          101  CP00  
+ 3 AL    2016-02          102. CP00  
+ 4 AL    2016-03          103. CP00  
+ 5 AL    2016-04          102. CP00  
+ 6 AL    2016-05          101. CP00  
+ 7 AL    2016-06          100. CP00  
+ 8 AL    2016-07          100. CP00  
+ 9 AL    2016-08          101. CP00  
+10 AL    2016-09          102. CP00  
+# ℹ 14,978 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+* rename(country = geo)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 14,988 × 4
+   country TIME_PERIOD OBS_VALUE coicop
+   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; 
+ 1 AL      2015-12          100  CP00  
+ 2 AL      2016-01          101  CP00  
+ 3 AL      2016-02          102. CP00  
+ 4 AL      2016-03          103. CP00  
+ 5 AL      2016-04          102. CP00  
+ 6 AL      2016-05          101. CP00  
+ 7 AL      2016-06          100. CP00  
+ 8 AL      2016-07          100. CP00  
+ 9 AL      2016-08          101. CP00  
+10 AL      2016-09          102. CP00  
+# ℹ 14,978 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+* rename(date    = TIME_PERIOD)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 14,988 × 4
+   country date    OBS_VALUE coicop
+   &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; 
+ 1 AL      2015-12      100  CP00  
+ 2 AL      2016-01      101  CP00  
+ 3 AL      2016-02      102. CP00  
+ 4 AL      2016-03      103. CP00  
+ 5 AL      2016-04      102. CP00  
+ 6 AL      2016-05      101. CP00  
+ 7 AL      2016-06      100. CP00  
+ 8 AL      2016-07      100. CP00  
+ 9 AL      2016-08      101. CP00  
+10 AL      2016-09      102. CP00  
+# ℹ 14,978 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+  rename(date    = TIME_PERIOD) %&gt;%
+* rename(p       = OBS_VALUE)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 14,988 × 4
+   country date        p coicop
+   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; 
+ 1 AL      2015-12  100  CP00  
+ 2 AL      2016-01  101  CP00  
+ 3 AL      2016-02  102. CP00  
+ 4 AL      2016-03  103. CP00  
+ 5 AL      2016-04  102. CP00  
+ 6 AL      2016-05  101. CP00  
+ 7 AL      2016-06  100. CP00  
+ 8 AL      2016-07  100. CP00  
+ 9 AL      2016-08  101. CP00  
+10 AL      2016-09  102. CP00  
+# ℹ 14,978 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+  rename(date    = TIME_PERIOD) %&gt;%
+  rename(p       = OBS_VALUE) %&gt;%
+* rename(series  = coicop)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 14,988 × 4
+   country date        p series
+   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; 
+ 1 AL      2015-12  100  CP00  
+ 2 AL      2016-01  101  CP00  
+ 3 AL      2016-02  102. CP00  
+ 4 AL      2016-03  103. CP00  
+ 5 AL      2016-04  102. CP00  
+ 6 AL      2016-05  101. CP00  
+ 7 AL      2016-06  100. CP00  
+ 8 AL      2016-07  100. CP00  
+ 9 AL      2016-08  101. CP00  
+10 AL      2016-09  102. CP00  
+# ℹ 14,978 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+  rename(date    = TIME_PERIOD) %&gt;%
+  rename(p       = OBS_VALUE) %&gt;%
+  rename(series  = coicop) %&gt;%
+* mutate(date = paste(date, "01", sep="-"),
+*        date = as.Date(date, format = "%Y-%m-%d"))
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 14,988 × 4
+   country date           p series
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt; 
+ 1 AL      2015-12-01  100  CP00  
+ 2 AL      2016-01-01  101  CP00  
+ 3 AL      2016-02-01  102. CP00  
+ 4 AL      2016-03-01  103. CP00  
+ 5 AL      2016-04-01  102. CP00  
+ 6 AL      2016-05-01  101. CP00  
+ 7 AL      2016-06-01  100. CP00  
+ 8 AL      2016-07-01  100. CP00  
+ 9 AL      2016-08-01  101. CP00  
+10 AL      2016-09-01  102. CP00  
+# ℹ 14,978 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+  rename(date    = TIME_PERIOD) %&gt;%
+  rename(p       = OBS_VALUE) %&gt;%
+  rename(series  = coicop) %&gt;%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
+* filter(country == 'FR')
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 424 × 4
+   country date           p series
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt; 
+ 1 FR      2015-01-01  98.7 CP00  
+ 2 FR      2015-02-01  99.4 CP00  
+ 3 FR      2015-03-01 100.  CP00  
+ 4 FR      2015-04-01 100.  CP00  
+ 5 FR      2015-05-01 101.  CP00  
+ 6 FR      2015-06-01 100.  CP00  
+ 7 FR      2015-07-01 100   CP00  
+ 8 FR      2015-08-01 100.  CP00  
+ 9 FR      2015-09-01 100.  CP00  
+10 FR      2015-10-01 100.  CP00  
+# ℹ 414 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+  rename(date    = TIME_PERIOD) %&gt;%
+  rename(p       = OBS_VALUE) %&gt;%
+  rename(series  = coicop) %&gt;%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
+  filter(country == 'FR') %&gt;%
+* group_by(series)
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 424 × 4
+# Groups:   series [4]
+   country date           p series
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt; 
+ 1 FR      2015-01-01  98.7 CP00  
+ 2 FR      2015-02-01  99.4 CP00  
+ 3 FR      2015-03-01 100.  CP00  
+ 4 FR      2015-04-01 100.  CP00  
+ 5 FR      2015-05-01 101.  CP00  
+ 6 FR      2015-06-01 100.  CP00  
+ 7 FR      2015-07-01 100   CP00  
+ 8 FR      2015-08-01 100.  CP00  
+ 9 FR      2015-09-01 100.  CP00  
+10 FR      2015-10-01 100.  CP00  
+# ℹ 414 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+  rename(date    = TIME_PERIOD) %&gt;%
+  rename(p       = OBS_VALUE) %&gt;%
+  rename(series  = coicop) %&gt;%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
+  filter(country == 'FR') %&gt;%
+  group_by(series) %&gt;%
+* mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+*        g_p = round(g_p, d = 1))
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 424 × 5
+# Groups:   series [4]
+   country date           p series   g_p
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+ 1 FR      2015-01-01  98.7 CP00      NA
+ 2 FR      2015-02-01  99.4 CP00      NA
+ 3 FR      2015-03-01 100.  CP00      NA
+ 4 FR      2015-04-01 100.  CP00      NA
+ 5 FR      2015-05-01 101.  CP00      NA
+ 6 FR      2015-06-01 100.  CP00      NA
+ 7 FR      2015-07-01 100   CP00      NA
+ 8 FR      2015-08-01 100.  CP00      NA
+ 9 FR      2015-09-01 100.  CP00      NA
+10 FR      2015-10-01 100.  CP00      NA
+# ℹ 414 more rows
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_3-auto[
+
+``` r
+# Loading packages
+library(tidyverse)
+library(readxl)
+
+# Loading and cleaning the data
+read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %&gt;%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %&gt;%
+  rename(country = geo) %&gt;%
+  rename(date    = TIME_PERIOD) %&gt;%
+  rename(p       = OBS_VALUE) %&gt;%
+  rename(series  = coicop) %&gt;%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %&gt;%
+  filter(country == 'FR') %&gt;%
+  group_by(series) %&gt;%
+  mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+         g_p = round(g_p, d = 1))  %&gt;%
+* filter(date&gt;'2018-01-01')
+```
+]
+ 
+.panel2-chunk_3-auto[
+
+```
+# A tibble: 276 × 5
+# Groups:   series [4]
+   country date           p series   g_p
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+ 1 FR      2018-02-01  102. CP00     1.3
+ 2 FR      2018-03-01  103. CP00     1.7
+ 3 FR      2018-04-01  103. CP00     1.8
+ 4 FR      2018-05-01  104. CP00     2.3
+ 5 FR      2018-06-01  104. CP00     2.3
+ 6 FR      2018-07-01  104. CP00     2.6
+ 7 FR      2018-08-01  104. CP00     2.6
+ 8 FR      2018-09-01  104. CP00     2.5
+ 9 FR      2018-10-01  104. CP00     2.5
+10 FR      2018-11-01  104  CP00     2.2
+# ℹ 266 more rows
+```
+]
+
+&lt;style&gt;
+.panel1-chunk_3-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_3-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_3-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+---
+count: false
+ 
+
+.panel1-chunk_4-auto[
+
+``` r
+# Constructing a plot
+*ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))
+```
+]
+ 
+.panel2-chunk_4-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_4_auto_01_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_4-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
+* geom_line(stat='identity', lwd = 1)
+```
+]
+ 
+.panel2-chunk_4-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_4_auto_02_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_4-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+* scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")
+```
+]
+ 
+.panel2-chunk_4-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_4_auto_03_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_4-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+* xlab("")
+```
+]
+ 
+.panel2-chunk_4-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_4_auto_04_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_4-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+* ylab("Inflation rate (%)")
+```
+]
+ 
+.panel2-chunk_4-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_4_auto_05_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_4-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+* labs(title = "Monthly Inflation in France",
+*      subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
+*      caption = "Source: Eurostat, series prc_hicp_midx.")
+```
+]
+ 
+.panel2-chunk_4-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_4_auto_06_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_4-auto[
+
+``` r
+# Constructing a plot
+ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1)+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in France",
+       subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")+
+* theme(plot.title = element_text(size=22),
+*       plot.subtitle = element_text(size=16),
+*       legend.title = element_blank(),
+*       legend.text=element_text(size=14),
+*       legend.position="bottom",
+*       plot.caption = element_text(size=12, hjust = 0),
+*       axis.title = element_text(size = 18),
+*       strip.background = element_blank(),
+*       axis.text.x=element_text(angle=45, hjust=1, size = 12),
+*       axis.text.y=element_text(size = 12),
+*       strip.placement = "outside",
+*       panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+*       panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+*       panel.background = element_rect(fill = "transparent", colour = NA),
+*       plot.background  = element_rect(fill = "transparent", colour = NA),
+*       legend.background = element_rect(fill='transparent'),
+*       legend.key=element_blank())
+```
+]
+ 
+.panel2-chunk_4-auto[
+&lt;img src="lecture_1_files/figure-html/chunk_4_auto_07_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.panel1-chunk_4-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_4-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_4-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+
+---
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-8-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+
+
+
+---
+
+## Some challenges
+   
+Remember the general price index
+
+`$$P_{t} = \sum_{i=1}^N P_{it}Q_{it},$$`
+where `\(Q_{it}\)` denotes the quantity and `\(P_{it}\)` the price of good `\(i\)`.
+
+--
+
+**One** basket for everyone!
+
+- But quantities are likely to be very different for different people.
+
+- Policy response to inflation depends on the source of inflation.
+
+- It is useful to consider more *disaggregated* indices to understand the source.
+
+&lt;!-- &lt;br&gt; --&gt;
+
+
+
+
+
+---
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-9-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## Measuring prices over time
+
+In all cases the increase is a weighted average of prices (Laspeyres).
+
+- Weights are based on expenditure surveys and national account flows.
+
+- We buy *more* of it `\(\Rightarrow\)` it gets *higher* weight!
+
+- Weights updated regularly and linked (chain-linking).
+
+Then we study how the index changes over time.
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Measuring Prices Across Space
+
+
+
+
+
+---
+
+## Measuring prices across space
+
+Like we removed price differences across time, with a CPI, we can remove price differences across countries. 
+
+- 100 euros can buy you less in Ireland than in Spain.
+
+- Having double the money doesn’t make a difference if everything costs the double!
+
+- We need to adjust for this!
+
+--
+
+**Solution**: Compare the price of a representative basket of goods across locations.
+
+
+
+
+
+
+
+
+---
+
+
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-11-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-12-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-14-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Price comparisons across regions
+
+Consider a price index for a basket of goods in the home country
+
+`$$PPS = \sum_{i=1}^N P_iQ_i$$`
+
+Let the price of the basket in the foreign country be defined as 
+
+`$$PPS^* = \sum_{i=1}^N P_i^*Q_i^*$$`
+
+We assume that `\(Q_i^* = Q_i\)` for all the goods `\(i\)` `\(\Rightarrow\)` compare the same basket in the two countries.
+
+`\(PPS/PPS^*\)` therefore gives the relative price of the basket in home versus foreign.
+
+
+
+---
+
+
+## Price comparisons across regions
+
+`\(PPS\)` can be used to adjust prices for international comparison. 
+
+`$$\text{Price adjusted to PPS standards}_i = \frac{\text{Price national currency}_i}{PPS_i}$$`
+
+Can also be used to adjust prices to some base country
+
+`$$\text{Price adjusted to j country standards}_i = \frac{\text{Price national currency}_i}{PPS_i}\times PPS_{j}$$`
+
+A common application is to adjust nominal income differences across countries.
+
+
+
+---
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-15-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-16-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-17-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+
+
+
+&lt;img src="lecture_1_files/figure-html/unnamed-chunk-19-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+
+
+
+
+## Price comparisons across countries
+
+International income differences tend to be smaller when adjusting for price differences.
+
+This is known as the *Penn effect*.
+
+- Comes from the *Penn World Tables* dataset.
+
+In economics, this is known as the Balassa–Samuelson effect
+
+- The idea is that the difference between productivity in traded and non-traded sectors is higher in developed countries.
+
+- Can show that this leads to higher prices in non-traded sectors in developed countries.
+
+
+&lt;!-- is the proposition that this can be explained by the greater variation in productivity between developed and less developed countries in the traded goods' sectors which in turn affects wages and prices in the non-tradable goods sectors. --&gt;
+
+
+
+&lt;!-- --- --&gt;
+&lt;!-- ## PPP and exchange rates --&gt;
+
+&lt;!-- We have seen one application of purchasing power parities so far: to make prices comparable across locations. --&gt;
+
+
+
+---
+
+
+## Summary
+
+After this lecture you should be able to:
+
+- Know how the coursework works.
+
+- How inflation is measured.
+
+- Explain and use the PPS adjustment to compare prices across regions.
+
+- Adjustment for price level differences across countries.
+
+- Used to adjust monetary values across countries. 
+
+We will work more on this material in this weeks lab.
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? `\(\texttt{sebastian.ellingsen@bristol.ac.uk}\)`.
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

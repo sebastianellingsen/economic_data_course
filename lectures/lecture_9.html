@@ -4,17 +4,26 @@
     <title>Economic Data - Lecture 9</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2023-11-27" />
+    <meta name="date" content="2024-08-28" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Economic Data - Lecture 9
+]
+.subtitle[
 ## Sebastian Ellingsen
+]
+.author[
 ### School of Economics - University of Bristol
-### 2023-11-27
+]
+.date[
+### 2024-08-28
+]
 
 ---
 
@@ -179,7 +188,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 *read_csv("../data/IUMABEDR  Bank of England  Database.csv",
 *                        col_names = FALSE, skip = 1)
 ```
@@ -188,7 +197,7 @@ count: false
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 2
+# A tibble: 346 × 2
    X1           X2
    &lt;chr&gt;     &lt;dbl&gt;
  1 31 Oct 23  5.25
@@ -201,7 +210,7 @@ count: false
  8 31 Mar 23  4.08
  9 28 Feb 23  3.98
 10 31 Jan 23  3.5 
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -211,7 +220,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
 * rename(rate = X2,
@@ -222,7 +231,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 2
+# A tibble: 346 × 2
    date       rate
    &lt;chr&gt;     &lt;dbl&gt;
  1 31 Oct 23  5.25
@@ -235,7 +244,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
  8 31 Mar 23  4.08
  9 28 Feb 23  3.98
 10 31 Jan 23  3.5 
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -245,7 +254,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -257,7 +266,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 2
+# A tibble: 346 × 2
    date        rate
    &lt;date&gt;     &lt;dbl&gt;
  1 2023-10-31  5.25
@@ -270,7 +279,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
  8 2023-03-31  4.08
  9 2023-02-28  3.98
 10 2023-01-31  3.5 
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -280,7 +289,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -293,7 +302,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -306,7 +315,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -316,7 +325,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -334,7 +343,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -347,11 +356,11 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 2
+# A tibble: 346 × 2
    X1           X2
    &lt;chr&gt;     &lt;dbl&gt;
  1 31 Oct 23  8.01
@@ -364,7 +373,7 @@ read_csv("../data/IUMABEDR  Bank of England  Database.csv",
  8 31 Mar 23  7.16
  9 28 Feb 23  6.97
 10 31 Jan 23  6.61
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -374,7 +383,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -394,7 +403,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -407,11 +416,11 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 2
+# A tibble: 346 × 2
    date       rate
    &lt;chr&gt;     &lt;dbl&gt;
  1 31 Oct 23  8.01
@@ -424,7 +433,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 31 Mar 23  7.16
  9 28 Feb 23  6.97
 10 31 Jan 23  6.61
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -434,7 +443,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -455,7 +464,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -468,11 +477,11 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 2
+# A tibble: 346 × 2
    date        rate
    &lt;date&gt;     &lt;dbl&gt;
  1 2023-10-31  8.01
@@ -485,7 +494,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 2023-03-31  7.16
  9 2023-02-28  6.97
 10 2023-01-31  6.61
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -495,7 +504,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -517,7 +526,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -530,11 +539,11 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type             
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
  1 2023-10-31  8.01 Av. mortgage rate
@@ -547,7 +556,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 2023-03-31  7.16 Av. mortgage rate
  9 2023-02-28  6.97 Av. mortgage rate
 10 2023-01-31  6.61 Av. mortgage rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -557,7 +566,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -583,7 +592,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -596,11 +605,11 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type             
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
  1 2023-10-31  8.01 Av. mortgage rate
@@ -613,7 +622,7 @@ read_csv("../data/IUMTLMV  Bank of England  Database.csv",
  8 2023-03-31  7.16 Av. mortgage rate
  9 2023-02-28  6.97 Av. mortgage rate
 10 2023-01-31  6.61 Av. mortgage rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -623,7 +632,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -651,7 +660,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -664,11 +673,11 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type             
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
  1 2023-10-31  8.01 Av. mortgage rate
@@ -681,7 +690,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  7.16 Av. mortgage rate
  9 2023-02-28  6.97 Av. mortgage rate
 10 2023-01-31  6.61 Av. mortgage rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -691,7 +700,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -720,7 +729,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -733,11 +742,11 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type             
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
  1 2023-10-31  8.01 Av. mortgage rate
@@ -750,7 +759,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  7.16 Av. mortgage rate
  9 2023-02-28  6.97 Av. mortgage rate
 10 2023-01-31  6.61 Av. mortgage rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -760,7 +769,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -790,7 +799,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -803,11 +812,11 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type             
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
  1 2023-10-31  8.01 Av. mortgage rate
@@ -820,7 +829,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  7.16 Av. mortgage rate
  9 2023-02-28  6.97 Av. mortgage rate
 10 2023-01-31  6.61 Av. mortgage rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -830,7 +839,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 read_csv("../data/IUMABEDR  Bank of England  Database.csv",
                          col_names = FALSE, skip = 1) %&gt;%
   rename(rate = X2,
@@ -862,7 +871,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type       
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      
  1 2023-10-31  5.25 Policy rate
@@ -875,11 +884,11 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  4.08 Policy rate
  9 2023-02-28  3.98 Policy rate
 10 2023-01-31  3.5  Policy rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 
 ```
-# A tibble: 346 x 3
+# A tibble: 346 × 3
    date        rate type             
    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            
  1 2023-10-31  8.01 Av. mortgage rate
@@ -892,7 +901,7 @@ overdraft_rate &lt;- read_csv("../data/IUMODTL  Bank of England  Database.csv",
  8 2023-03-31  7.16 Av. mortgage rate
  9 2023-02-28  6.97 Av. mortgage rate
 10 2023-01-31  6.61 Av. mortgage rate
-# … with 336 more rows
+# ℹ 336 more rows
 ```
 ]
 
@@ -936,7 +945,7 @@ count: false
 
 .panel1-chunk_12-auto[
 
-```r
+``` r
 *ggplot(data = rates, aes(x = date, y = rate, linetype = type))
 ```
 ]
@@ -951,7 +960,7 @@ count: false
 
 .panel1-chunk_12-auto[
 
-```r
+``` r
 ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
 * geom_line(lwd = 1)
 ```
@@ -967,7 +976,7 @@ count: false
 
 .panel1-chunk_12-auto[
 
-```r
+``` r
 ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
   geom_line(lwd = 1)+
 *   scale_x_date(date_breaks = "24 month", date_labels = "%Y")
@@ -984,7 +993,7 @@ count: false
 
 .panel1-chunk_12-auto[
 
-```r
+``` r
 ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
   geom_line(lwd = 1)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1002,7 +1011,7 @@ count: false
 
 .panel1-chunk_12-auto[
 
-```r
+``` r
 ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
   geom_line(lwd = 1)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1021,7 +1030,7 @@ count: false
 
 .panel1-chunk_12-auto[
 
-```r
+``` r
 ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
   geom_line(lwd = 1)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1042,7 +1051,7 @@ count: false
 
 .panel1-chunk_12-auto[
 
-```r
+``` r
 ggplot(data = rates, aes(x = date, y = rate, linetype = type))+
   geom_line(lwd = 1)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1233,7 +1242,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 *read_table2("../data/Exchange_Rate_Report.tsv",
 *                                   skip = 2)
 ```
@@ -1242,20 +1251,20 @@ count: false
 .panel2-chunk_21-auto[
 
 ```
-# A tibble: 7,458 x 4
+# A tibble: 7,458 × 4
    Date         U.K. `pound(GBP)` X4   
-   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;
- 1 04-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
- 2 05-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
- 3 06-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
- 4 07-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
- 5 10-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
- 6 11-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
- 7 12-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
- 8 13-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
- 9 14-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
-10 17-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
-# … with 7,448 more rows
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;
+ 1 04-Jan-1994  1.48 "\xa0"       NA   
+ 2 05-Jan-1994  1.49 "\xa0"       NA   
+ 3 06-Jan-1994  1.48 "\xa0"       NA   
+ 4 07-Jan-1994  1.48 "\xa0"       NA   
+ 5 10-Jan-1994  1.49 "\xa0"       NA   
+ 6 11-Jan-1994  1.49 "\xa0"       NA   
+ 7 12-Jan-1994  1.50 "\xa0"       NA   
+ 8 13-Jan-1994  1.50 "\xa0"       NA   
+ 9 14-Jan-1994  1.49 "\xa0"       NA   
+10 17-Jan-1994  1.49 "\xa0"       NA   
+# ℹ 7,448 more rows
 ```
 ]
 
@@ -1265,7 +1274,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 read_table2("../data/Exchange_Rate_Report.tsv",
                                     skip = 2) %&gt;%
 * rename(rate = `U.K.`)
@@ -1275,20 +1284,20 @@ read_table2("../data/Exchange_Rate_Report.tsv",
 .panel2-chunk_21-auto[
 
 ```
-# A tibble: 7,458 x 4
+# A tibble: 7,458 × 4
    Date         rate `pound(GBP)` X4   
-   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;
- 1 04-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
- 2 05-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
- 3 06-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
- 4 07-Jan-1994  1.48 "\xa0"       &lt;NA&gt; 
- 5 10-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
- 6 11-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
- 7 12-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
- 8 13-Jan-1994  1.50 "\xa0"       &lt;NA&gt; 
- 9 14-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
-10 17-Jan-1994  1.49 "\xa0"       &lt;NA&gt; 
-# … with 7,448 more rows
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;
+ 1 04-Jan-1994  1.48 "\xa0"       NA   
+ 2 05-Jan-1994  1.49 "\xa0"       NA   
+ 3 06-Jan-1994  1.48 "\xa0"       NA   
+ 4 07-Jan-1994  1.48 "\xa0"       NA   
+ 5 10-Jan-1994  1.49 "\xa0"       NA   
+ 6 11-Jan-1994  1.49 "\xa0"       NA   
+ 7 12-Jan-1994  1.50 "\xa0"       NA   
+ 8 13-Jan-1994  1.50 "\xa0"       NA   
+ 9 14-Jan-1994  1.49 "\xa0"       NA   
+10 17-Jan-1994  1.49 "\xa0"       NA   
+# ℹ 7,448 more rows
 ```
 ]
 
@@ -1298,7 +1307,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 read_table2("../data/Exchange_Rate_Report.tsv",
                                     skip = 2) %&gt;%
   rename(rate = `U.K.`) %&gt;%
@@ -1309,20 +1318,20 @@ read_table2("../data/Exchange_Rate_Report.tsv",
 .panel2-chunk_21-auto[
 
 ```
-# A tibble: 7,458 x 5
+# A tibble: 7,458 × 5
    Date         rate `pound(GBP)` X4    date      
-   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt; &lt;date&gt;    
- 1 04-Jan-1994  1.48 "\xa0"       &lt;NA&gt;  1994-01-04
- 2 05-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-05
- 3 06-Jan-1994  1.48 "\xa0"       &lt;NA&gt;  1994-01-06
- 4 07-Jan-1994  1.48 "\xa0"       &lt;NA&gt;  1994-01-07
- 5 10-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-10
- 6 11-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-11
- 7 12-Jan-1994  1.50 "\xa0"       &lt;NA&gt;  1994-01-12
- 8 13-Jan-1994  1.50 "\xa0"       &lt;NA&gt;  1994-01-13
- 9 14-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-14
-10 17-Jan-1994  1.49 "\xa0"       &lt;NA&gt;  1994-01-17
-# … with 7,448 more rows
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt; &lt;date&gt;    
+ 1 04-Jan-1994  1.48 "\xa0"       NA    1994-01-04
+ 2 05-Jan-1994  1.49 "\xa0"       NA    1994-01-05
+ 3 06-Jan-1994  1.48 "\xa0"       NA    1994-01-06
+ 4 07-Jan-1994  1.48 "\xa0"       NA    1994-01-07
+ 5 10-Jan-1994  1.49 "\xa0"       NA    1994-01-10
+ 6 11-Jan-1994  1.49 "\xa0"       NA    1994-01-11
+ 7 12-Jan-1994  1.50 "\xa0"       NA    1994-01-12
+ 8 13-Jan-1994  1.50 "\xa0"       NA    1994-01-13
+ 9 14-Jan-1994  1.49 "\xa0"       NA    1994-01-14
+10 17-Jan-1994  1.49 "\xa0"       NA    1994-01-17
+# ℹ 7,448 more rows
 ```
 ]
 
@@ -1332,7 +1341,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 read_table2("../data/Exchange_Rate_Report.tsv",
                                     skip = 2) %&gt;%
   rename(rate = `U.K.`) %&gt;%
@@ -1344,7 +1353,7 @@ read_table2("../data/Exchange_Rate_Report.tsv",
 .panel2-chunk_21-auto[
 
 ```
-# A tibble: 7,458 x 2
+# A tibble: 7,458 × 2
    date        rate
    &lt;date&gt;     &lt;dbl&gt;
  1 1994-01-04  1.48
@@ -1357,7 +1366,7 @@ read_table2("../data/Exchange_Rate_Report.tsv",
  8 1994-01-13  1.50
  9 1994-01-14  1.49
 10 1994-01-17  1.49
-# … with 7,448 more rows
+# ℹ 7,448 more rows
 ```
 ]
 
@@ -1367,7 +1376,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 read_table2("../data/Exchange_Rate_Report.tsv",
                                     skip = 2) %&gt;%
   rename(rate = `U.K.`) %&gt;%
@@ -1380,7 +1389,7 @@ read_table2("../data/Exchange_Rate_Report.tsv",
 .panel2-chunk_21-auto[
 
 ```
-# A tibble: 7,458 x 3
+# A tibble: 7,458 × 3
    date        rate         g
    &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;
  1 1994-01-04  1.48 NA       
@@ -1393,7 +1402,7 @@ read_table2("../data/Exchange_Rate_Report.tsv",
  8 1994-01-13  1.50  0.00114 
  9 1994-01-14  1.49 -0.00447 
 10 1994-01-17  1.49  0.00101 
-# … with 7,448 more rows
+# ℹ 7,448 more rows
 ```
 ]
 
@@ -1437,7 +1446,7 @@ count: false
 
 .panel1-chunk_22-auto[
 
-```r
+``` r
 *ggplot(data = ex_rate, aes(x = date, y = g))
 ```
 ]
@@ -1452,7 +1461,7 @@ count: false
 
 .panel1-chunk_22-auto[
 
-```r
+``` r
 ggplot(data = ex_rate, aes(x = date, y = g))+
 * geom_line(lwd = 0.5)
 ```
@@ -1468,7 +1477,7 @@ count: false
 
 .panel1-chunk_22-auto[
 
-```r
+``` r
 ggplot(data = ex_rate, aes(x = date, y = g))+
   geom_line(lwd = 0.5)+
 *   scale_x_date(date_breaks = "24 month", date_labels = "%Y")
@@ -1485,7 +1494,7 @@ count: false
 
 .panel1-chunk_22-auto[
 
-```r
+``` r
 ggplot(data = ex_rate, aes(x = date, y = g))+
   geom_line(lwd = 0.5)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1503,7 +1512,7 @@ count: false
 
 .panel1-chunk_22-auto[
 
-```r
+``` r
 ggplot(data = ex_rate, aes(x = date, y = g))+
   geom_line(lwd = 0.5)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1522,7 +1531,7 @@ count: false
 
 .panel1-chunk_22-auto[
 
-```r
+``` r
 ggplot(data = ex_rate, aes(x = date, y = g))+
   geom_line(lwd = 0.5)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1543,7 +1552,7 @@ count: false
 
 .panel1-chunk_22-auto[
 
-```r
+``` r
 ggplot(data = ex_rate, aes(x = date, y = g))+
   geom_line(lwd = 0.5)+
     scale_x_date(date_breaks = "24 month", date_labels = "%Y")+
@@ -1683,6 +1692,13 @@ class: inverse, center, middle
 # See you in the labs! 
 
 Questions? `\(\texttt{sebastian.ellingsen@bristol.ac.uk}\)`.
+
+
+
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -1734,6 +1750,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
