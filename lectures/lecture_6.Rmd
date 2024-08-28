@@ -26,7 +26,7 @@ style_mono_accent(
 
 options(htmltools.dir.version = FALSE)
 
-# This is the recommended set up for flipbooks
+# This is a recommended set up for flipbooks
 knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
 library(flipbookr)
 library(tidyverse)
