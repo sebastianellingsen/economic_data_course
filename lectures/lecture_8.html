@@ -4,17 +4,26 @@
     <title>Economic Data - Lecture 8</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2023-11-20" />
+    <meta name="date" content="2024-08-28" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Economic Data - Lecture 8
+]
+.subtitle[
 ## Sebastian Ellingsen
+]
+.author[
 ### School of Economics - University of Bristol
-### 2023-11-20
+]
+.date[
+### 2024-08-28
+]
 
 ---
 
@@ -293,7 +302,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 *read_excel("../data/GCIPrawdata.xlsx", skip = 2)
 ```
@@ -302,48 +311,21 @@ count: false
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 4,799 x 14
-   Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-   &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
- 1 Afghan…  1980              206              350              455
- 2 Afghan…  1981              212              361              469
- 3 Afghan…  1982              221              377              490
- 4 Afghan…  1983              238              405              527
- 5 Afghan…  1984              249              424              551
- 6 Afghan…  1985              256              435              566
- 7 Afghan…  1986              268              457              594
- 8 Afghan…  1987              243              414              539
- 9 Afghan…  1988              223              380              493
-10 Afghan…  1989              202              344              447
-# … with 4,789 more rows, and 9 more variables: `Decile 4 Income` &lt;dbl&gt;,
-#   `Decile 5 Income` &lt;dbl&gt;, `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;,
-#   `Decile 8 Income` &lt;dbl&gt;, `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;,
-#   `Mean Income` &lt;dbl&gt;, Population &lt;dbl&gt;
-```
-]
-
----
-count: false
- 
-
-.panel1-chunk_11-auto[
-
-```r
-# Loading data for China 1980 and 2014
-read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
-* filter(Country == 'China', Year %in% c(1980, 2014))
-```
-]
- 
-.panel2-chunk_11-auto[
-
-```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 4,799 × 14
+   Country      Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+   &lt;chr&gt;       &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+ 1 Afghanistan  1980               206               350               455
+ 2 Afghanistan  1981               212               361               469
+ 3 Afghanistan  1982               221               377               490
+ 4 Afghanistan  1983               238               405               527
+ 5 Afghanistan  1984               249               424               551
+ 6 Afghanistan  1985               256               435               566
+ 7 Afghanistan  1986               268               457               594
+ 8 Afghanistan  1987               243               414               539
+ 9 Afghanistan  1988               223               380               493
+10 Afghanistan  1989               202               344               447
+# ℹ 4,789 more rows
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -356,7 +338,35 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
+# Loading data for China 1980 and 2014
+read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
+* filter(Country == 'China', Year %in% c(1980, 2014))
+```
+]
+ 
+.panel2-chunk_11-auto[
+
+```
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+#   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
+#   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
+#   Population &lt;dbl&gt;
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_11-auto[
+
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -369,12 +379,12 @@ read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -387,7 +397,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -401,12 +411,12 @@ decs_c80          &lt;- unlist(decile_data_china[1, 3:12])
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -428,7 +438,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -445,12 +455,12 @@ decs_c80
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -472,7 +482,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -490,12 +500,12 @@ total_inc_80      &lt;- decile_data_china$`Mean Income`[1] * 10
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -521,7 +531,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -542,12 +552,12 @@ total_inc_80
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -573,7 +583,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -595,12 +605,12 @@ cum_inc_share_c80 &lt;-  cumsum(decs_c80) / total_inc_80
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -635,7 +645,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -660,12 +670,12 @@ cum_inc_share_c80
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -700,7 +710,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -726,12 +736,12 @@ decs_c14          &lt;- unlist(decile_data_china[2, 3:12])
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -766,7 +776,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -793,12 +803,12 @@ total_inc_14      &lt;- decile_data_china$`Mean Income`[2] * 10
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -833,7 +843,7 @@ count: false
 
 .panel1-chunk_11-auto[
 
-```r
+``` r
 # Loading data for China 1980 and 2014
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %&gt;%
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -860,12 +870,12 @@ cum_inc_share_c14 &lt;-  cumsum(decs_c14) / total_inc_14
 .panel2-chunk_11-auto[
 
 ```
-# A tibble: 2 x 14
-  Country  Year `Decile 1 Incom… `Decile 2 Incom… `Decile 3 Incom…
-  &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 China    1980               79              113              146
-2 China    2014              448              927             1440
-# … with 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
+# A tibble: 2 × 14
+  Country  Year `Decile 1 Income` `Decile 2 Income` `Decile 3 Income`
+  &lt;chr&gt;   &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+1 China    1980                79               113               146
+2 China    2014               448               927              1440
+# ℹ 9 more variables: `Decile 4 Income` &lt;dbl&gt;, `Decile 5 Income` &lt;dbl&gt;,
 #   `Decile 6 Income` &lt;dbl&gt;, `Decile 7 Income` &lt;dbl&gt;, `Decile 8 Income` &lt;dbl&gt;,
 #   `Decile 9 Income` &lt;dbl&gt;, `Decile 10 Income` &lt;dbl&gt;, `Mean Income` &lt;dbl&gt;,
 #   Population &lt;dbl&gt;
@@ -933,7 +943,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 # Plotting the data
 *plot(cum_inc_share_c80, type = "l", col = "blue",
 *    lwd = 2, ylab = "Cumulative income share")
@@ -950,7 +960,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lwd = 2, ylab = "Cumulative income share")
@@ -969,7 +979,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lwd = 2, ylab = "Cumulative income share")
@@ -990,7 +1000,7 @@ count: false
 
 .panel1-chunk_21-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lwd = 2, ylab = "Cumulative income share")
@@ -1046,7 +1056,7 @@ count: false
 
 .panel1-chunk_31-auto[
 
-```r
+``` r
 # Plotting the data
 *plot(cum_inc_share_c14, type = "l", col = "blue",
 *    lwd = 2, ylab = "Cumulative income share")
@@ -1063,7 +1073,7 @@ count: false
 
 .panel1-chunk_31-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c14, type = "l", col = "blue",
      lwd = 2, ylab = "Cumulative income share")
@@ -1082,7 +1092,7 @@ count: false
 
 .panel1-chunk_31-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c14, type = "l", col = "blue",
      lwd = 2, ylab = "Cumulative income share")
@@ -1103,7 +1113,7 @@ count: false
 
 .panel1-chunk_31-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c14, type = "l", col = "blue",
      lwd = 2, ylab = "Cumulative income share")
@@ -1157,7 +1167,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 *plot(cum_inc_share_c80, type = "l", col = "blue",
 *    lty = 2, lwd = 2, xlab = "Deciles",
@@ -1175,7 +1185,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1196,7 +1206,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1219,7 +1229,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1244,7 +1254,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1272,7 +1282,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1303,7 +1313,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1340,7 +1350,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1382,7 +1392,7 @@ count: false
 
 .panel1-chunk_41-auto[
 
-```r
+``` r
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue",
      lty = 2, lwd = 2, xlab = "Deciles",
@@ -1487,7 +1497,7 @@ count: false
 
 .panel1-chunk_51-auto[
 
-```r
+``` r
 *read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4)
 ```
 ]
@@ -1495,32 +1505,26 @@ count: false
 .panel2-chunk_51-auto[
 
 ```
-# A tibble: 266 x 68
+# A tibble: 266 × 68
    `Country Name` `Country Code` `Indicator Name` `Indicator Code` `1960` `1961`
-   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt; 
- 1 Aruba          ABW            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 2 Africa Easter… AFE            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 3 Afghanistan    AFG            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 4 Africa Wester… AFW            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 5 Angola         AGO            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 6 Albania        ALB            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 7 Andorra        AND            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 8 Arab World     ARB            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
- 9 United Arab E… ARE            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
-10 Argentina      ARG            Gini index       SI.POV.GINI      &lt;NA&gt;   &lt;NA&gt;  
-# … with 256 more rows, and 62 more variables: `1962` &lt;chr&gt;, `1963` &lt;dbl&gt;,
-#   `1964` &lt;dbl&gt;, `1965` &lt;dbl&gt;, `1966` &lt;dbl&gt;, `1967` &lt;dbl&gt;, `1968` &lt;dbl&gt;,
-#   `1969` &lt;dbl&gt;, `1970` &lt;dbl&gt;, `1971` &lt;dbl&gt;, `1972` &lt;dbl&gt;, `1973` &lt;dbl&gt;,
-#   `1974` &lt;dbl&gt;, `1975` &lt;dbl&gt;, `1976` &lt;dbl&gt;, `1977` &lt;dbl&gt;, `1978` &lt;dbl&gt;,
-#   `1979` &lt;dbl&gt;, `1980` &lt;dbl&gt;, `1981` &lt;dbl&gt;, `1982` &lt;dbl&gt;, `1983` &lt;dbl&gt;,
-#   `1984` &lt;dbl&gt;, `1985` &lt;dbl&gt;, `1986` &lt;dbl&gt;, `1987` &lt;dbl&gt;, `1988` &lt;dbl&gt;,
-#   `1989` &lt;dbl&gt;, `1990` &lt;dbl&gt;, `1991` &lt;dbl&gt;, `1992` &lt;dbl&gt;, `1993` &lt;dbl&gt;,
-#   `1994` &lt;dbl&gt;, `1995` &lt;dbl&gt;, `1996` &lt;dbl&gt;, `1997` &lt;dbl&gt;, `1998` &lt;dbl&gt;,
-#   `1999` &lt;dbl&gt;, `2000` &lt;dbl&gt;, `2001` &lt;dbl&gt;, `2002` &lt;dbl&gt;, `2003` &lt;dbl&gt;,
-#   `2004` &lt;dbl&gt;, `2005` &lt;dbl&gt;, `2006` &lt;dbl&gt;, `2007` &lt;dbl&gt;, `2008` &lt;dbl&gt;,
-#   `2009` &lt;dbl&gt;, `2010` &lt;dbl&gt;, `2011` &lt;dbl&gt;, `2012` &lt;dbl&gt;, `2013` &lt;dbl&gt;,
-#   `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;, `2017` &lt;dbl&gt;, `2018` &lt;dbl&gt;,
-#   `2019` &lt;dbl&gt;, `2020` &lt;dbl&gt;, `2021` &lt;dbl&gt;, `2022` &lt;dbl&gt;, X68 &lt;chr&gt;
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;            &lt;lgl&gt;  &lt;lgl&gt; 
+ 1 Aruba          ABW            Gini index       SI.POV.GINI      NA     NA    
+ 2 Africa Easter… AFE            Gini index       SI.POV.GINI      NA     NA    
+ 3 Afghanistan    AFG            Gini index       SI.POV.GINI      NA     NA    
+ 4 Africa Wester… AFW            Gini index       SI.POV.GINI      NA     NA    
+ 5 Angola         AGO            Gini index       SI.POV.GINI      NA     NA    
+ 6 Albania        ALB            Gini index       SI.POV.GINI      NA     NA    
+ 7 Andorra        AND            Gini index       SI.POV.GINI      NA     NA    
+ 8 Arab World     ARB            Gini index       SI.POV.GINI      NA     NA    
+ 9 United Arab E… ARE            Gini index       SI.POV.GINI      NA     NA    
+10 Argentina      ARG            Gini index       SI.POV.GINI      NA     NA    
+# ℹ 256 more rows
+# ℹ 62 more variables: `1962` &lt;lgl&gt;, `1963` &lt;dbl&gt;, `1964` &lt;dbl&gt;, `1965` &lt;dbl&gt;,
+#   `1966` &lt;dbl&gt;, `1967` &lt;dbl&gt;, `1968` &lt;dbl&gt;, `1969` &lt;dbl&gt;, `1970` &lt;dbl&gt;,
+#   `1971` &lt;dbl&gt;, `1972` &lt;dbl&gt;, `1973` &lt;dbl&gt;, `1974` &lt;dbl&gt;, `1975` &lt;dbl&gt;,
+#   `1976` &lt;dbl&gt;, `1977` &lt;dbl&gt;, `1978` &lt;dbl&gt;, `1979` &lt;dbl&gt;, `1980` &lt;dbl&gt;,
+#   `1981` &lt;dbl&gt;, `1982` &lt;dbl&gt;, `1983` &lt;dbl&gt;, `1984` &lt;dbl&gt;, `1985` &lt;dbl&gt;,
+#   `1986` &lt;dbl&gt;, `1987` &lt;dbl&gt;, `1988` &lt;dbl&gt;, `1989` &lt;dbl&gt;, `1990` &lt;dbl&gt;, …
 ```
 ]
 
@@ -1530,7 +1534,7 @@ count: false
 
 .panel1-chunk_51-auto[
 
-```r
+``` r
 read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
 * select("Country Name", "2019")
 ```
@@ -1539,7 +1543,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
 .panel2-chunk_51-auto[
 
 ```
-# A tibble: 266 x 2
+# A tibble: 266 × 2
    `Country Name`              `2019`
    &lt;chr&gt;                        &lt;dbl&gt;
  1 Aruba                         NA  
@@ -1552,7 +1556,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
  8 Arab World                    NA  
  9 United Arab Emirates          NA  
 10 Argentina                     42.9
-# … with 256 more rows
+# ℹ 256 more rows
 ```
 ]
 
@@ -1562,7 +1566,7 @@ count: false
 
 .panel1-chunk_51-auto[
 
-```r
+``` r
 read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
   select("Country Name", "2019") %&gt;%
 * rename(country = "Country Name",
@@ -1573,7 +1577,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
 .panel2-chunk_51-auto[
 
 ```
-# A tibble: 266 x 2
+# A tibble: 266 × 2
    country                      gini
    &lt;chr&gt;                       &lt;dbl&gt;
  1 Aruba                        NA  
@@ -1586,7 +1590,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
  8 Arab World                   NA  
  9 United Arab Emirates         NA  
 10 Argentina                    42.9
-# … with 256 more rows
+# ℹ 256 more rows
 ```
 ]
 
@@ -1596,7 +1600,7 @@ count: false
 
 .panel1-chunk_51-auto[
 
-```r
+``` r
 read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
   select("Country Name", "2019") %&gt;%
   rename(country = "Country Name",
@@ -1609,7 +1613,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
 .panel2-chunk_51-auto[
 
 ```
-# A tibble: 71 x 2
+# A tibble: 71 × 2
    country    gini
    &lt;chr&gt;     &lt;dbl&gt;
  1 Albania    30.1
@@ -1622,7 +1626,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
  8 Bolivia    41.6
  9 Brazil     53.5
 10 Canada     31.7
-# … with 61 more rows
+# ℹ 61 more rows
 ```
 ]
 
@@ -1632,7 +1636,7 @@ count: false
 
 .panel1-chunk_51-auto[
 
-```r
+``` r
 read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
   select("Country Name", "2019") %&gt;%
   rename(country = "Country Name",
@@ -1646,7 +1650,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
 .panel2-chunk_51-auto[
 
 ```
-# A tibble: 71 x 2
+# A tibble: 71 × 2
    country    gini
    &lt;fct&gt;     &lt;dbl&gt;
  1 Albania    30.1
@@ -1659,7 +1663,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
  8 Bolivia    41.6
  9 Brazil     53.5
 10 Canada     31.7
-# … with 61 more rows
+# ℹ 61 more rows
 ```
 ]
 
@@ -1669,7 +1673,7 @@ count: false
 
 .panel1-chunk_51-auto[
 
-```r
+``` r
 read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
   select("Country Name", "2019") %&gt;%
   rename(country = "Country Name",
@@ -1683,7 +1687,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
 .panel2-chunk_51-auto[
 
 ```
-# A tibble: 71 x 2
+# A tibble: 71 × 2
    country    gini
    &lt;fct&gt;     &lt;dbl&gt;
  1 Albania    30.1
@@ -1696,7 +1700,7 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %&gt;%
  8 Bolivia    41.6
  9 Brazil     53.5
 10 Canada     31.7
-# … with 61 more rows
+# ℹ 61 more rows
 ```
 ]
 
@@ -1740,7 +1744,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 *ggplot(df, aes(x=country, y=gini))
 ```
 ]
@@ -1755,7 +1759,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
 * geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8))
 ```
@@ -1771,7 +1775,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
 * geom_hline(yintercept = 0)
@@ -1788,7 +1792,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1806,7 +1810,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1825,7 +1829,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1845,7 +1849,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1866,7 +1870,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1888,7 +1892,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1911,7 +1915,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1935,7 +1939,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1960,7 +1964,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -1986,7 +1990,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2013,7 +2017,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2041,7 +2045,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2070,7 +2074,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2100,7 +2104,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2131,7 +2135,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2163,7 +2167,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2196,7 +2200,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2230,7 +2234,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2265,7 +2269,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2301,7 +2305,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2338,7 +2342,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2376,7 +2380,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2415,7 +2419,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2457,7 +2461,7 @@ count: false
 
 .panel1-chunk_61-auto[
 
-```r
+``` r
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -2617,6 +2621,13 @@ class: inverse, center, middle
 # See you in the labs! 
 
 Questions? `\(\texttt{sebastian.ellingsen@bristol.ac.uk}\)`.
+
+
+
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -2668,6 +2679,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

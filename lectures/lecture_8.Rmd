@@ -430,7 +430,7 @@ library(ggpubr)
 library(ggthemes)
 
 df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
-  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"X68") %>% 
+  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"...68") %>% 
   gather(year, gini, 2:64) %>% 
   rename(country = 'Country Name') %>% 
   filter(country == 'China',
@@ -630,7 +630,7 @@ library(ggpubr)
 library(ggthemes)
 
 df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
-  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"X68") %>% 
+  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"...68") %>% 
   gather(year, gini, 2:64) %>% 
   rename(country = 'Country Name') %>% 
   filter(country == 'United Kingdom',
