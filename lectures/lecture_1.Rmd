@@ -148,7 +148,7 @@ The answers require the skills developed in this course.
 
 - Knowledge of concepts and definitions: How is inflation measured?
 
-- Software skills to work with datasets and organizing data.
+- Software skills to work with datasets and organize data.
 
 - Data visualisation and description skills.
 
@@ -207,7 +207,7 @@ p1
 
 *Your boss liked your analysis!* 
 
-*In fact, he liked it so much that he wants to construct the same exact chart but beginning in 2003.*
+*In fact, he liked it so much that he wants to construct the same chart but beginning in 2003.*
 
 *No problem!*
 
@@ -340,20 +340,18 @@ class: inverse, center, middle
 
 **What:**
 
-- Will not affect your mark
+- Will not affect your mark.
 
-- 4 mini projects (and a test project this week)
+- Four mini projects.
 
-- Weekly quiz questions<br><br>
+- Weekly quiz questions. <br><br>
 
 
 **Feedback:**
 
-- 4 mini projects: feedback from us in labs and from peers on Eduflow
+- Four mini projects: feedback from us in labs and from peers on Eduflow.
 
-- and mini project 2: submit on blackboard and receive written feedback from us
-
-- weekly quiz questions: feedback at the end of the week
+- Weekly quiz questions: feedback at the end of the week
 
 
 
@@ -634,15 +632,86 @@ class: inverse, center, middle
 
 ---
 
-## Summary 
 
-What ... 
+
+class: inverse, center, middle
+
+# Introduction to R
+
+---
+
+
+## Why R?
+
+**Automation**: Scripts automate repetitive tasks like data cleaning, transformation, and analysis.
+
+**Reproducibility**: Scripts offer a clear, documented workflow that's easy to share and reproduce.
+
+**Error Reduction**: Manual data entry and copying formulas can easily introduce errors.<br><br> 
+
+For these reasons we will learn how to write computer scripts to analyse data in this course.
+
+Two useful languages are Python and R. 
+
+We will use R and the RStudio GUI since it's more developed for statistics and econometrics. 
+
+
+
+
+
+
+---
+<div style="text-align: center; margin-top: 80px;">
+  <img src="images/excel_error.png" alt="A descriptive alt text" style="width: 650px;">
+</div>
+
+
+<!-- - Highlights patterns and trends.  -->
+
+<!-- - Facilitates comparison across groups or over time.  -->
+
+<!-- - Helps communicate insights from economic analysis. <br><br> -->
+
+<!-- What is a good chart? Unfortunately, no simple rules of thumb exist.  -->
+
+<!-- A good chart requires good judgment and domain knowledge.  -->
+
+<!-- Also a question of who is looking at it, and why. -->
+
+<!-- We will consider two fairly general principles. -->
+
+
+
+---
 
 
 
 class: inverse, center, middle
 
 # Introduction to R
+
+
+
+
+
+
+---
+
+## Summary
+
+You should know: 
+
+- How this course is organized. 
+
+- Why we need to learn about economic data. 
+
+- Two principles of data visualization. 
+
+- What R is. <br><br> 
+
+
+**Next week**: Overview of demographic data. 
+
 
 
 
