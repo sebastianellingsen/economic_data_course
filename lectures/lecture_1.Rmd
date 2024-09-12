@@ -465,10 +465,6 @@ class: inverse, center, middle
 
 # Data Visualisation Basics
 
----
-
-check principles in the book ... 
-
 
 
 
