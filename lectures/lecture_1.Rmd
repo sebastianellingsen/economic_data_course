@@ -686,13 +686,21 @@ We will use R and the RStudio GUI since it's more developed for statistics and e
 
 
 
+---
+<div style="text-align: center; margin-top: 80px;">
+  <img src="images/rstudio.png" alt="A descriptive alt text" style="width: 950px;">
+</div>
+
+
+
+
+---
+
+
+
 class: inverse, center, middle
 
-# Introduction to R
-
-
-
-
+# Summary
 
 
 ---
