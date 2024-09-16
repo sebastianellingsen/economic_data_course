@@ -274,6 +274,32 @@ p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
 
 
 
+
+---
+
+## Topics
+
+This unit is organized around topics. 
+
+- Demographic data
+
+- Economic activity
+
+- Wellbeing
+
+- Prices
+
+- Unemployment 
+
+- Inequality
+
+- Money
+
+
+
+
+
+
 ---
 
 class: inverse, center, middle
