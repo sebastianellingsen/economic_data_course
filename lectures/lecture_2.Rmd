@@ -1,0 +1,595 @@
+---
+title: "Economic Data - Lecture 2"
+subtitle: "Sebastian Ellingsen"
+author: "School of Economics - University of Bristol"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      navigation:
+        scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253")
+
+options(htmltools.dir.version = FALSE)
+
+# This is a recommended set up for flipbooks
+knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
+library(flipbookr)
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggthemes)
+```
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Adjust based on your needs */
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+```
+
+
+<div class="centered-content">
+  <h2> </h2>
+   <p>  Lab 1 <p> 
+
+  <p>  Data on people<p> 
+
+   <p> Fertility <p>
+
+  <p> Life expectancy <p>
+
+  <p> Working with data on people <p>
+</div>
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Lab 1 - Extension
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/economic_data_uk.csv')
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = Year, y = gdp_pc))+
+  geom_line(size = 0.9, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("GDP Per Capita") +
+  labs(title = "GDP Per Capita UK, 1980-2018",
+       caption = "Source: Maddison (2021).")
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/economic_data_uk.csv')
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = Year, y = log(gdp_pc)))+
+  geom_line(size = 0.9, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("GDP Per Capita (log.)") +
+  labs(title = "GDP Per Capita UK, 1980-2018",
+       caption = "Source: Maddison (2021).")
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+# Growth rates and logarithms
+
+Why did we transform the time series of GDP per capita with the natural log? 
+
+Let $y_{t}$ denotes GDP per capita in year $t$, then 
+\begin{equation}
+Y_{2018} = Y_{2017} (1+g),
+\end{equation}
+where $g$ denotes the growth rate. Then 
+\begin{equation}
+\frac{Y_{2018}}{Y_{2017}} =  1+g,
+\end{equation}
+Taking the natural log gives 
+\begin{equation}
+\text{log}(Y_{2018}) - \text{log}(Y_{2017}) = \text{log}(1+g)\approx g.
+\end{equation}
+Why is that? 
+
+Remember that: $f(x+x_0) \approx f(x_0) + f^{\prime}(x_0)(x-x_0)$, $\text{log}(1)$, and $\partial \text{log}(x)/\partial x=1/x$.
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/economic_data_uk.csv') %>%
+  mutate(d_l_gdp_pc = log(gdp_pc) - dplyr::lag(log(gdp_pc), n = 1),
+         g_gdp_pc = (gdp_pc - dplyr::lag(gdp_pc, n = 1)) / dplyr::lag(gdp_pc, n = 1)) 
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = Year, y = d_l_gdp_pc))+
+  geom_line(size = 0.9, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("GDP Per Capita (log.)") +
+  labs(title = "GDP Per Capita UK, 1980-2018",
+       caption = "Source: Maddison (2021).")+
+  ylim(-0.055, 0.055)
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/economic_data_uk.csv') %>%
+  mutate(d_l_gdp_pc = log(gdp_pc) - dplyr::lag(log(gdp_pc), n = 1),
+         g_gdp_pc = (gdp_pc - dplyr::lag(gdp_pc, n = 1)) / dplyr::lag(gdp_pc, n = 1)) %>%
+  pivot_longer(cols = c(gdp_pc, d_l_gdp_pc, g_gdp_pc), 
+               names_to = "series", 
+               values_to = "values") %>% 
+  filter(!is.na(values))
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = Year, y = values, linetype = series))+
+  geom_line(size = 0.9, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("GDP Per Capita (log.)") +
+  labs(title = "GDP Per Capita UK, 1980-2018",
+       caption = "Source: Maddison (2021).")+
+  ylim(-0.055, 0.055)
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+<!-- lab 1 plot, log, why logs? slope approximates the growth rate -->
+
+<!-- why is that?  -->
+
+<!-- consider GDP = ...  -->
+
+<!-- very small approximately  -->
+
+<!-- then plot the change, gives the growth rate,  -->
+
+<!-- then plot the actual growth rate  -->
+
+<!-- as long as g is small it works well, can see the correlation between the two variables  -->
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Data About People
+
+
+
+---
+
+## What we use data about people for?
+
+- Interesting in itself
+
+- Used in the hockey stick chart (GDP per person!)
+
+- Productivity measures
+
+- Important for economic policy
+
+- Tax base
+
+- Budget/Expenditures (age composition)
+
+
+
+
+---
+
+# Census Data
+
+- Census: We have to ask everyone.
+
+- Super expensive and time-consuming (last census in the UK ~ £500 million)
+
+- Only every 10 years in the UK since 1801
+
+- Some countries have stopped running censuses (Last census in Denmark was in the 1970s)
+
+---
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+pop <- read_csv('../data/HISTPOP_27102023144550354.csv') %>% 
+  rename(year = Time, pop = Value) %>% 
+  dplyr::select(year, pop) %>% 
+  mutate(pop = pop/1000000)
+
+births <- read_xlsx('../data/annualreferencetables2021.xlsx', sheet = 6, skip = 5) %>% 
+  rename(year = Year, 
+         births = `Number of live births: United Kingdom`) %>% 
+  mutate(year = as.numeric(year),
+         Births = as.numeric(births)) %>% 
+  select(year, Births) %>% 
+  filter(year>=1980)
+
+deaths <- read_xlsx('../data/annualreferencetables2021.xlsx', sheet = 7, skip = 5) %>% 
+  rename(year = Year, 
+         deaths = `Number of deaths: United Kingdom`) %>% 
+  mutate(year = as.numeric(year),
+         Deaths = as.numeric(deaths)) %>% 
+  select(year, Deaths) %>% 
+  filter(year>=1980)
+
+
+# Combining datasets
+vital_stats_wide <- births %>% 
+  full_join(deaths, by = 'year')
+
+vital_stats_long <- vital_stats_wide %>% 
+  gather(variable, value, -year)
+
+
+# Constructing plots 
+p1 <- ggplot(data=pop, aes(x = year, y = pop))+
+  geom_line(size = 0.9, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("Population (millions)") +
+  labs(title = "Total population of the UK, 1980-2021",
+       subtitle = "Population is measured in millions",
+       caption = "Source: OECD.")
+  
+
+p2 <- ggplot(data=vital_stats_wide, aes(x = year, y = Births-Deaths))+
+  geom_line(size = 0.9, alpha = 0.5)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  labs(x = "",
+       y = "Difference")+
+  labs(title = "",
+       subtitle = "",
+       caption = "Source: Vital statistics in the UK: births, deaths and marriages, Office of National Statistics (2023)")
+
+
+p3 <- ggplot(data=vital_stats_long, aes(x = year, y = value, color = variable))+
+  geom_line(size = 0.9, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  xlab(" ") +
+  ylab("") +
+  labs(title = "Births and deaths in the UK, 1980-2021",
+       subtitle = "",
+       caption = "")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+---
+
+
+# Example: UK
+
+**How many people were there in the UK on January 1, 2019?**
+- Go to Eurostat and find: 66,647,112.
+
+
+How do we know? Last census in the UK was in 2011...
+
+
+---
+
+# Components of change
+
+We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows: <br><br>
+
+\begin{equation}
+\Delta \text{Pop}_{t+\Delta t, t} = (\underbrace{\text{births}_{t+\Delta t, t} - \text{deaths}_{t+\Delta t, t}}_{\text{Natural change}})+(\underbrace{\text{im}_{t+\Delta t, t} -  \text{em}_{t+\Delta t, t}}_{\text{Net migration}}) + \text{adj}_{t+\Delta t, t}.
+\end{equation}
+
+- $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+
+- $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+
+<!-- - Embassies -->
+<!-- - Military service -->
+<!-- - International organizations -->
+<!-- - Non-registered births -->
+
+
+---
+
+<h2>How many people were there in the UK on January 1, 2019?</h2>
+
++ births: Jan 1, 2011 – Jan 1, 2019
+    
+- deaths: Jan 1, 2011 – Jan 1, 2019
+    
++ immigration: Jan 1, 2011 – Jan 1, 2019
+    
+- emigration: Jan 1, 2011 – Jan 1, 2019
+    
++ Statistical discrepancies</li>
+
+
+
+
+
+---
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+cowplot::plot_grid(p3, p2, nrow = 2, rel_heights = c(0.58, 0.42), align = "v")
+```
+
+---
+
+<!-- <div> -->
+<!--   <p><strong>Stock:</strong> The number of people according to the last census in 2011</p> -->
+<!-- </div> -->
+
+<!-- <div> -->
+<!--   <p><strong>Flows:</strong></p> -->
+<!--   <ul> -->
+<!--     <li>+ births: Jan 1, 2011 – Jan 1, 2019</li> -->
+
+<!--     <li>- deaths: Jan 1, 2011 – Jan 1, 2019</li> -->
+
+<!--     <li>+ immigration: Jan 1, 2011 – Jan 1, 2019</li> -->
+
+<!--     <li>- emigration: Jan 1, 2011 – Jan 1, 2019</li> -->
+
+<!--     <li>+ Statistical discrepancies</li> -->
+<!--   </ul> -->
+<!-- </div> -->
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Summary
+
+
+---
+
+## Summary
+
+You should know: 
+
+- How this course is organized. 
+
+- Why we need to learn about economic data. 
+
+- Two principles of data visualization. 
+
+- What R is. <br><br> 
+
+
+**Next week**: Overview of demographic data. 
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? $\texttt{sebastian.ellingsen@bristol.ac.uk}$.
+
+
+
+
+
+
+
