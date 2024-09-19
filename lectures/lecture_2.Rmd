@@ -106,7 +106,7 @@ df <- read_csv('../data/economic_data_uk.csv')
 
 # Constructing plots 
 p1 <- ggplot(data=df, aes(x = Year, y = gdp_pc))+
-  geom_line(size = 0.9, alpha = 0.7)+
+  geom_line(size = 1.1, alpha = 0.7)+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
@@ -145,7 +145,7 @@ df <- read_csv('../data/economic_data_uk.csv')
 
 # Constructing plots 
 p1 <- ggplot(data=df, aes(x = Year, y = log(gdp_pc)))+
-  geom_line(size = 0.9, alpha = 0.7)+
+  geom_line(size = 1.1, alpha = 0.7)+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
@@ -210,7 +210,7 @@ df <- read_csv('../data/economic_data_uk.csv') %>%
 
 # Constructing plots 
 p1 <- ggplot(data=df, aes(x = Year, y = d_l_gdp_pc))+
-  geom_line(size = 0.9, alpha = 0.7)+
+  geom_line(size = 1.1, alpha = 0.7)+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
@@ -256,7 +256,7 @@ df <- read_csv('../data/economic_data_uk.csv') %>%
 
 # Constructing plots 
 p1 <- ggplot(data=df, aes(x = Year, y = values, linetype = series))+
-  geom_line(size = 0.9, alpha = 0.7)+
+  geom_line(size = 1.1, alpha = 0.7)+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
@@ -325,9 +325,17 @@ class: inverse, center, middle
 
 - Important for economic policy
 
+- Pension schemes
+
 - Tax base
 
 - Budget/Expenditures (age composition)
+
+
+Kowledge about demographic data is therefore important for many economic problems. 
+
+
+
 
 
 
@@ -344,9 +352,7 @@ class: inverse, center, middle
 
 - Some countries have stopped running censuses (Last census in Denmark was in the 1970s)
 
----
-
-
+ADD EHRE 
 
 
 
@@ -386,7 +392,7 @@ vital_stats_long <- vital_stats_wide %>%
 
 # Constructing plots 
 p1 <- ggplot(data=pop, aes(x = year, y = pop))+
-  geom_line(size = 0.9, alpha = 0.7)+
+  geom_line(size = 1.1, alpha = 0.7)+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
@@ -412,7 +418,7 @@ p1 <- ggplot(data=pop, aes(x = year, y = pop))+
   
 
 p2 <- ggplot(data=vital_stats_wide, aes(x = year, y = Births-Deaths))+
-  geom_line(size = 0.9, alpha = 0.5)+
+  geom_line(size = 1.1, alpha = 0.5)+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
@@ -439,7 +445,7 @@ p2 <- ggplot(data=vital_stats_wide, aes(x = year, y = Births-Deaths))+
 
 
 p3 <- ggplot(data=vital_stats_long, aes(x = year, y = value, color = variable))+
-  geom_line(size = 0.9, alpha = 0.7)+
+  geom_line(size = 1.1, alpha = 0.7)+
   theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
         legend.title = element_blank(),
@@ -487,12 +493,12 @@ How do we know? Last census in the UK was in 2011...
 
 # Components of change
 
-We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows: <br><br>
+We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows: <br><br> <br><br>
 
 \begin{equation}
 \Delta \text{Pop}_{t+\Delta t, t} = (\underbrace{\text{births}_{t+\Delta t, t} - \text{deaths}_{t+\Delta t, t}}_{\text{Natural change}})+(\underbrace{\text{im}_{t+\Delta t, t} -  \text{em}_{t+\Delta t, t}}_{\text{Net migration}}) + \text{adj}_{t+\Delta t, t}.
 \end{equation}
-
+<br><br>
 - $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
 
 - $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
@@ -502,20 +508,6 @@ We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows
 <!-- - International organizations -->
 <!-- - Non-registered births -->
 
-
----
-
-<h2>How many people were there in the UK on January 1, 2019?</h2>
-
-+ births: Jan 1, 2011 – Jan 1, 2019
-    
-- deaths: Jan 1, 2011 – Jan 1, 2019
-    
-+ immigration: Jan 1, 2011 – Jan 1, 2019
-    
-- emigration: Jan 1, 2011 – Jan 1, 2019
-    
-+ Statistical discrepancies</li>
 
 
 
@@ -527,31 +519,562 @@ We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows
 cowplot::plot_grid(p3, p2, nrow = 2, rel_heights = c(0.58, 0.42), align = "v")
 ```
 
----
-
-<!-- <div> -->
-<!--   <p><strong>Stock:</strong> The number of people according to the last census in 2011</p> -->
-<!-- </div> -->
-
-<!-- <div> -->
-<!--   <p><strong>Flows:</strong></p> -->
-<!--   <ul> -->
-<!--     <li>+ births: Jan 1, 2011 – Jan 1, 2019</li> -->
-
-<!--     <li>- deaths: Jan 1, 2011 – Jan 1, 2019</li> -->
-
-<!--     <li>+ immigration: Jan 1, 2011 – Jan 1, 2019</li> -->
-
-<!--     <li>- emigration: Jan 1, 2011 – Jan 1, 2019</li> -->
-
-<!--     <li>+ Statistical discrepancies</li> -->
-<!--   </ul> -->
-<!-- </div> -->
-
-
 
 
 ---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+migration <- read_excel("../data/december23ltimaccessible.xlsx", 
+                        sheet = "Table 1", skip = 4) %>% 
+  dplyr::select(Flow, Period, `All Nationalities`) %>% 
+  rename(flow = `All Nationalities`) %>% 
+  mutate(date = dmy(paste0("01-", gsub("YE ", "", Period)))) %>% 
+  filter(Flow!='Net')
+
+
+
+p1 <- ggplot(data=migration, aes(x = date, y = flow, color = Flow))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y") +  
+  xlab(" ") +
+  ylab("") +
+  labs(title = "Migration and emigration in the UK, 2012-2023",
+       subtitle = "",
+       caption = "")
+
+
+migration <- read_excel("../data/december23ltimaccessible.xlsx", 
+                        sheet = "Table 1", skip = 4) %>% 
+  dplyr::select(Flow, Period, `All Nationalities`) %>% 
+  rename(flow = `All Nationalities`) %>% 
+  mutate(date = dmy(paste0("01-", gsub("YE ", "", Period)))) %>% 
+  filter(Flow=='Net')
+
+
+
+p2 <- ggplot(data=migration, aes(x = date, y = flow, color = Flow))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y") +  
+  xlab(" ") +
+  ylab("Difference") +
+  labs(title = "",
+       subtitle = "",
+       caption = "Source: Long-term international immigration, emigration and net migration flows, provisional, ONS (2024)")
+
+
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+cowplot::plot_grid(p1, p2, nrow = 2, rel_heights = c(0.58, 0.42), align = "v")
+
+```
+
+
+---
+
+
+class: inverse, center, middle
+
+# Decomposing population changes
+
+---
+
+
+## Decomposing population changes
+
+<br><br>
+
+- Quantifying fertility trends <br><br>
+
+- Quantifying mortality trends
+
+
+
+---
+
+## The crude birth rate
+
+We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows: <br><br>
+
+\begin{equation}
+\text{CBR}_{t} = \frac{\text{Births}_{t}}{\text{Pop.}_{t}}
+\end{equation}
+
+- $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+
+- $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+pop <- read_csv('../data/HISTPOP_27102023144550354.csv') %>% 
+  rename(year = Time, pop = Value) %>% 
+  dplyr::select(year, pop) 
+
+n_births <- read_xlsx('../data/annualreferencetables2021.xlsx', sheet = 6, skip = 5) %>% 
+  rename(year = Year, 
+         births = `Number of live births: United Kingdom`) %>% 
+  mutate(year = as.numeric(year),
+         Births = as.numeric(births)) %>% 
+  select(year, Births) %>% 
+  filter(year>=1980) %>% 
+  full_join(pop, by = 'year') 
+
+crude_brate <-  n_births %>% 
+  mutate(crude_brate = 1000*Births/pop)
+
+p1 <- ggplot(data=crude_brate, aes(x = year, y = crude_brate))+
+  geom_line(size = 1.1, alpha = 0.5)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  labs(x = "",
+       y = "Births/female pop.")+
+  labs(title = "",
+       subtitle = "",
+       caption = "Source: Vital statistics in the UK: births, deaths and marriages, Office of National Statistics (2023)")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+---
+
+
+
+
+## The general fertility rate
+
+\begin{equation}
+\text{CBR}_{t} = \frac{\text{Births}_{t}}{\text{Pop.}_{t}}
+\end{equation}
+
+- $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+
+- $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+
+Do we learn about behavior around fertility? 
+
+consider .. 
+
+but does not account for differences inside these brackets. 
+
+also not suitable if we want to learn about changes in behavior vs. composition 
+
+the question we are interested in matters! for waht data source we are interested in 
+
+
+
+
+---
+
+## Age specific fertility rate 
+
+\begin{equation}
+\text{AFR}_{g,t} = \frac{\text{Births}_{g,t}}{\text{Pop}_{gt}}
+\end{equation}
+
+expression 
+
+to see how this matters consider the example 
+
+could be that countries have similar fertility over the life cycle, but timing is different. 
+
+- depends on marriage pattern, and various cultural factors. 
+
+Might therefore still not be informative about behavior. 
+
+
+
+---
+
+<h2> </h2>
+<table>
+    <thead>
+        <tr>
+            <th>Age Group</th>
+            <th>Number of Women (1000)</th>
+            <th>Live Births (1000)</th>
+            <th>Births per Woman</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4"><b>Baseline</b></td>
+        </tr>
+        <tr>
+            <td>15-30</td>
+            <td>6000</td>
+            <td>4000</td>
+            <td>0.6667</td>
+        </tr>
+        <tr>
+            <td>31-45</td>
+            <td>6000</td>
+            <td>2000</td>
+            <td>0.3333</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>12000</b></td>
+            <td><b>6000</b></td>
+            <td><b>0.5000</b></td>
+        </tr>
+        <tr>
+            <td colspan="4"><b>Scenario 1: Change in Age Composition</b></td>
+        </tr>
+        <tr>
+            <td>15-30</td>
+            <td>8000</td>
+            <td>5333.333</td>
+            <td>0.6667</td>
+        </tr>
+        <tr>
+            <td>31-45</td>
+            <td>4000</td>
+            <td>1333.333</td>
+            <td>0.3333</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>12000</b></td>
+            <td><b>6666.666</b></td>
+            <td><b>0.5556</b></td>
+        </tr>
+        <tr>
+            <td colspan="4"><b>Scenario 2: Change in Age-Specific Fertility Rate</b></td>
+        </tr>
+        <tr>
+            <td>15-30</td>
+            <td>6000</td>
+            <td>4000</td>
+            <td>0.6667</td>
+        </tr>
+        <tr>
+            <td>31-45</td>
+            <td>6000</td>
+            <td>2500</td>
+            <td>0.4167</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>12000</b></td>
+            <td><b>6500</b></td>
+            <td><b>0.5417</b></td>
+        </tr>
+    </tbody>
+</table>
+
+
+---
+
+## Total fertility rate 
+
+A more common measure of a populations fertility is the total fertility rate: 
+\begin{equation}
+\text{TFR}_{t} = \sum_{g=1}^G\frac{\text{Births}_{g,t}}{\text{Pop}_{gt}}
+\end{equation}
+- Less sensitive to changes in the age and gender composition. 
+
+- Therefore more informative about differences in fertility behavior.  <br><br>
+
+$\Rightarrow$ Should I use the TFR, GFR, AFR, or TFR? Depends on the question. 
+
+
+
+
+
+
+
+---
+
+<h2> </h2>
+<table>
+    <thead>
+        <tr>
+            <th>Age Group</th>
+            <th>Number of Women (1000)</th>
+            <th>Live Births (1000)</th>
+            <th>Births per Woman</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4"><b>Baseline</b></td>
+        </tr>
+        <tr>
+            <td>15-30</td>
+            <td>6000</td>
+            <td>4000</td>
+            <td>0.6667</td>
+        </tr>
+        <tr>
+            <td>31-45</td>
+            <td>6000</td>
+            <td>2000</td>
+            <td>0.3333</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>12000</b></td>
+            <td><b>6000</b></td>
+            <td><b>0.5000</b></td>
+        </tr>
+        <tr>
+            <td colspan="4"><b>Scenario 1: Change in Age Composition</b></td>
+        </tr>
+        <tr>
+            <td>15-30</td>
+            <td>8000</td>
+            <td>5333.333</td>
+            <td>0.6667</td>
+        </tr>
+        <tr>
+            <td>31-45</td>
+            <td>4000</td>
+            <td>1333.333</td>
+            <td>0.3333</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>12000</b></td>
+            <td><b>6666.666</b></td>
+            <td><b>0.5556</b></td>
+        </tr>
+        <tr>
+            <td colspan="4"><b>Scenario 2: Change in Age-Specific Fertility Rate</b></td>
+        </tr>
+        <tr>
+            <td>15-30</td>
+            <td>6000</td>
+            <td>4000</td>
+            <td>0.6667</td>
+        </tr>
+        <tr>
+            <td>31-45</td>
+            <td>6000</td>
+            <td>2500</td>
+            <td>0.4167</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>12000</b></td>
+            <td><b>6500</b></td>
+            <td><b>0.5417</b></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+tfr <- read_excel("../data/datadownload.xlsx",  skip = 6) %>% 
+  rename(tfr = Rate, year = Year) %>% 
+  filter(year>=1980)
+
+
+p1 <- ggplot(data=tfr, aes(x = year, y = tfr))+
+  geom_line(size = 1.1, alpha = 0.5)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  labs(x = "",
+       y = "Total fertility rate")+
+  labs(title = "",
+       subtitle = "",
+       caption = "Source: Births in England and Wales from the Office for National Statistics (2022)")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+
+## Measures of Mortality
+
+Many of the same issues arise when we quantify mortality:
+
+- Crude mortality rate: $\text{CMR}_t = \frac{\text{Deaths}_t}{\text{Pop}_t}$
+
+- Age-specific mortality rate: $\text{CMR}_{xt} = \frac{\text{Deaths}_{xt}}{\text{Pop}_{xt}}$
+
+- Infant mortality rate: $\text{IMR}_{t} = \frac{\text{Deaths}_{<1,t}}{\text{Pop}_{<1,t}}$ <br><br>
+
+Depend on the age composition as well as the age specific mortality. 
+
+Again, the best measure depends on the question at hand.  
+
+
+---
+
+
+
+## Life Expectancy
+
+A very common measure of economic performance/development is life expectancy. 
+
+Life expectancy measures average numbers of years left for people aged $x$:
+\begin{equation}
+e_x = \frac{T_x}{l_x}
+\end{equation}
+- where $T_x$ denotes the person-years left. 
+
+- $l_x$ the number of people of age $x$.
+
+Data for a range of years and countries are available.
+
+
+---
+
+
+
+
+## Life Expectancy
+
+Two different types of ... 
+
+How is life exepctancy calculated?
+
+Need to get a brief overview of life tables to understand this.
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+life_exp <- read_csv("../data/Figure_1__Period_and_cohort_life_expectancy_at_birth,_males_and_females,_England_and_Wales,_1841_to_2020.csv", 
+                     skip = 6) %>%  pivot_longer(cols = -Year, 
+                                             names_to = "Category", 
+                                             values_to = "Value") %>% 
+  filter(Year>=1900)
+
+p1 <- ggplot(data=life_exp, aes(x = Year, y = Value, color = Category))+
+  geom_line(size = 1.1)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_y_continuous(label=comma)+
+  labs(x = "",
+       y = "Life expectancy")+
+  labs(title = "",
+       subtitle = "",
+       caption = "Source: Office for National Statistics – Expectation of life, England and Wales")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+---
+
+
+
+
+
 
 class: inverse, center, middle
 

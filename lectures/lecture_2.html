@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 2</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2024-09-17" />
+    <meta name="date" content="2024-09-19" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2024-09-17
+### 2024-09-19
 ]
 
 ---
@@ -186,9 +186,17 @@ class: inverse, center, middle
 
 - Important for economic policy
 
+- Pension schemes
+
 - Tax base
 
 - Budget/Expenditures (age composition)
+
+
+Kowledge about demographic data is therefore important for many economic problems. 
+
+
+
 
 
 
@@ -205,9 +213,7 @@ class: inverse, center, middle
 
 - Some countries have stopped running censuses (Last census in Denmark was in the 1970s)
 
----
-
-
+ADD EHRE 
 
 
 
@@ -234,12 +240,12 @@ How do we know? Last census in the UK was in 2011...
 
 # Components of change
 
-We can decompose the change in poulation between `\(t\)` and `\(t+\Delta t\)` as follows: &lt;br&gt;&lt;br&gt;
+We can decompose the change in poulation between `\(t\)` and `\(t+\Delta t\)` as follows: &lt;br&gt;&lt;br&gt; &lt;br&gt;&lt;br&gt;
 
 `\begin{equation}
 \Delta \text{Pop}_{t+\Delta t, t} = (\underbrace{\text{births}_{t+\Delta t, t} - \text{deaths}_{t+\Delta t, t}}_{\text{Natural change}})+(\underbrace{\text{im}_{t+\Delta t, t} -  \text{em}_{t+\Delta t, t}}_{\text{Net migration}}) + \text{adj}_{t+\Delta t, t}.
 \end{equation}`
-
+&lt;br&gt;&lt;br&gt;
 - `\(\text{adj}_{t+\Delta t, t}\)` denotes a statistical adjustment (embassies, military service, non-registered births).
 
 - `\(\text{births}_{t+\Delta t, t}\)` denotes a statistical adjustment (embassies, military service, non-registered births).
@@ -250,20 +256,6 @@ We can decompose the change in poulation between `\(t\)` and `\(t+\Delta t\)` as
 &lt;!-- - Non-registered births --&gt;
 
 
----
-
-&lt;h2&gt;How many people were there in the UK on January 1, 2019?&lt;/h2&gt;
-
-+ births: Jan 1, 2011 – Jan 1, 2019
-    
-- deaths: Jan 1, 2011 – Jan 1, 2019
-    
-+ immigration: Jan 1, 2011 – Jan 1, 2019
-    
-- emigration: Jan 1, 2011 – Jan 1, 2019
-    
-+ Statistical discrepancies&lt;/li&gt;
-
 
 
 
@@ -272,31 +264,365 @@ We can decompose the change in poulation between `\(t\)` and `\(t+\Delta t\)` as
 
 &lt;img src="lecture_2_files/figure-html/unnamed-chunk-12-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
----
-
-&lt;!-- &lt;div&gt; --&gt;
-&lt;!--   &lt;p&gt;&lt;strong&gt;Stock:&lt;/strong&gt; The number of people according to the last census in 2011&lt;/p&gt; --&gt;
-&lt;!-- &lt;/div&gt; --&gt;
-
-&lt;!-- &lt;div&gt; --&gt;
-&lt;!--   &lt;p&gt;&lt;strong&gt;Flows:&lt;/strong&gt;&lt;/p&gt; --&gt;
-&lt;!--   &lt;ul&gt; --&gt;
-&lt;!--     &lt;li&gt;+ births: Jan 1, 2011 – Jan 1, 2019&lt;/li&gt; --&gt;
-
-&lt;!--     &lt;li&gt;- deaths: Jan 1, 2011 – Jan 1, 2019&lt;/li&gt; --&gt;
-
-&lt;!--     &lt;li&gt;+ immigration: Jan 1, 2011 – Jan 1, 2019&lt;/li&gt; --&gt;
-
-&lt;!--     &lt;li&gt;- emigration: Jan 1, 2011 – Jan 1, 2019&lt;/li&gt; --&gt;
-
-&lt;!--     &lt;li&gt;+ Statistical discrepancies&lt;/li&gt; --&gt;
-&lt;!--   &lt;/ul&gt; --&gt;
-&lt;!-- &lt;/div&gt; --&gt;
-
-
 
 
 ---
+
+
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-14-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+class: inverse, center, middle
+
+# Decomposing population changes
+
+---
+
+
+## Decomposing population changes
+
+&lt;br&gt;&lt;br&gt;
+
+- Quantifying fertility trends &lt;br&gt;&lt;br&gt;
+
+- Quantifying mortality trends
+
+
+
+---
+
+## The crude birth rate
+
+We can decompose the change in poulation between `\(t\)` and `\(t+\Delta t\)` as follows: &lt;br&gt;&lt;br&gt;
+
+`\begin{equation}
+\text{CBR}_{t} = \frac{\text{Births}_{t}}{\text{Pop.}_{t}}
+\end{equation}`
+
+- `\(\text{adj}_{t+\Delta t, t}\)` denotes a statistical adjustment (embassies, military service, non-registered births).
+
+- `\(\text{births}_{t+\Delta t, t}\)` denotes a statistical adjustment (embassies, military service, non-registered births).
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-16-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+
+## The general fertility rate
+
+`\begin{equation}
+\text{CBR}_{t} = \frac{\text{Births}_{t}}{\text{Pop.}_{t}}
+\end{equation}`
+
+- `\(\text{adj}_{t+\Delta t, t}\)` denotes a statistical adjustment (embassies, military service, non-registered births).
+
+- `\(\text{births}_{t+\Delta t, t}\)` denotes a statistical adjustment (embassies, military service, non-registered births).
+
+Do we learn about behavior around fertility? 
+
+consider .. 
+
+but does not account for differences inside these brackets. 
+
+also not suitable if we want to learn about changes in behavior vs. composition 
+
+the question we are interested in matters! for waht data source we are interested in 
+
+
+
+
+---
+
+## Age specific fertility rate 
+
+`\begin{equation}
+\text{AFR}_{g,t} = \frac{\text{Births}_{g,t}}{\text{Pop}_{gt}}
+\end{equation}`
+
+expression 
+
+to see how this matters consider the example 
+
+could be that countries have similar fertility over the life cycle, but timing is different. 
+
+- depends on marriage pattern, and various cultural factors. 
+
+Might therefore still not be informative about behavior. 
+
+
+
+---
+
+&lt;h2&gt; &lt;/h2&gt;
+&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Age Group&lt;/th&gt;
+            &lt;th&gt;Number of Women (1000)&lt;/th&gt;
+            &lt;th&gt;Live Births (1000)&lt;/th&gt;
+            &lt;th&gt;Births per Woman&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td colspan="4"&gt;&lt;b&gt;Baseline&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;15-30&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;4000&lt;/td&gt;
+            &lt;td&gt;0.6667&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;31-45&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;2000&lt;/td&gt;
+            &lt;td&gt;0.3333&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;12000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;6000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0.5000&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="4"&gt;&lt;b&gt;Scenario 1: Change in Age Composition&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;15-30&lt;/td&gt;
+            &lt;td&gt;8000&lt;/td&gt;
+            &lt;td&gt;5333.333&lt;/td&gt;
+            &lt;td&gt;0.6667&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;31-45&lt;/td&gt;
+            &lt;td&gt;4000&lt;/td&gt;
+            &lt;td&gt;1333.333&lt;/td&gt;
+            &lt;td&gt;0.3333&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;12000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;6666.666&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0.5556&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="4"&gt;&lt;b&gt;Scenario 2: Change in Age-Specific Fertility Rate&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;15-30&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;4000&lt;/td&gt;
+            &lt;td&gt;0.6667&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;31-45&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;2500&lt;/td&gt;
+            &lt;td&gt;0.4167&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;12000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;6500&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0.5417&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+
+## Total fertility rate 
+
+A more common measure of a populations fertility is the total fertility rate: 
+`\begin{equation}
+\text{TFR}_{t} = \sum_{g=1}^G\frac{\text{Births}_{g,t}}{\text{Pop}_{gt}}
+\end{equation}`
+- Less sensitive to changes in the age and gender composition. 
+
+- Therefore more informative about differences in fertility behavior.  &lt;br&gt;&lt;br&gt;
+
+`\(\Rightarrow\)` Should I use the TFR, GFR, AFR, or TFR? Depends on the question. 
+
+
+
+
+
+
+
+---
+
+&lt;h2&gt; &lt;/h2&gt;
+&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Age Group&lt;/th&gt;
+            &lt;th&gt;Number of Women (1000)&lt;/th&gt;
+            &lt;th&gt;Live Births (1000)&lt;/th&gt;
+            &lt;th&gt;Births per Woman&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td colspan="4"&gt;&lt;b&gt;Baseline&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;15-30&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;4000&lt;/td&gt;
+            &lt;td&gt;0.6667&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;31-45&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;2000&lt;/td&gt;
+            &lt;td&gt;0.3333&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;12000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;6000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0.5000&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="4"&gt;&lt;b&gt;Scenario 1: Change in Age Composition&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;15-30&lt;/td&gt;
+            &lt;td&gt;8000&lt;/td&gt;
+            &lt;td&gt;5333.333&lt;/td&gt;
+            &lt;td&gt;0.6667&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;31-45&lt;/td&gt;
+            &lt;td&gt;4000&lt;/td&gt;
+            &lt;td&gt;1333.333&lt;/td&gt;
+            &lt;td&gt;0.3333&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;12000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;6666.666&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0.5556&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="4"&gt;&lt;b&gt;Scenario 2: Change in Age-Specific Fertility Rate&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;15-30&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;4000&lt;/td&gt;
+            &lt;td&gt;0.6667&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;31-45&lt;/td&gt;
+            &lt;td&gt;6000&lt;/td&gt;
+            &lt;td&gt;2500&lt;/td&gt;
+            &lt;td&gt;0.4167&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;12000&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;6500&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;b&gt;0.5417&lt;/b&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-18-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+## Measures of Mortality
+
+Many of the same issues arise when we quantify mortality:
+
+- Crude mortality rate: `\(\text{CMR}_t = \frac{\text{Deaths}_t}{\text{Pop}_t}\)`
+
+- Age-specific mortality rate: `\(\text{CMR}_{xt} = \frac{\text{Deaths}_{xt}}{\text{Pop}_{xt}}\)`
+
+- Infant mortality rate: `\(\text{IMR}_{t} = \frac{\text{Deaths}_{&lt;1,t}}{\text{Pop}_{&lt;1,t}}\)` &lt;br&gt;&lt;br&gt;
+
+Depend on the age composition as well as the age specific mortality. 
+
+Again, the best measure depends on the question at hand.  
+
+
+---
+
+
+
+## Life Expectancy
+
+A very common measure of economic performance/development is life expectancy. 
+
+Life expectancy measures average numbers of years left for people aged `\(x\)`:
+`\begin{equation}
+e_x = \frac{T_x}{l_x}
+\end{equation}`
+- where `\(T_x\)` denotes the person-years left. 
+
+- `\(l_x\)` the number of people of age `\(x\)`.
+
+Data for a range of years and countries are available.
+
+
+---
+
+
+
+
+## Life Expectancy
+
+Two different types of ... 
+
+How is life exepctancy calculated?
+
+Need to get a brief overview of life tables to understand this.
+
+
+
+---
+
+
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-20-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+
+
+
+
 
 class: inverse, center, middle
 
