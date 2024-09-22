@@ -75,7 +75,6 @@ df$u
 df$w <- df$u^2
 
 
-
 # This is a comment.
 
 
@@ -88,6 +87,10 @@ summary(economic_data_uk)
 
 View(economic_data_uk)
 
+# Subsetting rows and columns
+economic_data_uk <- economic_data_uk[economic_data_uk$Year>=1990,]
+
+gdp_uk <- economic_data_uk[c('gdp_pc')]
 
 # Plotting variables in a dataframe
 plot(economic_data_uk$Year, 
