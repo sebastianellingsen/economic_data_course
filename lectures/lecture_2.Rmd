@@ -73,15 +73,18 @@ code.r.hljs.remark-code:hover{
 
 <div class="centered-content">
   <h2> </h2>
-   <p>  Lab 1 <p> 
+   <p>  Lab 1 - Extension <p> 
 
   <p>  Data on people<p> 
 
    <p> Fertility <p>
 
-  <p> Life expectancy <p>
+  <p> Mortality <p>
 
-  <p> Working with data on people <p>
+  <p> Life expectancy <p>
+  
+   <p> Subsetting dataframes <p>
+
 </div>
 
 
@@ -178,11 +181,11 @@ p1
 
 ---
 
-# Growth rates and logarithms
+# Growth Rates and Logarithms
 
 Why did we transform the time series of GDP per capita with the natural log? 
 
-Let $y_{t}$ denotes GDP per capita in year $t$, then 
+Let $Y_{t}$ denotes GDP per capita in year $t$, then 
 \begin{equation}
 Y_{2018} = Y_{2017} (1+g),
 \end{equation}
@@ -194,9 +197,9 @@ Taking the natural log gives
 \begin{equation}
 \text{log}(Y_{2018}) - \text{log}(Y_{2017}) = \text{log}(1+g)\approx g.
 \end{equation}
-Why is that? 
+Why is $\text{log}(1+g)\approx g$? Because of the Taylor approximation. 
 
-Remember that: $f(x+x_0) \approx f(x_0) + f^{\prime}(x_0)(x-x_0)$, $\text{log}(1)$, and $\partial \text{log}(x)/\partial x=1/x$.
+Remember that: $f(x) \approx f(x_0) + f^{\prime}(x_0)(x-x_0)$, $\text{log}(1)=0$, and $\partial \text{log}(x)/\partial x=1/x$.
 
 
 
@@ -287,6 +290,53 @@ p1
 ```
 
 
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/economic_data_uk.csv') %>%
+  filter(Year %in% c(1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015)) %>% 
+  mutate(d_l_gdp_pc = log(gdp_pc) - dplyr::lag(log(gdp_pc), n = 1),
+         g_gdp_pc = (gdp_pc - dplyr::lag(gdp_pc, n = 1)) / dplyr::lag(gdp_pc, n = 1)) %>%
+  pivot_longer(cols = c(d_l_gdp_pc, g_gdp_pc), 
+               names_to = "series", 
+               values_to = "values") %>% 
+  filter(!is.na(values))
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = Year, y = values, linetype = series))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("GDP Per Capita (log.)") +
+  labs(title = "GDP Per Capita UK, 1980-2018",
+       caption = "Source: Maddison (2021).")
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
 <!-- lab 1 plot, log, why logs? slope approximates the growth rate -->
 
 <!-- why is that?  -->
@@ -315,11 +365,10 @@ class: inverse, center, middle
 
 ---
 
-## What we use data about people for?
+## Data About People
 
-- Interesting in itself
 
-- Used in the hockey stick chart (GDP per person!)
+- Used to normalize data (e.g. GDP per capita)
 
 - Productivity measures
 
@@ -329,10 +378,10 @@ class: inverse, center, middle
 
 - Tax base
 
-- Budget/Expenditures (age composition)
+- Budget/Expenditures (age composition)<br><br>
 
 
-Kowledge about demographic data is therefore important for many economic problems. 
+Knowledge of and ability to work with demographic data is therefore important for understanding many economic issues. 
 
 
 
@@ -344,15 +393,18 @@ Kowledge about demographic data is therefore important for many economic problem
 
 # Census Data
 
+A census is a national enumeration of the population at the same time. 
+
 - Census: We have to ask everyone.
 
-- Super expensive and time-consuming (last census in the UK ~ £500 million)
+- England and Wales since 1801 and the United States since 1790.
 
-- Only every 10 years in the UK since 1801
+- By the 1980s around 94 percent of the world population was covered.
 
-- Some countries have stopped running censuses (Last census in Denmark was in the 1970s)
+- Super expensive and time-consuming (last census in the UK ~ £500 million). Therefore only every decade.
 
-ADD EHRE 
+- Some countries have stopped running censuses (The last census in Denmark was in the 1970s).
+
 
 
 
@@ -486,7 +538,7 @@ p1
 - Go to Eurostat and find: 66,647,112.
 
 
-How do we know? Last census in the UK was in 2011...
+How do we know? The last census in the UK was in 2011...
 
 
 ---
@@ -499,9 +551,15 @@ We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows
 \Delta \text{Pop}_{t+\Delta t, t} = (\underbrace{\text{births}_{t+\Delta t, t} - \text{deaths}_{t+\Delta t, t}}_{\text{Natural change}})+(\underbrace{\text{im}_{t+\Delta t, t} -  \text{em}_{t+\Delta t, t}}_{\text{Net migration}}) + \text{adj}_{t+\Delta t, t}.
 \end{equation}
 <br><br>
-- $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+- $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment.
 
-- $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+- The statistical adjustment accounts for staff in embassies, military service, non-registered births, and various other factors.
+
+<!-- - $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births). -->
+
+<!-- - $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births). -->
+
+<!-- - $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births). -->
 
 <!-- - Embassies -->
 <!-- - Military service -->
@@ -611,39 +669,41 @@ cowplot::plot_grid(p1, p2, nrow = 2, rel_heights = c(0.58, 0.42), align = "v")
 ---
 
 
-class: inverse, center, middle
-
-# Decomposing population changes
-
----
-
-
-## Decomposing population changes
+## Decomposing Population Changes
 
 <br><br>
 
-- Quantifying fertility trends <br><br>
+What are the underlying drivers of the population change we observe?
 
-- Quantifying mortality trends
+- This is crucial for a range of economic policies and questions in economics.<br><br>
+
+We will therefore consider these issues in more depth:
+
+- Quantifying fertility trends.
+
+- Quantifying mortality trends.
 
 
 
 ---
 
-## The crude birth rate
+## The Crude Birth Rate
 
-We can decompose the change in poulation between $t$ and $t+\Delta t$ as follows: <br><br>
+The crude birth rate in year $t$ is denoted by: <br><br>
 
 \begin{equation}
-\text{CBR}_{t} = \frac{\text{Births}_{t}}{\text{Pop.}_{t}}
+\text{CBR}_{t} = \frac{\text{Births}_{t}}{\text{Pop}_{t}}
 \end{equation}
 
-- $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+- $\text{Pop}_{t}$ denotes the total population in year $t$.
 
-- $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+Notice, it does not account for: 
 
+- the gender composition of the population or
 
+- the age composition.
 
+Impossible to say if there is a change in behavior or composition of the population using this measure.
 
 
 ---
@@ -687,7 +747,7 @@ p1 <- ggplot(data=crude_brate, aes(x = year, y = crude_brate))+
         legend.key=element_blank())+
   scale_y_continuous(label=comma)+
   labs(x = "",
-       y = "Births/female pop.")+
+       y = "Births/Pop.")+
   labs(title = "",
        subtitle = "",
        caption = "Source: Vital statistics in the UK: births, deaths and marriages, Office of National Statistics (2023)")
@@ -703,46 +763,52 @@ p1
 
 
 
-## The general fertility rate
+## The General Fertility Rate
 
+The general fertility rate is given by <br><br>
 \begin{equation}
-\text{CBR}_{t} = \frac{\text{Births}_{t}}{\text{Pop.}_{t}}
+\text{GFR}_{t} = \frac{\text{Births}_{t}}{\text{Female pop}_{15-44,t}}
 \end{equation}
 
-- $\text{adj}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+- $\text{Female pop}_{15-44,t}$ denotes the female population between $15$ and $44$ years of age.<br><br>
 
-- $\text{births}_{t+\Delta t, t}$ denotes a statistical adjustment (embassies, military service, non-registered births).
+This is an improvement as it corrects for the gender composition. 
 
-Do we learn about behavior around fertility? 
+Ignores the fact that births are not equally likely between the ages $15$ and $44$.
 
-consider .. 
+The average age of giving birth in the UK in 2024 is $32$.
 
-but does not account for differences inside these brackets. 
+Variation in $\text{GFR}_{t}$ could therefore still be driven by age composition effects.
 
-also not suitable if we want to learn about changes in behavior vs. composition 
 
-the question we are interested in matters! for waht data source we are interested in 
 
 
 
 
 ---
 
-## Age specific fertility rate 
+## Age-specific fertility rate 
+
+The age-specific fertility rate is given by <br><br>
 
 \begin{equation}
-\text{AFR}_{g,t} = \frac{\text{Births}_{g,t}}{\text{Pop}_{gt}}
+\text{AFR}_{g,t} = \frac{\text{Births}_{g,t}}{\text{Female pop}_{gt}}
 \end{equation}
 
-expression 
+- where $g$ denotes the age group.  <br><br>
 
-to see how this matters consider the example 
+This is a useful measure as it can tell us where changes in births arise. 
 
-could be that countries have similar fertility over the life cycle, but timing is different. 
+Consider the following example.
 
-- depends on marriage pattern, and various cultural factors. 
 
-Might therefore still not be informative about behavior. 
+<!-- to see how this matters consider the example  -->
+
+<!-- could be that countries have similar fertility over the life cycle, but timing is different.  -->
+
+<!-- - depends on marriage pattern, and various cultural factors.  -->
+
+<!-- Might therefore still not be informative about behavior.  -->
 
 
 
@@ -753,8 +819,8 @@ Might therefore still not be informative about behavior.
     <thead>
         <tr>
             <th>Age Group</th>
-            <th>Number of Women (1000)</th>
-            <th>Live Births (1000)</th>
+            <th>Number of Women </th>
+            <th>Live Births </th>
             <th>Births per Woman</th>
         </tr>
     </thead>
@@ -830,7 +896,7 @@ Might therefore still not be informative about behavior.
 
 ## Total fertility rate 
 
-A more common measure of a populations fertility is the total fertility rate: 
+A more common measure of a population fertility is the total fertility rate: 
 \begin{equation}
 \text{TFR}_{t} = \sum_{g=1}^G\frac{\text{Births}_{g,t}}{\text{Pop}_{gt}}
 \end{equation}
@@ -985,7 +1051,7 @@ Many of the same issues arise when we quantify mortality:
 
 - Infant mortality rate: $\text{IMR}_{t} = \frac{\text{Deaths}_{<1,t}}{\text{Pop}_{<1,t}}$ <br><br>
 
-Depend on the age composition as well as the age specific mortality. 
+Depends on the age composition as well as the age-specific mortality. 
 
 Again, the best measure depends on the question at hand.  
 
@@ -998,11 +1064,11 @@ Again, the best measure depends on the question at hand.
 
 A very common measure of economic performance/development is life expectancy. 
 
-Life expectancy measures average numbers of years left for people aged $x$:
+Life expectancy measures the average number of years left for people aged $x$:
 \begin{equation}
 e_x = \frac{T_x}{l_x}
 \end{equation}
-- where $T_x$ denotes the person-years left. 
+- where $T_x$ denotes the person-years left at age $x$ (sum of years left to live for the entire group). 
 
 - $l_x$ the number of people of age $x$.
 
@@ -1018,17 +1084,17 @@ Data for a range of years and countries are available.
 
 Where do $T_x$ and $l_x$ come from? Life tables. 
 
-- Tables that measure how the population diminishes population number age increases. 
+- Tables that measure how the population diminishes, such as population number and age increases. <br><br>
 
 Two different types of life tables: 
 
-- **Period**: Fixes the age specific mortality rates for one particular year.  
+- **Period**: Fixes the age-specific mortality rates for one particular year.  
 
-- **Cohort**: Uses the age-specific mortality rate of an actual cohort. 
+- **Cohort**: Uses the age-specific mortality rate of an actual cohort. <br><br>
 
 Notice that cohort life tables contain predictions of future mortality rates for a cohort. 
 
-Important to know which one to use, depends on the question. 
+Important to know which one to use, depending on the question. 
 
 Cohort life expectancy takes economic development into account and is therefore lower. 
 
@@ -1159,25 +1225,34 @@ p1
 
 class: inverse, center, middle
 
-# Summary
+# Back to R
+
+
+
 
 
 ---
 
 ## Summary
 
+Understanding demographic data is key for a range of economic questions.
+
+In this lecture, we have learned how to decompose changes in population.<br><br>
+
 You should know: 
 
-- How this course is organized. 
+- Decomposing population growth. 
 
-- Why we need to learn about economic data. 
+- Measuring trends in fertility. 
 
-- Two principles of data visualization. 
+- Measuring trends in mortality. 
 
-- What R is. <br><br> 
+- Measuring life expectancy
+
+- R: Subsetting dataframes.<br><br>
 
 
-**Next week**: Overview of demographic data. 
+**Next week**: Measuring economic activity. 
 
 
 

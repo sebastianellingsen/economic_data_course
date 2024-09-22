@@ -104,3 +104,41 @@ plot(economic_data_uk$Year,
 
 
 
+
+
+
+df <- read_csv('data/economic_data_uk.csv') %>%
+  filter(Year %in% c(1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015)) %>% 
+  mutate(d_l_gdp_pc = log(gdp_pc) - dplyr::lag(log(gdp_pc), n = 1),
+         g_gdp_pc = (gdp_pc - dplyr::lag(gdp_pc, n = 1)) / dplyr::lag(gdp_pc, n = 1)) %>%
+  pivot_longer(cols = c(d_l_gdp_pc, g_gdp_pc), 
+               names_to = "series", 
+               values_to = "values") %>% 
+  filter(!is.na(values))
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = Year, y = values, linetype = series))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("GDP Per Capita (log.)") +
+  labs(title = "GDP Per Capita UK, 1980-2018",
+       caption = "Source: Maddison (2021).")+
+  ylim(-0.055, 0.055)
+
