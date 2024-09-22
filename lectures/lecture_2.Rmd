@@ -1016,12 +1016,93 @@ Data for a range of years and countries are available.
 
 ## Life Expectancy
 
-Two different types of ... 
+Where do $T_x$ and $l_x$ come from? Life tables. 
 
-How is life exepctancy calculated?
+- Tables that measure how the population diminishes population number age increases. 
 
-Need to get a brief overview of life tables to understand this.
+Two different types of life tables: 
 
+- **Period**: Fixes the age specific mortality rates for one particular year.  
+
+- **Cohort**: Uses the age-specific mortality rate of an actual cohort. 
+
+Notice that cohort life tables contain predictions of future mortality rates for a cohort. 
+
+Important to know which one to use, depends on the question. 
+
+Cohort life expectancy takes economic development into account and is therefore lower. 
+
+
+
+
+
+---
+
+<br><br>
+
+<h2> </h2>
+<table>
+    <thead>
+        <tr>
+            <th>Age (x)</th>
+            <th>Number Alive at Start of Age (l<sub>x</sub>)</th>
+            <th>Number Dying During Age Interval (d<sub>x</sub>)</th>
+            <th>Probability of Dying (q<sub>x</sub>)</th>
+            <th>Life Expectancy (e<sub>x</sub>)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0</td>
+            <td>100,000</td>
+            <td>1,000</td>
+            <td>0.010</td>
+            <td>75.0</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>99,000</td>
+            <td>500</td>
+            <td>0.005</td>
+            <td>74.5</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>98,500</td>
+            <td>100</td>
+            <td>0.001</td>
+            <td>73.6</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>98,400</td>
+            <td>50</td>
+            <td>0.0005</td>
+            <td>72.6</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>98,350</td>
+            <td>30</td>
+            <td>0.0003</td>
+            <td>71.6</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>98,320</td>
+            <td>20</td>
+            <td>0.0002</td>
+            <td>70.6</td>
+        </tr>
+        <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+    </tbody>
+</table>
 
 
 ---
@@ -1056,7 +1137,7 @@ p1 <- ggplot(data=life_exp, aes(x = Year, y = Value, color = Category))+
   scale_y_continuous(label=comma)+
   labs(x = "",
        y = "Life expectancy")+
-  labs(title = "",
+  labs(title = "Period and cohort life expectancy in England and Wales, 1900-2020",
        subtitle = "",
        caption = "Source: Office for National Statistics – Expectation of life, England and Wales")
 
