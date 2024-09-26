@@ -1,0 +1,629 @@
+---
+title: "Economic Data - Lecture 3"
+subtitle: "Sebastian Ellingsen"
+author: "School of Economics - University of Bristol"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      navigation:
+        scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253")
+
+options(htmltools.dir.version = FALSE)
+
+# This is a recommended set up for flipbooks
+knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
+library(flipbookr)
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggthemes)
+```
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Adjust based on your needs */
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+```
+
+
+<div class="centered-content">
+  <h2> </h2>
+   <p>  Lab 2 - Extension <p> 
+
+  <p>  Measuring Economic Actvity<p> 
+
+   <p> Fertility <p>
+
+  <p> Mortality <p>
+
+  <p> Life expectancy <p>
+  
+   <p> Subsetting dataframes <p>
+
+</div>
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Lab 1 - Extension
+
+
+---
+
+tips for writing scripts 
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/economic_data_uk.csv')
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = Year, y = gdp_pc))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("GDP Per Capita") +
+  labs(title = "GDP Per Capita UK, 1980-2018",
+       caption = "Source: Maddison (2021).")
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Measuring Economic Activity
+
+
+
+---
+
+## Measuring Economic Activity
+
+
+GDP, Gross Domestic Product, is the most frequently used indicator in the national accounts
+
+- How does GDP measure economic activity?
+
+- What are the main approaches to measuring GDP?
+
+- How do we calculate the GDP of an economy?
+
+
+---
+
+
+## Total Value of Production
+
+<!-- *GDP measures the value of all the output carried out by all the firms, non-profit, institutions, government bodies and households in a given country during a given period.* -->
+
+A simple measure would be the sum of the value of of output for all firms:
+\begin{equation}
+\sum_{i = 1}^N Y_{it}P_{it}.
+\end{equation}
+
+- where $N$ is the number of firms, $Y_{it}$ production, and $P_{it}$ the price.
+
+- $N$ are all the firms with the country.
+
+- $t$ refers to a year or a quarter. <br><br>
+
+This is not how GDP is defined though. Why?
+
+
+---
+
+
+
+## A Very Simple Economy
+
+<table style="border-collapse: collapse; width: 100%; text-align: center; font-family: sans-serif;">
+  <thead>
+    <tr>
+      <th colspan="3" style="border-bottom: 1px solid black;">Year 1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3">Firm A</td>
+    </tr>
+    <tr>
+      <td>Output</td>
+      <td> $ 100,000</td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td colspan="3" style="border-bottom: 1px solid black; padding: 10px;"></td>
+    </tr>
+
+    <tr>
+      <th colspan="3" style="border-bottom: 1px solid black;">Year 2</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Firm A1</td>
+      <td>Firm A2</td>
+    </tr>
+    <tr>
+      <td>Output</td>
+      <td>$ 30,000</td>
+      <td>$ 100,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<br><br>
+<!-- Firm A produces 100,000 worth of pasta in year 1.  -->
+
+<!-- The firm splits into A1 and A2 in year 2 -->
+
+<!-- - A1 produces 30,000 worth of flour. -->
+
+<!-- - A2 buys it and sells total output for 100,000 -->
+
+
+Splitting the firm increases GDP by $30$ percent!
+
+<!-- The same quantity of pasta was produced at the same price. All that changed was the legal and commercial organisation of the firms. -->
+
+
+---
+
+## Measuring GDP
+
+For this reason, we consider the sum of value added in the economy instead:
+\begin{equation}
+\text{GDP}_t = \sum_{i = 1}^N \text{Value added}_{it}
+\end{equation}
+measuring the value that the firm adds to that of the firms that supply its inputs.
+
+Why does this work?
+
+<!-- GDP combines in a single figure, and with no double counting, all the output (or production) carried out by all the firms, non-profit, institutions, government bodies and households in a given country during a given period,  -->
+
+<!-- regardless of the type of goods and services produced, provided that the production takes place within the country’s economic territory. -->
+
+
+---
+
+## A Very Simple Economy
+
+<table style="border-collapse: collapse; width: 100%; text-align: center; font-family: sans-serif;">
+  <thead>
+    <tr>
+      <th colspan="3" style="border-bottom: 1px solid black;">Year 1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3">Firm A</td>
+    </tr>
+    <tr>
+      <td>Value added</td>
+      <td> $ 100,000</td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td colspan="3" style="border-bottom: 1px solid black; padding: 10px;"></td>
+    </tr>
+
+    <tr>
+      <th colspan="3" style="border-bottom: 1px solid black;">Year 2</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Firm A1</td>
+      <td>Firm A2</td>
+    </tr>
+    <tr>
+      <td>Value added</td>
+      <td>$ 30,000</td>
+      <td>$ 100,000 - 30,000 = 70,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<br><br>
+
+GDP remains unchanged when the organization of the economy changes. 
+
+
+
+---
+
+
+
+## The production approach
+
+The production approach defines GDP in the following manner, 
+\begin{equation}
+\text{GDP}_t^P = \sum_{i = 1}^N \text{Value added}_{it} + NT
+\end{equation}
+- where $N$ denotes the set of production entities in the economy (firms etc.) 
+
+- $NT$ denotes taxes minus subsidies. 
+
+- Crucially it avoids double counting 
+
+- Why $NT$? Taxes are subtracted from value added, need to adjust for this. 
+
+
+---
+
+
+## The Production Boundary
+
+How about $N$, what counts as economic activity? The ESA 2010 standards has the answer:
+
+- Does the activity produce a useful output?
+
+- Is the product or activity marketable and does it have a market value?
+
+- If the product does not have a meaningful market value, can one be assigned (imputed)?
+
+- Would exclusion (or inclusion) of the product of the activity make comparisons between countries over time more meaningful?
+
+<br><br> Not always obvious what is accounted for in GDP and what is not. 
+
+- Housework, voluntary work, and criminal activities fall outside. 
+
+<!-- Economic activity within the country. GNI captures activity in other countries.  -->
+
+<!-- Does not account for depreciation (net domestic product).  -->
+
+
+---
+
+## Crime stuff here 
+
+
+
+
+
+
+---
+
+
+
+## The Expenditure approach
+
+In the simple economy all expenditure equals value added $\Rightarrow$ GDP equals expenditure on pasta
+
+In a real economy there are more ways to spend, this is the basis of the expenditure approach
+\begin{equation}
+\text{GDP}_t^E = C + I + G + Ex - Im
+\end{equation}
+- C the final consumption of goods and services by households
+
+- is the final consumption expenditure of goods and services by the government
+
+- I is investment (gross capital formation)
+
+- Ex are exports and Im imports
+
+
+---
+
+
+## The Income approach
+
+In the simple economy, income from pasta is the only income in the eocnomy.  
+
+In a bigger economy, it can be written 
+\begin{equation}
+\text{GDP}_t^I =W + P + NT
+\end{equation}
+- W denotes worker compensation 
+
+- P denotes profits
+
+- NT taxes minus subsidies
+
+
+
+---
+
+## Reconciling output and income
+
+\begin{equation}
+\text{GDP}_t^P  = \text{GDP}_t^E = \text{GDP}_t^I =
+\end{equation}
+
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/nama_10_gdp__custom_13032981_linear.csv')
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = TIME_PERIOD, y = OBS_VALUE))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+    scale_y_continuous(label=comma)+
+  xlab("Year") +
+  ylab("Million GBP") +
+  labs(title = "GDP UK in value (current prices), 2000-2019",
+       caption = "Source: Eurostat (nama_10_gdp).")
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+---
+
+## GDP in Volume
+
+Does the increase in GDP stem from changes in quantity or prices? 
+
+GDP at current prices can be adjusted using the following identity,
+\begin{equation}
+\text{GDP deflator}_t = \frac{\text{Nominal GDP}_t }{\text{Real GDP}_t } 
+\end{equation}
+- Note this is different from the CPI, not all goods in GDP are in the CPI.
+
+- Very important to know if GDP is in volume or value. 
+
+- Economists typically care about real GDP. However, value is often used to standardize different variables. 
+
+MORE ON THIS LATER
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/nama_10_gdp__custom_13033988_linear.csv') %>% 
+  mutate(unit = ifelse(unit == 'CP_MNAC', 'Current prices', unit),
+         unit = ifelse(unit == 'CLV10_MNAC', '2010 prices', unit))
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = TIME_PERIOD, y = OBS_VALUE, linetype = unit))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="right",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+    scale_y_continuous(label=comma)+
+  xlab("Year") +
+  ylab("Million GBP") +
+  labs(title = "GDP UK, 2000-2019",
+       caption = "Source: Eurostat (nama_10_gdp).")
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+df <- read_csv('../data/nama_10_gdp__custom_13033988_linear.csv') %>% 
+  pivot_wider(names_from = unit, values_from = OBS_VALUE) %>% 
+  mutate(gdp_def = CP_MNAC/CLV10_MNAC)
+
+# Constructing plots 
+p1 <- ggplot(data=df, aes(x = TIME_PERIOD, y = gdp_def*100))+
+  geom_line(size = 1.1, alpha = 0.7)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="right",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+    scale_y_continuous(label=comma)+
+  xlab("Year") +
+  ylab("GDP deflator (2010 = 100)") +
+  labs(title = "GDP Deflator UK, 2000-2019",
+       caption = "Source: Eurostat (nama_10_gdp).")
+  
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+## What to use GDP for? 
+
+
+
+---
+
+## Why GDP?
+
+Gross consumption of fixed capital=not dectued, that's net value added 
+
+domestic, GNI etc. for example working somewhere else 
+
+product, refers to production 
+
+
+
+---
+
+
+
+
+
+
+---
+
+## Summary
+
+Understanding demographic data is key for a range of economic questions.
+
+In this lecture, we have learned how to decompose changes in population.<br><br>
+
+You should know: 
+
+- Decomposing population growth. 
+
+- Measuring trends in fertility. 
+
+- Measuring trends in mortality. 
+
+- Measuring life expectancy
+
+- R: Subsetting dataframes.<br><br>
+
+
+**Next week**: Measuring economic activity. 
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? $\texttt{sebastian.ellingsen@bristol.ac.uk}$.
+
+
+
+
+
+
+
