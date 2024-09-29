@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 3</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2024-09-26" />
+    <meta name="date" content="2024-09-29" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2024-09-26
+### 2024-09-29
 ]
 
 ---
@@ -70,15 +70,11 @@ code.r.hljs.remark-code:hover{
   &lt;h2&gt; &lt;/h2&gt;
    &lt;p&gt;  Lab 2 - Extension &lt;p&gt; 
 
-  &lt;p&gt;  Measuring Economic Actvity&lt;p&gt; 
+  &lt;p&gt;  Measuring economic actvity&lt;p&gt; 
 
-   &lt;p&gt; Fertility &lt;p&gt;
+   &lt;p&gt; Approaches to measuring GDP &lt;p&gt;
 
-  &lt;p&gt; Mortality &lt;p&gt;
-
-  &lt;p&gt; Life expectancy &lt;p&gt;
-  
-   &lt;p&gt; Subsetting dataframes &lt;p&gt;
+  &lt;p&gt; Applications of GDP &lt;p&gt;
 
 &lt;/div&gt;
 
@@ -92,14 +88,34 @@ code.r.hljs.remark-code:hover{
 
 class: inverse, center, middle
 
-# Lab 1 - Extension
+# Lab 2 - Extension
 
 
 ---
 
-tips for writing scripts 
+# Style guide
 
+To make the scripts understandable for other people and yourself, it is important to follow a few principles.
 
+- Add comments in scripts. This is done with a `\(\texttt{#}\)`. R will ignore anything after a `\(\texttt{#}\)`.
+
+- Names should be descriptive and meaningful. 
+
+- Use underscore to separate words in a variable name of several words, not spaces.
+
+- Add line breaks and avoid very long lines. 
+
+- Variable and function names should be written in lowercase. 
+
+- Avoid using names that are the same as existing variables.
+
+- Add spacing between symbols such as `\(\texttt{+}\)`, `\(\texttt{=}\)`, and `\(\texttt{-}\)`.
+
+- Vertically align some repetitive coding tasks.
+
+- Always start the script by loading the dataset. 
+
+- Never change the file containing raw data. 
 
 
 
@@ -107,7 +123,199 @@ tips for writing scripts
 
 
 
-&lt;img src="lecture_3_files/figure-html/unnamed-chunk-3-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# ----------------------- Lab 2: Part 1 ----------------------- #
+
+# Loading the dataset
+*df &lt;- read_excel("../data/mpd2020.xlsx", sheet = "GDP pc", skip = 1)
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# ----------------------- Lab 2: Part 1 ----------------------- #
+
+# Loading the dataset
+df &lt;- read_excel("../data/mpd2020.xlsx", sheet = "GDP pc", skip = 1)
+
+# Subsetting the dataframe to only contain observations after 1980.
+*df &lt;- df[df$year&gt;=1980,]
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# ----------------------- Lab 2: Part 1 ----------------------- #
+
+# Loading the dataset
+df &lt;- read_excel("../data/mpd2020.xlsx", sheet = "GDP pc", skip = 1)
+
+# Subsetting the dataframe to only contain observations after 1980.
+df &lt;- df[df$year&gt;=1980,]
+
+# Subsetting the dataframe to only contain the columns year and GBR
+*df &lt;- df[,c('year', 'GBR')]
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# ----------------------- Lab 2: Part 1 ----------------------- #
+
+# Loading the dataset
+df &lt;- read_excel("../data/mpd2020.xlsx", sheet = "GDP pc", skip = 1)
+
+# Subsetting the dataframe to only contain observations after 1980.
+df &lt;- df[df$year&gt;=1980,]
+
+# Subsetting the dataframe to only contain the columns year and GBR
+df &lt;- df[,c('year', 'GBR')]
+
+# Removing missing values
+*df &lt;- df[!is.na(df$year),]
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# ----------------------- Lab 2: Part 1 ----------------------- #
+
+# Loading the dataset
+df &lt;- read_excel("../data/mpd2020.xlsx", sheet = "GDP pc", skip = 1)
+
+# Subsetting the dataframe to only contain observations after 1980.
+df &lt;- df[df$year&gt;=1980,]
+
+# Subsetting the dataframe to only contain the columns year and GBR
+df &lt;- df[,c('year', 'GBR')]
+
+# Removing missing values
+df &lt;- df[!is.na(df$year),]
+
+# Plotting the data
+*plot(df$year,
+*    df$GBR,
+*    type = "l",
+*    col = "blue",
+*    xlab = "Year",
+*    ylab = "GDP Per Capita (log.)",
+*    main = "GDP Per Capita UK, 1980-2018")
+```
+]
+ 
+.panel2-chunk_1-auto[
+&lt;img src="lecture_3_files/figure-html/chunk_1_auto_05_output-1.png" width="432" /&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# ----------------------- Lab 2: Part 1 ----------------------- #
+
+# Loading the dataset
+df &lt;- read_excel("../data/mpd2020.xlsx", sheet = "GDP pc", skip = 1)
+
+# Subsetting the dataframe to only contain observations after 1980.
+df &lt;- df[df$year&gt;=1980,]
+
+# Subsetting the dataframe to only contain the columns year and GBR
+df &lt;- df[,c('year', 'GBR')]
+
+# Removing missing values
+df &lt;- df[!is.na(df$year),]
+
+# Plotting the data
+plot(df$year,
+     df$GBR,
+     type = "l",
+     col = "blue",
+     xlab = "Year",
+     ylab = "GDP Per Capita (log.)",
+     main = "GDP Per Capita UK, 1980-2018")
+
+*mtext("Source: Maddison Database (2020).", side = 1, line = 4, adj = 0, cex = 0.8)
+```
+]
+ 
+.panel2-chunk_1-auto[
+&lt;img src="lecture_3_files/figure-html/chunk_1_auto_06_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.panel1-chunk_1-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-chunk_1-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-chunk_1-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -118,6 +326,28 @@ tips for writing scripts
 class: inverse, center, middle
 
 # Measuring Economic Activity
+
+
+
+---
+
+
+## GDP is Everywhere
+
+
+- A measure of growth: Change in GDP
+
+- Define business cycles: No clear definition.
+
+- In the European Union and the UK we typically define a recession as two successive quarters of negative economic growth
+
+- The US National Bureau of Economic Research has a “Business Cycle Dating Committee”
+
+- Measure inequality: Wage share
+
+- Measure productivity: GDP per worker
+
+- Proxy for well-being: GDP per capita (much more next week)
 
 
 
@@ -140,16 +370,16 @@ GDP, Gross Domestic Product, is the most frequently used indicator in the nation
 
 ## Total Value of Production
 
-&lt;!-- *GDP measures the value of all the output carried out by all the firms, non-profit, institutions, government bodies and households in a given country during a given period.* --&gt;
+&lt;!-- *GDP measures the value of all the output carried out by all the firms, non-profit, institutions, government bodies, and households in a given country during a given period.* --&gt;
 
-A simple measure would be the sum of the value of of output for all firms:
+A simple measure would be the sum of the value of output for all firms:
 `\begin{equation}
 \sum_{i = 1}^N Y_{it}P_{it}.
 \end{equation}`
 
 - where `\(N\)` is the number of firms, `\(Y_{it}\)` production, and `\(P_{it}\)` the price.
 
-- `\(N\)` are all the firms with the country.
+- `\(N\)` are all the firms within the country.
 
 - `\(t\)` refers to a year or a quarter. &lt;br&gt;&lt;br&gt;
 
@@ -221,7 +451,9 @@ For this reason, we consider the sum of value added in the economy instead:
 `\begin{equation}
 \text{GDP}_t = \sum_{i = 1}^N \text{Value added}_{it}
 \end{equation}`
-measuring the value that the firm adds to that of the firms that supply its inputs.
+where `\(\text{Value added}_{it}\)` denotes the difference between value of output and inputs.
+
+We measure the value that the firm adds to that of the firms that supply its inputs.
 
 Why does this work?
 
@@ -272,6 +504,8 @@ Why does this work?
 
 &lt;br&gt;&lt;br&gt;
 
+`\(GDP = 100,000\)` in year `\(1\)` and year `\(2\)`. 
+
 GDP remains unchanged when the organization of the economy changes. 
 
 
@@ -280,7 +514,7 @@ GDP remains unchanged when the organization of the economy changes.
 
 
 
-## The production approach
+## The Production Approach
 
 The production approach defines GDP in the following manner, 
 `\begin{equation}
@@ -292,7 +526,7 @@ The production approach defines GDP in the following manner,
 
 - Crucially it avoids double counting 
 
-- Why `\(NT\)`? Taxes are subtracted from value added, need to adjust for this. 
+- Why `\(NT\)`? Taxes are subtracted from value-added, and we need to adjust for this. 
 
 
 ---
@@ -300,7 +534,9 @@ The production approach defines GDP in the following manner,
 
 ## The Production Boundary
 
-How about `\(N\)`, what counts as economic activity? The ESA 2010 standards has the answer:
+How about `\(N\)`, what counts as economic activity? 
+
+According to the ESA 2010 standards:
 
 - Does the activity produce a useful output?
 
@@ -321,8 +557,10 @@ How about `\(N\)`, what counts as economic activity? The ESA 2010 standards has 
 
 ---
 
-## Crime stuff here 
 
+&lt;div style="text-align: center; margin-top: 50px;"&gt;
+  &lt;img src="images/gdp_crime.png" alt="A descriptive alt text" style="width: 800px;"&gt;
+&lt;/div&gt;
 
 
 
@@ -332,33 +570,36 @@ How about `\(N\)`, what counts as economic activity? The ESA 2010 standards has 
 
 
 
-## The Expenditure approach
+## The Expenditure Approach
 
-In the simple economy all expenditure equals value added `\(\Rightarrow\)` GDP equals expenditure on pasta
+In the simple economy, all expenditure equals value added `\(\Rightarrow\)` GDP equals expenditure on pasta.
 
 In a real economy there are more ways to spend, this is the basis of the expenditure approach
 `\begin{equation}
 \text{GDP}_t^E = C + I + G + Ex - Im
 \end{equation}`
-- C the final consumption of goods and services by households
+- `\(C\)` the final consumption expenditure of goods and services by households.
 
-- is the final consumption expenditure of goods and services by the government
+- `\(G\)` is the final consumption expenditure of goods and services by the government.
 
-- I is investment (gross capital formation)
+- `\(I\)` is investment (gross capital formation).
 
-- Ex are exports and Im imports
+- `\(Ex\)` are exports and `\(Im\)` imports.
+
+
+
 
 
 ---
 
 
-## The Income approach
+## The Income Approach
 
-In the simple economy, income from pasta is the only income in the eocnomy.  
+In the simple economy, income from pasta is the only income in the economy.  
 
 In a bigger economy, it can be written 
 `\begin{equation}
-\text{GDP}_t^I =W + P + NT
+\text{GDP}_t^I = W + P + NT
 \end{equation}`
 - W denotes worker compensation 
 
@@ -370,12 +611,20 @@ In a bigger economy, it can be written
 
 ---
 
-## Reconciling output and income
+## Reconciling Output, Expenditure, and Income
+
+Based on this discussion, the following identities must hold: &lt;br&gt;&lt;br&gt; 
 
 `\begin{equation}
-\text{GDP}_t^P  = \text{GDP}_t^E = \text{GDP}_t^I =
+\text{GDP}_t^P  = \text{GDP}_t^E = \text{GDP}_t^I.
 \end{equation}`
+&lt;br&gt;&lt;br&gt;
 
+- There are three different ways to measure GDP (output, expenditure, and income).
+
+- In practice, we can use these different measures to decompose GDP. 
+
+- E.g. to understand underlying drivers of changes in GDP growth. 
 
 
 
@@ -383,9 +632,95 @@ In a bigger economy, it can be written
 
 ---
 
+## National Accounts for Germany
+
+&lt;table style="width:100%; border-collapse: collapse; text-align: left;"&gt;
+  &lt;tr style="background-color:#f2f2f2; font-weight: bold;"&gt;
+    &lt;th&gt; &lt;/th&gt;
+    &lt;th&gt; &lt;/th&gt;
+    &lt;th&gt;1991&lt;/th&gt;
+    &lt;th&gt;2012&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;GDP&lt;/td&gt;
+    &lt;td&gt;Gross domestic product (output approach)&lt;/td&gt;
+    &lt;td&gt;1 535&lt;/td&gt;
+    &lt;td&gt;2 666&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;B1B&lt;/td&gt;
+    &lt;td&gt;Gross value added at basic prices, excluding FISIM&lt;/td&gt;
+    &lt;td&gt;1 393&lt;/td&gt;
+    &lt;td&gt;2 387&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;D21_D31&lt;/td&gt;
+    &lt;td&gt;+ Taxes less subsidies on products&lt;/td&gt;
+    &lt;td&gt;141&lt;/td&gt;
+    &lt;td&gt;280&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;GDP&lt;/td&gt;
+    &lt;td&gt;Gross domestic product (expenditure approach)&lt;/td&gt;
+    &lt;td&gt;1 535&lt;/td&gt;
+    &lt;td&gt;2 666&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;P3&lt;/td&gt;
+    &lt;td&gt;Final consumption expenditure&lt;/td&gt;
+    &lt;td&gt;1 171&lt;/td&gt;
+    &lt;td&gt;2 048&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;P5&lt;/td&gt;
+    &lt;td&gt;+ Gross capital formation&lt;/td&gt;
+    &lt;td&gt;369&lt;/td&gt;
+    &lt;td&gt;460&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;P6&lt;/td&gt;
+    &lt;td&gt;+ Exports of goods and services&lt;/td&gt;
+    &lt;td&gt;394&lt;/td&gt;
+    &lt;td&gt;1 381&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;P7&lt;/td&gt;
+    &lt;td&gt;– Imports of goods and services&lt;/td&gt;
+    &lt;td&gt;400&lt;/td&gt;
+    &lt;td&gt;1 223&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;GDP&lt;/td&gt;
+    &lt;td&gt;Gross domestic product (income approach)&lt;/td&gt;
+    &lt;td&gt;1 535&lt;/td&gt;
+    &lt;td&gt;2 666&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;D1&lt;/td&gt;
+    &lt;td&gt;Compensation of employees&lt;/td&gt;
+    &lt;td&gt;859&lt;/td&gt;
+    &lt;td&gt;1 376&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;B2+B3&lt;/td&gt;
+    &lt;td&gt;+ Gross operating surplus and gross mixed income&lt;/td&gt;
+    &lt;td&gt;554&lt;/td&gt;
+    &lt;td&gt;1 016&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;D2&lt;/td&gt;
+    &lt;td&gt;+ Taxes less subsidies on production and imports&lt;/td&gt;
+    &lt;td&gt;122&lt;/td&gt;
+    &lt;td&gt;274&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
 
 
-&lt;img src="lecture_3_files/figure-html/unnamed-chunk-5-1.png" width="792" style="display: block; margin: auto;" /&gt;
+---
+
+
+
+&lt;img src="lecture_3_files/figure-html/unnamed-chunk-4-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -402,53 +737,125 @@ GDP at current prices can be adjusted using the following identity,
 
 - Very important to know if GDP is in volume or value. 
 
-- Economists typically care about real GDP. However, value is often used to standardize different variables. 
+- Economists typically care about real GDP. However, value is often used to standardize different variables. &lt;br&gt;&lt;br&gt; 
 
-MORE ON THIS LATER
+We will see much more on this later!
+
+---
+
+
+
+&lt;img src="lecture_3_files/figure-html/unnamed-chunk-6-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+
 
 
 ---
 
 
 
-&lt;img src="lecture_3_files/figure-html/unnamed-chunk-7-1.png" width="792" style="display: block; margin: auto;" /&gt;
-
-
-
-
-
+&lt;img src="lecture_3_files/figure-html/unnamed-chunk-8-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 ---
-
-
-
-&lt;img src="lecture_3_files/figure-html/unnamed-chunk-9-1.png" width="792" style="display: block; margin: auto;" /&gt;
-
 
 
 
 ## What to use GDP for? 
 
+Calculate the annual rate of growth of GDP: `\(g_t = \frac{Y_{it} - Y_{it-1}}{Y_{it-1}}\)`.
+
+- This is most often done with real GDP.&lt;br&gt;&lt;br&gt; 
+
+Normalizing a variable by GDP: `\(x_{it} = \frac{X_{it}}{Y_{it}}\)`.
+
+- E.g. government expenditure (typically done in current prices).&lt;br&gt;&lt;br&gt; 
+
+
+Calculating contributions to growth (expenditure approach): 
+`\begin{equation}
+\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}} 
+\end{equation}`
+- This breakdown of growth is widely used by macroeconomists.
+
+
+
+
+
+---
+## Contributions to Growth
+
+GDP in the expenditure approach is defined as
+`\begin{equation}
+GDP_t = C_t + I_t + G_t + X_t. 
+\end{equation}`
+Taking the first difference gives
+`\begin{equation}
+GDP_t - GDP_{t-1} = C_t - C_{t-1} + I_t - I_{t-1} + G_t - G_{t-1} + X_t - X_{t-1} = \Delta C_t + \Delta I_t + \Delta G_t + \Delta X_t.
+\end{equation}`
+Dividing by `\(GDP_{t-1}\)` gives 
+`\begin{equation}
+\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{\Delta C_t}{GDP_{t-1}} + \frac{\Delta I_t}{GDP_{t-1}} + \frac{\Delta G_t}{GDP_{t-1}} + \frac{\Delta X_t}{GDP_{t-1}}.
+\end{equation}`
+Multiplying and dividing each element by its value in the previous period gives the expression
+`\begin{equation}
+\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}} 
+\end{equation}`
+
+- Enables us to explore the various components of GDP growth between two periods.
+
+- Equals the rate of growth times the GDP share in the previous period. 
+
+
+
+
+
+---
+## Limitations of GDP
+
+Only captures some types of economic activity. 
+
+- In developing countries with large informal sectors it can be a poor measure. &lt;br&gt;&lt;br&gt; 
+
+
+Often used as a measure of well-being:
+
+- Ignores: nature, climate, education, health, crime, cultural activities, safety.
+
+- GDP is correlated with many of these measures.
+
+- Does not measure non-market transactions.
+
+- E.g. higher GDP is associated with lower infant mortality rates.&lt;br&gt;&lt;br&gt; 
+
+
+We will explore these issues more in detail next week. 
+
+
+
+
 
 
 ---
 
-## Why GDP?
+## Why "GDP"?
 
-Gross consumption of fixed capital=not dectued, that's net value added 
+**Gross**: Depreciation of its fixed capital goods not deducted.
 
-domestic, GNI etc. for example working somewhere else 
+- Net domestic product (NDP) is a country's gross domestic product (GDP) minus depreciation on its capital goods.&lt;br&gt;&lt;br&gt; 
 
-product, refers to production 
+**Domestic**: Gross value added inside the country. 
+
+- GNI measures the value produced by the citizens of a country.  
+
+- For large economies GNI and GDP are similar.&lt;br&gt;&lt;br&gt; 
+
+**Product**: Refers to production.
+ 
 
 
 
----
-
-
-## Volume or current prices
-
-FORMULA ETC HERE 
 
 
 
@@ -457,24 +864,18 @@ FORMULA ETC HERE
 
 ## Summary
 
-Understanding demographic data is key for a range of economic questions.
+GDP is the most publicized economic data. 
 
-In this lecture, we have learned how to decompose changes in population.&lt;br&gt;&lt;br&gt;
+- GDP measures economic activity in terms of expenditures, production or income.
 
-You should know: 
+- GDP is based on the national accounts.
 
-- Decomposing population growth. 
+- There are international standards for what is included in GDP.
 
-- Measuring trends in fertility. 
+- GDP is used for measuring economic growth, defining business cycles, measuring productivity, measuring wellbeing.&lt;br&gt;&lt;br&gt; 
 
-- Measuring trends in mortality. 
+**Coming weeks**: How to measure welfare? Adjusting for prices: Real or nominal GDP?
 
-- Measuring life expectancy
-
-- R: Subsetting dataframes.&lt;br&gt;&lt;br&gt;
-
-
-**Next week**: Measuring economic activity. 
 
 
 
