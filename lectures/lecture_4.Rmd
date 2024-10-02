@@ -153,11 +153,69 @@ GDP is correlated with a lot of *good stuff*.
 
 
 
-## chart here
-
-It is a measure of certain types of economic activity. 
+## 
 
 
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+library(readr)
+library(tidyverse)
+library(ggrepel)
+
+df <- read_csv('../data/life-expectancy-vs-gdp-per-capita.csv') %>% 
+  rename(year      = Year,
+         country   = Entity,
+         code      = Code,
+         gdppc     = `GDP per capita`,
+         life_exp  = `Life expectancy at birth (historical)`,
+         pop       = `Population (historical estimates)`,
+         continent = Continent) %>% 
+  select(country, continent, year, gdppc, life_exp, pop) %>%
+  filter(year == 2015,
+         !is.na(pop),
+         !is.na(gdppc))
+
+p1 <- ggplot(data = df, aes(x = log(gdppc), y = life_exp, color = continent))+
+  geom_point(aes(size = pop), alpha = 0.6, stroke = 0.4)+
+  scale_size_continuous(range = c(0.5, 12), breaks = c(6e+8, 1.3e+9), labels = c('600M', '1.3B'))+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="right",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("GDP per capita (log)") +
+  ylab("Life expectancy at birth") +
+  labs(title = "Life expectancy vs. GDP per capita, 2015",
+       size = 'Population:',
+       color = ' ',
+       subtitle = "GDP per capita is adjusted for inflation and differences in the cost of living between countries.",
+       caption = "Source: UN WPP (2022); Zijdeman et al. (2015); Riley (2005); Maddison Project Database 2020 (Bolt and van Zanden, 2020).\nNote: GDP per capita is expressed in international-dollars at 2011 prices.")+
+  scale_x_continuous(n.breaks=8) +
+  scale_y_continuous(n.breaks=8) +
+  geom_text_repel(aes(label=ifelse(country %in% c('China', 'Democratic Republic of Congo', 'South Africa', 'Indonesia', 'Equatorial Guinea', 'Trinidad and Tobago', 'Italy', 'Poland', 'Brazil', 'Italy', 'Poland', 'Angola', 'Nigeria', 'United States', 'North Korea', 'Ethiopia', 'Chad', 'India', 'Pakistan'), country, '')),
+                  size = 3.5,
+                  show.legend  = FALSE) +
+  guides(size = guide_legend(override.aes=list(shape = 1)),
+         color = guide_legend(override.aes=list(shape = 15)))
+  
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
 
 
 
@@ -196,7 +254,293 @@ Who gets the growth?
 
 
 
+---
 
+## Subjective Well-being Measures
+
+*Ask people how they consider their situation.*
+
+- ”Overall, how satisfied are you with your life nowadays?” (life satisfaction)
+
+- ”Overall, how happy did you feel yesterday?” (happiness)<br><br>
+
+*Ask people how they feel*
+
+- ”Sad to Happy”, ”Angry to Friendly”, ”Hard to concentrate”
+
+- Asked at specific (or random) points.<br><br>
+
+**Challenge**: We don’t all use the same scale.
+
+**Solution**: Anchoring vignettes/self-anchoring
+
+
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+## Loading libraries
+library(tidyverse)
+library(readr)
+
+
+## Loading and cleaning the data on life satisfaction  
+life_sat <- read_csv("../data/ilc_pw01__custom_7985898_linear.csv") %>% 
+  select(geo, TIME_PERIOD, OBS_VALUE) %>% 
+  rename(country  = geo,
+         year     = TIME_PERIOD, 
+         life_sat = OBS_VALUE)
+
+## Loading and cleaning the data on GDP per capita   
+gdppc <- read_csv("../data/sdg_08_10__custom_7985512_linear.csv") %>% 
+  select(geo, TIME_PERIOD, OBS_VALUE) %>% 
+  rename(country = geo,
+         year    = TIME_PERIOD, 
+         gdppc   = OBS_VALUE)
+
+## Combining the datasets 
+df <- life_sat %>% 
+  full_join(gdppc, by = c('country', 'year')) %>% 
+  filter(!is.na(life_sat), 
+         !is.na(gdppc), 
+         country!='EU27_2020') 
+
+## Plotting the data 
+p1 <- ggplot(data=df, aes(x = gdppc, y = life_sat, color = as.factor(year)))+
+  geom_point(size = 2.5, alpha = 0.7)+
+  # scale_color_manual(values=c(0,3,1))+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="right",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Real GDP per capita") +
+  ylab("Overall life satisfaction (1=lowest, 10=highest)") +
+  labs(title = "Life satisfaction vs. GDP per capita",
+       size = 'Population:',
+       color = ' ',
+       subtitle = "Real GDP per capita is measured in 2015 prices",
+       caption = "Real GDP per capita 2015 national currency (chain linked). Source: Eurostat (nama_10_gdp).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+
+
+## Objective Well-being Measures
+
+Use proxies for well-being:
+
+- Natural amenities: Size of a forest area
+
+- Environment: Air and water Pollution
+
+- Crime and safety: Crime rates
+
+- Education: Completed education
+
+- Health: Life expectancy
+
+**Challenges**: List of proxies is based on value judgement.<br><br>
+
+
+
+
+---
+
+
+
+## The Human Development Index
+
+
+A widely publicized variable is the Human Development Index (HDI).
+
+The index is constructed as the *geometric* mean of measures of income, education, and health.<br><br>
+
+For each variable $k$ they construct an index $I_{it}^k$ (bounded by $0$ and $1$) as
+
+\begin{equation}
+I_{it}^k = \frac{\text{Actual value} - \text{Min. value}}{\text{Max. value} - \text{Min. value}}
+\end{equation}
+<br><br>
+The three variables are defined as follows in the baseline case:
+
+- $I_{it}^{Health}$ denotes the life expectancy at birth.
+
+- $I_{it}^{Education}$ denotes mean years of schooling.
+
+- $I_{it}^{Income}$ denotes GNI per capita (2017 PPP$).
+
+
+
+
+
+
+---
+
+## The Human Development Index
+
+The HDI-index for country $i$ in year $t$ is given by<br><br>
+\begin{equation}
+HDI_{it} = \left(I_{it}^{Health}I_{it}^{Education}I_{it}^{Income}\right)^{\frac{1}{3}}
+\end{equation}
+<br><br>
+
+The geometric mean is chosen to make the function concave in $I_{it}^{Health}I_{it}^{Education}I_{it}^{Income}$.
+
+- The idea is that increases matter less the larger the product of the indices are. 
+
+
+
+
+
+
+
+
+
+---
+
+## 
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+
+
+df <- read_excel("../data/hdr-data.xlsx") %>% 
+    mutate(uk = ifelse(country == 'United', 1, 0) %>% as.factor()) 
+
+
+## Plotting the data 
+p1 <- ggplot(data = df, aes(x = as.numeric(year), y = value, color = country)) +
+  geom_line(aes(alpha = uk), size = 0.8) + 
+  scale_color_manual(values = rep("black", length(unique(df$country)))) + # Set gray for all countries
+  scale_alpha_manual(values = c(0.05, 1)) +  # 0.1 for all, 1 for the highlighted country
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("Our development index (ODI)") +
+  labs(
+    title = "The Human Development Index, 1990-2020",
+    subtitle = "Index created from life expectancy at birth, GNI per capita (2017 PPP$), and mean years of schooling.",
+    caption = "Source: Human Development Reports. https://hdr.undp.org/data-center/documentation-and-downloads.")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+## 
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning data 
+
+
+df <- read_excel("../data/hdr-data.xlsx") %>% 
+    mutate(uk = ifelse(country == 'United Kingdom', 1, 0) %>% as.factor()) 
+
+
+## Plotting the data 
+p1 <- ggplot(data = df, aes(x = as.numeric(year), y = value, color = country)) +
+  geom_line(aes(alpha = uk), size = 0.8) + 
+  scale_color_manual(values = rep("black", length(unique(df$country)))) + # Set gray for all countries
+  scale_alpha_manual(values = c(0.05, 1)) +  # 0.1 for all, 1 for the highlighted country
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Year") +
+  ylab("Our development index (ODI)") +
+  labs(
+    title = "The Human Development Index, 1990-2020",
+    subtitle = "Index created from life expectancy at birth, GNI per capita (2017 PPP$), and mean years of schooling.",
+    caption = "Source: Human Development Reports. https://hdr.undp.org/data-center/documentation-and-downloads.")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+
+---
+
+## General Approach 
+
+
+Write the function, generate your own in one of the labs  
+
+
+
+
+---
+
+## descriptive statistics 
+
+mean, median, dispersion, correlation 
+
+how to calculate them in R. 
+
+want to summarise patterns in data with a simple number 
+
+USE presentation in THE BOOK, show how in R
 
 
 ---

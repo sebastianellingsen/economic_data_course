@@ -148,11 +148,12 @@ GDP is correlated with a lot of *good stuff*.
 
 
 
-## chart here
-
-It is a measure of certain types of economic activity. 
+## 
 
 
+
+
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-3-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -191,7 +192,157 @@ Who gets the growth?
 
 
 
+---
 
+## Subjective Well-being Measures
+
+*Ask people how they consider their situation.*
+
+- ”Overall, how satisfied are you with your life nowadays?” (life satisfaction)
+
+- ”Overall, how happy did you feel yesterday?” (happiness)&lt;br&gt;&lt;br&gt;
+
+*Ask people how they feel*
+
+- ”Sad to Happy”, ”Angry to Friendly”, ”Hard to concentrate”
+
+- Asked at specific (or random) points.&lt;br&gt;&lt;br&gt;
+
+**Challenge**: We don’t all use the same scale.
+
+**Solution**: Anchoring vignettes/self-anchoring
+
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-5-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+
+## Objective Well-being Measures
+
+Use proxies for well-being:
+
+- Natural amenities: Size of a forest area
+
+- Environment: Air and water Pollution
+
+- Crime and safety: Crime rates
+
+- Education: Completed education
+
+- Health: Life expectancy
+
+**Challenges**: List of proxies is based on value judgement.&lt;br&gt;&lt;br&gt;
+
+
+
+
+---
+
+
+
+## The Human Development Index
+
+
+A widely publicized variable is the Human Development Index (HDI).
+
+The index is constructed as the *geometric* mean of measures of income, education, and health.&lt;br&gt;&lt;br&gt;
+
+For each variable `\(k\)` they construct an index `\(I_{it}^k\)` (bounded by `\(0\)` and `\(1\)`) as
+
+`\begin{equation}
+I_{it}^k = \frac{\text{Actual value} - \text{Min. value}}{\text{Max. value} - \text{Min. value}}
+\end{equation}`
+&lt;br&gt;&lt;br&gt;
+The three variables are defined as follows in the baseline case:
+
+- `\(I_{it}^{Health}\)` denotes the life expectancy at birth.
+
+- `\(I_{it}^{Education}\)` denotes mean years of schooling.
+
+- `\(I_{it}^{Income}\)` denotes GNI per capita (2017 PPP$).
+
+
+
+
+
+
+---
+
+## The Human Development Index
+
+The HDI-index for country `\(i\)` in year `\(t\)` is given by&lt;br&gt;&lt;br&gt;
+`\begin{equation}
+HDI_{it} = \left(I_{it}^{Health}I_{it}^{Education}I_{it}^{Income}\right)^{\frac{1}{3}}
+\end{equation}`
+&lt;br&gt;&lt;br&gt;
+
+The geometric mean is chosen to make the function concave in `\(I_{it}^{Health}I_{it}^{Education}I_{it}^{Income}\)`.
+
+- The idea is that increases matter less the larger the product of the indices are. 
+
+
+
+
+
+
+
+
+
+---
+
+## 
+
+
+
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-7-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## 
+
+
+
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-9-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+
+## General Approach 
+
+
+Write the function, generate your own in one of the labs  
+
+
+
+
+---
+
+## descriptive statistics 
+
+mean, median, dispersion, correlation 
+
+how to calculate them in R. 
+
+want to summarise patterns in data with a simple number 
+
+USE presentation in THE BOOK, show how in R
 
 
 ---
