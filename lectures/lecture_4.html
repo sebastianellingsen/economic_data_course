@@ -334,15 +334,148 @@ Write the function, generate your own in one of the labs
 
 ---
 
-## descriptive statistics 
+## Descriptive Statistics 
 
-mean, median, dispersion, correlation 
+&lt;!-- As we start to combine and describe patterns in data, we need some measures to summarize data.  --&gt;
 
-how to calculate them in R. 
+The data we consider will have a *distribution*, frequency with which different values occur. &lt;br&gt;&lt;br&gt;
 
-want to summarise patterns in data with a simple number 
 
-USE presentation in THE BOOK, show how in R
+
+
+
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-11-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Descriptive Statistics 
+
+Imagine we have a variable `\(X_i\)` with observations `\(i=1, ..., N\)`.
+
+Measuring the central tendency: 
+
+- Mean: `\(\bar{X} = \frac{1}{N}\sum_{i=1}X_i\)` 
+
+
+``` r
+mean(df$life_exp)
+```
+
+```
+[1] 71.81455
+```
+
+- Median: half the observations have a larger value, half a smaller value.
+
+
+``` r
+median(df$life_exp)
+```
+
+```
+[1] 73.7
+```
+
+
+---
+
+## Descriptive Statistics 
+
+Measuring the dispersion: 
+
+- Variance: `\(\sigma_X^2 = \frac{\sum_{i=1}^N\left(X_i - \bar{X}\right)^2}{N}\)` 
+
+
+``` r
+var(df$life_exp)
+```
+
+```
+[1] 66.84491
+```
+
+
+- Standard deviation: `\(\sigma_X = \sqrt{\sigma_X^2}\)`. 
+
+
+``` r
+sd(df$life_exp)
+```
+
+```
+[1] 8.175874
+```
+
+``` r
+var(df$life_exp)^0.5
+```
+
+```
+[1] 8.175874
+```
+
+
+---
+
+## Descriptive Statistics 
+
+SO USEFULL THAT BUILD IN
+
+
+``` r
+summary(df$life_exp)
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  51.10   65.30   73.70   71.81   77.80   84.30 
+```
+
+
+
+---
+
+## Descriptive Statistics 
+
+or for entire dataframe
+
+
+``` r
+summary(df)
+```
+
+```
+   country           continent              year          gdppc       
+ Length:165         Length:165         Min.   :2015   Min.   :   576  
+ Class :character   Class :character   1st Qu.:2015   1st Qu.:  3809  
+ Mode  :character   Mode  :character   Median :2015   Median : 11849  
+                                       Mean   :2015   Mean   : 18305  
+                                       3rd Qu.:2015   3rd Qu.: 24588  
+                                       Max.   :2015   Max.   :156029  
+    life_exp          pop           
+ Min.   :51.10   Min.   :7.003e+04  
+ 1st Qu.:65.30   1st Qu.:3.957e+06  
+ Median :73.70   Median :1.052e+07  
+ Mean   :71.81   Mean   :4.446e+07  
+ 3rd Qu.:77.80   3rd Qu.:3.095e+07  
+ Max.   :84.30   Max.   :1.394e+09  
+```
+
+---
+
+
+## Descriptive Statistics 
+
+Want to measure the *co-dispersion* between two variables as well. 
+
+&lt;!-- mean, median, dispersion, correlation  --&gt;
+
+&lt;!-- how to calculate them in R.  --&gt;
+
+&lt;!-- want to summarise patterns in data with a simple number  --&gt;
+
+&lt;!-- USE presentation in THE BOOK, show how in R --&gt;
 
 
 ---
