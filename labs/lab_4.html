@@ -369,7 +369,10 @@ functions, and combining datasets in R. </p>
 <h2>Part 1 (Functions)</h2>
 <p>In this exercise we will see how to write our own functions. The
 exercise builds on part 1 from lab 3. It is useful to have your lab_3.R
-file open.</p>
+file open. The growth rate between year <span class="math inline">\(t\)</span> and <span class="math inline">\(t-1\)</span> is again given by <span class="math display">\[\begin{equation}
+g_t = 100 \times
+\left(\frac{\text{GDP}_t-\text{GDP}_{t-1}}{\text{GDP}_{t-1}}\right).
+\end{equation}\]</span></p>
 <ul>
 <li><p>Open an R script and save it as lab_4.R.</p></li>
 <li><p>Open the data on real GDP that you worked on for part 1 of lab 3.
@@ -388,16 +391,16 @@ log_mean &lt;- function(current_value) {
 }</code></pre>
 <ul>
 <li><p>Calculate the mean of the logarithm of GDP using the function.
-<strong>Hint</strong>: Use the same syntax as for other functions such
-as <code>mean()</code>, <code>sum()</code>, or
+<strong>Hint</strong>: Use the same syntax as for other functions you
+have seen such as <code>mean()</code>, <code>sum()</code>, or
 <code>log()</code>.</p></li>
 <li><p>Write a function called <code>lagged_value()</code> that takes a
-vector and returns the vector lagged. <strong>Hint</strong>: Use the
-same syntax as in lab 3.</p></li>
+vector and returns the vector lagged. <strong>Hint</strong>: Combine a
+function with the code you wrote in lab 3.</p></li>
 <li><p>Write a function called <code>calculate_growth_rate()</code> that
 calculates the growth rate of a vector. <strong>Hint</strong>: Combine
-the previous function with the syntax to calculate the growth rate in
-the previous exercise.</p></li>
+the previous function with the code to calculate the growth rate you
+wrote in week 3.</p></li>
 <li><p>Calculate the growth rate of GDP by using the function
 <code>calculate_growth_rate()</code> and assign this to a new column in
 the dataset. Name this new column <code>gdp_g</code>.</p></li>
@@ -427,10 +430,9 @@ constant prices for as many years and countries as possible.</p></li>
 dataset the name <code>life_sat</code> (remove missing values, rename
 variables to meaningful and manageable names, select the relevant
 columns).</p></li>
-<li><p>Load and clean the data on life satisfaction and assign the
-dataset the name <code>gdppc</code> (remove missing values, rename
-variables to meaningful and manageable names, select the relevant
-columns).</p></li>
+<li><p>Load and clean the data on GDP per capita and assign the dataset
+the name <code>gdppc</code> (remove missing values, rename variables to
+meaningful and manageable names, select the relevant columns).</p></li>
 <li><p>Combine the two datasets by matching on <code>year</code> and
 <code>country</code>. <strong>Hint</strong>: Use the function
 <code>merge(life_sat, gdppc, by = c(&#39;country&#39;, &#39;year&#39;), all = TRUE)</code></p></li>
