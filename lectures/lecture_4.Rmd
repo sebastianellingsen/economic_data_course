@@ -380,15 +380,15 @@ p1
 
 Use proxies for wellbeing:
 
-- Natural amenities: Size of a forest area
+- Natural amenities: Size of a forest area.
 
-- Environment: Air and water pollution
+- Environment: Air and water pollution.
 
-- Crime and safety: Crime rates
+- Crime and safety: Crime rates.
 
-- Education: Completed education
+- Education: Completed education.
 
-- Health: Life expectancy
+- Health: Life expectancy.<br><br>
 
 **Challenges**: List of proxies is based on value judgement.<br><br>
 
@@ -399,6 +399,15 @@ Use proxies for wellbeing:
 ---
 
 
+
+
+<div style="text-align: center; margin-top: 50px;">
+  <img src="images/human-development-index.png" alt="A descriptive alt text" style="width: 800px;">
+</div>
+
+
+
+---
 
 ## The Human Development Index
 
@@ -571,7 +580,7 @@ In the lab, you will explore the evolution of your own development index.
 ---
 
 
-## Why GDP in Objective Wellbeing Measures 
+## Why GDP in Objective Wellbeing Measures?
 
 
 If there are issues with using GDP for measuring wellbeing, why include it? 
