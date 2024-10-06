@@ -73,13 +73,11 @@ code.r.hljs.remark-code:hover{
 
 <div class="centered-content">
   <h2> </h2>
-   <p>  Measuring well-being <p> 
+   <p>  Measuring wellbeing <p> 
 
-  <p>  Measuring economic actvity<p> 
+  <p>  Measuring wellbeing in practice<p> 
 
-   <p> Approaches to measuring GDP <p>
-
-  <p> Applications of GDP <p>
+   <p> Descriptive statistics <p>
 
 </div>
 
@@ -91,26 +89,27 @@ code.r.hljs.remark-code:hover{
 
 class: inverse, center, middle
 
-# Measuring Well-being
+# Measuring Wellbeing
+
 
 
 
 ---
 
-## What is wellbeing?
+## What is Wellbeing in Economics? 
 
 The utility of an individual can be thought of as the indirect utility function:
 \begin{equation}
-u_i\left(p, w \right),
+u_i\left(p, w;e\right),
 \end{equation}
-where $p$ denotes market prices and $w$ endowments.<br><br>
+where $p$ denotes market prices and $w$ endowments, $e$ are externalities.<br><br>
 
-For a society of $n$ individuals, aggregate well-being can be formulated as
+For a society of $n$ individuals, aggregate wellbeing can be formulated as
 \begin{equation}
 W = F(u_1, ..., u_n).
 \end{equation}
 
-- No agreement on appropriate term of $u_i$.
+- No agreement on the appropriate term of $u_i$.
 
 - No agreement on the measurement of these concepts.
 
@@ -119,7 +118,7 @@ W = F(u_1, ..., u_n).
 
 ---
 
-## What is wellbeing?
+## What is Wellbeing in Economics? 
 
 Even if we agree on an appropriate term of $u_i$, how do we aggregate them?
 
@@ -129,100 +128,37 @@ Even if we agree on an appropriate term of $u_i$, how do we aggregate them?
 
 - Average utility: $W = \sum_{i=1}^n \frac{1}{n}u_i$.<br><br>
 
-Well-being linked to availability of resources in numerous ways (GDP as welfare measure often motivated in this way). 
+Wellbeing is linked to the availability of resources in numerous ways (GDP as a welfare measure is often motivated in this way). 
 
 
 ---
 
 
 
-## GDP per capita is not a measure of well-being
+## GDP is not a Measure of Wellbeing
 
 It is a measure of certain types of economic activity. 
 
-Ignores non-market activity that could be important. 
+Ignores non-market activity that could be important.  
 
 - Natural amenities, education, health, crime, cultural activities, safety.
 
-GDP is correlated with a lot of *good stuff*.
+It is unclear what activities are included.
 
-- E.g. higher GDP associated with lower infant mortality rates
-
-
----
+- Some could be associated with wellbeing. E.g. voluntary work. 
 
 
+<!-- GDP is correlated with a lot of *good stuff*. -->
 
-## 
-
-
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-
-library(readr)
-library(tidyverse)
-library(ggrepel)
-
-df <- read_csv('../data/life-expectancy-vs-gdp-per-capita.csv') %>% 
-  rename(year      = Year,
-         country   = Entity,
-         code      = Code,
-         gdppc     = `GDP per capita`,
-         life_exp  = `Life expectancy at birth (historical)`,
-         pop       = `Population (historical estimates)`,
-         continent = Continent) %>% 
-  select(country, continent, year, gdppc, life_exp, pop) %>%
-  filter(year == 2015,
-         !is.na(pop),
-         !is.na(gdppc))
-
-p1 <- ggplot(data = df, aes(x = log(gdppc), y = life_exp, color = continent))+
-  geom_point(aes(size = pop), alpha = 0.6, stroke = 0.4)+
-  scale_size_continuous(range = c(0.5, 12), breaks = c(6e+8, 1.3e+9), labels = c('600M', '1.3B'))+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="right",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(angle=45, hjust=1, size = 12),
-        axis.text.y=element_text(size = 12),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  xlab("GDP per capita (log)") +
-  ylab("Life expectancy at birth") +
-  labs(title = "Life expectancy vs. GDP per capita, 2015",
-       size = 'Population:',
-       color = ' ',
-       subtitle = "GDP per capita is adjusted for inflation and differences in the cost of living between countries.",
-       caption = "Source: UN WPP (2022); Zijdeman et al. (2015); Riley (2005); Maddison Project Database 2020 (Bolt and van Zanden, 2020).\nNote: GDP per capita is expressed in international-dollars at 2011 prices.")+
-  scale_x_continuous(n.breaks=8) +
-  scale_y_continuous(n.breaks=8) +
-  geom_text_repel(aes(label=ifelse(country %in% c('China', 'Democratic Republic of Congo', 'South Africa', 'Indonesia', 'Equatorial Guinea', 'Trinidad and Tobago', 'Italy', 'Poland', 'Brazil', 'Italy', 'Poland', 'Angola', 'Nigeria', 'United States', 'North Korea', 'Ethiopia', 'Chad', 'India', 'Pakistan'), country, '')),
-                  size = 3.5,
-                  show.legend  = FALSE) +
-  guides(size = guide_legend(override.aes=list(shape = 1)),
-         color = guide_legend(override.aes=list(shape = 15)))
-  
-
-```
-
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
-p1
-```
-
-
+<!-- - E.g. higher GDP associated with lower infant mortality rates -->
 
 
 ---
 
-## GDP does not measure income distribution
+
+
+
+## GDP Does not Account for Income Distribution
 
 Who gets the growth?
 
@@ -256,7 +192,98 @@ Who gets the growth?
 
 ---
 
-## Subjective Well-being Measures
+## Wellbeing is not Monotonically Increasing
+
+Does GDP growth always make people happier?
+
+The effect of more GDP on wellbeing might be non-linear and even non-monotonic.
+
+- E.g. going from starvation to having enough food might matter a lot. 
+
+There might be a certain level of saturation in the effect of access to resources and wellbeing. 
+
+In economics, this idea is captured by *diminishing marginal utility*. 
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+## Loading libraries
+library(tidyverse)
+library(readr)
+
+
+## Loading and cleaning the data on life satisfaction  
+life_sat <- read_csv("../data/ilc_pw01__custom_7985898_linear.csv") %>% 
+  select(geo, TIME_PERIOD, OBS_VALUE) %>% 
+  rename(country  = geo,
+         year     = TIME_PERIOD, 
+         life_sat = OBS_VALUE)
+
+## Loading and cleaning the data on GDP per capita   
+gdppc <- read_csv("../data/sdg_08_10__custom_7985512_linear.csv") %>% 
+  select(geo, TIME_PERIOD, OBS_VALUE) %>% 
+  rename(country = geo,
+         year    = TIME_PERIOD, 
+         gdppc   = OBS_VALUE)
+
+## Combining the datasets 
+df <- life_sat %>% 
+  full_join(gdppc, by = c('country', 'year')) %>% 
+  filter(!is.na(life_sat), 
+         !is.na(gdppc), 
+         country!='EU27_2020') 
+
+## Plotting the data 
+p1 <- ggplot(data=df, aes(x = gdppc, y = life_sat, color = as.factor(year)))+
+  geom_point(size = 2.5, alpha = 0.7)+
+  # scale_color_manual(values=c(0,3,1))+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="right",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Real GDP per capita") +
+  ylab("Overall life satisfaction (1=lowest, 10=highest)") +
+  labs(title = "Life satisfaction vs. GDP per capita",
+       size = 'Population:',
+       color = ' ',
+       subtitle = "Real GDP per capita is measured in 2015 prices",
+       caption = "Real GDP per capita 2015 national currency (chain linked). Source: Eurostat (nama_10_gdp).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+---
+
+class: inverse, center, middle
+
+# Measuring Wellbeing in Practice
+
+
+
+
+
+---
+
+## Subjective Wellbeing Measures
 
 *Ask people how they consider their situation.*
 
@@ -349,13 +376,13 @@ p1
 
 
 
-## Objective Well-being Measures
+## Objective Wellbeing Measures
 
-Use proxies for well-being:
+Use proxies for wellbeing:
 
 - Natural amenities: Size of a forest area
 
-- Environment: Air and water Pollution
+- Environment: Air and water pollution
 
 - Crime and safety: Crime rates
 
@@ -364,6 +391,7 @@ Use proxies for well-being:
 - Health: Life expectancy
 
 **Challenges**: List of proxies is based on value judgement.<br><br>
+
 
 
 
@@ -524,8 +552,142 @@ p1
 
 ## General Approach 
 
+Consider $N$ variables indexed by $k$ you want to include in an index.
 
-Write the function, generate your own in one of the labs  
+First, we standardize each variable:
+\begin{equation}
+I^k = \frac{Y^k - Y^k_{\text{min}}}{Y^k_{\text{max}}- Y^k_{\text{min}}}
+\end{equation}
+
+Then calculate the geometric mean
+\begin{equation}
+\text{Index} = \left(\Pi_{k = 1}^N I^k\right)^{\frac{1}{k}}
+\end{equation}
+
+In the lab, you will explore the evolution of your own development index.
+
+
+
+---
+
+
+## Why GDP in Objective Wellbeing Measures 
+
+
+If there are issues with using GDP for measuring wellbeing, why include it? 
+
+It is a good measure of *material* wellbeing. 
+
+Harmonized across many countries. 
+
+- More so than any other economic statistic. 
+
+It is associated with a lot of variables that are associated with wellbeing. <br><br>
+
+So while GDP is not the full story, it contains useful information about wellbeing. 
+
+
+
+
+
+---
+
+## 
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+library(readr)
+library(tidyverse)
+library(ggrepel)
+
+df <- read_csv('../data/life-expectancy-vs-gdp-per-capita.csv') %>% 
+  rename(year      = Year,
+         country   = Entity,
+         code      = Code,
+         gdppc     = `GDP per capita`,
+         life_exp  = `Life expectancy at birth (historical)`,
+         pop       = `Population (historical estimates)`,
+         continent = Continent) %>% 
+  select(country, continent, year, gdppc, life_exp, pop) %>%
+  filter(year == 2015,
+         !is.na(pop),
+         !is.na(gdppc))
+
+p1 <- ggplot(data = df, aes(x = log(gdppc), y = life_exp, color = continent))+
+  geom_point(aes(size = pop), alpha = 0.6, stroke = 0.4)+
+  scale_size_continuous(range = c(0.5, 12), breaks = c(6e+8, 1.3e+9), labels = c('600M', '1.3B'))+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="right",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("GDP per capita (log)") +
+  ylab("Life expectancy at birth") +
+  labs(title = "Life expectancy vs. GDP per capita, 2015",
+       size = 'Population:',
+       color = ' ',
+       subtitle = "GDP per capita is adjusted for inflation and differences in the cost of living between countries.",
+       caption = "Source: UN WPP (2022); Zijdeman et al. (2015); Riley (2005); Maddison Project Database 2020 (Bolt and van Zanden, 2020).\nNote: GDP per capita is expressed in international-dollars at 2011 prices.")+
+  scale_x_continuous(n.breaks=8) +
+  scale_y_continuous(n.breaks=8) +
+  geom_text_repel(aes(label=ifelse(country %in% c('China', 'Democratic Republic of Congo', 'South Africa', 'Indonesia', 'Equatorial Guinea', 'Trinidad and Tobago', 'Italy', 'Poland', 'Brazil', 'Italy', 'Poland', 'Angola', 'Nigeria', 'United States', 'North Korea', 'Ethiopia', 'Chad', 'India', 'Pakistan'), country, '')),
+                  size = 3.5,
+                  show.legend  = FALSE) +
+  guides(size = guide_legend(override.aes=list(shape = 1)),
+         color = guide_legend(override.aes=list(shape = 15)))
+  
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+## Other Measures of Wellbeing
+
+**World Happiness Report**: 
+
+`https://worldhappiness.report/`<br><br>
+
+**ONS Measuring National wellbeing**: 
+
+`https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing`<br><br>
+
+**Quality of life indicators**: 
+
+`https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Quality_of_life_indicators_-_measuring_quality_of_life#Overall_experience_of_life`<br><br>
+
+**OECD Better Life Index**: 
+
+`https://data-explorer.oecd.org/`
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Descriptive Statistics
 
 
 
@@ -536,7 +698,7 @@ Write the function, generate your own in one of the labs
 
 <!-- As we start to combine and describe patterns in data, we need some measures to summarize data.  -->
 
-The data we consider will have a *distribution*, frequency with which different values occur. <br><br>
+The data we consider will have a *distribution*, the frequency with which different values occur. <br><br>
 
 
 
@@ -639,7 +801,7 @@ var(df$life_exp)^0.5
 
 ## Descriptive Statistics 
 
-SO USEFULL THAT BUILD IN
+These measures are so useful that they are built in as defaults using `summary()`.
 
 ```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=T, message=FALSE, warning=FALSE, fig_caption= FALSE, eval = T, fig.height = 3.7, fig.width = 7.1, fig.align="center"}
 summary(df$life_exp)
@@ -651,7 +813,7 @@ summary(df$life_exp)
 
 ## Descriptive Statistics 
 
-or for entire dataframe
+`summary()` also works on entire dataframes.
 
 ```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=T, message=FALSE, warning=FALSE, fig_caption= FALSE, eval = T, fig.height = 3.7, fig.width = 7.1, fig.align="center"}
 summary(df)
@@ -664,30 +826,106 @@ summary(df)
 
 Want to measure the *co-dispersion* between two variables as well. 
 
-<!-- mean, median, dispersion, correlation  -->
 
-<!-- how to calculate them in R.  -->
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+## Loading libraries
+library(tidyverse)
+library(readr)
 
-<!-- want to summarise patterns in data with a simple number  -->
 
-<!-- USE presentation in THE BOOK, show how in R -->
+## Loading and cleaning the data on life satisfaction  
+life_sat <- read_csv("../data/ilc_pw01__custom_7985898_linear.csv") %>% 
+  select(geo, TIME_PERIOD, OBS_VALUE) %>% 
+  rename(country  = geo,
+         year     = TIME_PERIOD, 
+         life_sat = OBS_VALUE)
+
+## Loading and cleaning the data on GDP per capita   
+gdppc <- read_csv("../data/sdg_08_10__custom_7985512_linear.csv") %>% 
+  select(geo, TIME_PERIOD, OBS_VALUE) %>% 
+  rename(country = geo,
+         year    = TIME_PERIOD, 
+         gdppc   = OBS_VALUE)
+
+## Combining the datasets 
+df <- life_sat %>% 
+  full_join(gdppc, by = c('country', 'year')) %>% 
+  filter(!is.na(life_sat), 
+         !is.na(gdppc), 
+         country!='EU27_2020') 
+
+## Plotting the data 
+p1 <- ggplot(data=df %>% filter(year == 2018), aes(x = log(gdppc), y = life_sat))+
+  geom_point(size = 2.5, alpha = 0.7)+
+  # scale_color_manual(values=c(0,3,1))+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="right",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("Real GDP per capita (log.)") +
+  ylab("Overall life satisfaction (1=lowest, 10=highest)") +
+  labs(title = "Life satisfaction vs. GDP per capita",
+       size = 'Population:',
+       color = ' ',
+       subtitle = "Real GDP per capita is measured in 2015 prices",
+       caption = "Real GDP per capita 2015 national currency (chain linked). Source: Eurostat (nama_10_gdp).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 6, fig.width = 8, fig.align="center"}
+p1
+```
+
+
+---
+
+## Descriptive Statistics 
+
+Measuring the co-dispersion between $X$ and $Y$: 
+
+- Covariance: $\text{cov}\left(X, Y\right) = \frac{\sum_{i=1}^N \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{N}$ 
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=T, message=FALSE, warning=FALSE, fig_caption= FALSE, eval = T, fig.height = 3.7, fig.width = 7.1, fig.align="center"}
+cov(df$gdppc, df$life_sat)
+```
+
+- Correlation: $\text{cor}\left(X, Y\right) = \frac{\text{cov}\left(X, Y\right)}{\sigma_X, \sigma_Y}$ 
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=T, message=FALSE, warning=FALSE, fig_caption= FALSE, eval = T, fig.height = 3.7, fig.width = 7.1, fig.align="center"}
+cor(df$gdppc, df$life_sat)
+```
+
 
 
 ---
 
 ## Summary
 
-GDP is the most publicized economic data. 
+GDP is the most publicized economic data, but it does not measure wellbeing.  
 
-- GDP measures economic activity in terms of expenditures, production or income.
+- Only measures some types of economic activity.
 
-- GDP is based on the national accounts.
+We can complement this with subjective and objective wellbeing measures. 
 
-- There are international standards for what is included in GDP.
+A widely published measure is the Human Development Index. 
 
-- GDP is used for measuring economic growth, defining business cycles, measuring productivity, measuring wellbeing.<br><br> 
+You have seen ways to calculate descriptive statistics in R. <br><br>
 
-**Coming weeks**: How to measure welfare? Adjusting for prices (spatially and temporally): Real or nominal GDP?
+
+**Next**: Constructing functions and combining datasets in R. Adjusting for prices (spatially and temporally). 
 
 
 

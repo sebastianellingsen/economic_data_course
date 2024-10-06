@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 4</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2024-10-02" />
+    <meta name="date" content="2024-10-06" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2024-10-02
+### 2024-10-06
 ]
 
 ---
@@ -68,13 +68,11 @@ code.r.hljs.remark-code:hover{
 
 &lt;div class="centered-content"&gt;
   &lt;h2&gt; &lt;/h2&gt;
-   &lt;p&gt;  Measuring well-being &lt;p&gt; 
+   &lt;p&gt;  Measuring wellbeing &lt;p&gt; 
 
-  &lt;p&gt;  Measuring economic actvity&lt;p&gt; 
+  &lt;p&gt;  Measuring wellbeing in practice&lt;p&gt; 
 
-   &lt;p&gt; Approaches to measuring GDP &lt;p&gt;
-
-  &lt;p&gt; Applications of GDP &lt;p&gt;
+   &lt;p&gt; Descriptive statistics &lt;p&gt;
 
 &lt;/div&gt;
 
@@ -86,26 +84,27 @@ code.r.hljs.remark-code:hover{
 
 class: inverse, center, middle
 
-# Measuring Well-being
+# Measuring Wellbeing
+
 
 
 
 ---
 
-## What is wellbeing?
+## What is Wellbeing in Economics? 
 
 The utility of an individual can be thought of as the indirect utility function:
 `\begin{equation}
-u_i\left(p, w \right),
+u_i\left(p, w;e\right),
 \end{equation}`
-where `\(p\)` denotes market prices and `\(w\)` endowments.&lt;br&gt;&lt;br&gt;
+where `\(p\)` denotes market prices and `\(w\)` endowments, `\(e\)` are externalities.&lt;br&gt;&lt;br&gt;
 
-For a society of `\(n\)` individuals, aggregate well-being can be formulated as
+For a society of `\(n\)` individuals, aggregate wellbeing can be formulated as
 `\begin{equation}
 W = F(u_1, ..., u_n).
 \end{equation}`
 
-- No agreement on appropriate term of `\(u_i\)`.
+- No agreement on the appropriate term of `\(u_i\)`.
 
 - No agreement on the measurement of these concepts.
 
@@ -114,7 +113,7 @@ W = F(u_1, ..., u_n).
 
 ---
 
-## What is wellbeing?
+## What is Wellbeing in Economics? 
 
 Even if we agree on an appropriate term of `\(u_i\)`, how do we aggregate them?
 
@@ -124,43 +123,37 @@ Even if we agree on an appropriate term of `\(u_i\)`, how do we aggregate them?
 
 - Average utility: `\(W = \sum_{i=1}^n \frac{1}{n}u_i\)`.&lt;br&gt;&lt;br&gt;
 
-Well-being linked to availability of resources in numerous ways (GDP as welfare measure often motivated in this way). 
+Wellbeing is linked to the availability of resources in numerous ways (GDP as a welfare measure is often motivated in this way). 
 
 
 ---
 
 
 
-## GDP per capita is not a measure of well-being
+## GDP is not a Measure of Wellbeing
 
 It is a measure of certain types of economic activity. 
 
-Ignores non-market activity that could be important. 
+Ignores non-market activity that could be important.  
 
 - Natural amenities, education, health, crime, cultural activities, safety.
 
-GDP is correlated with a lot of *good stuff*.
+It is unclear what activities are included.
 
-- E.g. higher GDP associated with lower infant mortality rates
-
-
----
+- Some could be associated with wellbeing. E.g. voluntary work. 
 
 
+&lt;!-- GDP is correlated with a lot of *good stuff*. --&gt;
 
-## 
-
-
-
-
-&lt;img src="lecture_4_files/figure-html/unnamed-chunk-3-1.png" width="792" style="display: block; margin: auto;" /&gt;
-
-
+&lt;!-- - E.g. higher GDP associated with lower infant mortality rates --&gt;
 
 
 ---
 
-## GDP does not measure income distribution
+
+
+
+## GDP Does not Account for Income Distribution
 
 Who gets the growth?
 
@@ -194,7 +187,40 @@ Who gets the growth?
 
 ---
 
-## Subjective Well-being Measures
+## Wellbeing is not Monotonically Increasing
+
+Does GDP growth always make people happier?
+
+The effect of more GDP on wellbeing might be non-linear and even non-monotonic.
+
+- E.g. going from starvation to having enough food might matter a lot. 
+
+There might be a certain level of saturation in the effect of access to resources and wellbeing. 
+
+In economics, this idea is captured by *diminishing marginal utility*. 
+
+
+
+---
+
+
+
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-3-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: inverse, center, middle
+
+# Measuring Wellbeing in Practice
+
+
+
+
+
+---
+
+## Subjective Wellbeing Measures
 
 *Ask people how they consider their situation.*
 
@@ -229,13 +255,13 @@ Who gets the growth?
 
 
 
-## Objective Well-being Measures
+## Objective Wellbeing Measures
 
-Use proxies for well-being:
+Use proxies for wellbeing:
 
 - Natural amenities: Size of a forest area
 
-- Environment: Air and water Pollution
+- Environment: Air and water pollution
 
 - Crime and safety: Crime rates
 
@@ -244,6 +270,7 @@ Use proxies for well-being:
 - Health: Life expectancy
 
 **Challenges**: List of proxies is based on value judgement.&lt;br&gt;&lt;br&gt;
+
 
 
 
@@ -326,8 +353,85 @@ The geometric mean is chosen to make the function concave in `\(I_{it}^{Health}I
 
 ## General Approach 
 
+Consider `\(N\)` variables indexed by `\(k\)` you want to include in an index.
 
-Write the function, generate your own in one of the labs  
+First, we standardize each variable:
+`\begin{equation}
+I^k = \frac{Y^k - Y^k_{\text{min}}}{Y^k_{\text{max}}- Y^k_{\text{min}}}
+\end{equation}`
+
+Then calculate the geometric mean
+`\begin{equation}
+\text{Index} = \left(\Pi_{k = 1}^N I^k\right)^{\frac{1}{k}}
+\end{equation}`
+
+In the lab, you will explore the evolution of your own development index.
+
+
+
+---
+
+
+## Why GDP in Objective Wellbeing Measures 
+
+
+If there are issues with using GDP for measuring wellbeing, why include it? 
+
+It is a good measure of *material* wellbeing. 
+
+Harmonized across many countries. 
+
+- More so than any other economic statistic. 
+
+It is associated with a lot of variables that are associated with wellbeing. &lt;br&gt;&lt;br&gt;
+
+So while GDP is not the full story, it contains useful information about wellbeing. 
+
+
+
+
+
+---
+
+## 
+
+
+
+
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-11-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## Other Measures of Wellbeing
+
+**World Happiness Report**: 
+
+`https://worldhappiness.report/`&lt;br&gt;&lt;br&gt;
+
+**ONS Measuring National wellbeing**: 
+
+`https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing`&lt;br&gt;&lt;br&gt;
+
+**Quality of life indicators**: 
+
+`https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Quality_of_life_indicators_-_measuring_quality_of_life#Overall_experience_of_life`&lt;br&gt;&lt;br&gt;
+
+**OECD Better Life Index**: 
+
+`https://data-explorer.oecd.org/`
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Descriptive Statistics
 
 
 
@@ -338,13 +442,13 @@ Write the function, generate your own in one of the labs
 
 &lt;!-- As we start to combine and describe patterns in data, we need some measures to summarize data.  --&gt;
 
-The data we consider will have a *distribution*, frequency with which different values occur. &lt;br&gt;&lt;br&gt;
+The data we consider will have a *distribution*, the frequency with which different values occur. &lt;br&gt;&lt;br&gt;
 
 
 
 
 
-&lt;img src="lecture_4_files/figure-html/unnamed-chunk-11-1.png" width="792" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-13-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -420,7 +524,7 @@ var(df$life_exp)^0.5
 
 ## Descriptive Statistics 
 
-SO USEFULL THAT BUILD IN
+These measures are so useful that they are built in as defaults using `summary()`.
 
 
 ``` r
@@ -438,7 +542,7 @@ summary(df$life_exp)
 
 ## Descriptive Statistics 
 
-or for entire dataframe
+`summary()` also works on entire dataframes.
 
 
 ``` r
@@ -469,30 +573,58 @@ summary(df)
 
 Want to measure the *co-dispersion* between two variables as well. 
 
-&lt;!-- mean, median, dispersion, correlation  --&gt;
 
-&lt;!-- how to calculate them in R.  --&gt;
 
-&lt;!-- want to summarise patterns in data with a simple number  --&gt;
 
-&lt;!-- USE presentation in THE BOOK, show how in R --&gt;
+&lt;img src="lecture_4_files/figure-html/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Descriptive Statistics 
+
+Measuring the co-dispersion between `\(X\)` and `\(Y\)`: 
+
+- Covariance: `\(\text{cov}\left(X, Y\right) = \frac{\sum_{i=1}^N \left(X_i - \bar{X}\right)\left(Y_i - \bar{Y}\right)}{N}\)` 
+
+
+``` r
+cov(df$gdppc, df$life_sat)
+```
+
+```
+[1] 8856.359
+```
+
+- Correlation: `\(\text{cor}\left(X, Y\right) = \frac{\text{cov}\left(X, Y\right)}{\sigma_X, \sigma_Y}\)` 
+
+
+``` r
+cor(df$gdppc, df$life_sat)
+```
+
+```
+[1] 0.6438198
+```
+
 
 
 ---
 
 ## Summary
 
-GDP is the most publicized economic data. 
+GDP is the most publicized economic data, but it does not measure wellbeing.  
 
-- GDP measures economic activity in terms of expenditures, production or income.
+- Only measures some types of economic activity.
 
-- GDP is based on the national accounts.
+We can complement this with subjective and objective wellbeing measures. 
 
-- There are international standards for what is included in GDP.
+A widely published measure is the Human Development Index. 
 
-- GDP is used for measuring economic growth, defining business cycles, measuring productivity, measuring wellbeing.&lt;br&gt;&lt;br&gt; 
+You have seen ways to calculate descriptive statistics in R. &lt;br&gt;&lt;br&gt;
 
-**Coming weeks**: How to measure welfare? Adjusting for prices (spatially and temporally): Real or nominal GDP?
+
+**Next**: Constructing functions and combining datasets in R. Adjusting for prices (spatially and temporally). 
 
 
 
