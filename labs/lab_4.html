@@ -385,8 +385,8 @@ and GDP.</p></li>
 <li><p>Copy the function below and paste it into your script.</p></li>
 </ul>
 <pre class="r"><code># Function to calculate the mean of the log
-log_mean &lt;- function(current_value) {
-  log_mean &lt;- mean(log(current_value))
+log_mean &lt;- function(x) {
+  log_mean &lt;- mean(log(x))
   return(log_mean)
 }</code></pre>
 <ul>
@@ -464,9 +464,10 @@ legend(&quot;bottomright&quot;, legend = unique(df$year),
 words explaining what the variables measure and about some patterns in
 the data. <strong>Hint</strong>: You can click export in the plot window
 to export a plot.</p></li>
-<li><p>Construct a function that calculates the correlation between life
-satisfaction and GDP per capita. Call the function
-<code>correlation_year()</code>. Round the number of digits to <span class="math inline">\(2\)</span> <strong>Hint</strong>: Embed the
+<li><p>Construct a function that returns the correlation between life
+satisfaction and GDP per capita for a user specified year. Call the
+function <code>correlation_year()</code>. Round the number of digits to
+<span class="math inline">\(2\)</span> <strong>Hint</strong>: Embed the
 solution to Part 2 of the exercise into the function
 <code>correlation_year()</code>. Use
 <code>round( , digits = 2)</code></p></li>
