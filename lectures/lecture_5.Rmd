@@ -1,0 +1,921 @@
+---
+title: "Economic Data - Lecture 5"
+subtitle: "Sebastian Ellingsen"
+author: "School of Economics - University of Bristol"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      navigation:
+        scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253")
+
+options(htmltools.dir.version = FALSE)
+
+# This is a recommended set up for flipbooks
+knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
+library(flipbookr)
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggthemes)
+```
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Adjust based on your needs */
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+```
+
+
+<div class="centered-content">
+  <h2> </h2>
+   <p>  Changes in Prices over Time <p> 
+   
+   <p>  Price Indices <p> 
+
+  <p>  Price Indices in Practice <p> 
+
+
+</div>
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Price Indices
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+
+df <- read_csv("../data/series-121024.csv",  skip = 43) %>% 
+  rename(year_quarter = `2023`, 
+         p = `128.6`) %>% 
+    mutate(
+    year = substr(year_quarter, 1, 4),     # Extract year
+    quarter = substr(year_quarter, 6, 7),  # Extract quarter
+    month = case_when(
+      quarter == "Q1" ~ "01",  # Q1 = January
+      quarter == "Q2" ~ "04",  # Q2 = April
+      quarter == "Q3" ~ "07",  # Q3 = July
+      quarter == "Q4" ~ "10"   # Q4 = October
+    ),
+    date = as.Date(paste0(year, "-", month, "-01"), format = "%Y-%m-%d")
+  ) %>% 
+    mutate(g_p = 100*(p-lag(p, n=4))/lag(p, n=4),
+         g_p = round(g_p, d = 1))  %>% 
+  filter(!is.na(date),
+         date>'1992-01-01')
+
+
+p1 <- ggplot(data = df, aes(x = date, y = p))+
+  geom_line(stat='identity', lwd = 1, alpha = 0.8)+
+    geom_hline(yintercept = 100, linetype = 'dashed', alpha = 0.6)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Index, base year = 2015") +
+  labs(title = "CPIH Index: All Items, 2015=100",
+       subtitle = "CPIH for the United Kingdom, Jan. 1992 - April. 2024.",
+       caption = "Source: ONS, Consumer price inflation time series (MM23).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+# df <- read_csv("../data/prc_hicp_midx__custom_13258951_linear.csv") %>%
+#   select(TIME_PERIOD, OBS_VALUE) %>%
+#   rename(date    = TIME_PERIOD,
+#          p       = OBS_VALUE) %>%
+#   mutate(date = paste(date, "01", sep="-"),
+#          date = as.Date(date, format = "%Y-%m-%d")) %>%
+#   mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+#          g_p = round(g_p, d = 1))  %>%
+#   filter(date>'2014-01-01')
+
+
+p1 <- ggplot(data = df, aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1, alpha = 0.8)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Annual Rate of Inflation in the UK",
+       subtitle = "Measures monthly annual change in the CPIH, Jan. 1992 - April. 2024.",
+       caption = "Source: Source: ONS, Consumer price inflation time series (MM23).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+p1 <- ggplot(data = df, aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1, alpha = 0.8)+
+  geom_hline(yintercept = max(df$g_p, na.rm = T), linetype = 'dashed', alpha = 0.9)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Annual Rate of Inflation in the UK",
+       subtitle = "Measures monthly annual change in the CPIH, Jan. 1992 - April. 2024.",
+       caption = "Source: Source: ONS, Consumer price inflation time series (MM23).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+---
+
+## Changes in Prices over Time
+
+"*Inflation in the UK over the last few years appears to have peaked at 9.4%.*"  <br><br>
+
+What Does Inflation of 9.4% Mean? 
+
+**Answer**: Prices are 9.4% higher than one year ago. 
+
+But there are many prices in an economy. 
+
+- Does this mean that all prices increased exactly 9.4%? No!
+
+There are many goods and prices. How can we summarise this in one value? <br><br>
+
+To answer this question we need to consider price indices in more detail. 
+
+
+
+---
+
+## An Index in a Simple Economy
+
+Let's start again with a very simple economy with only one good. A price index is then given by 
+\begin{equation}
+\large I_t = 100 \times \frac{P_t}{P_0}
+\end{equation}
+where $I_t$ is the index value at time $t$. Note that 
+\begin{equation}
+\large I_{t-1} = 100 \times \frac{P_{t-1}}{P_0}.
+\end{equation}
+Inserting this expression and simplifying we get  
+\begin{equation}
+\large I_t = I_{t-1} \times \frac{P_t}{P_{t-1}}.
+\end{equation}
+We see that the index equals the previous period's index times the growth in the price level. 
+
+
+
+---
+
+## An Index in a Less Simple Economy
+
+But what if we are interested in the price development across more than one good?
+
+Assume there are two goods: good $1$ and good $2$. An index could be based on the average. 
+\begin{equation}
+\large I_t =100 \times \left(\frac{0.5 P_{1t} + 0.5 P_{2t}}{0.5 P_{10} + 0.5 P_{20}}\right)
+\end{equation}
+What if the consumption of the two goods is not equal? Let $Q_{i}$ denote the quantity consumed of good $i$.
+
+A more general index is then
+\begin{equation}
+\large I_t =100 \times \left(\frac{Q_{1} P_{1t} + Q_{2} P_{2t}}{Q_{1} P_{10} + Q_{2} P_{20}}\right)
+\end{equation}
+
+
+
+
+---
+
+## An Index in a Realistic Economy
+
+Let's assume there are $N$ goods in the economy. A price index is then given by
+\begin{equation}
+\large I_t =100 \times \left(\frac{\sum_{i = 1}^N Q_{i} P_{it}}{\sum_{i = 1}^N Q_{i} P_{i0}}\right),
+\end{equation}
+where $i$ indexes each good $i = 1, ..., N$.
+
+We can now explore how this index evolves over time to understand how prices evolve. 
+
+**Problem**: Consumption (the weights $Q_{i}$) change over time as well!
+
+$Q_{it}$ should have time indices as well 
+
+This is what the *Laspeyres* and *Paasche* indices seek to address.  
+
+
+
+
+
+---
+
+## The Laspeyres Price Index
+
+This is the Laspeyres price index:
+\begin{equation}
+\large I^L_t = 100\times \frac{\sum_{i = 1}^N Q_{i0} P_{it}}{\sum_{i = 1}^N Q_{i0} P_{i0}}\normalsize
+\end{equation}
+where $Q_{it}$ is quantity and $P_{it}$ prices of good $i$ at time $t$.
+
+The Laspeyres index keeps quantities $Q_{i0}$ fixed at the reference period.
+
+- Tells us how much the price of our consumption has changed, given the weights in year $0$. <br><br>
+
+Notice, that expenditure shares typically change as prices change. 
+
+The *Paasche Price Index* is more sensitive to this. 
+
+
+
+
+
+---
+
+## The Paasche Price Index
+
+This is the Paasche price index:
+\begin{equation}
+\large I_{t}^P =100\times  \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{i0}}\normalsize
+\end{equation}
+where $Q_{it}$ is quantity and $P_{it}$ prices of good $i$ at time $t$.
+
+The main difference is that it uses the current weights $Q_{it}$, both in the denominator and numerator.
+
+The Paasche Index typically predicts lower changes in price levels. 
+
+- Consumers often substitute away from goods that increase more in price, Paasche Index accounts for this. 
+
+More demanding to collect data. 
+
+- Need to calculate the weights for every year. 
+
+
+
+
+
+---
+
+## Ex: A Less Simple Economy
+
+
+<br><br>
+
+<table style="border-collapse: collapse; width: 100%; text-align: center; font-family: sans-serif;">
+  <thead>
+    <tr>
+      <th colspan="7" style="border-bottom: 1px solid black;">Price and Quantity Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Year</td>
+      <td>P1</td>
+      <td>P2</td>
+      <td>Q1</td>
+      <td>Q2</td>
+      <td>I<sub>L</sub></td>
+      <td>I<sub>P</sub></td>
+    </tr>
+
+    <tr>
+      <td>2001</td>
+      <td>136</td>
+      <td>100</td>
+      <td>90</td>
+      <td>10</td>
+      <td>100.0</td>
+      <td>100.0</td>
+    </tr>
+    <tr>
+      <td>2002</td>
+      <td>186</td>
+      <td>110</td>
+      <td>85</td>
+      <td>15</td>
+      <td>134.7</td>
+      <td>133.7</td>
+    </tr>
+    <tr>
+      <td>2003</td>
+      <td>197</td>
+      <td>120</td>
+      <td>80</td>
+      <td>20</td>
+      <td>143.0</td>
+      <td>141.0</td>
+    </tr>
+    <tr>
+      <td>2004</td>
+      <td>204</td>
+      <td>125</td>
+      <td>75</td>
+      <td>25</td>
+      <td>148.1</td>
+      <td>145.1</td>
+    </tr>
+    <tr>
+      <td>2005</td>
+      <td>215</td>
+      <td>132</td>
+      <td>70</td>
+      <td>30</td>
+      <td>156.1</td>
+      <td>151.8</td>
+    </tr>
+    <tr>
+      <td>2006</td>
+      <td>222</td>
+      <td>140</td>
+      <td>65</td>
+      <td>35</td>
+      <td>161.5</td>
+      <td>156.6</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Some Other Indices
+
+<br><br>
+
+Some other price indicies you might encounter: 
+
+The Fisher Price Index: $I_t^F = \sqrt{I_{t}^P\times I_{t}^F}$.
+
+The Lowe Price Index: $I_t^{Lo} = 100\times  \frac{\sum_{i = 1}^N Q_{ir} P_{ir}}{\sum_{i = 1}^N Q_{ir} P_{i0}}$.
+
+The Carli Price Index: $I_t^{C} = \frac{1}{N} \sum_{i=1}^N \left(\frac{P_{it}}{P_{i0}}\right)$.
+
+---
+
+
+## Chain-linked vs. Unchained Indices
+
+<br>
+
+So far, two solutions regarding product weights. 
+
+- Use the weights in the base year.
+
+- Use the weights in the current year.
+
+A third approach is chain-linking.
+
+Remember we could write the value of the index as the product of past index value and rate of change in prices. 
+
+This is the general idea behind chain-linking. 
+
+There are two main versions: *Chained-linked Laspeyres* and *Chain-linked Paasche*. 
+
+---
+
+## Chained-linked Laspeyres
+<br>
+
+The Chained-linked Laspeyres index is given by
+\begin{equation}
+\large I^L_t = I^L_{t-1}\times \frac{\sum_{i = 1}^N Q_{it-1} P_{it}}{\sum_{i = 1}^N Q_{it-1} P_{it-1}}\normalsize
+\end{equation}
+where $Q_{it-1}$ denotes the weight in period $t-1$.
+
+The growth always relative to the $t-1$.
+
+
+---
+
+## Chained-linked Paasche
+<br>
+
+The Chained-linked Paasche index is given by
+\begin{equation}
+\large I^L_t = I^L_{t-1}\times \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{it-1}}\normalsize
+\end{equation}
+where $Q_{it-1}$ denotes the weight in period $t-1$.
+
+The growth always relative to the $t-1$.
+
+
+
+
+
+---
+## Weights in Price Indices
+<br>
+
+Weights $Q_{it}$ are essential for constructing price indexes.
+
+Typically derived from total household final expenditure data in national accounts.
+
+Alternative methods include surveys, such as the UK's Living Costs and Food Survey (LCF).
+
+- LCF collects data from thousands of households over a two-week period.
+
+Provides detailed household-level data, allowing for more representative weighting.
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Price Indices in Practice
+
+
+
+---
+
+
+## The Consumer Price Index
+<br>
+
+The CPI is based on about 180,000 prices that cover about 700 items.
+
+The CPI and CPIH are *chain-linked Laspeyres-type* price indexes computed on a monthly basis. 
+
+The harmonised index of consumer prices (HICP), is the consumer price index by the European Union/ Eurostat, 
+
+- This is also a chain-linked Laspeyres-type price index. 
+
+Both the CPI and CPIH use weights that are typically updated annually
+
+Let's now revisit the CPI for the UK. 
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+
+df <- read_csv("../data/series-121024.csv",  skip = 43) %>% 
+  rename(year_quarter = `2023`, 
+         p = `128.6`) %>% 
+    mutate(
+    year = substr(year_quarter, 1, 4),     # Extract year
+    quarter = substr(year_quarter, 6, 7),  # Extract quarter
+    month = case_when(
+      quarter == "Q1" ~ "01",  # Q1 = January
+      quarter == "Q2" ~ "04",  # Q2 = April
+      quarter == "Q3" ~ "07",  # Q3 = July
+      quarter == "Q4" ~ "10"   # Q4 = October
+    ),
+    date = as.Date(paste0(year, "-", month, "-01"), format = "%Y-%m-%d")
+  ) %>% 
+    mutate(g_p = 100*(p-lag(p, n=4))/lag(p, n=4),
+         g_p = round(g_p, d = 1))  %>% 
+  filter(!is.na(date),
+         date>'1992-01-01')
+
+
+p1 <- ggplot(data = df, aes(x = date, y = p))+
+  geom_line(stat='identity', lwd = 1, alpha = 0.8)+
+    geom_hline(yintercept = 100, linetype = 'dashed', alpha = 0.6)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Index, base year = 2015") +
+  labs(title = "CPIH Index: All Items, 2015=100",
+       subtitle = "CPIH for the United Kingdom, Jan. 1992 - April. 2024.",
+       caption = "Source: ONS, Consumer price inflation time series (MM23).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+# df <- read_csv("../data/prc_hicp_midx__custom_13258951_linear.csv") %>%
+#   select(TIME_PERIOD, OBS_VALUE) %>%
+#   rename(date    = TIME_PERIOD,
+#          p       = OBS_VALUE) %>%
+#   mutate(date = paste(date, "01", sep="-"),
+#          date = as.Date(date, format = "%Y-%m-%d")) %>%
+#   mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+#          g_p = round(g_p, d = 1))  %>%
+#   filter(date>'2014-01-01')
+
+
+p1 <- ggplot(data = df, aes(x = date, y = g_p))+
+  geom_line(stat='identity', lwd = 1, alpha = 0.8)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Annual Rate of Inflation in the UK",
+       subtitle = "Measures monthly annual change in the CPIH, Jan. 1992 - April. 2024.",
+       caption = "Source: ONS, Consumer price inflation time series (MM23).")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+df <- read_csv("../data/prc_hicp_midx__custom_13262837_linear.csv") %>%
+  select(geo, TIME_PERIOD, OBS_VALUE) %>%
+  rename(date    = TIME_PERIOD,
+         p       = OBS_VALUE) %>%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %>%
+  group_by(geo) %>% 
+  mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+         g_p = round(g_p, d = 1))  %>%
+  filter(date>'2005-01-01')
+
+
+p1 <- ggplot(data = df, aes(x = date, y = p, color = geo))+
+  geom_line(stat='identity', lwd = 0.8, alpha = 0.5)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Index, base year = 2005") +
+  labs(title = "HCPI Index: All Items, 2005=100",
+       subtitle = "HCPI for the European Countries, Jan. 2005 - Aug. 2024.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")
+
+```
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+# Loading and cleaning the main dataset
+
+p1 <- ggplot(data = df, aes(x = date, y = g_p, color = geo))+
+  geom_line(stat='identity', lwd = 0.8, alpha = 0.5)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
+xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in Europe",
+       subtitle = "Measures monthly annual change in the HICP, Jan. 2005 - Aug. 2024.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p1
+```
+
+
+
+
+
+
+---
+
+## Price Indices in Practice
+<br>
+
+We have seen different ways to calculate indices. 
+
+Indices also differ in their $N$ (what goods are included).<br>
+
+Some examples of price indices in the UK:
+
+- Consumer price index (CPI and CPIH) 
+
+- The UK has its own RPI (not official)
+
+- GDP deflator.
+
+- Producer price index, import price index, export price index, house price index, etc. 
+
+
+
+
+
+
+
+---
+
+
+## Price Indices in Practice
+<br>
+
+Calculating inflation rates.
+
+- Central banks often have inflation targets.
+
+- The Bank of England’s inflation target is based on the CPI: $\pi_t = \frac{I_t}{I_{t-1}} - 1$
+<br><br>
+
+Nominal to real conversions.
+
+- For example for GDP.
+
+- $\text{Value}_{\text{real}, t} = \text{Value}_{\text{nominal}, t} \times \frac{\text{I}_{t0}}{\text{I}_{t}}$
+
+
+
+---
+
+
+## Price Indices in Practice
+<br>
+
+IN GDP CONVERSION, CHECK 
+
+
+
+
+
+---
+
+## Price Indices in Practice in R
+
+Much of the data we have seen so far is annual. 
+
+Data on prices are collected at a much higher frequency. 
+
+- E.g. quarterly or monthly. <br>
+
+Unfortunately, there is no standard way of encoding dates and we need to be able to work on various formats.
+
+- E.g. `%y` denotes year without century, `%Y`	denotes year with century.<br><br>
+
+$\Rightarrow$ We will therefore encounter a new class this week: `dates`.
+
+- We will also look a bit more at classes in general. 
+
+
+
+
+
+---
+
+## 
+
+<div style="text-align: center; margin-top: 80px;">
+  <img src="images/excel_error.png" alt="A descriptive alt text" style="width: 650px;">
+</div>
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Summary
+
+
+
+
+---
+
+## Summary
+
+Goal:
+
+- Track price development (over time).
+
+- Laspeyres price index: Update the basket based on what we consume.
+
+- Weights (quanties) from surveys and national accounts.<br><br>
+
+In practice:
+
+- CPI to adjust consumer prices across time and calculate inflation.
+
+- GDP deflator to adjust GDP across time.<br><br>
+
+
+**In two weeks**: Track price development across space. More on inflation.
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? $\texttt{sebastian.ellingsen@bristol.ac.uk}$.
+
+
+
+
+
+
+

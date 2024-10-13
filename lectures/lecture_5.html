@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Economic Data - Lecture 5</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="School of Economics - University of Bristol" />
+    <meta name="date" content="2024-10-13" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Economic Data - Lecture 5
+]
+.subtitle[
+## Sebastian Ellingsen
+]
+.author[
+### School of Economics - University of Bristol
+]
+.date[
+### 2024-10-13
+]
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Adjust based on your needs */
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+&lt;/style&gt;
+
+
+&lt;div class="centered-content"&gt;
+  &lt;h2&gt; &lt;/h2&gt;
+   &lt;p&gt;  Changes in Prices over Time &lt;p&gt; 
+   
+   &lt;p&gt;  Price Indices &lt;p&gt; 
+
+  &lt;p&gt;  Price Indices in Practice &lt;p&gt; 
+
+
+&lt;/div&gt;
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Price Indices
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_5_files/figure-html/unnamed-chunk-3-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+
+&lt;img src="lecture_5_files/figure-html/unnamed-chunk-5-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+
+
+
+
+&lt;img src="lecture_5_files/figure-html/unnamed-chunk-7-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Changes in Prices over Time
+
+"*Inflation in the UK over the last few years appears to have peaked at 9.4%.*"  &lt;br&gt;&lt;br&gt;
+
+What Does Inflation of 9.4% Mean? 
+
+**Answer**: Prices are 9.4% higher than one year ago. 
+
+But there are many prices in an economy. 
+
+- Does this mean that all prices increased exactly 9.4%? No!
+
+There are many goods and prices. How can we summarise this in one value? &lt;br&gt;&lt;br&gt;
+
+To answer this question we need to consider price indices in more detail. 
+
+
+
+---
+
+## An Index in a Simple Economy
+
+Let's start again with a very simple economy with only one good. A price index is then given by 
+`\begin{equation}
+\large I_t = 100 \times \frac{P_t}{P_0}
+\end{equation}`
+where `\(I_t\)` is the index value at time `\(t\)`. Note that 
+`\begin{equation}
+\large I_{t-1} = 100 \times \frac{P_{t-1}}{P_0}.
+\end{equation}`
+Inserting this expression and simplifying we get  
+`\begin{equation}
+\large I_t = I_{t-1} \times \frac{P_t}{P_{t-1}}.
+\end{equation}`
+We see that the index equals the previous period's index times the growth in the price level. 
+
+
+
+---
+
+## An Index in a Less Simple Economy
+
+But what if we are interested in the price development across more than one good?
+
+Assume there are two goods: good `\(1\)` and good `\(2\)`. An index could be based on the average. 
+`\begin{equation}
+\large I_t =100 \times \left(\frac{0.5 P_{1t} + 0.5 P_{2t}}{0.5 P_{10} + 0.5 P_{20}}\right)
+\end{equation}`
+What if the consumption of the two goods is not equal? Let `\(Q_{i}\)` denote the quantity consumed of good `\(i\)`.
+
+A more general index is then
+`\begin{equation}
+\large I_t =100 \times \left(\frac{Q_{1} P_{1t} + Q_{2} P_{2t}}{Q_{1} P_{10} + Q_{2} P_{20}}\right)
+\end{equation}`
+
+
+
+
+---
+
+## An Index in a Realistic Economy
+
+Let's assume there are `\(N\)` goods in the economy. A price index is then given by
+`\begin{equation}
+\large I_t =100 \times \left(\frac{\sum_{i = 1}^N Q_{i} P_{it}}{\sum_{i = 1}^N Q_{i} P_{i0}}\right),
+\end{equation}`
+where `\(i\)` indexes each good `\(i = 1, ..., N\)`.
+
+We can now explore how this index evolves over time to understand how prices evolve. 
+
+**Problem**: Consumption (the weights `\(Q_{i}\)`) change over time as well!
+
+`\(Q_{it}\)` should have time indices as well 
+
+This is what the *Laspeyres* and *Paasche* indices seek to address.  
+
+
+
+
+
+---
+
+## The Laspeyres Price Index
+
+This is the Laspeyres price index:
+`\begin{equation}
+\large I^L_t = 100\times \frac{\sum_{i = 1}^N Q_{i0} P_{it}}{\sum_{i = 1}^N Q_{i0} P_{i0}}\normalsize
+\end{equation}`
+where `\(Q_{it}\)` is quantity and `\(P_{it}\)` prices of good `\(i\)` at time `\(t\)`.
+
+The Laspeyres index keeps quantities `\(Q_{i0}\)` fixed at the reference period.
+
+- Tells us how much the price of our consumption has changed, given the weights in year `\(0\)`. &lt;br&gt;&lt;br&gt;
+
+Notice, that expenditure shares typically change as prices change. 
+
+The *Paasche Price Index* is more sensitive to this. 
+
+
+
+
+
+---
+
+## The Paasche Price Index
+
+This is the Paasche price index:
+`\begin{equation}
+\large I_{t}^P =100\times  \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{i0}}\normalsize
+\end{equation}`
+where `\(Q_{it}\)` is quantity and `\(P_{it}\)` prices of good `\(i\)` at time `\(t\)`.
+
+The main difference is that it uses the current weights `\(Q_{it}\)`, both in the denominator and numerator.
+
+The Paasche Index typically predicts lower changes in price levels. 
+
+- Consumers often substitute away from goods that increase more in price, Paasche Index accounts for this. 
+
+More demanding to collect data. 
+
+- Need to calculate the weights for every year. 
+
+
+
+
+
+---
+
+## Ex: A Less Simple Economy
+
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;table style="border-collapse: collapse; width: 100%; text-align: center; font-family: sans-serif;"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th colspan="7" style="border-bottom: 1px solid black;"&gt;Price and Quantity Data&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Year&lt;/td&gt;
+      &lt;td&gt;P1&lt;/td&gt;
+      &lt;td&gt;P2&lt;/td&gt;
+      &lt;td&gt;Q1&lt;/td&gt;
+      &lt;td&gt;Q2&lt;/td&gt;
+      &lt;td&gt;I&lt;sub&gt;L&lt;/sub&gt;&lt;/td&gt;
+      &lt;td&gt;I&lt;sub&gt;P&lt;/sub&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;td&gt;2001&lt;/td&gt;
+      &lt;td&gt;136&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+      &lt;td&gt;90&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+      &lt;td&gt;100.0&lt;/td&gt;
+      &lt;td&gt;100.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2002&lt;/td&gt;
+      &lt;td&gt;186&lt;/td&gt;
+      &lt;td&gt;110&lt;/td&gt;
+      &lt;td&gt;85&lt;/td&gt;
+      &lt;td&gt;15&lt;/td&gt;
+      &lt;td&gt;134.7&lt;/td&gt;
+      &lt;td&gt;133.7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2003&lt;/td&gt;
+      &lt;td&gt;197&lt;/td&gt;
+      &lt;td&gt;120&lt;/td&gt;
+      &lt;td&gt;80&lt;/td&gt;
+      &lt;td&gt;20&lt;/td&gt;
+      &lt;td&gt;143.0&lt;/td&gt;
+      &lt;td&gt;141.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2004&lt;/td&gt;
+      &lt;td&gt;204&lt;/td&gt;
+      &lt;td&gt;125&lt;/td&gt;
+      &lt;td&gt;75&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td&gt;148.1&lt;/td&gt;
+      &lt;td&gt;145.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;215&lt;/td&gt;
+      &lt;td&gt;132&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+      &lt;td&gt;30&lt;/td&gt;
+      &lt;td&gt;156.1&lt;/td&gt;
+      &lt;td&gt;151.8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2006&lt;/td&gt;
+      &lt;td&gt;222&lt;/td&gt;
+      &lt;td&gt;140&lt;/td&gt;
+      &lt;td&gt;65&lt;/td&gt;
+      &lt;td&gt;35&lt;/td&gt;
+      &lt;td&gt;161.5&lt;/td&gt;
+      &lt;td&gt;156.6&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Some Other Indices
+
+&lt;br&gt;&lt;br&gt;
+
+Some other price indicies you might encounter: 
+
+The Fisher Price Index: `\(I_t^F = \sqrt{I_{t}^P\times I_{t}^F}\)`.
+
+The Lowe Price Index: `\(I_t^{Lo} = 100\times  \frac{\sum_{i = 1}^N Q_{ir} P_{ir}}{\sum_{i = 1}^N Q_{ir} P_{i0}}\)`.
+
+The Carli Price Index: `\(I_t^{C} = \frac{1}{N} \sum_{i=1}^N \left(\frac{P_{it}}{P_{i0}}\right)\)`.
+
+---
+
+
+## Chain-linked vs. Unchained Indices
+
+&lt;br&gt;
+
+So far, two solutions regarding product weights. 
+
+- Use the weights in the base year.
+
+- Use the weights in the current year.
+
+A third approach is chain-linking.
+
+Remember we could write the value of the index as the product of past index value and rate of change in prices. 
+
+This is the general idea behind chain-linking. 
+
+There are two main versions: *Chained-linked Laspeyres* and *Chain-linked Paasche*. 
+
+---
+
+## Chained-linked Laspeyres
+&lt;br&gt;
+
+The Chained-linked Laspeyres index is given by
+`\begin{equation}
+\large I^L_t = I^L_{t-1}\times \frac{\sum_{i = 1}^N Q_{it-1} P_{it}}{\sum_{i = 1}^N Q_{it-1} P_{it-1}}\normalsize
+\end{equation}`
+where `\(Q_{it-1}\)` denotes the weight in period `\(t-1\)`.
+
+The growth always relative to the `\(t-1\)`.
+
+
+---
+
+## Chained-linked Paasche
+&lt;br&gt;
+
+The Chained-linked Paasche index is given by
+`\begin{equation}
+\large I^L_t = I^L_{t-1}\times \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{it-1}}\normalsize
+\end{equation}`
+where `\(Q_{it-1}\)` denotes the weight in period `\(t-1\)`.
+
+The growth always relative to the `\(t-1\)`.
+
+
+
+
+
+---
+## Weights in Price Indices
+&lt;br&gt;
+
+Weights `\(Q_{it}\)` are essential for constructing price indexes.
+
+Typically derived from total household final expenditure data in national accounts.
+
+Alternative methods include surveys, such as the UK's Living Costs and Food Survey (LCF).
+
+- LCF collects data from thousands of households over a two-week period.
+
+Provides detailed household-level data, allowing for more representative weighting.
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Price Indices in Practice
+
+
+
+---
+
+
+## The Consumer Price Index
+&lt;br&gt;
+
+The CPI is based on about 180,000 prices that cover about 700 items.
+
+The CPI and CPIH are *chain-linked Laspeyres-type* price indexes computed on a monthly basis. 
+
+The harmonised index of consumer prices (HICP), is the consumer price index by the European Union/ Eurostat, 
+
+- This is also a chain-linked Laspeyres-type price index. 
+
+Both the CPI and CPIH use weights that are typically updated annually
+
+Let's now revisit the CPI for the UK. 
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_5_files/figure-html/unnamed-chunk-9-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+
+&lt;img src="lecture_5_files/figure-html/unnamed-chunk-11-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+
+&lt;img src="lecture_5_files/figure-html/unnamed-chunk-13-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+
+&lt;img src="lecture_5_files/figure-html/unnamed-chunk-15-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+---
+
+## Price Indices in Practice
+&lt;br&gt;
+
+We have seen different ways to calculate indices. 
+
+Indices also differ in their `\(N\)` (what goods are included).&lt;br&gt;
+
+Some examples of price indices in the UK:
+
+- Consumer price index (CPI and CPIH) 
+
+- The UK has its own RPI (not official)
+
+- GDP deflator.
+
+- Producer price index, import price index, export price index, house price index, etc. 
+
+
+
+
+
+
+
+---
+
+
+## Price Indices in Practice
+&lt;br&gt;
+
+Calculating inflation rates.
+
+- Central banks often have inflation targets.
+
+- The Bank of England’s inflation target is based on the CPI: `\(\pi_t = \frac{I_t}{I_{t-1}} - 1\)`
+&lt;br&gt;&lt;br&gt;
+
+Nominal to real conversions.
+
+- For example for GDP.
+
+- `\(\text{Value}_{\text{real}, t} = \text{Value}_{\text{nominal}, t} \times \frac{\text{I}_{t0}}{\text{I}_{t}}\)`
+
+
+
+---
+
+
+## Price Indices in Practice
+&lt;br&gt;
+
+IN GDP CONVERSION, CHECK 
+
+
+
+
+
+---
+
+## Price Indices in Practice in R
+
+Much of the data we have seen so far is annual. 
+
+Data on prices are collected at a much higher frequency. 
+
+- E.g. quarterly or monthly. &lt;br&gt;
+
+Unfortunately, there is no standard way of encoding dates and we need to be able to work on various formats.
+
+- E.g. `%y` denotes year without century, `%Y`	denotes year with century.&lt;br&gt;&lt;br&gt;
+
+`\(\Rightarrow\)` We will therefore encounter a new class this week: `dates`.
+
+- We will also look a bit more at classes in general. 
+
+
+
+
+
+---
+
+## 
+
+&lt;div style="text-align: center; margin-top: 80px;"&gt;
+  &lt;img src="images/excel_error.png" alt="A descriptive alt text" style="width: 650px;"&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Summary
+
+
+
+
+---
+
+## Summary
+
+Goal:
+
+- Track price development (over time).
+
+- Laspeyres price index: Update the basket based on what we consume.
+
+- Weights (quanties) from surveys and national accounts.&lt;br&gt;&lt;br&gt;
+
+In practice:
+
+- CPI to adjust consumer prices across time and calculate inflation.
+
+- GDP deflator to adjust GDP across time.&lt;br&gt;&lt;br&gt;
+
+
+**In two weeks**: Track price development across space. More on inflation.
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# See you in the labs! 
+
+Questions? `\(\texttt{sebastian.ellingsen@bristol.ac.uk}\)`.
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
