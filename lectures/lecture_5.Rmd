@@ -824,10 +824,32 @@ Nominal to real conversions.
 ---
 
 
-## Price Indices in Practice
+## Price Indices in National Accounts
 <br>
 
-IN GDP CONVERSION, CHECK 
+As we have seen when using national accounts data, it's key to separate changes in volumes from changes in prices. 
+
+National accounts used to apply constant prices to compare changes in volume, akin to a Laspeyres indicies. 
+
+- Some issues: Difficult to account for new products, prices less relevant over time. 
+
+This has therefore become less common, today volumes are typically calculated using chain-linking. 
+
+- Still economists say "constant 2005 prices", but often what is "accounts at previous year’s prices, chained, reference 2005".
+
+<br>
+
+Does it really matter what price index we use to deflate national accounts? 
+
+
+
+---
+
+## Ex: Price of Computers and GFCF Volume in France
+
+<div style="text-align: center; margin-top: 80px;">
+  <img src="images/comupters.png" alt="A descriptive alt text" style="width: 850px;">
+</div>
 
 
 
