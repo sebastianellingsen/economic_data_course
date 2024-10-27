@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 6</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2024-08-28" />
+    <meta name="date" content="2024-10-27" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2024-08-28
+### 2024-10-27
 ]
 
 ---
@@ -68,14 +68,14 @@ The grade for the course will be based on the final coursework in December.
 
 - 1 feedback exercise. `\(10\%\)`
 
-Released: Friday December 9th. Due: **December 15th, 11am**.
+Released: November 27. Due: December 4.
 
 
 
 ---
 
 
-## More about data on prices 
+## More About Data on Prices 
 
 **Previous** lecture: 
 
@@ -107,7 +107,32 @@ class: inverse, center, middle
 
 ---
 
-## Working with data on inflation  
+## Tracking Prices Over Time
+
+We want to understand how prices evolve. Why?
+
+- Calculate changes in volume for economic variables (keeping prices "fixed").
+
+- Interesting in and of itself, for example to measure inflation. &lt;br&gt;&lt;br&gt;
+
+
+**Problem 1**: There are many prices in the economy. 
+
+- Construct a price index weighted by expenditure shares. 
+
+**Problem 2**: Both expenditure shares and prices change over time.
+
+- Use the Paasche or Laspeyres indices. 
+
+**Problem 3**: Expenditure shares fixed to a baseline become dated over time. 
+
+- Use chain-linking. 
+
+
+---
+
+
+## Measuring Inflation  
 
 All statistical agencies collect data on prices and inflation.
 
@@ -142,23 +167,6 @@ count: false
 
 ``` r
 # Loading packages
-*library(tidyverse)
-```
-]
- 
-.panel2-chunk_1-auto[
-
-]
-
----
-count: false
- 
-
-.panel1-chunk_1-auto[
-
-``` r
-# Loading packages
-library(tidyverse)
 *library(readxl)
 ```
 ]
@@ -175,31 +183,43 @@ count: false
 
 ``` r
 # Loading packages
-library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
-*read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6)
+*df_inflation &lt;- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(readxl)
+
+# Loading and cleaning the data
+df_inflation &lt;- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+*df_inflation %&gt;% head()
 ```
 ]
  
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 121 × 4
-   ...1      CPIH   CPI   OOH
-   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Aug 2013   2.4   2.7   1.4
- 2 Sep 2013   2.4   2.7   1.2
- 3 Oct 2013   2     2.2   1.3
- 4 Nov 2013   1.9   2.1   1.4
- 5 Dec 2013   1.9   2     1.3
- 6 Jan 2014   1.8   1.9   1.3
- 7 Feb 2014   1.6   1.7   1.3
- 8 Mar 2014   1.5   1.6   1.2
- 9 Apr 2014   1.7   1.8   1.3
-10 May 2014   1.5   1.5   1.3
-# ℹ 111 more rows
+         X CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
 ```
 ]
 
@@ -211,32 +231,25 @@ count: false
 
 ``` r
 # Loading packages
-library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
-read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
-* rename(date    = `...1`)
+df_inflation &lt;- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+df_inflation %&gt;% head()
+*names(df_inflation)[1] &lt;- "date"
 ```
 ]
  
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 121 × 4
-   date      CPIH   CPI   OOH
-   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Aug 2013   2.4   2.7   1.4
- 2 Sep 2013   2.4   2.7   1.2
- 3 Oct 2013   2     2.2   1.3
- 4 Nov 2013   1.9   2.1   1.4
- 5 Dec 2013   1.9   2     1.3
- 6 Jan 2014   1.8   1.9   1.3
- 7 Feb 2014   1.6   1.7   1.3
- 8 Mar 2014   1.5   1.6   1.2
- 9 Apr 2014   1.7   1.8   1.3
-10 May 2014   1.5   1.5   1.3
-# ℹ 111 more rows
+         X CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
 ```
 ]
 
@@ -248,34 +261,36 @@ count: false
 
 ``` r
 # Loading packages
-library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
-read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
-  rename(date    = `...1`) %&gt;%
-* mutate(date = paste(date, "01", sep=" "),
-*        date = as.Date(date, format = "%b %Y %d"))
+df_inflation &lt;- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+df_inflation %&gt;% head()
+names(df_inflation)[1] &lt;- "date"
+*df_inflation %&gt;% head()
 ```
 ]
  
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 121 × 4
-   date        CPIH   CPI   OOH
-   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 2013-08-01   2.4   2.7   1.4
- 2 2013-09-01   2.4   2.7   1.2
- 3 2013-10-01   2     2.2   1.3
- 4 2013-11-01   1.9   2.1   1.4
- 5 2013-12-01   1.9   2     1.3
- 6 2014-01-01   1.8   1.9   1.3
- 7 2014-02-01   1.6   1.7   1.3
- 8 2014-03-01   1.5   1.6   1.2
- 9 2014-04-01   1.7   1.8   1.3
-10 2014-05-01   1.5   1.5   1.3
-# ℹ 111 more rows
+         X CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
+```
+
+```
+      date CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
 ```
 ]
 
@@ -287,35 +302,158 @@ count: false
 
 ``` r
 # Loading packages
-library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
-read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %&gt;%
-  rename(date    = `...1`) %&gt;%
-  mutate(date = paste(date, "01", sep=" "),
-         date = as.Date(date, format = "%b %Y %d")) %&gt;%
-* gather(series, p, 2:4, -date)
+df_inflation &lt;- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+df_inflation %&gt;% head()
+names(df_inflation)[1] &lt;- "date"
+df_inflation %&gt;% head()
+*df_inflation &lt;- reshape(df_inflation,
+*                       varying   = names(df_inflation)[2:4],
+*                       v.names   = "p",
+*                       timevar   = "series",
+*                       times     = names(df_inflation)[2:4],
+*                       direction = "long")
 ```
 ]
  
 .panel2-chunk_1-auto[
 
 ```
-# A tibble: 363 × 3
-   date       series     p
-   &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
- 1 2013-08-01 CPIH     2.4
- 2 2013-09-01 CPIH     2.4
- 3 2013-10-01 CPIH     2  
- 4 2013-11-01 CPIH     1.9
- 5 2013-12-01 CPIH     1.9
- 6 2014-01-01 CPIH     1.8
- 7 2014-02-01 CPIH     1.6
- 8 2014-03-01 CPIH     1.5
- 9 2014-04-01 CPIH     1.7
-10 2014-05-01 CPIH     1.5
-# ℹ 353 more rows
+         X CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
+```
+
+```
+      date CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(readxl)
+
+# Loading and cleaning the data
+df_inflation &lt;- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+df_inflation %&gt;% head()
+names(df_inflation)[1] &lt;- "date"
+df_inflation %&gt;% head()
+df_inflation &lt;- reshape(df_inflation,
+                        varying   = names(df_inflation)[2:4],
+                        v.names   = "p",
+                        timevar   = "series",
+                        times     = names(df_inflation)[2:4],
+                        direction = "long")
+*df_inflation %&gt;% head()
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+```
+         X CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
+```
+
+```
+      date CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
+```
+
+```
+           date series   p id
+1.CPIH Aug 2013   CPIH 2.4  1
+2.CPIH Sep 2013   CPIH 2.4  2
+3.CPIH Oct 2013   CPIH 2.0  3
+4.CPIH Nov 2013   CPIH 1.9  4
+5.CPIH Dec 2013   CPIH 1.9  5
+6.CPIH Jan 2014   CPIH 1.8  6
+```
+]
+
+---
+count: false
+ 
+
+.panel1-chunk_1-auto[
+
+``` r
+# Loading packages
+library(readxl)
+
+# Loading and cleaning the data
+df_inflation &lt;- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+df_inflation %&gt;% head()
+names(df_inflation)[1] &lt;- "date"
+df_inflation %&gt;% head()
+df_inflation &lt;- reshape(df_inflation,
+                        varying   = names(df_inflation)[2:4],
+                        v.names   = "p",
+                        timevar   = "series",
+                        times     = names(df_inflation)[2:4],
+                        direction = "long")
+df_inflation %&gt;% head()
+```
+]
+ 
+.panel2-chunk_1-auto[
+
+```
+         X CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
+```
+
+```
+      date CPIH CPI OOH
+1 Aug 2013  2.4 2.7 1.4
+2 Sep 2013  2.4 2.7 1.2
+3 Oct 2013  2.0 2.2 1.3
+4 Nov 2013  1.9 2.1 1.4
+5 Dec 2013  1.9 2.0 1.3
+6 Jan 2014  1.8 1.9 1.3
+```
+
+```
+           date series   p id
+1.CPIH Aug 2013   CPIH 2.4  1
+2.CPIH Sep 2013   CPIH 2.4  2
+3.CPIH Oct 2013   CPIH 2.0  3
+4.CPIH Nov 2013   CPIH 1.9  4
+5.CPIH Dec 2013   CPIH 1.9  5
+6.CPIH Jan 2014   CPIH 1.8  6
 ```
 ]
 
@@ -1784,7 +1922,7 @@ ggplot(data = df %&gt;% filter(series == 'CP00'), aes(x = date, y = g_p))+
 
 ---
 
-## Some challenges
+## Some Challenges
    
 Remember the general price index
 
@@ -1806,15 +1944,22 @@ where `\(Q_{it}\)` denotes the quantity and `\(P_{it}\)` the price of good `\(i\
 
 
 
-
 ---
 &lt;img src="lecture_6_files/figure-html/unnamed-chunk-9-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 
 
+
+
+
+---
+&lt;img src="lecture_6_files/figure-html/unnamed-chunk-10-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
 ---
 
-## Measuring prices over time
+## Summary
 
 In all cases the increase is a weighted average of prices (Laspeyres).
 
@@ -1833,6 +1978,7 @@ Then we study how the index changes over time.
 
 
 ---
+
 class: inverse, center, middle
 
 # Measuring Prices Across Space
@@ -1843,17 +1989,14 @@ class: inverse, center, middle
 
 ---
 
-## Measuring prices across space
+## Measuring Prices Across Space
 
-Like we removed price differences across time, with a CPI, we can remove price differences across countries. 
+Like we for changes in prices to compare volumes over time, we can remove differences in prices across countries. 
 
 - 100 euros can buy you less in Ireland than in Spain.
 
 - Having double the money doesn’t make a difference if everything costs the double!
 
-- We need to adjust for this!
-
---
 
 **Solution**: Compare the price of a representative basket of goods across locations.
 
@@ -1863,21 +2006,20 @@ Like we removed price differences across time, with a CPI, we can remove price d
 
 
 
-
 ---
 
 
-
-
-&lt;img src="lecture_6_files/figure-html/unnamed-chunk-11-1.png" width="792" style="display: block; margin: auto;" /&gt;
-
-
-
----
 
 
 &lt;img src="lecture_6_files/figure-html/unnamed-chunk-12-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
+
+
+---
+
+
+&lt;img src="lecture_6_files/figure-html/unnamed-chunk-13-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
 ---
 
 
@@ -1885,11 +2027,11 @@ Like we removed price differences across time, with a CPI, we can remove price d
 
 
 
-&lt;img src="lecture_6_files/figure-html/unnamed-chunk-14-1.png" width="792" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_6_files/figure-html/unnamed-chunk-15-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Price comparisons across regions
+## Price Comparisons Across Regions
 
 Consider a price index for a basket of goods in the home country
 
@@ -1908,7 +2050,7 @@ We assume that `\(Q_i^* = Q_i\)` for all the goods `\(i\)` `\(\Rightarrow\)` com
 ---
 
 
-## Price comparisons across regions
+## Price Comparisons Across Regions
 
 `\(PPS\)` can be used to adjust prices for international comparison. 
 
@@ -1924,13 +2066,6 @@ A common application is to adjust nominal income differences across countries.
 
 ---
 
-&lt;img src="lecture_6_files/figure-html/unnamed-chunk-15-1.png" width="792" style="display: block; margin: auto;" /&gt;
-
-
-
----
-
-
 &lt;img src="lecture_6_files/figure-html/unnamed-chunk-16-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 
@@ -1945,10 +2080,7 @@ A common application is to adjust nominal income differences across countries.
 ---
 
 
-
-
-
-&lt;img src="lecture_6_files/figure-html/unnamed-chunk-19-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_6_files/figure-html/unnamed-chunk-18-1.png" width="792" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1958,20 +2090,46 @@ A common application is to adjust nominal income differences across countries.
 
 
 
+&lt;img src="lecture_6_files/figure-html/unnamed-chunk-20-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
-## Price comparisons across countries
+
+
+---
+
+
+
+&lt;img src="lecture_6_files/figure-html/unnamed-chunk-21-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+
+
+## Price Comparisons Across Countries
 
 International income differences tend to be smaller when adjusting for price differences.
 
 This is known as the *Penn effect*.
 
-- Comes from the *Penn World Tables* dataset.
+- Comes from the *Penn World Tables* dataset (we worked with two weeks ago).
 
 In economics, this is known as the Balassa–Samuelson effect
 
 - The idea is that the difference between productivity in traded and non-traded sectors is higher in developed countries.
 
 - Can show that this leads to higher prices in non-traded sectors in developed countries.
+
+- Driven by traded and non-traded sectors competing for the same labor. 
+
+
+
+
+
+---
+
+
 
 
 &lt;!-- is the proposition that this can be explained by the greater variation in productivity between developed and less developed countries in the traded goods' sectors which in turn affects wages and prices in the non-tradable goods sectors. --&gt;
@@ -1982,6 +2140,121 @@ In economics, this is known as the Balassa–Samuelson effect
 &lt;!-- ## PPP and exchange rates --&gt;
 
 &lt;!-- We have seen one application of purchasing power parities so far: to make prices comparable across locations. --&gt;
+
+
+
+
+## Wide Data Formats
+
+&lt;div&gt;
+  &lt;table&gt;
+    &lt;caption&gt;GDP by Country in Wide Format&lt;/caption&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Country&lt;/th&gt;
+        &lt;th&gt;GDP 2020&lt;/th&gt;
+        &lt;th&gt;GDP 2021&lt;/th&gt;
+        &lt;th&gt;GDP 2022&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;USA&lt;/td&gt;
+        &lt;td&gt;21000&lt;/td&gt;
+        &lt;td&gt;22000&lt;/td&gt;
+        &lt;td&gt;23000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Canada&lt;/td&gt;
+        &lt;td&gt;1640&lt;/td&gt;
+        &lt;td&gt;1700&lt;/td&gt;
+        &lt;td&gt;1750&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Germany&lt;/td&gt;
+        &lt;td&gt;3850&lt;/td&gt;
+        &lt;td&gt;3900&lt;/td&gt;
+        &lt;td&gt;4000&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+ &lt;br&gt;&lt;br&gt;
+ 
+- Displays GDP data across multiple years with each year in a separate column.
+
+- Is often more readable and therefore provided when downloaded in Excel formats (like Eurostat).
+
+- Preffered by statistical software: simplifies functions like grouping, filtering, and calculating trends over time.
+
+
+---
+
+## Long Data Formats
+
+&lt;div&gt;
+  &lt;table&gt;
+    &lt;caption&gt;GDP by Country in Long Format&lt;/caption&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Country&lt;/th&gt;
+        &lt;th&gt;Year&lt;/th&gt;
+        &lt;th&gt;GDP&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;USA&lt;/td&gt;
+        &lt;td&gt;2020&lt;/td&gt;
+        &lt;td&gt;21000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;USA&lt;/td&gt;
+        &lt;td&gt;2021&lt;/td&gt;
+        &lt;td&gt;22000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;USA&lt;/td&gt;
+        &lt;td&gt;2022&lt;/td&gt;
+        &lt;td&gt;23000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Canada&lt;/td&gt;
+        &lt;td&gt;2020&lt;/td&gt;
+        &lt;td&gt;1640&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Canada&lt;/td&gt;
+        &lt;td&gt;2021&lt;/td&gt;
+        &lt;td&gt;1700&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Canada&lt;/td&gt;
+        &lt;td&gt;2022&lt;/td&gt;
+        &lt;td&gt;1750&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Germany&lt;/td&gt;
+        &lt;td&gt;2020&lt;/td&gt;
+        &lt;td&gt;3850&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Germany&lt;/td&gt;
+        &lt;td&gt;2021&lt;/td&gt;
+        &lt;td&gt;3900&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Germany&lt;/td&gt;
+        &lt;td&gt;2022&lt;/td&gt;
+        &lt;td&gt;4000&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+
+
 
 
 

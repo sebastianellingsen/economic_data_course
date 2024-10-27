@@ -73,14 +73,14 @@ The grade for the course will be based on the final coursework in December.
 
 - 1 feedback exercise. $10\%$
 
-Released: Friday December 9th. Due: **December 15th, 11am**.
+Released: November 27. Due: December 4.
 
 
 
 ---
 
 
-## More about data on prices 
+## More About Data on Prices 
 
 **Previous** lecture: 
 
@@ -112,7 +112,32 @@ class: inverse, center, middle
 
 ---
 
-## Working with data on inflation  
+## Tracking Prices Over Time
+
+We want to understand how prices evolve. Why?
+
+- Calculate changes in volume for economic variables (keeping prices "fixed").
+
+- Interesting in and of itself, for example to measure inflation. <br><br>
+
+
+**Problem 1**: There are many prices in the economy. 
+
+- Construct a price index weighted by expenditure shares. 
+
+**Problem 2**: Both expenditure shares and prices change over time.
+
+- Use the Paasche or Laspeyres indices. 
+
+**Problem 3**: Expenditure shares fixed to a baseline become dated over time. 
+
+- Use chain-linking. 
+
+
+---
+
+
+## Measuring Inflation  
 
 All statistical agencies collect data on prices and inflation.
 
@@ -185,15 +210,22 @@ p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
 
 ```{r chunk_1, include = FALSE}
 # Loading packages
-library(tidyverse)
 library(readxl)
 
 # Loading and cleaning the data
-read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
-  rename(date    = `...1`) %>%
-  mutate(date = paste(date, "01", sep=" "),
-         date = as.Date(date, format = "%b %Y %d")) %>%
-  gather(series, p, 2:4, -date)
+df_inflation <- read.csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip = 6)
+df_inflation %>% head()
+names(df_inflation)[1] <- "date"
+df_inflation %>% head()
+df_inflation <- reshape(df_inflation,
+                        varying   = names(df_inflation)[2:4],
+                        v.names   = "p",             
+                        timevar   = "series",         
+                        times     = names(df_inflation)[2:4],  
+                        direction = "long")
+df_inflation %>% head()
+
+
 ```
 
 
@@ -371,6 +403,52 @@ df <- read_csv("../data/prc_hicp_midx__custom_8291826_linear.csv") %>%
   filter(date>'2018-01-01')
 
 
+
+df_full <- read_csv("../data/prc_hicp_midx__custom_13484295_linear.csv") %>%
+  select(geo, TIME_PERIOD, OBS_VALUE, coicop) %>%
+  rename(country = geo,
+         date    = TIME_PERIOD,
+         p       = OBS_VALUE,
+         series  = coicop) %>%
+  mutate(date = paste(date, "01", sep="-"),
+         date = as.Date(date, format = "%Y-%m-%d")) %>%
+  filter(country == 'FR') %>%
+  group_by(series) %>%
+  mutate(g_p = 100*(p-lag(p, n=12))/lag(p, n=12),
+         g_p = round(g_p, d = 1))  %>%
+  filter(date>'2018-01-01')
+
+
+p_full <- ggplot(data = df_full, aes(x = date, y = g_p, color = series))+
+  geom_line(stat='identity', lwd = 1, show.legend = FALSE, alpha = 0.4)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+  xlab("") +
+  ylab("Inflation rate (%)") +
+  labs(title = "Monthly Inflation in France by main aggregates",
+       subtitle = "Measures monthly annual change in the HICP, Jan. 2018 - Oct. 2023.",
+       caption = "Source: Eurostat, series prc_hicp_midx.")
+
+
+
+
 p1 <- ggplot(data = df %>% filter(series == 'CP00'), aes(x = date, y = g_p))+
   geom_line(stat='identity', lwd = 1)+
   theme(plot.title = element_text(size=22),
@@ -508,7 +586,7 @@ p1
 
 ---
 
-## Some challenges
+## Some Challenges
    
 Remember the general price index
 
@@ -530,6 +608,15 @@ where $Q_{it}$ denotes the quantity and $P_{it}$ the price of good $i$.
 
 
 
+---
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+p_full
+```
+
+
+
+
+
 
 ---
 ```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
@@ -540,7 +627,7 @@ p2
 
 ---
 
-## Measuring prices over time
+## Summary
 
 In all cases the increase is a weighted average of prices (Laspeyres).
 
@@ -559,6 +646,7 @@ Then we study how the index changes over time.
 
 
 ---
+
 class: inverse, center, middle
 
 # Measuring Prices Across Space
@@ -569,20 +657,16 @@ class: inverse, center, middle
 
 ---
 
-## Measuring prices across space
+## Measuring Prices Across Space
 
-Like we removed price differences across time, with a CPI, we can remove price differences across countries. 
+Like we for changes in prices to compare volumes over time, we can remove differences in prices across countries. 
 
 - 100 euros can buy you less in Ireland than in Spain.
 
 - Having double the money doesn’t make a difference if everything costs the double!
 
-- We need to adjust for this!
-
---
 
 **Solution**: Compare the price of a representative basket of goods across locations.
-
 
 
 
@@ -762,7 +846,7 @@ p_bm
 
 ---
 
-## Price comparisons across regions
+## Price Comparisons Across Regions
 
 Consider a price index for a basket of goods in the home country
 
@@ -781,7 +865,7 @@ $PPS/PPS^*$ therefore gives the relative price of the basket in home versus fore
 ---
 
 
-## Price comparisons across regions
+## Price Comparisons Across Regions
 
 $PPS$ can be used to adjust prices for international comparison. 
 
@@ -837,9 +921,14 @@ p <- read_csv('../data/prc_ppp_ind__custom_8308502_linear.csv') %>%
   select(geo, TIME_PERIOD, OBS_VALUE) %>% 
   rename(CNTR_CODE = geo,
          year    = TIME_PERIOD, 
-         p     = OBS_VALUE) 
+         p       = OBS_VALUE) 
+
+gdpppc <- read_csv('../data/nama_10_pc__custom_8307407_linear.csv') %>% 
+  select(geo, unit, OBS_VALUE) 
 
 
+df_combined <- gdpppc %>% full_join(p %>% rename(geo = CNTR_CODE), by = 'geo') %>% 
+  filter(unit == 'CP_PPS_EU27_2020_HAB')
 
 SHP_0 <- get_eurostat_geospatial(resolution = 10, 
                                  nuts_level = 0, 
@@ -891,6 +980,40 @@ map <- df %>%
        caption = "Source: Eurostat, series prc_ppp_ind")
 
 
+
+
+p_comp <- ggplot(data = df_combined, 
+       aes(x = OBS_VALUE, y = p))+  
+    geom_point(alpha = 0.6, col = 'black', size=2, geom='point', stroke=0.2)+
+    theme_tufte()+
+    theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        # text=element_text(family="Palatino"),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
+xlab("GDP per capita (PPS)") +
+  ylab("Price index (EU average = 100)") +
+  labs(title = "GDP per capita and Prices in Europe, 2022",
+       caption = "Source: Eurostat, series prc_ppp_ind.")+
+      scale_y_continuous(labels = scales::comma)+
+        scale_x_continuous(labels = scales::comma)
+
+
+
 ```
 
 
@@ -904,22 +1027,40 @@ map
 
 
 
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 14, fig.align="center"}
+p_comp
+```
 
 
 
-## Price comparisons across countries
+---
+
+
+
+
+## Price Comparisons Across Countries
 
 International income differences tend to be smaller when adjusting for price differences.
 
 This is known as the *Penn effect*.
 
-- Comes from the *Penn World Tables* dataset.
+- Comes from the *Penn World Tables* dataset (we worked with two weeks ago).
 
 In economics, this is known as the Balassa–Samuelson effect
 
 - The idea is that the difference between productivity in traded and non-traded sectors is higher in developed countries.
 
 - Can show that this leads to higher prices in non-traded sectors in developed countries.
+
+- Driven by traded and non-traded sectors competing for the same labor. 
+
+
+
+
+
+---
+
+
 
 
 <!-- is the proposition that this can be explained by the greater variation in productivity between developed and less developed countries in the traded goods' sectors which in turn affects wages and prices in the non-tradable goods sectors. -->
@@ -930,6 +1071,121 @@ In economics, this is known as the Balassa–Samuelson effect
 <!-- ## PPP and exchange rates -->
 
 <!-- We have seen one application of purchasing power parities so far: to make prices comparable across locations. -->
+
+
+
+
+## Wide Data Formats
+
+<div>
+  <table>
+    <caption>GDP by Country in Wide Format</caption>
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>GDP 2020</th>
+        <th>GDP 2021</th>
+        <th>GDP 2022</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>USA</td>
+        <td>21000</td>
+        <td>22000</td>
+        <td>23000</td>
+      </tr>
+      <tr>
+        <td>Canada</td>
+        <td>1640</td>
+        <td>1700</td>
+        <td>1750</td>
+      </tr>
+      <tr>
+        <td>Germany</td>
+        <td>3850</td>
+        <td>3900</td>
+        <td>4000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+ <br><br>
+ 
+- Displays GDP data across multiple years with each year in a separate column.
+
+- Is often more readable and therefore provided when downloaded in Excel formats (like Eurostat).
+
+- Preffered by statistical software: simplifies functions like grouping, filtering, and calculating trends over time.
+
+
+---
+
+## Long Data Formats
+
+<div>
+  <table>
+    <caption>GDP by Country in Long Format</caption>
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Year</th>
+        <th>GDP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>USA</td>
+        <td>2020</td>
+        <td>21000</td>
+      </tr>
+      <tr>
+        <td>USA</td>
+        <td>2021</td>
+        <td>22000</td>
+      </tr>
+      <tr>
+        <td>USA</td>
+        <td>2022</td>
+        <td>23000</td>
+      </tr>
+      <tr>
+        <td>Canada</td>
+        <td>2020</td>
+        <td>1640</td>
+      </tr>
+      <tr>
+        <td>Canada</td>
+        <td>2021</td>
+        <td>1700</td>
+      </tr>
+      <tr>
+        <td>Canada</td>
+        <td>2022</td>
+        <td>1750</td>
+      </tr>
+      <tr>
+        <td>Germany</td>
+        <td>2020</td>
+        <td>3850</td>
+      </tr>
+      <tr>
+        <td>Germany</td>
+        <td>2021</td>
+        <td>3900</td>
+      </tr>
+      <tr>
+        <td>Germany</td>
+        <td>2022</td>
+        <td>4000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
 
 
 
