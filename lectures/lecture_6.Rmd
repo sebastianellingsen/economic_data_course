@@ -61,9 +61,9 @@ code.r.hljs.remark-code:hover{
 
 
 
-## Some announcements 
+## The Coursework 
 
-Have received some questions about the coursework.
+I have received some questions about the coursework.
 
 The grade for the course will be based on the final coursework in December.
 
@@ -82,18 +82,18 @@ Released: November 27. Due: December 4.
 
 ## More About Data on Prices 
 
-**Previous** lecture: 
+**Previous lecture**: 
 
 - Price index: a weighted aggregation of many prices.
 
-- Paasche and Laspeyres price index: considering the price of an initial basket of goods vs updating the basket.
+- Paasche and Laspeyres price index: considering the price of an initial basket of goods vs. updating the basket.
 
-- Chain-linked price indices.
-
-- Nominal and real values: nominal does not account for changes in price levels, real does.
+- Chain-linked price indices. <br><br>
 
 
-**This** lecture:
+--
+
+**This lecture**:
 
 - Measuring prices over time.
 
@@ -120,14 +120,19 @@ We want to understand how prices evolve. Why?
 
 - Interesting in and of itself, for example to measure inflation. <br><br>
 
+--
 
 **Problem 1**: There are many prices in the economy. 
 
 - Construct a price index weighted by expenditure shares. 
 
+--
+
 **Problem 2**: Both expenditure shares and prices change over time.
 
 - Use the Paasche or Laspeyres indices. 
+
+--
 
 **Problem 3**: Expenditure shares fixed to a baseline become dated over time. 
 
@@ -146,7 +151,7 @@ All statistical agencies collect data on prices and inflation.
 The most common approach is the **annual inflation rate**:
 
 $$\pi_t = \frac{P_{t} - P_{t-12}}{P_{t-12}},$$
-where $P_{t}$ is some price index at time $t$.
+where $P_{t}$ is typically a chain-linked Laspeyres index.
 
 The annual inflation rate compares prices for the latest month with the same month a year ago.
 
@@ -363,9 +368,9 @@ The plot depicts a substantial increase in inflation over the last few years.
 
 - **CPI**: Consumer Prices Index.
 
-- **OOH**: Occupiers' housing costs.
+- **OOH**: Occupiers' housing costs (costs associated with owning, maintaining, and living in a home).
 
-- **CPIH**: CPI including owner occupiers' housing costs.
+- **CPIH**: CPI including owner occupiers' housing costs.<br><br>
 
 --
 
@@ -586,12 +591,12 @@ p1
 
 ---
 
-## Some Challenges
+## Unpacking the Price Index
    
 Remember the general price index
 
 $$P_{t} = \sum_{i=1}^N P_{it}Q_{it},$$
-where $Q_{it}$ denotes the quantity and $P_{it}$ the price of good $i$.
+where $Q_{it}$ denotes the quantity and $P_{it}$ the price of good $i$.<br><br>
 
 --
 
@@ -637,9 +642,9 @@ In all cases the increase is a weighted average of prices (Laspeyres).
 
 - Weights updated regularly and linked (chain-linking).
 
-Then we study how the index changes over time.
+Then we study how the index changes over time to measure inflation.<br><br>
 
-
+There are many ways to measure inflation, the key is to make an informed choice of data depending on the question. 
 
 
 
@@ -663,12 +668,12 @@ Like we for changes in prices to compare volumes over time, we can remove differ
 
 - 100 euros can buy you less in Ireland than in Spain.
 
-- Having double the money doesn’t make a difference if everything costs the double!
+- Having double the money doesn’t make a difference if everything costs the double! <br><br>
 
 
 **Solution**: Compare the price of a representative basket of goods across locations.
 
-
+Why does this matter? 
 
 
 
@@ -709,7 +714,7 @@ p1 <- ggplot(data = df %>%
   scale_y_continuous(label=comma)+
   xlab("") +
   ylab("GDP per capita") +
-  labs(title = "GDP per capita 2022 (national currencies)",
+  labs(title = "GDP per capita 2022 (local currencies)",
        caption = "Source: Eurostat, series nama_10_pc")
 
 
@@ -869,7 +874,7 @@ $PPS/PPS^*$ therefore gives the relative price of the basket in home versus fore
 
 $PPS$ can be used to adjust prices for international comparison. 
 
-$$\text{Price adjusted to PPS standards}_i = \frac{\text{Price national currency}_i}{PPS_i}$$
+$$\text{Price adjusted to PPS standards}_i = \frac{\text{Price national currency}_i}{PPS_i}$$ <br><br>
 
 Can also be used to adjust prices to some base country
 
@@ -984,7 +989,7 @@ map <- df %>%
 
 p_comp <- ggplot(data = df_combined, 
        aes(x = OBS_VALUE, y = p))+  
-    geom_point(alpha = 0.6, col = 'black', size=2, geom='point', stroke=0.2)+
+    geom_point(alpha = 0.6, col = 'black', size=2.4, shape = 1, geom='point', stroke=1)+
     theme_tufte()+
     theme(plot.title = element_text(size=22),
         plot.subtitle = element_text(size=16),
@@ -1044,7 +1049,7 @@ International income differences tend to be smaller when adjusting for price dif
 
 This is known as the *Penn effect*.
 
-- Comes from the *Penn World Tables* dataset (we worked with two weeks ago).
+- Comes from the *Penn World Tables* dataset (we worked with two weeks ago).<br><br>
 
 In economics, this is known as the Balassa–Samuelson effect
 
@@ -1053,13 +1058,6 @@ In economics, this is known as the Balassa–Samuelson effect
 - Can show that this leads to higher prices in non-traded sectors in developed countries.
 
 - Driven by traded and non-traded sectors competing for the same labor. 
-
-
-
-
-
----
-
 
 
 
@@ -1074,6 +1072,18 @@ In economics, this is known as the Balassa–Samuelson effect
 
 
 
+
+---
+
+class: inverse, center, middle
+
+# Data Formats
+
+
+
+
+
+---
 
 ## Wide Data Formats
 
