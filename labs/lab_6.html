@@ -490,7 +490,6 @@ plot(df$date[df$series == &quot;CP00&quot;],
      main = &quot;some title&quot;,
      ylim = c(-20, 40))
 
-# Add each series separately without a loop
 lines(df$date[df$series == &quot;CP00&quot;], 
       df$g_p[df$series == &quot;CP00&quot;], 
       col = colors[1], 
