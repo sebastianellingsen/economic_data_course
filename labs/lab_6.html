@@ -476,7 +476,10 @@ and the code from the previous lab.</p></li>
 Use <code>filter()</code> and <code>%&gt;%</code>.</p></li>
 <li><p>Construct the below plot.</p></li>
 </ul>
-<pre class="r"><code># Set up the main plot area without drawing anything initially
+<pre class="r"><code># Define colors for the different series
+colors &lt;- c(&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;, &quot;purple&quot;)
+
+# Set up the main plot area without drawing anything initially
 plot(df$date[df$series == &quot;CP00&quot;], 
      df$g_p[df$series == &quot;CP00&quot;], 
      type = &quot;n&quot;, 
