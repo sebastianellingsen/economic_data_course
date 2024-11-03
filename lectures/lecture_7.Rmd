@@ -129,6 +129,7 @@ p1 <- ggplot(data=pop, aes(x = year, y = pop))+
 p1
 ```
 
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/HISTPOP_27102023144550354.csv" target="_blank">here</a>.
 
 
 ---
@@ -212,7 +213,7 @@ p1 <- ggplot(data = total, aes(x = TIME_PERIOD, y = pop/1e6, fill = as.factor(gr
 p1
 ```
 
-Data available <a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank">here</a>.
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/demo_pjan__custom_13578827_linear.csv" target="_blank">here</a>.
 
 
 
@@ -346,7 +347,7 @@ p1 <- ggplot(data = df, aes(x = date, y = OBS_VALUE, color = as.factor(geo))) +
 p1
 ```
 
-Data available <a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/AURUKM.csv" target="_blank">here</a>.
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/lfsq_ergan__custom_13595067_linear.csv" target="_blank">here</a>.
 
 
 
@@ -536,7 +537,7 @@ p1 <- ggplot(data = df, aes(x = TIME_PERIOD, y = OBS_VALUE, color = as.factor(ge
 p1
 ```
 
-
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/jvs_a_rate_r2__custom_13589779_linear.csv" target="_blank">here</a>.
 
 
 
@@ -620,6 +621,7 @@ p1 <- ggplot(data = df, aes(x = date, y = emp, linetype = as.factor(Measure))) +
 p1
 ```
 
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/Figure_6__Claimant_Count_has_increased_since_March_2020.csv" target="_blank">here</a>.
 
 ---
 
@@ -1317,6 +1319,10 @@ There is a large literature in econometrics and statistics on filtering time ser
 2. Explain the difference between register and survey data.
 
 3. Explain the intuition behind seasonal adjustment. 
+
+<br><br>
+
+Data for all charts available <a href="https://github.com/sebastianellingsen/economic_data_course/tree/main/data" target="_blank">here</a>.
 
 
 <!-- LINKS TO DATA HERE (TO GO WITH THE SCRIPTS) -->
