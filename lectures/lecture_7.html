@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 7</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2024-10-25" />
+    <meta name="date" content="2024-11-03" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2024-10-25
+### 2024-11-03
 ]
 
 ---
@@ -61,14 +61,16 @@ code.r.hljs.remark-code:hover{
 
 ## After this lecture you should be able to
 
-1. Explain the difference between register and survey (or ILO) unemployment.
+&lt;br&gt;&lt;br&gt;
 
-2. Explain how the unemployment rate is calculated.
+1. Explain how labour market statistics are calculated.
+
+2. Explain the difference between register and survey data.
 
 3. Explain the intuition behind seasonal adjustment. 
 
 
-
+&lt;!-- froim pop to labor market, some def of labor market, then the data sources, then seasnoall adjustment  --&gt;
 
 
 
@@ -78,53 +80,104 @@ class: inverse, center, middle
 # Data About the Labor Market
 
 
+---
+
+
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-3-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
 
-## From population to labour force
+## From population data to the labour market
 
-The overall population of the UK (≈ 66 mio in the UK)
+&lt;br&gt;&lt;br&gt;
 
-- Children and elderly (≈ 24 mio in the UK).
+We can divide the total population into groups according to their economic activity. 
 
-- Out of the labour force (≈ 9 mio in the UK).
+For economic analyses, it is often useful to split the population into three groups by their age.
 
-- The labour force (≈ 33 mio in the UK) (also called the economic active).
+- Children (UK definition: Aged below 16).
 
+- Elderly (UK definition: Aged above 64).
 
-
-
----
-## Out of the labour force
-
-Also known as: The economic inactive
-
-- Studying (≈ 27% in the UK)
-
-- Looking after the family/staying home (≈ 24% in the UK) 
-
-- Long-term sick (≈ 23% in the UK)
-
-- Retired (≈ 13% in the UK)
-
+- Working age population (UK definition: everyone else).
 
 
 
 
 
 ---
+
+
+
+
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-5-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank"&gt;here&lt;/a&gt;.
+
+
+
+---
+
 ## The labour force
 
-**The labour force = Unemployed + Employed**
+&lt;br&gt;&lt;br&gt;
 
-*Unemployed* (ILO definition) 
+Within the working-age population, we can further split the population into two groups.
+
+Out of the labour force:
+
+- Students, long-term sick, looking after family/staying home, retired, other.
+
+In the labour force:
+
+- People who are unemployed, people who are employed (including self-employed). &lt;br&gt;&lt;br&gt;
+
+
+We will now take a closer look at the labour force by defining the categories within the labour force.
+
+
+&lt;!-- from pop to labor market, some measures to summarise the labor market, seasonal adjustment  --&gt;
+
+
+
+
+
+
+
+
+&lt;!-- --- --&gt;
+&lt;!-- ## Out of the labour force --&gt;
+
+&lt;!-- Also known as: The economic inactive --&gt;
+
+&lt;!-- - Studying (≈ 27% in the UK) --&gt;
+
+&lt;!-- - Looking after the family/staying home (≈ 24% in the UK)  --&gt;
+
+&lt;!-- - Long-term sick (≈ 23% in the UK) --&gt;
+
+&lt;!-- - Retired (≈ 13% in the UK) --&gt;
+
+
+
+
+
+
+---
+
+## Definitions of the labour force
+
+*Unemployed* (ILO definition):
 
 - Without a job, have been actively seeking work in the past four weeks and are available to start work in the next two weeks.
 
-- Out of work, have found a job and are waiting to start it in the next two weeks.
+- Out of work, have found a job and are waiting to start it in the next two weeks.&lt;br&gt;&lt;br&gt;
 
-*Employed* (ILO definition)
+*Employed* (ILO definition):
 
 - Work at least one hour for pay in a week.
 
@@ -135,47 +188,146 @@ Also known as: The economic inactive
 - Unpaid family work.
 
 
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+`$$\Large \text{Labour force} = \text{Unemployed} + \text{Employed}$$`
+
+
+
+
+---
+class: inverse, center, middle
+
+`$$\Large \text{Employment rate} =  \frac{\text{Employed}}{\text{Unemployed} + \text{Employed}}$$`
+
+
+
+---
+
+
+
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-7-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/AURUKM.csv" target="_blank"&gt;here&lt;/a&gt;.
+
+
+
+
+
 ---
 class: inverse, center, middle
 
 `$$\Large \text{Unemployment rate} = \frac{\text{Unemployed}}{\text{Unemployed} + \text{Employed}}$$`
 
 
+---
+
+
+
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-9-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/AURUKM.csv" target="_blank"&gt;here&lt;/a&gt;.
+
+
+
+
+
+
+---
+
+
+
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-11-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank"&gt;here&lt;/a&gt;.
+
+
+---
+class: inverse, center, middle
+
+`$$\Large \text{Inactivity rate} =  \frac{\text{Economically inactive persons}}{\text{Total population of the same age group}}$$`
+
+
+
+
+
+
+---
+
+## Labour demand
+
+The measures described above capture both labour supply and demand. 
+
+As for employment, we have survey and register-based measures. 
+
+- Register: Data from public employment services we can use the number of announced job vacancies.
+
+- Survey: Ask firms about their labour demand needs. 
+
+Register-based measures are cheaper, but not all firms post their vacancies in the public employment service.
+
+For surveys, not every firm responds and maybe the firms that respond are not representative.
+
+As a result, these can differ substantially. 
+
+
+&lt;!-- survey based, less standardized --&gt;
+
+&lt;!-- eurostat defintion --&gt;
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+`$$\Large \text{JVR} =  \frac{\text{Number of vacancies}}{\text{Number of vacancies + Number of occupied posts}}$$`
+
+
+
+---
+
+
+
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-13-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
 
 ---
 ## Where the data comes from
 
-Labour Force Surveys (standardised survey across the world)
+Labour Force Surveys (standardised surveys across the world)
 
 - Ask a random subset of the population about their labour market status
 
 - Often done monthly – but reported quarterly
 
-- Advantage: complies with ILO definition: comparable across time and countries
+- Advantage: complies with ILO definition: comparable across time and countries.&lt;br&gt;&lt;br&gt;
 
 Administrative data
 
-- Unemployed `\(\approx\)` number of unemployment benefit claimants
+- Unemployed `\(\approx\)` number of unemployment benefit claimants.
 
-- Advantage: cheap and precise
+- Advantage: cheap and precise.
 
-Note: Age definition for working age population can vary! ONS (UK): 16-64y, Eurostat: 15-74y, US: Age 15y and over
-
-
-
-
-
-
-
-
----
-
-
-
-
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-3-1.png" width="1008" style="display: block; margin: auto;" /&gt;
-
-
+**Note**: Age definition for the working age population can vary! ONS (UK): 16-64y, Eurostat: 15-74y, US: Age 15y and over
 
 
 
@@ -186,7 +338,37 @@ Note: Age definition for working age population can vary! ONS (UK): 16-64y, Euro
 
 
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-5-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-15-1.png" width="792" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&lt;div style="text-align: center; margin-top: 50px;"&gt;
+  &lt;img src="images/data_article.png" alt="A descriptive alt text" style="width: 500px;"&gt;
+&lt;/div&gt;
+
+From *The Financial Times*, Nov. 1. You can find the article &lt;a href="https://www.ft.com/content/4978a9f8-e2d5-4a9d-80e7-02b0ba2bd56c" target="_blank"&gt;here&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Seasonal Adjustment
+
+
+
 
 
 
@@ -198,13 +380,13 @@ Note: Age definition for working age population can vary! ONS (UK): 16-64y, Euro
 
 Labor market data has a substantial seasonal component.
 
-- Night: fewer work, fewer travel etc.
+- Night: fewer people work, travel etc.
 
-- Weekends: fewer work, fewer commute, more in museums and at the beach.
+- Weekends: fewer people work, and commute, more people in museums and at the beach.
 
-- August: fewer work, more travel.
+- August: fewer people work, more travel.
 
-- December: private consumption is higher in UK.
+- December: private consumption is higher in UK.&lt;br&gt;&lt;br&gt;
 
 This is an issue if we want to compare changes between periods. 
 
@@ -222,19 +404,9 @@ This is an issue if we want to compare changes between periods.
 
 
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-7-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-17-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
-
-
-
-
----
-
-
-
-
-
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-9-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank"&gt;here&lt;/a&gt;.
 
 
 
@@ -243,8 +415,11 @@ This is an issue if we want to compare changes between periods.
 
 
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-11-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-19-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank"&gt;here&lt;/a&gt;.
 
 
 
@@ -252,8 +427,19 @@ This is an issue if we want to compare changes between periods.
 
 
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-13-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-21-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank"&gt;here&lt;/a&gt;.
+
+
+
+---
+
+
+
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-23-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank"&gt;here&lt;/a&gt;.
 
 
 
@@ -262,18 +448,18 @@ This is an issue if we want to compare changes between periods.
 ## Decomposing a time series
 
 
-We can decompose the variation in the unemployment rate `\(u_t\)` as follows
+We can decompose the variation in the unemployment rate `\(u_t\)` as follows.
 
 `$$u_t = s_t+\lambda_t +\varepsilon_t$$`
 - `\(\lambda_t\)` is a trend component.
 
 - `\(s_t\)` is a seasonal compononent. 
 
-- `\(\varepsilon_t\)` are random shocks.
+- `\(\varepsilon_t\)` are random shocks.&lt;br&gt;&lt;br&gt;
 
-Some statistical agencies provide data where the different compononents have been isolated.
+Some statistical agencies provide data where the different components have been isolated.
 
-There is a wide nariety of ways to decompose a time series and the correct method depends on the series and application.
+There is a wide variety of ways to decompose a time series and the correct method depends on the series and application.
 
 Let's create our own decomposition to get a sense of how it works. 
 
@@ -283,7 +469,7 @@ Let's create our own decomposition to get a sense of how it works.
 
 ## Finding the trend component
 
-One way to remove seasonality and other shocks is through the use of linear filters. 
+One way to remove seasonality and other shocks is through the use of a linear filter. 
 
 One such filter is the moving average or MA filter.
 
@@ -1062,20 +1248,21 @@ ggplot(data = df, aes(x = date, y = trend))+
 
 
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-16-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-26-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
 
-## Finding the season component
+## Finding the seasonal component
 
-To extract the season component, we can average over each month. 
+To extract the seasonal component, we can average over each month. 
 
 The part of the unemployment not explained by the trend is given by
 
 `$$u_t - \lambda_t$$`
 
-Let's calcualte the average of this value for each month of the year. 
+Let's calculate the average of this value for each month of the year. 
 
 This will be our seasonal (monthly) component.
 
@@ -1590,7 +1777,7 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
 
 
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-18-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-28-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1606,10 +1793,11 @@ ggplot(data = df, aes(x = date, y = unemp_month))+
 
 Finally, the shock is just what is not explained by the seasonal variation or the trend, 
 
-`$$\varepsilon = u_t - \lambda_t - s_t$$`
+`$$\varepsilon_t = u_t - \lambda_t - s_t$$`
+
 This can be thought of as "surprises", something we did not expect by looking at the trend or the month of the year.
 
-- This can be some positive or negative economic event for example.
+- E.g. some positive or negative event (covid, terms of trade shock, etc.)&lt;br&gt;&lt;br&gt;
 
 This component can tell us if the labor market is doing better than what is explained by seasonal variation or just a trend.
 
@@ -1939,13 +2127,14 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
 
 
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-20-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-30-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
 
 ---
 
-&lt;img src="lecture_7_files/figure-html/unnamed-chunk-21-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_7_files/figure-html/unnamed-chunk-31-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
+Data available &lt;a href="https://github.com/sebastianellingsen/economic_data_course/blob/648d134ccdd3c867b21dc2d60d56eeda0bc416fb/data/STLABOUR_10112023115611842.csv" target="_blank"&gt;here&lt;/a&gt;.
 
 
 
@@ -1961,43 +2150,45 @@ ggplot(data = df, aes(x = date, y = unemp_shock))+
 
 ## Seasonal adjustments: summary
 
-Goal: remove seasonal component
+**Goal**: To remove seasonal component.
 
-Approach:
+**Approach**:
 
-- Estimate trend level
+- Estimate trend level.
 
-- Remove trend from raw series
+- Remove trend from raw series.
 
-- What is left: seasonal component + error
+- What is left is a seasonal component + error.
 
-- Use that to identify seasonal component
+- Use that to identify the seasonal component.
 
-- Subtract the seasonal component from the raw series
+- Subtract the seasonal component from the raw series.&lt;br&gt;&lt;br&gt;
 
-There is a large and very advanced literature in econometrics and statistics on filtering time series!
+There is a large literature in econometrics and statistics on filtering time series!
+
+- A lot of it is a version of what you have seen here. 
 
 
 
 
 
----
+&lt;!-- --- --&gt;
 
-## The labour market: other topics
+&lt;!-- ## The labour market: other topics --&gt;
 
-Labour supply
+&lt;!-- Labour supply --&gt;
 
-- Extensive margin vs intensive margin
+&lt;!-- - Extensive margin vs intensive margin --&gt;
 
-- Hours worked
+&lt;!-- - Hours worked --&gt;
 
-Earnings
+&lt;!-- Earnings --&gt;
 
-- Wages, Salary, survey based, register based
+&lt;!-- - Wages, Salary, survey based, register based --&gt;
 
-Gender disparities
+&lt;!-- Gender disparities --&gt;
 
-- Earnings &amp; promotions
+&lt;!-- - Earnings &amp; promotions --&gt;
 
 
 
@@ -2006,13 +2197,16 @@ Gender disparities
 
 ## Summary
 
-1. Explain the difference between register and survey (or ILO) unemployment.
+&lt;br&gt;&lt;br&gt;
 
-2. Explain how the unemployment rate is calculated.
+1. Explain how labour market statistics are calculated.
+
+2. Explain the difference between register and survey data.
 
 3. Explain the intuition behind seasonal adjustment. 
 
 
+&lt;!-- LINKS TO DATA HERE (TO GO WITH THE SCRIPTS) --&gt;
 
 
 
