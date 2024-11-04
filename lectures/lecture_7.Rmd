@@ -335,7 +335,7 @@ p1 <- ggplot(data = df, aes(x = date, y = OBS_VALUE, color = as.factor(geo))) +
         plot.background  = element_rect(fill = "transparent", colour = NA),
         legend.key=element_blank())+
   xlab("") +
-  ylab("Emplyment rate (%)") +
+  ylab("Employment rate (%)") +
   labs(title = "The Employment Rate in Europe, 2008 - 2023",
        caption = "Source: Eurostat (lfsq_ergan).")+
   ylim(0, 100)
