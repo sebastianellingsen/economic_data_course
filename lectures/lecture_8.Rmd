@@ -14,6 +14,7 @@ output:
       ratio: '16:9'
       navigation:
         scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+bibliography: library.bib
 
 ---
 
@@ -75,14 +76,15 @@ code.r.hljs.remark-code:hover{
 
 ## After this lecture you should be able to
 
-Explain basic inequality measures 
+<br><br>
 
-- Lorenz curves
+Explain basic inequality measures. 
 
-- Gini index
+- Lorenz curves.
+
+- Gini index.
 
 Explain how to calculate these.
-
 
 
 
@@ -94,7 +96,7 @@ Explain how to calculate these.
 ---
 class: inverse, center, middle
 
-# Inequality 
+# Data on Inequality 
 
 
 
@@ -102,21 +104,45 @@ class: inverse, center, middle
 
 ---
 
-## Quantifying inequality: Concepts
+## Why measure inequality?
 
-**Domain**:
+GDP is largely silent on the distribution of income across individuals.  <br><br>
 
-- Income or wealth
+Why would we want to measure the distribution of income across individuals?
+
+- Many economic policy areas have distributive impacts (e.g. tax policy, fiscal policy). 
+
+- Lower inequality is seen as an end in and of itself. 
+
+- Promotes social cohesion and reduces political polarization (see e.g. Rodrik, 1999). <br><br>
+
+$\Rightarrow$ We need to go beyond data on GDP to explore these issues. 
+
+
+
+
+---
+
+
+
+
+
+
+## Quantifying inequality
+
+What type of inequality?
+
+- Income or wealth.
 
 - Health, education, etc.
 
-- Gender
+- Gender.<br><br>
 
-**Net and gross**:
+Net or gross income?
 
-- Income before (gross) or after taxes and transfers (net)
+- Income before (gross) or after taxes and transfers (net).<br><br>
 
-**Unit**:
+What is our unit of analysis?
 
 - Individuals or households?
 
@@ -128,23 +154,19 @@ class: inverse, center, middle
 
 ---
 
-## Quantifying inequality: Domain
+## Quantifying inequality
 
-Requires access to micro level data – that is data on the *individual level*.
+Requires access to micro-level data – that is data on the *individual level*.
 
-- So far: macro data - aggregated over units.
+- So far we have worked on macro data - aggregated over units.<br><br>
 
-**Income**
+Where does data on income come from? 
 
-- From sample surveys or tax records (record flow)
+- From sample surveys or tax records (record flow)<br><br>
 
-**Wealth**
+Where does data on wealth come from?
 
-- Stock - difficult to measure: bank accounts, value of house, etc.
-
-- Education, health etc.
-
-- Inequality in life expectancy, neonatal mortality etc.
+- Stock - difficult to measure: bank accounts, house value, etc.
 
 
 
@@ -152,7 +174,7 @@ Requires access to micro level data – that is data on the *individual level*.
 
 ---
 
-## Quantifying inequality: Concepts
+## Comparing households
 
 We use weights to adjust for the household size.
 
@@ -162,7 +184,7 @@ We use weights to adjust for the household size.
 
 - All other >=14y: weight of 0.7
 
-- <14y: weight of 0.5
+- <14y: weight of 0.5<br><br>
 
 
 **OECD modified scale**: 
@@ -172,6 +194,9 @@ We use weights to adjust for the household size.
 - All other >=14y: weight of 0.5
 
 - <14y: weight of 0.3
+
+
+
 
 
 <!-- **Square root scale** -->
@@ -217,19 +242,43 @@ knitr::include_graphics("images/inequality.png")
 ---
 
 
-## How to quantify inequality
+# How to quantify inequality? Percentiles
 
-It is useful to have a number to summarize the income distribution. 
+What are Percentiles?
+
+- Percentiles are a statistical measure that divides a dataset into 100 equal parts.
+
+- Each percentile represents a value below which a certain percentage of the data falls.
+
+    - For example, the 20th percentile is the income level below which 20% of the population’s income falls. <br><br>
+
+Using Percentiles in Income Inequality:
+
+- Low percentiles (e.g., 10th percentile) represent lower-income earners.
+
+- High percentiles (e.g., 90th percentile) represent higher-income earners.
+
+- By comparing incomes at different percentiles, we can measure the *income share* and assess inequality.
+
+
+
+
+---
+
+
+## How to quantify inequality?
+
+It is useful to have a number to summarize the income distribution. <br><br>
 
 Point of departure: Income shares
 
-- Sort households by income (low to high)
+- Sort households by income (low to high).
 
-- Assign rank
+- Assign rank.
 
-- Calculate the total income
+- Calculate the total income.
 
-- Calculate the income share for each rank
+- Calculate the income share for each rank.
 
 
 
@@ -254,7 +303,7 @@ The Lorenz curve
 
 - Calculate cumulative shares of income for each income rank.
 
-- Plot cumulative share against income rank.
+- Plot cumulative share against income rank.<br><br>
 
 This gives the Lorenz curve.
 
@@ -302,6 +351,109 @@ Gini coefficient close to 1:
 knitr::include_graphics("images/lorenz_desc.png")
 ```
 ]
+
+
+
+
+
+---
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+library(lubridate)
+library(tidyverse)
+library(ggpubr)
+library(ggthemes)
+
+df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
+  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"...68") %>% 
+  gather(year, gini, 2:64) %>% 
+  rename(country = 'Country Name') %>% 
+  filter(country == 'United Kingdom',
+         !is.na(gini)) %>% 
+  mutate(gini = as.numeric(gini),
+         year = as.numeric(year))
+
+p1 <- ggplot(data = df, aes(x = year, y = gini))+
+  geom_line(lwd = 1)+
+  geom_point(size = 3)+
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="bottom",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(angle=45, hjust=1, size = 12),
+        axis.text.y=element_text(size = 12),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.key=element_blank())+
+  xlab("") +
+  ylab("Gini Index") +
+  labs(title = "The Gini Index for the United Kingdom",
+       caption = "Source: World Bank, World Development Indicators.")+
+  scale_x_continuous(n.breaks = 6)+
+ylim(5,50)
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
+p1
+```
+
+
+
+
+---
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
+  select("Country Name", "2019") %>% 
+  rename(country = "Country Name", 
+         gini = "2019") %>% 
+  filter(!is.na(gini), 
+         gini>0) %>% 
+  mutate(country = fct_reorder(country, gini)) 
+
+gini_plot <- ggplot(df, aes(x=country, y=gini)) +
+  geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
+  geom_hline(yintercept = 0)+
+  geom_point()+
+  coord_flip() +
+  theme_tufte() +
+  theme(plot.title = element_text(size=22),
+        plot.subtitle = element_text(size=16),
+        legend.title = element_blank(),
+        legend.text=element_text(size=14),
+        legend.position="none",
+        plot.caption = element_text(size=12, hjust = 0),
+        axis.title = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.x=element_text(size = 14),
+        axis.text.y=element_text(size = 8.75),
+        strip.placement = "outside",
+        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA),
+        legend.background = element_rect(fill='transparent'),
+        legend.key=element_blank())+
+  xlab("") +
+  ylab("") +
+  labs(title = "The Gini Index",
+       subtitle = "Selected countries, 2019",
+       caption = "Source: World Bank, World Development Indicators.")
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
+gini_plot
+```
 
 
 
@@ -438,7 +590,7 @@ df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>
   mutate(gini = as.numeric(gini),
          year = as.numeric(year))
 
-p1 <- ggplot(data = df, aes(x = year, y = 100*(gini/32.2)))+
+p1 <- ggplot(data = df, aes(x = year, y = gini))+
   geom_line(lwd = 1)+
   geom_point(size = 3)+
   theme(plot.title = element_text(size=22),
@@ -459,16 +611,59 @@ p1 <- ggplot(data = df, aes(x = year, y = 100*(gini/32.2)))+
         legend.background = element_rect(fill='transparent'),
         legend.key=element_blank())+
   xlab("") +
-  ylab("Gini Index (1990=100)") +
+  ylab("Gini Index") +
   labs(title = "The Gini Index for China, 1990-2020",
        caption = "Source: World Bank, World Development Indicators.")+
-  scale_x_continuous(n.breaks = 6)
+  scale_x_continuous(n.breaks = 6)+
+  ylim(5,50)
+
 ```
 
 ```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
 p1
 ```
 
+
+---
+
+## Alternative measures
+
+An alternative way of measuring income inequality is to consider the income share of different percentiles directly. <br><br>
+
+One such example is the 90/10 ratio.
+
+- The 90/10 ratio compares the income at the 90th percentile to that at the 10th percentile.
+
+- A higher 90/10 ratio indicates greater income inequality, showing a wider income gap between high- and low-income groups.<br><br>
+ 
+These measures can be illuminating, but hone in on a particular part of the income distribution.
+
+What data to use as always depends on the question you seek to address.
+
+---
+
+
+
+## How to quantify inequality
+
+Most popular quantification:
+
+- Gini coefficient: smaller value $\Rightarrow$ lower inequality.<br><br>
+
+Alternatives:
+
+- Income shares.
+
+- 20:20 ratio (top 20 vs bottom 20).
+
+- Hoover index (percentage of all income to be redistributed to achieve perfect equality).
+
+- Wage share (from GDP income approach).<br><br>
+
+
+Related measures:
+
+- Duncan’s dissimilarity index, Herfindahl index (competition)
 
 
 
@@ -621,54 +816,17 @@ ggplot(df, aes(x=country, y=gini)) +
 
 
 
+
+
+
+
 ---
+class: inverse, center, middle
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-library(lubridate)
-library(tidyverse)
-library(ggpubr)
-library(ggthemes)
+# Summary 
 
-df <- read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
-  select(-"Country Code", -"Indicator Name", -"Indicator Code", -"...68") %>% 
-  gather(year, gini, 2:64) %>% 
-  rename(country = 'Country Name') %>% 
-  filter(country == 'United Kingdom',
-         !is.na(gini)) %>% 
-  mutate(gini = as.numeric(gini),
-         year = as.numeric(year))
 
-p1 <- ggplot(data = df, aes(x = year, y = 100*(gini/26.8)))+
-  geom_line(lwd = 1)+
-  geom_point(size = 3)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(size = 14),
-        axis.text.y=element_text(size = 8.75),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  xlab("") +
-  ylab("Gini Index (1968=100)") +
-  labs(title = "The Gini Index for the United Kingdom",
-       caption = "Source: World Bank, World Development Indicators.")+
-  scale_x_continuous(n.breaks = 6)
 
-```
-
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
-p1
-```
 
 
 
@@ -676,71 +834,37 @@ p1
 
 ---
 
+## Things to consider when measuring inequality
 
-## How to quantify inequality
+Data sources:
 
-Most popular quantification
+- Administrative or survey<br><br>
 
-- Gini coefficient: smaller value $\Rightarrow$ lower inequality.
+Domains:
 
-Alternatives
+- Income or wealth? – gross or net? Health, education, etc.<br><br>
 
-- Income shares
+Units:
 
-- 20:20 ratio (top 20 vs bottom 20)
+- Individuals or equivalised households<br><br>
 
-- Hoover index (percentage of all income to redistributed to achieve perfect equality)
-
-- Wage share (from GDP income approach)
-
-
-Related measures
-
-- Segregation/concentration
-
-- Measures: Duncan’s dissimilarity index, Herfindahl index (competition)
-
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Summary
-
-**Data sources**:
-
-- Administrative or survey
-
-**Domains**:
-
-- Income or wealth? – gross or net?
-
-- Health, education, etc.
-
-- Gender
-
-**Units**:
-
-- Individuals or equivalised households
-
-**Measurement**:
+Measurement:
 
 - Income shares
 
 - Gini coefficient
+
+---
+
+## Summary
+
+GDP is largely silent on the distribution of income across individuals. 
+
+Data on economic inequality is an important input in policy.
+
+Numerous ways to quantify inequality. 
+
+The most common is the Gini index and income shares.
 
 
 

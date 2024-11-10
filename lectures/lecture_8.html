@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 8</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2024-08-30" />
+    <meta name="date" content="2024-11-10" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2024-08-30
+### 2024-11-10
 ]
 
 ---
@@ -69,6 +69,8 @@ code.r.hljs.remark-code:hover{
 
 ## After this lecture you should be able to
 
+&lt;br&gt;&lt;br&gt;
+
 Explain basic inequality measures 
 
 - Lorenz curves
@@ -88,7 +90,7 @@ Explain how to calculate these.
 ---
 class: inverse, center, middle
 
-# Inequality 
+# Data on Inequality 
 
 
 
@@ -96,21 +98,45 @@ class: inverse, center, middle
 
 ---
 
-## Quantifying inequality: Concepts
+## Why measure inequality?
 
-**Domain**:
+GDP is largely silent on the distribution of income across individuals.  &lt;br&gt;&lt;br&gt;
 
-- Income or wealth
+Why would we want to measure the distribution of income across individuals?
+
+- Many economic policy areas have distributive impacts (e.g. tax policy, fiscal policy). 
+
+- Lower inequality is by many seen as an end in and of itself. 
+
+- Promotes social cohesion and reduces political polarization (see e.g. Rodrik, 1999). &lt;br&gt;&lt;br&gt;
+
+`\(\Rightarrow\)` We need to go beyond data on GDP to explore these issues. 
+
+
+
+
+---
+
+
+
+
+
+
+## Quantifying inequality
+
+What type of inequality?
+
+- Income or wealth.
 
 - Health, education, etc.
 
-- Gender
+- Gender.&lt;br&gt;&lt;br&gt;
 
-**Net and gross**:
+Net or gross income?
 
-- Income before (gross) or after taxes and transfers (net)
+- Income before (gross) or after taxes and transfers (net).&lt;br&gt;&lt;br&gt;
 
-**Unit**:
+What is our unit of analysis?
 
 - Individuals or households?
 
@@ -122,23 +148,19 @@ class: inverse, center, middle
 
 ---
 
-## Quantifying inequality: Domain
+## Quantifying inequality
 
 Requires access to micro level data – that is data on the *individual level*.
 
-- So far: macro data - aggregated over units.
+- So far we have worked on macro data - aggregated over units.&lt;br&gt;&lt;br&gt;
 
-**Income**
+Where does data on income come from? 
 
-- From sample surveys or tax records (record flow)
+- From sample surveys or tax records (record flow)&lt;br&gt;&lt;br&gt;
 
-**Wealth**
+Where does data on wealth come from?
 
 - Stock - difficult to measure: bank accounts, value of house, etc.
-
-- Education, health etc.
-
-- Inequality in life expectancy, neonatal mortality etc.
 
 
 
@@ -146,7 +168,7 @@ Requires access to micro level data – that is data on the *individual level*.
 
 ---
 
-## Quantifying inequality: Concepts
+## Comparing households
 
 We use weights to adjust for the household size.
 
@@ -156,7 +178,7 @@ We use weights to adjust for the household size.
 
 - All other &gt;=14y: weight of 0.7
 
-- &lt;14y: weight of 0.5
+- &lt;14y: weight of 0.5&lt;br&gt;&lt;br&gt;
 
 
 **OECD modified scale**: 
@@ -166,6 +188,9 @@ We use weights to adjust for the household size.
 - All other &gt;=14y: weight of 0.5
 
 - &lt;14y: weight of 0.3
+
+
+
 
 
 &lt;!-- **Square root scale** --&gt;
@@ -209,19 +234,43 @@ We use weights to adjust for the household size.
 ---
 
 
-## How to quantify inequality
+# How to quantify inequality? Percentiles
 
-It is useful to have a number to summarize the income distribution. 
+What are Percentiles?
+
+- Percentiles are a statistical measure that divide a dataset into 100 equal parts.
+
+- Each percentile represents a value below which a certain percentage of the data falls.
+
+    - For example, the 20th percentile is the income level below which 20% of the population’s income falls. &lt;br&gt;&lt;br&gt;
+
+Using Percentiles in Income Inequality:
+
+- Low percentiles (e.g., 10th percentile) represent lower-income earners.
+
+- High percentiles (e.g., 90th percentile) represent higher-income earners.
+
+- By comparing incomes at different percentiles, we can measure the *income share* and assess inequality.
+
+
+
+
+---
+
+
+## How to quantify inequality?
+
+It is useful to have a number to summarize the income distribution. &lt;br&gt;&lt;br&gt;
 
 Point of departure: Income shares
 
-- Sort households by income (low to high)
+- Sort households by income (low to high).
 
-- Assign rank
+- Assign rank.
 
-- Calculate the total income
+- Calculate the total income.
 
-- Calculate the income share for each rank
+- Calculate the income share for each rank.
 
 
 
@@ -244,7 +293,7 @@ The Lorenz curve
 
 - Calculate cumulative shares of income for each income rank.
 
-- Plot cumulative share against income rank.
+- Plot cumulative share against income rank.&lt;br&gt;&lt;br&gt;
 
 This gives the Lorenz curve.
 
@@ -288,6 +337,26 @@ Gini coefficient close to 1:
 
 &lt;img src="images/lorenz_desc.png" width="453.6" style="display: block; margin: auto;" /&gt;
 ]
+
+
+
+
+
+---
+
+
+
+
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-7-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-9-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1467,28 +1536,69 @@ Gini(decs_c14)
 
 
 
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-8-1.png" width="1008" style="display: block; margin: auto;" /&gt;
-
-
-
-
-
-
-
----
-
-
-
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-10-1.png" width="1008" style="display: block; margin: auto;" /&gt;
-
-
-
-
----
-
-
-
 &lt;img src="lecture_8_files/figure-html/unnamed-chunk-12-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Alternative measures
+
+An alternative way of measuring income inequality is to consider the income share of different percentiles directly. &lt;br&gt;&lt;br&gt;
+
+One such example is the 90/10 ratio.
+
+- The 90/10 ratio compares the income at the 90th percentile to that at the 10th percentile.
+
+- A higher 90/10 ratio indicates greater income inequality, as it shows a wider income gap between high- and low-income groups.&lt;br&gt;&lt;br&gt;
+ 
+These measures can be illuminating, but hone in on a particular part of the income distribution.
+
+What data to use as always depend on the question you seek to address.
+
+---
+
+
+
+## How to quantify inequality
+
+Most popular quantification:
+
+- Gini coefficient: smaller value `\(\Rightarrow\)` lower inequality.&lt;br&gt;&lt;br&gt;
+
+Alternatives:
+
+- Income shares.
+
+- 20:20 ratio (top 20 vs bottom 20).
+
+- Hoover index (percentage of all income to redistributed to achieve perfect equality).
+
+- Wage share (from GDP income approach).&lt;br&gt;&lt;br&gt;
+
+
+Related measures:
+
+- Duncan’s dissimilarity index, Herfindahl index (competition)
+
+
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-14-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+
+
+&lt;img src="lecture_8_files/figure-html/unnamed-chunk-16-1.png" width="1008" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2531,83 +2641,55 @@ ggplot(df, aes(x=country, y=gini)) +
 
 
 
----
-
-
-
-&lt;img src="lecture_8_files/figure-html/unnamed-chunk-14-1.png" width="1008" style="display: block; margin: auto;" /&gt;
-
 
 
 
 
 ---
+class: inverse, center, middle
+
+# Summary 
 
 
-## How to quantify inequality
-
-Most popular quantification
-
-- Gini coefficient: smaller value `\(\Rightarrow\)` lower inequality.
-
-Alternatives
-
-- Income shares
-
-- 20:20 ratio (top 20 vs bottom 20)
-
-- Hoover index (percentage of all income to redistributed to achieve perfect equality)
-
-- Wage share (from GDP income approach)
 
 
-Related measures
 
-- Segregation/concentration
 
-- Measures: Duncan’s dissimilarity index, Herfindahl index (competition)
 
 
 ---
 
+## Things to consider when measuring inequality
 
+Data sources:
 
+- Administrative or survey&lt;br&gt;&lt;br&gt;
 
+Domains:
 
+- Income or wealth? – gross or net? Health, education, etc.&lt;br&gt;&lt;br&gt;
 
+Units:
 
+- Individuals or equivalised households&lt;br&gt;&lt;br&gt;
 
-
-
-
-
-
-
-
-
-## Summary
-
-**Data sources**:
-
-- Administrative or survey
-
-**Domains**:
-
-- Income or wealth? – gross or net?
-
-- Health, education, etc.
-
-- Gender
-
-**Units**:
-
-- Individuals or equivalised households
-
-**Measurement**:
+Measurement:
 
 - Income shares
 
 - Gini coefficient
+
+---
+
+## Summary
+
+GDP is largely silent on the distribution of income across individuals. 
+
+Data on economic inequality is an important input in policy.
+
+Numerous ways to quantify inequality. 
+
+The most common is the Gini index and income shares.
 
 
 
