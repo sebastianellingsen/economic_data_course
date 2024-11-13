@@ -429,6 +429,10 @@ to the environment/import dataset/from text (readr).</p></li>
 capita in <span class="math inline">\(1960\)</span>.
 <strong>Hint</strong>:
 <code>maddison$l_gdppc_1960 &lt;- log(maddison$gdppc_1960)</code>.</p></li>
+<li><p>Keep only countries for which the log of GDP per capita is above
+<span class="math inline">\(8.551\)</span> (the third quintile).
+<strong>Hint</strong>:
+<code>maddison &lt;- maddison[maddison$l_gdppc_1960&gt;8.551,]</code>.</p></li>
 <li><p>Estimate the parameters of the regression <span class="math display">\[\begin{equation}
 Y_i = \alpha_1 + \beta_1 X_i + u_i
 \end{equation}\]</span> where <span class="math inline">\(Y_i\)</span>
