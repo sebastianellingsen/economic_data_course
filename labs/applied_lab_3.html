@@ -458,7 +458,7 @@ residuals from each regression as the variables <code>psi</code> and
 <li><p>Finally, consider the regression <span class="math inline">\(\hat{\psi_i} = \beta_2\hat{\theta_i} +
 \lambda_i\)</span> where <span class="math inline">\(\hat{\psi_i}\)</span> is the residual from the
 regression of <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(Z_i\)</span>, <span class="math inline">\(\hat{\theta_i}\)</span> is the residual from the
-regression of <span class="math inline">\(Z_i\)</span> on <span class="math inline">\(Z_i\)</span>, and <span class="math inline">\(\lambda_i\)</span> is an unobserved error term.
+regression of <span class="math inline">\(X_i\)</span> on <span class="math inline">\(Z_i\)</span>, and <span class="math inline">\(\lambda_i\)</span> is an unobserved error term.
 Estimate the coefficient <span class="math inline">\(\beta_2\)</span>.
 <strong>Hint</strong>: <code>summary(lm(psi~theta))</code>.</p></li>
 <li><p>Why is the coefficient in this regression the same as the “long”
