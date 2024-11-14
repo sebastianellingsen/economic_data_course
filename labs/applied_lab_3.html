@@ -453,7 +453,8 @@ X_i = \phi_2 + \gamma_2 Z_i + \theta_i
 the remaining variables are defined as above. Store the vectors of
 residuals from each regression as the variables <code>psi</code> and
 <code>theta</code> respectively. <strong>Hint</strong>:
-<code>psi &lt;- lm(data = maddison, gdppc_g~pop_1960)</code> and
+<code>psi &lt;- lm(data = maddison, gdppc_g~pop_1960)[[&quot;residuals&quot;]]</code>
+and
 <code>theta &lt;- lm(data = maddison, l_gdppc_1960~pop_1960)[[&quot;residuals&quot;]]</code>.</p></li>
 <li><p>Finally, consider the regression <span class="math inline">\(\hat{\psi_i} = \beta_2\hat{\theta_i} +
 \lambda_i\)</span> where <span class="math inline">\(\hat{\psi_i}\)</span> is the residual from the
