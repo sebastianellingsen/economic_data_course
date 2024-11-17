@@ -76,6 +76,8 @@ code.r.hljs.remark-code:hover{
 
 ## After this lecture you should be able to
 
+<br><br>
+
 Explain the 3 different types of interest rates.
 
 Explain why interest vary 
@@ -104,11 +106,21 @@ class: inverse, center, middle
 
 ## What is an interest rate?
 
+<br><br>
+
 Assume you borrow some amount from a bank. 
 
 The interest rate is then 
 
-$$ i = \frac{\text{amount to repay}}{\text{amount borrowed}} - 1$$
+$$ i = 100 \times \left(\frac{\text{amount to repay}}{\text{amount borrowed}} - 1\right)$$
+
+
+
+
+---
+
+## What is an interest rate?
+
 
 Why do you have to pay interest to borrow? 
 
@@ -116,9 +128,56 @@ Why do you have to pay interest to borrow?
 
 - Money in the future might be worth less due to inflation. 
 
-- The bank could have invested the amount in stocks or bonds.
+- The bank could have invested the amount in stocks or bonds with positive interest.
 
 - Risk of the loan not being repaid.
+
+
+
+---
+
+
+## Why are interest rates important?
+
+Imagine you need **£10,000** to fund a business idea. <br><br>
+
+Bank offer A:
+
+- Payback **£10,050** in 10 years → **Interest rate: 0.5%**  
+  
+- $100 \times \left(\frac{10050}{10000} - 1 \right)$ <br><br>
+
+Bank offer B:
+
+- Payback **£20,000** in 10 years → **Interest rate: 100%**  
+  
+- $100 \times \left(\frac{20000}{10000} - 1 \right)$<br><br>
+
+
+Need to be very certain about the profitability of the business idea in scenario B. 
+
+
+  <!-- - Payback **£20,000** in 10 years → **Interest rate: 100%**   -->
+  <!--   *Formula: \( 100\% = 100 \times \left( \frac{20,000}{10,000} - 1 \right) \)*   -->
+
+---
+
+## Impact on the Economy
+
+- **Low Interest Rates**:
+
+  - Cheaper loans → Stimulates business, car purchases, home renovations.<br><br>
+
+
+- **High Interest Rates**:
+
+  - Reduces borrowing → Slows economic activity.
+  
+  - Encourages savings.
+
+
+
+
 
 
 ---
@@ -158,7 +217,8 @@ $$i^d = \left(\frac{B^{\prime}}{B}\right)^{\frac{1}{365}} - 1$$
 
 - Often based on an inflation target
 
-- UK: "Bank of England Base Rate"
+- UK: "Bank of England Base Rate"<br><br>
+
 
 
 
@@ -166,7 +226,8 @@ $$i^d = \left(\frac{B^{\prime}}{B}\right)^{\frac{1}{365}} - 1$$
 
 - Banks charge each other
 
-- UK: "Sterling OverNight Indexed Average" or "SONIA"
+- UK: "Sterling OverNight Indexed Average" or "SONIA"<br><br>
+
 
 
 **Commercial lending rate**
@@ -345,7 +406,8 @@ Data on interest rates are typically stated in nominal terms
 
 - If I lend you money for a 2% annual interest rate and the inflation is 3% I lose.
 
-- I can buy more for the 100£ I give you today, than for the 102£ you give me in one year.
+- I can buy more for the 100£ I give you today, than for the 102£ you give me in one year.<br><br>
+
 
 
 The link between the real interest rate $r$ and nominal interest $i$ rates are is the following: 
@@ -375,6 +437,8 @@ class: inverse, center, middle
 
 ## Exchange rates
 
+<br><br>
+
 The rate at which we are willing to trade on currency to another currency
 
 - “An exchange rate of 1.39 US Dollar to the British Pound.”
@@ -396,11 +460,11 @@ What determines the exchange rate?
 
 - Financial institutions trade currencies on the foreign exchange market (forex).
 
-- ... and then buy and sell them to us (we pay a premium)
+- ... and then buy and sell them to us (we pay a premium)<br><br>
 
 **Appreciates**: the currency increases in value – ex. 1£ from costing 1.39$ to 1.45$
 
-**Depreciates**: the currency loses in value – ex. 1£ from costing 1.39$ to 1.28$
+**Depreciates**: the currency loses in value – ex. 1£ from costing 1.39$ to 1.28$<br><br>
 
 Exchange rates, like many other prices, are determined by supply and demand.
 
@@ -551,6 +615,33 @@ ggplot(data = ex_rate, aes(x = date, y = g))+
 ```
 
 
+
+
+
+---
+## Exchange rates and interest rates
+
+There is a link between interest rates and exchange rate: *uncovered interest rate parity*.
+
+- It is essentially a non-arbitrage condition. 
+
+For example a US investor can invest in the US at interest rate $i_t^{\text{us}}$. 
+
+He could also invest in the UK at interest rate $i_t^{\text{uk}}$, but he needs to exchange at rate $E_t$.
+
+*Uncovered interest rate parity* then states that 
+
+\begin{equation}
+1 + i_t^{\text{us}} = \frac{\mathbb{E}_t(E_{t+1})}{E_t}\left(1+i_t^{\text{uk}}\right),
+\end{equation}
+where $\mathbb{E}_t(E_{t+1})$ is the expected exchange rate in $t+1$ at time $t$.
+
+$\Rightarrow$ Return from investing at home is the same of investing abroad in equilibrium. 
+
+
+
+
+
 ---
 ## Some date formats in R
 
@@ -580,6 +671,12 @@ ggplot(data = ex_rate, aes(x = date, y = g))+
 
 
 
+---
+class: inverse, center, middle
+
+# Summary
+
+
 
 
 
@@ -589,22 +686,22 @@ ggplot(data = ex_rate, aes(x = date, y = g))+
 
 ## Summary
 
-Three different types of interest rates:
+Three important types of interest rates:
 
-- Bank rate (Policy rate): The central bank’s rate
+- Bank rate (Policy rate): The central bank’s rate.
 
-- Interbank rate: the rate between banks
+- Interbank rate: the rate between banks.
 
 - Household rate: the rate we are paying.
 
 
 Why do interest rates vary?
 
-- Information and security
+- Information and security.
 
-- Flexibility
+- Flexibility.
 
-- Duration
+- Duration.
 
 
 Describing exchange rates:
