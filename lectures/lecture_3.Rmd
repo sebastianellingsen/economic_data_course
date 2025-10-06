@@ -195,7 +195,7 @@ mtext("Source: Maddison Database (2020).", side = 1, line = 4, adj = 0, cex = 0.
 
 class: inverse, center, middle
 
-# Measuring Economic Activity
+# How Can We Measure Economic Activity?
 
 
 
@@ -211,13 +211,14 @@ class: inverse, center, middle
 
 - In the European Union and the UK we typically define a recession as two successive quarters of negative economic growth.
 
-- The US National Bureau of Economic Research has a \say{Business Cycle Dating Committee}.
+- The US National Bureau of Economic Research has a *Business Cycle Dating Committee*.
 
 - Measure inequality: Wage share.
 
 - Measure productivity: GDP per worker.
 
 - Proxy for well-being: GDP per capita (much more next week).
+
 
 
 
@@ -320,7 +321,7 @@ Splitting the firm increases GDP by $30$ percent!
 
 For this reason, we consider the sum of value added in the economy instead:
 \begin{equation}
-\text{GDP}_t = \sum_{i = 1}^N \text{Value added}_{it}
+\text{Y}_t = \sum_{i = 1}^N \text{Value added}_{it}
 \end{equation}
 where $\text{Value added}_{it}$ denotes the difference between value of output and inputs.
 
