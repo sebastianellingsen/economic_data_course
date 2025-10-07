@@ -1096,7 +1096,7 @@ Notice that cohort life tables contain predictions of future mortality rates for
 
 Important to know which one to use, depending on the question. 
 
-Cohort life expectancy takes economic development into account and is therefore lower. 
+Cohort life expectancy takes economic development into account and is therefore higher. 
 
 
 
