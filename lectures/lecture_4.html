@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 4</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2024-10-06" />
+    <meta name="date" content="2025-10-12" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2024-10-06
+### 2025-10-12
 ]
 
 ---
@@ -68,6 +68,8 @@ code.r.hljs.remark-code:hover{
 
 &lt;div class="centered-content"&gt;
   &lt;h2&gt; &lt;/h2&gt;
+     &lt;p&gt;  Revision of the labs &lt;p&gt; 
+
    &lt;p&gt;  Measuring wellbeing &lt;p&gt; 
 
   &lt;p&gt;  Measuring wellbeing in practice&lt;p&gt; 
@@ -76,6 +78,80 @@ code.r.hljs.remark-code:hover{
 
 &lt;/div&gt;
 
+
+
+
+
+
+---
+
+# Revision of the Labs
+
+Everything in **R** is an *object* 
+
+You’ve already worked with several key types of objects:
+
+- Data frames
+- Characters
+- Vectors
+- Functions
+
+Each object has **functions** you can apply to it. These are typically written with parentheses `()`:
+
+```r
+mean(x)
+min(x)
+max(x)
+summary(x)
+read.csv("data.csv")
+readr::read_csv("data.csv")
+plot(x,y)
+```
+
+
+---
+
+## Some important operators
+
+We have seen `&lt;-` can be used to create or update objects. 
+```r
+x &lt;- 5
+name &lt;- "Sebastian"
+data &lt;- read.csv("file.csv")
+```
+You can check what type of object something is using the `class()` function
+```r
+x &lt;- 5
+class(x)
+#&gt; [1] "numeric"
+```
+
+
+We have seen `$` can be used to access information from dataframes.
+```r
+data$income
+employee$name
+```
+
+
+---
+
+## This week
+
+This week we will construct our own functions. 
+
+This will enable us to automate repetitive tasks and speed up our work.
+
+Here is a simple example.
+```r
+greet &lt;- function(name) {
+  paste("Hello,", name, "!")
+}
+
+greet("Sebastian")
+#&gt; "Hello, Sebastian!"
+```
+Try to make this function work on your own before the lab.
 
 
 
@@ -132,7 +208,7 @@ Wellbeing is linked to the availability of resources in numerous ways (GDP as a 
 
 ## GDP is not a Measure of Wellbeing
 
-It is a measure of certain types of economic activity. 
+It is a measure of certain types of economic activity, not quality of life. 
 
 Ignores non-market activity that could be important.  
 
