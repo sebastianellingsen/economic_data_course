@@ -396,7 +396,7 @@ have seen such as <code>mean()</code>, <code>sum()</code>, or
 <code>log()</code>.</p></li>
 <li><p>Use the function below to generate the lag of GDP.</p></li>
 </ul>
-<pre class="r"><code># Function to calculate the mean of the log
+<pre class="r"><code># Function to calculate the lagged value of a vector
 lagged_value &lt;- function(current_value) {
   previous_value &lt;- c(NA, current_value[-length(current_value)]) 
   return(previous_value)
