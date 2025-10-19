@@ -476,13 +476,13 @@ The Carli Price Index: $I_t^{C} = \frac{1}{N} \sum_{i=1}^N \left(\frac{P_{it}}{P
 
 ## Chain-linked vs. Unchained Indices
 
-<br>
-
 So far, two solutions regarding product weights. 
 
-- Use the weights in the base year.
+- Use the product weights in the base year.
 
-- Use the weights in the current year.
+- Use the product weights in the current year.
+
+But the relative prices are fixed at period $0$.
 
 A third approach is chain-linking.
 
@@ -493,6 +493,22 @@ This is the general idea behind chain-linking.
 There are two main versions: *Chained-linked Laspeyres* and *Chain-linked Paasche*. 
 
 ---
+
+
+
+## Ex: Price of Computers and GFCF Volume in France
+
+<div style="text-align: center; margin-top: 80px;">
+  <img src="images/comupters.png" alt="A descriptive alt text" style="width: 850px;">
+</div>
+
+
+---
+
+
+
+
+
 
 ## Chained-linked Laspeyres
 <br>
@@ -837,19 +853,9 @@ This has therefore become less common, today volumes are typically calculated us
 
 - Still economists say "constant 2005 prices", but often what is "accounts at previous year’s prices, chained, reference 2005".
 
-<br>
-
-Does it really matter what price index we use to deflate national accounts? 
 
 
 
----
-
-## Ex: Price of Computers and GFCF Volume in France
-
-<div style="text-align: center; margin-top: 80px;">
-  <img src="images/comupters.png" alt="A descriptive alt text" style="width: 850px;">
-</div>
 
 
 
