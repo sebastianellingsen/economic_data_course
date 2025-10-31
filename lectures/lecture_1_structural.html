@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Quantitative Economic Geography</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="School of Economics - University of Bristol" />
+    <meta name="date" content="2025-10-31" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Quantitative Economic Geography
+]
+.subtitle[
+## Lecture 1
+]
+.author[
+### School of Economics - University of Bristol
+]
+.date[
+### 2025-10-31
+]
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Adjust based on your needs */
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+&lt;/style&gt;
+
+
+
+
+
+## Outline of the Lecture 
+
+
+ &lt;br&gt;&lt;br&gt;
+  &lt;br&gt;&lt;br&gt;
+
+What is this unit about?  
+
+
+&lt;br&gt;&lt;br&gt;  
+
+
+How is the unit organized?  
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# What is This Unit About?
+
+
+
+---
+
+## Motivation
+
+ &lt;br&gt;&lt;br&gt;
+  &lt;br&gt;&lt;br&gt;
+
+Production, trade and income are highly unevenly distributed across space.
+
+- Agglomeration in cities (∼50 per cent of the world’s population, expected to sharply increase)
+- Geographical sectoral specialization (e.g. soybean production in Brazil, Silicon Valley in the US, manufacturing in China, ...)
+
+Since the mid-1990s, an ever-growing number of studies established the field of spatial economics
+
+
+
+
+
+---
+
+## 
+
+&lt;img src="images/urban_rural.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+---
+
+## 
+
+&lt;img src="images/nightlights.png" style="width:100%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+
+---
+
+## 
+
+&lt;img src="images/nighlights_us.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+---
+
+## 
+
+&lt;img src="images/nyc.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+---
+
+## 
+
+&lt;img src="images/europe.png" style="width:50%; height:auto; display:block; margin:auto;" /&gt;
+
+
+---
+
+## 
+
+&lt;img src="images/london_1936.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+
+
+---
+
+## 
+
+&lt;img src="images/berlin.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+## Why is Economic Activity Unevenly Distributed?
+
+
+&lt;!-- CRONON higlights two main explanations. --&gt;
+
+**First-nature characteristics**:
+
+- Physical geography (mountains, rivers, coastlines, terrain)
+- Climate and natural resources (fertile land, mineral deposits)
+- Accessibility to natural harbors or waterways&lt;br&gt;&lt;br&gt;
+
+&lt;br&gt;
+
+**Second-nature characteristcs**
+
+- Market access
+- Infrastructure (roads, cities, ports)
+- Agglomeration effects and social networks&lt;br&gt;&lt;br&gt;
+
+&lt;br&gt;
+&lt;!-- how do economic interactions between individuals shape the location of economic activity? --&gt;
+
+**Spatial equilibrium**: The spatial distribution of agents is interpreted as the equilibrium of agents optimizing and interacting in this kind of environment. 
+
+
+
+
+---
+
+
+## Agglomeration and Dispersion Forces
+
+
+It is useful to think of spatial equilibrium as the balance between agglomeration and dispersion forces. 
+
+**Agglomeration forces**: 
+
+- Create incentives to co-locate economic activity: transportation costs, labor pooling, knowledge spillovers, and dense markets.
+
+**Dispersion forces**: 
+
+- Create incentives to spread out: Rising land rents, congestion, competition for local resources.
+
+&lt;br&gt;
+
+
+The relative strength of **agglomeration** and **dispersion** forces underlies many key economic outcomes. 
+
+- It determines the impact of place-based policies, infrastructure investment, land-use regulation, investment in local amenities, local taxation, e.g.
+- The impacts are mediated by agglomeration and dispersion forces since factors and products are mobile.
+
+
+
+
+
+
+---
+
+
+## Spatial Scale in Economic Geography
+
+Spatial scale matters: from regions or states within countries to neighbourhoods within cities.
+
+**Quantitative Economic Geography**:
+
+- Focus: Regional differences in economic activity  
+- Key linkages: Trade and migration
+
+&lt;br&gt;
+
+**Quantitative Urban Economics**:
+
+- Focus: Differences in activity *within* cities  
+- Key linkages: Commuting and land use
+
+&lt;br&gt;
+
+Different agglomeration and dispersion forces operate at these scales, yet the models used are conceptually similar.
+
+---
+
+
+## Models in Quantitative Economic Geography
+
+
+Why Models?
+
+- Provide predictions we can take to the data  
+- Enable quantification and counterfactual analysis
+- Help highlight key identification and inference challenges
+
+&lt;br&gt;
+
+Modern spatial economics borrows heavily from international trade, which has long modeled interactions between people and places.  
+
+  - Realistic geographies
+  - Rich interactions
+  - Analytical tractability
+
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- - Spatial economics has evolved over recent decades to meet these goals.   --&gt;
+&lt;!-- - We’ll look at **classic examples** in this unit.   --&gt;
+&lt;!-- - You’ll see that most models share a **common framework**,   --&gt;
+&lt;!--   making the field **highly accessible** once you master the basics. --&gt;
+
+
+
+
+&lt;!-- why models? predictions to take to the data, qunatification and counterfactuals, highligting identification and inference challenges.  --&gt;
+
+&lt;!-- modern spatial economics borrows a lot from international trade, they have spent decades modelling and studying relevant interactions between people.  --&gt;
+
+&lt;!-- need to have realistic geographies, rich interactions among people, but still tractable, not easy --&gt;
+
+&lt;!-- spatial eocnomics havae been developed over the last decades with this in mind  --&gt;
+
+&lt;!-- we will see some classic examples in this unit  --&gt;
+
+&lt;!-- will try to emphasize that the models are all fairly similar which will make the field fairly accessible to you if you know the basic frameowrk.  --&gt;
+
+
+
+
+
+
+
+
+
+
+
+---
+
+## What is this Unit About?
+
+&lt;br&gt;&lt;br&gt;
+
+We will focus on **three main objectives**:
+
+1. Explain the location of economic activity 
+2. Study the effects of shocks and policies in spatial environments  
+3. Understand the core models used in this field  
+
+The goal is to provide you with the tools to read, analyze, and eventually contribute to frontier research in economic geography.
+
+---
+
+
+
+class: inverse, center, middle
+
+# How is the Unit Organized?
+
+
+
+---
+
+
+
+## Roadmap
+
+**Regional Economics:**
+- Workhorse model: Allen &amp; Arkolakis (2014)
+- Applications:
+  - Redding &amp; Sturm (2008)
+  - Donaldson (2016)
+  - Identification: Allen &amp; Arkolakis (2022)
+
+&lt;br&gt;
+
+**Urban Economics:** 
+- Workhorse model: Redding &amp; Rossi-Hansberg (2017)
+- Applications:
+  - Redding, Sturm &amp; Wolf (2016)
+  - Redding &amp; Sturm (forthcoming)
+
+&lt;br&gt;
+
+Lectures: 2 hours on Mondays. 
+Computer Labs: 1 hour on Fridays.
+
+---
+
+
+
+
+
+## Assessment
+
+Each student will give a **40-minute presentation** on a topic in *economic geography*.
+
+Option 1: Research Idea
+
+- Present a novel research question  
+- Review and position your idea within the existing literature  
+- Discuss feasibility and planned research design (theoretical or empirical)  
+- Reflect on potential challenges and how to address them  
+
+&lt;br&gt;
+
+Option 2: Referee Report
+
+- Critically review an unpublished paper in the context of the literature  
+- Explain the research question, model, and identification strategy  
+- Summarize the main findings and assess the paper’s contribution  
+- Offer constructive feedback and suggestions for improvement
+
+
+
+
+
+
+---
+
+
+## References
+
+Ahlfeldt, Gabriel M., Stephen J. Redding, Daniel M. Sturm, and Nikolaus Wolf. 2015. “The Economics of Density: Evidence From the Berlin Wall.” *Econometrica* 83 (6): 2127–89. 
+
+Allen, Treb, and Costas Arkolakis. 2014. “Trade and the Topography of the Spatial Economy.” *The Quarterly Journal of Economics* 129 (3): 1085–1140.
+
+Donaldson, Dave. 2018. “Railroads of the Raj: Estimating the Impact of Transportation Infrastructure.” *American Economic Review* 108 (4-5): 899–934.
+
+Redding, Stephen J, and Daniel M Sturm. 2008. “The Costs of Remoteness: Evidence from German Division and Reunification.” *American Economic Review* 98 (5): 1766–97.
+
+Redding, Stephen J, and Esteban Rossi-Hansberg. 2017. “Quantitative Spatial Economics.” *Annual Review of Economics*, no. 9: 21–58.
+
+Redding, Stephen J. 2024. ”Quantitative Urban Economics.” *NBER Working Paper* 33130.
+
+Redding, Stephen J, and Daniel M Sturm. 2024. “Neighborhood Effects: Evidence from Wartime Destruction in London.” *Manuscript*
+
+
+
+
+
+
+
+&lt;!-- - will cover these papers in more depth --&gt;
+
+&lt;!-- second part of the course, more urban economics  --&gt;
+
+&lt;!-- - will cover these papers in more depth --&gt;
+
+&lt;!-- Time matters, many factors that are exogenous in the short run are maleable over the very long-run. --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;!-- ## Some Questions we will Encounter --&gt;
+
+&lt;!-- why do cities form and how are they sustained? --&gt;
+
+&lt;!-- how do places shape individuals outcomes? --&gt;
+
+&lt;!-- how do improvements in amenities, local productivity, transportation infrastructure shape the spatial distriution of cities? --&gt;
+
+&lt;!-- is the spatial distribution uniquely determined? --&gt;
+
+&lt;!-- how do shocks affect the spatial distribution of economic activity? --&gt;
+
+&lt;!-- all these --&gt;
+
+
+
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ##  --&gt;
+
+
+&lt;!-- the questions  --&gt;
+
+&lt;!-- some facts  --&gt;
+
+&lt;!-- some explanations --&gt;
+
+&lt;!-- rich models to incorporate these issues  --&gt;
+
+&lt;!-- standard lens through which to understand these questions, even if not explicit reference to the formal model --&gt;
+
+&lt;!-- will cover the basic model, look at some extensions and identify parameters --&gt;
+
+&lt;!-- then identificaton informed by the models --&gt;
+
+&lt;!-- identifying parameters in these models  --&gt;
+
+&lt;!-- reduced form manner to capture exogenous productivity and amenities, and endogneous agglmoeration forces  --&gt;
+
+
+&lt;!-- emphsasis on tractable models that fit the data and link closely to reduced form approaches  --&gt;
+
+&lt;!-- - some factors are not really realistic --&gt;
+
+
+&lt;!-- unevenly distributed, within cities and across cities  --&gt;
+
+&lt;!-- - quantitative spatial economics, intro and motivating facts, spatial scale matters, different margins of adjustment matter as a result, rich enough that we can map it to data and evaluate realistic counterfacturals, spatial distribution determine by agglomeration forces, amenities and productivivies, location relative to other places  --&gt;
+
+&lt;!-- - quantitative regional economics, model, applications, allen and arkolakis, redding and sturm,  --&gt;
+
+&lt;!-- - quantitative urban economics, model, empirical applications, ahlfeldt et al, redding and sturm making a metropolis  --&gt;
+
+&lt;!-- - open areas where we should know more,  --&gt;
+
+
+&lt;!-- Final lecture on data, how to work on it, calculating mobility, aggregation etc.  --&gt;
+
+
+&lt;!-- CHECK NAGY ON historical quant, why model, relative effects, counterfactuals etc. understanding mechanisms  --&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
