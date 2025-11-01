@@ -1,0 +1,950 @@
+---
+title: "Quantitative Economic Geography"
+subtitle: "Lecture 2"
+author: "School of Economics - University of Bristol"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      navigation:
+        scroll: true 
+
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(xaringanthemer)
+style_mono_accent(base_color = "#43418A")
+
+options(htmltools.dir.version = FALSE)
+
+# This is a recommended set up for flipbooks
+knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
+library(flipbookr)
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggthemes)
+library(ggpubr)
+```
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Adjust based on your needs */
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+```
+
+```{css, echo=FALSE}
+details {
+  background-color: #f9f9f9; /* Light grey background */
+  border: 1px solid #ccc; /* Add a border */
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+```
+
+
+
+
+## Outline of the Lecture 
+
+
+ <br><br>
+  <br><br>
+
+Quantitative regional economics
+
+
+<br>
+
+A workhorse model
+
+
+<br>
+
+
+Applications and extensions
+
+
+
+
+
+---
+
+## Quantitative Regional Economics
+
+What governs the *distribution of economic activity* across regions?
+
+First-Nature Geography
+- Physical characteristics: forests, coasts, mountains, natural resources  
+- Endowments that shape where activity *can* take place  
+
+Second-Nature Geography 
+- Agglomeration economies  
+- Dispersion forces: fixed non-tradable factors, congestion, local externalities  
+- Linkages across locations:  
+  - Access to goods, labor, and migration opportunities  
+- The equilibrium between *agglomeration* and *dispersion* determines spatial outcomes  
+
+
+How can we incorporate all these forces into *tractable, quantitative models*?
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# A Benchmark Model
+
+
+
+---
+
+## Geography
+
+<!-- In what follows, I introduce the basics of the spatial model of Allen and Arkolakis 2014. -->
+
+There are $R$ regions indexed by $i$ or $j$ (e.g. states, municipalities, or counties).<br><br>
+
+Regions differ in their productivity: $\large \mathcal{A}=\{\bar{A}_i\}_{i=1}^R\normalsize$.
+
+- <small> Different inate characteristics that make it more or less suitable for production.</small> <br><br>
+
+And their amenities: $\large \mathcal{u}=\{\bar{u}_i\}_{i=1}^R\normalsize$. 
+
+- <small> Some regions are nicer to live than others (e.g. natural amenities). </small> <br><br>
+
+Trade between regions are subject to iceberg trade costs: $\large \mathcal{T}=\{\tau_{ij}\}_{i,j\in R}\normalsize$ where $\tau_{ij}\geq 1$.
+
+- <small> For one unit to arrive in $j$, $\tau_{ij}$ units must be shipped from $i$. </small> <br><br>
+
+
+
+---
+
+## Demand 
+
+Utility is derived from consumption in region $i$ is defined over differentiated varieties and local amenities $u_i$:
+\begin{equation}
+\large W_{i} =  \left(\sum_{j\in R} c_{ji}^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}u_i.\normalsize
+\end{equation}
+where $c_{ji}$ denotes the amount of the $j$ good consumed in $i$ and $u_i$ denote amenities. 
+
+Each location produces a unique good (the Armington assumption).
+
+The demand function for $c_{ji}$ is given by $c_{ji} = p_{ij}^{-\sigma}P_i^{\sigma-1}y_i$
+
+- Note that: $\frac{\partial\ln(c_{ji}\mathbin{/}c_{ki})}{\partial\ln(p_{ji}\mathbin{/}p_{ki})} = \sigma$.
+
+Why CES? Simple and tractable (homothetic), nests other demand systems (such as Cobb-Douglas).
+
+
+
+
+---
+
+## Amenities 
+
+Regions might differ in other ways that matter for utility than real wages 
+
+- Exogenous factors (e.g. natural beauty, temperature).
+
+- Endogenous factors that are a function of population size (e.g. congestion, green space). <br><br>
+
+We will capture both of these factors in a very simple reduced form manner:
+\begin{equation}
+\large u_i = \bar{u}_iL_i^{\beta},\normalsize
+\end{equation}
+where $L_i$ denotes the number of people in $i$. 
+
+
+---
+
+
+## Labour mobility 
+
+The utility attained by a consumer in location $i$ is given by: 
+\begin{equation}
+\large V_{i} = \frac{y_i}{P_i} \bar{u}_iL_i^{\beta}.\normalsize
+\end{equation}
+
+Migration is frictionless in the basic case and the model is static.
+
+We assume that people move across locations until utility is equalized: 
+\begin{equation}
+\large \bar{V} = V_{i} \text{ }\forall \text{ } i.\normalsize
+\end{equation}
+This will be our first notion of *spatial equilibrium* (a non-arbitrage condition across regions).
+
+We assume that we are in this spatial equilibrium and don't model transitional dynamics. 
+
+
+
+
+
+---
+
+## Supply 
+
+There is a large number of firms producing the location specific good $q_i$ with the following technology
+\begin{equation}
+\large q_i = A_i L_i.\normalsize
+\end{equation}
+
+We assume that there is perfect competition in each location: $p_j = \frac{w_j}{A_j}$.
+
+Since there are iceberg trade costs, for one unit to arrive in location $i$, $\tau_{ji}$ must be shipped.
+
+The price for the $j$ good in location $i$ is therefore
+\begin{equation}
+\large p_{ji} = \tau_{ji} \frac{w_j}{A_j}.\normalsize
+\end{equation}
+All people in $i$ supply one unit of labour inelastically.
+
+
+
+---
+
+## Productivity 
+
+Just like with amenities, regions can differ in their productivity. 
+
+- Exogenous factors (e.g. location fundamentals, natural resources).
+
+- Endogenous factors that are a function of population size (e.g. agglomeration economies). <br><br>
+
+We assume that the location productivity takes the following form:  
+\begin{equation}
+\large A_i = \bar{A}_iL_i^{\alpha},\normalsize
+\end{equation}
+where $\bar{A}_i$ is exogenous. 
+
+
+---
+
+## Trade 
+
+Consumers maximize utility subject to their income $y_i$: 
+\begin{equation}
+\pi_{ji} =\left(\frac{p_{ji}}{P_{i}}\right)^{1-\sigma} (\text{exp. share}),
+\end{equation}
+where $P_{i} = \left(\sum_{j\in R} p_{ji}^{1-\sigma}\right)^{\frac{1}{1-\sigma}}$ (the ideal price index in $i$).
+
+Then the value of goods shipped from $j$ to $i$ is 
+\begin{equation}
+X_{ji} = \pi_{ji} Y_i = \pi_{ji} L_i y_i = \pi_{ji} L_i w_i,
+\end{equation}
+where $Y_i$ is the total income in region $i$.
+
+It follows that 
+\begin{equation}
+X_{ji} = \tau_{ji}^{1-\sigma} \left(\frac{w_j}{A_j}\right)^{1-\sigma} P_i^{\sigma-1} L_i w_i.
+\end{equation}
+Which is a gravity equation for trade. 
+
+INTUTION ELASTICITY
+
+---
+
+## Equilibrium 
+
+The equilibrium is an allocation of populations and wages such that, 
+
+1. Goods market clearing: $w_iL_i = \sum_{j=1}^RX_{ij}$
+
+2. Balanced trade:  $w_iL_i = \sum_{j=1}^RX_{ji}$ 
+
+3. Welfare is equalized across locations: $V_i=\bar{V}$ for all $i$.
+
+
+
+---
+## Equilibrium 
+
+We can combine the equilibrium conditions into the following two equations.
+
+By combining the goods market clearing, indirect utility and full labour mobility condition: 
+
+\begin{equation}
+\large w_i^{\sigma} L_i^{1+(1-\sigma)\alpha} = \bar{V}^{1-\sigma} \sum_{j\in R} \tau_{ij}^{1-\sigma} \bar{A}_i^{\sigma-1}w_j^{\sigma}\bar{u}_j^{\sigma-1}L_j^{1+\beta(\sigma-1)}\normalsize 
+\end{equation}
+By combining the price index/balanced trade condition and indirect utility: 
+\begin{equation}
+\large w_i^{1-\sigma} L_i^{(1-\sigma)\beta}=  \bar{V}^{1-\sigma} \sum_{j\in R}\tau_{ji}^{1-\sigma}\bar{u}_i^{\sigma-1} \bar{A}_j^{\sigma-1}L_j^{(\sigma-1)\alpha}w_j^{1-\sigma} \normalsize 
+\end{equation}
+An equilibrium, $\{L_i, w_i\}_{i=1}^R$ therefore solves the $2\times R$ equations above.
+
+This is very complicated, but assuming that trade costs are symmetric (quasi-symmetric), we can simplify it. 
+
+
+---
+## Equilibrium 
+
+Specifically, Allen and Arkolakis (2014) show that the origin and destination term is equal up to scale when the trade costs are symmetric. 
+
+This means that 
+\begin{equation}
+\large w_i^{1-\sigma} A_i^{\sigma-1} =\phi P_i^{\sigma-1} L_i w_i\Rightarrow\normalsize 
+\end{equation}
+\begin{equation}
+\large w_i = \phi \bar{V}^{\tilde{\sigma}}\bar{A}_i^{\tilde{\sigma}}L_i^{\tilde{\sigma}(\frac{1}{1-\sigma}+\alpha-\beta)}\bar{u}_i^{-\tilde{\sigma}}\normalsize 
+\end{equation}
+So $w_i$ is just a function of the geography and the population size. 
+
+We can use this to eliminate $w_i$ in the equilibrium conditions on the previous slide.
+
+This greatly simplifies the solution and characterization of the equilibrium. 
+
+
+---
+## Equilibrium 
+
+The equilibrium can then be reduced to 
+\begin{equation}
+\large L_i^{\tilde{\sigma}\gamma_1} = \phi^{\prime} \bar{A}_i^{\tilde{\sigma}(\sigma-1)}\bar{u}_i^{\tilde{\sigma}\sigma}  \sum_{j\in R}\tau_{ji}^{1-\sigma} \bar{A}_j^{\tilde{\sigma}\sigma}\bar{u}_j^{\tilde{\sigma}(\sigma-1)} \left(L_j^{\tilde{\sigma}\gamma_1}\right)^{\frac{\gamma_2}{\gamma_1}}, \normalsize 
+\end{equation}
+\begin{equation}
+\large w_i = \phi \bar{V}^{\tilde{\sigma}}\bar{A}_i^{\tilde{\sigma}}L_i^{\tilde{\sigma}(\frac{1}{1-\sigma}+\alpha-\beta)}\bar{u}_i^{-\tilde{\sigma}},\normalsize 
+\end{equation}
+where $\tilde{\sigma} = \frac{1-\sigma}{1-2\sigma}$, $\gamma_1 = 1-\alpha(\sigma-1)-\beta\sigma$, and $\gamma_2 =  1+ \beta(\sigma-1) +\alpha\sigma$. 
+
+Theorem 2 in Allen and Arkolakis (2014) states that when $\gamma_2/\gamma_1\in[-1,1]$ then an equilibrium exists and is unique.
+
+Therefore, an equilibrium exists and is unique when the dispersion force is large relative to the agglomeration force. 
+
+
+
+---
+
+##  
+
+<img src="images/equilibrium.png" style="width:60%; height:auto; display:block; margin:auto;" />
+
+
+
+
+
+---
+
+## Example: Simple model 
+
+Let's consider 900 places equally spaced on a grid 10km apart.
+
+$u$ is drawn from a distribution.
+
+$A$ forms a "city".
+
+<!-- trade costs are ...  -->
+
+We set $\sigma = 5$, $\alpha=0.5$, $\beta=-0.3$.
+
+
+---
+
+
+
+
+##  
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+df_simulation <- read_csv("outputs/raster_df.csv")
+
+p1 <- ggplot(df_simulation, aes(x = x, y = y, fill = u)) +
+  geom_tile() +
+  scale_fill_viridis_c() +  
+  theme_tufte()+
+  labs(title = "Amenity (u)",
+       x = "", y = "", fill = "")+
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        axis.text.x = element_blank(),  
+        axis.text.y = element_blank(),  
+        axis.ticks.x = element_blank(), 
+        legend.key.width = unit(1.5, "cm"),  
+        legend.key.height = unit(1, "cm"),   
+        legend.text = element_text(size = 14), 
+        legend.title = element_text(size = 16), 
+        axis.ticks.y = element_blank())
+
+p2 <- ggplot(df_simulation, aes(x = x, y = y, fill = A)) +
+  geom_tile() +
+  scale_fill_viridis_c() +  
+  theme_tufte()+
+  labs(title = "Productivity (A)",
+       x = "", y = "", fill = "")+
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        axis.text.x = element_blank(),  
+        axis.text.y = element_blank(),  
+        axis.ticks.x = element_blank(), 
+        legend.key.width = unit(1.5, "cm"),  
+        legend.key.height = unit(1, "cm"),   
+        legend.text = element_text(size = 14), 
+        legend.title = element_text(size = 16), 
+        axis.ticks.y = element_blank())
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 14, fig.align="center"}
+ggarrange(p1, p2, ncol=2, nrow=1, common.legend = T, legend = 'bottom')
+```
+
+
+
+
+
+---
+
+##  
+
+
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
+
+df_simulation <- read_csv("outputs/raster_df.csv")
+
+p1 <- ggplot(df_simulation, aes(x = x, y = y, fill = L)) +
+  geom_tile() +
+  scale_fill_viridis_c() +  
+  theme_tufte()+
+  labs(title = "Population (L)",
+       x = "", y = "", fill = "")+
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        axis.text.x = element_blank(),  
+        axis.text.y = element_blank(),  
+        axis.ticks.x = element_blank(), 
+        legend.key.width = unit(1.5, "cm"),  
+        legend.key.height = unit(1, "cm"),   
+        legend.text = element_text(size = 14), 
+        legend.title = element_text(size = 16), 
+        axis.ticks.y = element_blank())
+
+p2 <- ggplot(df_simulation, aes(x = x, y = y, fill = P)) +
+  geom_tile() +
+  scale_fill_viridis_c() +  
+  theme_tufte()+
+  labs(title = "Price index (P)",
+       x = "", y = "", fill = "")+
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        axis.text.x = element_blank(),  
+        axis.text.y = element_blank(),  
+        axis.ticks.x = element_blank(), 
+        legend.key.width = unit(1.5, "cm"),  
+        legend.key.height = unit(1, "cm"),   
+        legend.text = element_text(size = 14), 
+        legend.title = element_text(size = 16), 
+        axis.ticks.y = element_blank())
+
+p3 <- ggplot(df_simulation, aes(x = x, y = y, fill = w)) +
+  geom_tile() +
+  scale_fill_viridis_c() +  
+  theme_tufte()+
+  labs(title = "Wages (w)",
+       x = "", y = "", fill = "")+
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        axis.text.x = element_blank(),  
+        axis.text.y = element_blank(),  
+        axis.ticks.x = element_blank(), 
+        legend.key.width = unit(1.5, "cm"),  
+        legend.key.height = unit(1, "cm"),   
+        legend.text = element_text(size = 14), 
+        legend.title = element_text(size = 16), 
+        axis.ticks.y = element_blank())
+
+p4 <- ggplot(df_simulation, aes(x = x, y = y, fill = w/P)) +
+  geom_tile() +
+  scale_fill_viridis_c() +  
+  theme_tufte()+
+  labs(title = "Real wages (w/p)",
+       x = "", y = "", fill = "")+
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        axis.text.x = element_blank(),  
+        axis.text.y = element_blank(),  
+        axis.ticks.x = element_blank(), 
+        legend.key.width = unit(1.5, "cm"),  
+        legend.key.height = unit(1, "cm"),   
+        legend.text = element_text(size = 14), 
+        legend.title = element_text(size = 16), 
+        axis.ticks.y = element_blank())
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8.7, fig.width = 12, fig.align="center"}
+ggarrange(p1, p2, p3, p4, ncol=2, nrow=2, common.legend = T, legend = 'bottom')
+```
+
+
+
+
+
+
+
+---
+
+## Taking the model to the data 
+
+So what do we need to use this model for study counterfactuals in real data. 
+
+We need estimates of the structural parameters. 
+
+How do we recover recovering model fundamentals $\mathcal{u}$ and $\mathcal{A}$?
+
+If we have data on $\{L\}_{i=1}^R$ and $\{w\}_{i=1}^R$ as is often the case, we can *invert* the model.
+
+This means solving for $\mathcal{u}$ and $\mathcal{A}$ that rationalizes $\{L\}_{i=1}^R$ and $\{w\}_{i=1}^R$ as an equilibrium. 
+
+This is a good starting point for a counterfactual exercise. 
+
+
+
+
+---
+
+## Model inversion
+
+How is this done in practice? Remember our equilibrium conditions:
+
+\begin{equation}
+\large L_i^{\tilde{\sigma}\gamma_1} = \phi^{\prime} \bar{A}_i^{\tilde{\sigma}(\sigma-1)}\bar{u}_i^{\tilde{\sigma}\sigma}  \sum_{j\in R}\tau_{ji}^{1-\sigma} \bar{A}_j^{\tilde{\sigma}\sigma}\bar{u}_j^{\tilde{\sigma}(\sigma-1)} \left(L_j^{\tilde{\sigma}\gamma_1}\right)^{\frac{\gamma_2}{\gamma_1}}, \normalsize 
+\end{equation}
+\begin{equation}
+\large w_i = \phi \bar{V}^{\tilde{\sigma}}\bar{A}_i^{\tilde{\sigma}}L_i^{\tilde{\sigma}(\frac{1}{1-\sigma}+\alpha-\beta)}\bar{u}_i^{-\tilde{\sigma}},\normalsize 
+\end{equation}
+where $\tilde{\sigma} = \frac{1-\sigma}{1-2\sigma}$, $\gamma_1 = 1-\alpha(\sigma-1)-\beta\sigma$, and $\gamma_2 =  1+ \beta(\sigma-1) +\alpha\sigma$. 
+
+Notice, by using the wage equation, we can eliminate $\mathcal{u}$ in the first equation. 
+
+This then becomes a function of only $\mathcal{A}$, $\{L\}_{i=1}^R$ and $\{w\}_{i=1}^R$.
+
+We can use this to solve for $\mathcal{A}$ and then the wage equation to solve for $\mathcal{u}$.
+
+<!-- INSERT SOLUTION HERE  -->
+
+
+
+---
+
+## Summary
+
+Summary, simple model, but tractable and allows a realistic geography, and we can do interesting counterfactuals 
+
+There are several extensions to the framework that are easy to incorporate. 
+
+We will turn to this next. 
+
+
+
+
+---
+
+
+class: inverse, center, middle
+
+# Application
+
+
+
+
+
+---
+
+## What is the Costs of Remoteness?
+
+What explains the huge variation in economic development across countries and regions?  
+
+Redding and Sturm (2008) study how a location’s remoteness (market access) affects economic development.
+
+The challenge is that market access both influences and is influenced by development:
+
+- Remoteness may correlate with unobserved factors like endowments or institutions.
+
+- Development itself can reduce remoteness via infrastructure investment.
+
+Thus, cross-sectional comparisons are problematic, since cities differ in many confounding ways beyond remoteness.<br><br>
+
+$\Rightarrow$ Use Germany’s division and 1990 reunification as exogenous shocks to identify the causal impact of market access on economic development.
+
+
+
+
+---
+
+
+## 
+
+
+<img src="images/redding_sturm_fig_1.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
+
+
+
+
+
+
+
+---
+
+## A "Natural Experiment" 
+
+Main idea: West German cities close to the new border experienced a disproportionate loss of market access relative to other West German cities.
+
+There are several compelling features: 
+
+- No institutional variation: Treatment and control cities share the same country and institutions.
+
+- Stable endowments: Natural endowments are constant over time.
+
+- Large shock: German division caused an unusually large change in market access, observed over decades.
+
+- Exogenous border: The East–West border was drawn for military reasons, unrelated to prewar city traits.<br><br>
+
+$\Rightarrow$ These features allow us to isolate the causal effect of market access on economic development.
+
+
+
+
+
+
+
+
+
+
+---
+
+
+## The Model  
+
+**Geography:**  
+
+- Fixed number $c\in\{1, \dots, C\}$, each with an exogenous stock of a non-tradeable amenity $H_c$.  
+
+- Mass $L$, mobile workers across cities, each endowed with $1$ unit of labor.
+
+- To deliver **1 unit** from city $i$ to city $c$, $T_{ic} > 1$ units must be shipped. 
+
+**Consumers:**  
+
+- Share $\mu$ of expenditure on differentiated tradeable varieties with elasticity of substitution $\sigma$.
+  
+**Production Technology:**
+
+  - Each tradeable variety requires a fixed cost and a constant marginal cost of labor.
+  
+  - Labor is the only factor of production.
+
+**Market Structure:**  
+
+  - Tradeable varieties are produced under monopolistic competition.
+
+
+
+
+
+
+---
+
+### City Size in Equilibrium 
+
+Workers move until real wages are equalized across all populated cities.  
+
+The equilibrium condition is therefore given by 
+
+\begin{equation}
+\large \omega_c = \frac{w_c}{P_{Mc}^{\mu}P_{Hc}^{1-\mu}} = \omega \text{ }\forall \text{ }c\in C. \normalsize
+\end{equation}
+
+- $w_c$: nominal wage in city $c$. 
+
+- $P_c$: price index for tradeable varieties.  
+
+- $H_c$: price of the nontradeable amenity. <br><br>
+
+
+Assume $\omega_i > \omega_j$. What what are the underlying economic forces leading to adjustment? 
+
+
+
+
+---
+
+### Market Access and City Size
+
+Redding and Sturm rewerite the equilibrium population size in terms of firm and consumer market access: 
+\begin{equation}
+\large L_c = \xi \left(FMA_c\right)^{\frac{\mu}{\sigma(1-\mu)}} \left(CMA_c\right)^{\frac{\mu}{\sigma(1-\mu)(\sigma-1)}} H_c\normalsize
+\end{equation}
+where $\xi$ is a function of parameters and the common real wage $\omega$ and parameters. <br><br>
+
+$FMA_c = \sum_{i\in C} (w_i L_i)^{1-\mu} \left(P_{iM}\right)^{\sigma-1} T_{ci}^{1-\sigma}$.
+
+- Captures the proximity of firms to demand in all cities (home market effect + transport costs).<br>
+
+$CMA_c = \sum_{i\in C} n_ip_i T_{ic}^{1-\sigma}$.
+
+- Represents the “cost of living effect” — cities with high $CMA_c$ face lower tradeable prices.<br>
+
+Congestion Effect: 
+
+  - Driven by the limited stock of the non-tradeable amenity $H_c$.
+
+
+
+
+
+
+---
+
+### Model preidictions
+
+Choose parameters from litearture
+
+calibrate H to make the model exactly fit the population in .... 
+
+Then simulate the model making trade csots very hgih
+
+Two main impacts: 
+
+- The first main prediction is that the imposition of the East-West border will result in a relocation of population from West German cities close to the new border to other West German cities.
+
+- effects are larger for smaller cities 
+
+
+
+---
+
+## 
+
+
+<img src="images/redding_sturm_fig_2.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
+
+
+
+---
+
+## 
+
+
+<img src="images/redding_sturm_fig_3.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
+
+
+
+
+
+
+
+---
+
+## Empirical Specification
+
+Their baseline specification is the following regression 
+
+\begin{equation}
+\large \text{Popgrowth}_{ct} = \beta \text{Border}_c + \gamma (\text{Border}_c \times \text{Division}_t) + \delta_t + \varepsilon_{ct}.\normalsize
+\end{equation}
+
+- $\text{Popgrowth}_{ct}$: Annualized population growth in city $c$ at time $t$ (1919–1988).  
+
+- $\text{Border}_c$: Indicator for cities $\leq75$ km from the East–West border. 
+
+- $\text{Division}_t$: Equals $1$ during periods of German division.  
+
+- $\delta_t$: Full set of time fixed effects.  
+
+- Standard errors clustered at the city level. <br><br>
+
+The parameter of interest is $\gamma$ which captures the differential impact of division on close and far away cities. 
+
+- Model prediction is $\gamma>0$ and larger for the subsample of small cities. 
+
+<!-- - $\gamma<0$, smaller for larger cities than for smaller cities, esitmate seprately for the two samples  -->
+
+<!-- fix the specification  -->
+
+
+
+
+
+
+
+<!-- can these forces account for the reduced form effect -->
+
+<!-- what are the likely drivers here?  -->
+
+<!-- what trade costs and agglomeration forces is it that matters here? add the expressions.  -->
+
+
+
+
+---
+
+## 
+
+
+<img src="images/redding_sturm_fig_4.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
+
+
+
+---
+
+## 
+
+
+<img src="images/redding_sturm_fig_5.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
+
+
+
+
+---
+
+## 
+
+
+<!-- <img src="images/redding_sturm_fig_6.png" style="width:80%; height:10%; display:block; margin:auto;" /> -->
+
+<img src="images/redding_sturm_fig_6.png" style="width:47%; display:block; margin:auto;" />
+
+
+
+
+---
+
+
+## Mechanisms
+
+Several potential mechanisms that could explain the findings: 
+
+- War time related destruction. 
+
+- Refugees from eastern Europe and Eastern Germany. 
+
+- Improved integration of Western Germany. 
+
+- Fear of further armed conflict. <br><br>
+
+What remains plausible channels are changes in consumer and firm market access? 
+
+- Are the reduced form magnitudes potentially explained by these channels? 
+
+- Which mechanisms in the model are important? 
+
+
+
+---
+
+
+## 
+
+
+<!-- <img src="images/redding_sturm_fig_6.png" style="width:80%; height:10%; display:block; margin:auto;" /> -->
+
+<img src="images/redding_sturm_fig_7.png" style="width:85%; display:block; margin:auto;" />
+
+
+
+
+---
+
+
+
+## 
+
+
+<!-- <img src="images/redding_sturm_fig_6.png" style="width:80%; height:10%; display:block; margin:auto;" /> -->
+
+<img src="images/redding_sturm_fig_8.png" style="width:85%; display:block; margin:auto;" />
+
+
+---
+
+
+
+
+## Conclusions
+
+
+Exploits German division and reunification as a *natural experiment* to identify the causal effect of market access.
+
+West German cities near the East-West border became economically peripheral after 1949.
+
+These cities experienced a less population growth, especially smaller ones.
+
+Effects match predictions from a quantitative spatial model.
+
+<!-- Various checks rule out alternative explanations. -->
+
+Supports a *causal relationship* between market access and the spatial distribution of economic activity.
+
+
+
+
+
+
+
+---
+
+
+## References
+
+Allen, Treb, and Costas Arkolakis. 2014. “Trade and the Topography of the Spatial Economy.” *The Quarterly Journal of Economics* 129 (3): 1085–1140.
+
+Donaldson, Dave. 2018. “Railroads of the Raj: Estimating the Impact of Transportation Infrastructure.” *American Economic Review* 108 (4-5): 899–934.
+
+Eaton, Jonathan, and Samuel Kortum. 2002. “Technology, Geography, and Trade.” *Econometrica* 70 (5): 1741–79.
+
+Redding, Stephen J, and Daniel M Sturm. 2008. “The Costs of Remoteness: Evidence from German Division and Reunification.” *American Economic Review* 98 (5): 1766–97.
+
+Nagy, David. 2022. “Quantitative Economic Geography Meets History: Questions, Answers and Challenges.” *Regional Science and Urban Economics* 94 (103675):1-14.
+
+Head, Keith, and Thierry Mayer. 2014. “Gravity Equations: Workhorse, Toolkit, and Cookbook.” *Handbook of International Economics* Vol 4: 131-195
+
+
+
+
+
