@@ -61,19 +61,19 @@ code.r.hljs.remark-code:hover{
 
 
 
-## The Coursework 
+<!-- ## The Coursework  -->
 
-I have received some questions about the coursework.
+<!-- I have received some questions about the coursework. -->
 
-The grade for the course will be based on the final coursework in December.
+<!-- The grade for the course will be based on the final coursework in December. -->
 
-- The 20 quiz questions $10\%$
+<!-- - The 20 quiz questions $10\%$ -->
 
-- 2 of the Mini Projects + 2 new Mini Projects $80\%$
+<!-- - 2 of the Mini Projects + 2 new Mini Projects $80\%$ -->
 
-- 1 feedback exercise. $10\%$
+<!-- - 1 feedback exercise. $10\%$ -->
 
-Released: November 27. Due: December 4.
+<!-- Released: November 27. Due: December 4. -->
 
 
 
