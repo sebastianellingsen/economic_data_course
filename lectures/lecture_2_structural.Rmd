@@ -578,7 +578,7 @@ We can use this to solve for $\mathcal{A}$ and then the wage equation to solve f
 
 ## Summary
 
-Summary, simple model, but tractable and allows a realistic geography, and we can do interesting counterfactuals 
+<br><br>Summary, simple model, but tractable and allows a realistic geography, and we can do interesting counterfactuals 
 
 There are several extensions to the framework that are easy to incorporate. 
 
@@ -592,7 +592,7 @@ We will turn to this next.
 
 class: inverse, center, middle
 
-# Application
+# Application 1
 
 
 
@@ -748,7 +748,7 @@ Congestion Effect:
 
 ## Model Predictions
 
-Parameters are chosen based on values from the literature.
+<br><br>Parameters are chosen based on values from the literature.
 
 $H$ is calibrated so that the model exactly matches the observed population distribution in 1930.
 
@@ -756,9 +756,9 @@ The model is then simulated under a scenario with very high trade costs to captu
 
 Main Results:
 
-The imposition of the East–West border leads to a relocation of population from West German cities near the new border toward other cities farther west.
+- The imposition of the East–West border leads to a relocation of population from West German cities near the new border toward other cities farther west.
 
-Smaller cities experience larger relative effects, consistent with stronger local economic shocks.
+- Smaller cities experience larger relative effects, consistent with stronger local economic shocks.
 
 
 ---
@@ -917,7 +917,7 @@ What remains plausible channels are changes in consumer and firm market access?
 ## Conclusions
 
 
-Exploits German division and reunification as a *natural experiment* to identify the causal effect of market access.
+<br><br>Exploits German division and reunification as a *natural experiment* to identify the causal effect of market access.
 
 West German cities near the East-West border became economically peripheral after 1949.
 
@@ -931,19 +931,667 @@ Supports a *causal relationship* between market access and the spatial distribut
 
 
 
+
+
+
+
+                  
+                  
+---
+
+class: inverse, center, middle
+
+# Models with Comparative Advantage
+
+
+
+
+
+---
+
+
+## Models with Comparative Advantage
+
+<br><br>So far, trade between regions has been driven by preferences (love for variety).
+
+Many applications in spatial economics consider the role of *comparative advantage* in driving patterns of trade.
+
+In short, incorporating differences in technologies across locations in driving trade can be important.
+
+- This is often used in papers in development/agricultural economics.
+
+The standard approach is to follow Eaton and Kortum (2002).
+
+We will see how to incorporate this in a spatial model next.
+
+
+
+
+---
+
+
+## Geography
+
+The model is defined on a "reduced form" but flexible geography.
+
+There are $R$ locations indexed by $i$ or $j$. 
+
+There are $L_i$ workers in each location (full labor mobility).
+
+Locations differ in their exogenous productivity $\{T_i\}_{i=1}^R$.
+
+There are different varieties produced in each location $\omega$.
+
+Amenities differ by locations: $u_i = \bar{u}_iL^{\beta}$.
+
+Locations can trade subject to iceberg trade costs $\tau_{ij}\geq 1$.
+
+- $\tau_{ij} = 1$ if $i=j$.
+
+- Trade costs are quasi-symmetric.
+
+
+
+
+
+---
+
+## Production
+
+There is a continuum of goods $\omega\in [0,1]$ in each of the $R$ regions.
+
+- Each good can be produced in any location.
+
+There are $L_i$ workers supplied inelastically, which is the only factor of production.
+
+Let $z_{i}(\omega)$ denote the unit labor cost of $\omega$ in location $i$ (amount of labor for one unit).
+
+The price of $\omega$ produced in location $i$ in location $j$ is then
+\begin{equation}
+\large p_{ij}(\omega) = \tau_{ij}\frac{w_i}{z_{i}(\omega)},\normalsize
+\end{equation}
+where $\tau_{ij}$ is the iceberg trade cost and $w_i$ the nominal wage.
+
+- However, region $j$ may not choose to buy $\omega$ from $i$.
+
+
+
+
+
+---
+
+
+## Production
+
+One approach is to specify the productivity for each good $\omega\in [0,1]$ given by  $z_{i}(\omega)$.<br><br>
+
+The common approach is to assume that technology is such that $z_{i}(\omega)$ is the realization of a *i.i.d.* random variable.
+
+- Intuitively, we only specify the productivity distribution, not the productivity of each good.
+
+- Due to the law of large numbers, many important moments will be non-stochastic. <br><br>
+
+We will specify the CDF of $z_{i}(\omega)$ given by
+\begin{equation}
+\large F\left(z\right) = \mathbb{P}\left(z_{i}(\omega) \leq z\right)\normalsize
+\end{equation}
+
+In this way, we can have productivity differences, many goods and trade between many locations.
+
+- This is the basics of the contribution of Eaton and Kortum (2002).
+
+
+---
+
+
+
+## Production
+
+Eaton and Kortum (2002) assume that $z_{i}(\omega)$ follows a Fréchet distribution.
+
+$F\left(z\right)$ is the given by
+\begin{equation}
+\large F\left(z\right) = e^{-T_i z^{-\theta}},\normalsize
+\end{equation}
+where $\theta$ is called the shape parameter and $T_i$ the scale parameter.
+
+$T_i$ determines the average productivity in the region.
+
+$\theta$ determines the dispersion of productivity across goods.
+
+- In the context of trade, $T_i$ denotes *absolute advantage* and $\theta$ *comparative advantage*.
+
+- The productivity dispersion is crucial; the smaller $\theta$, the more productivity dispersion and the more productivity differences across locations.
+
+- $T_i$ captures differences across locations captured by $\bar{A}_i$ in the basic model.
+
+
 ---
 
 
 
 
-## Next Week
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
 
-- More on the identification of parameters.
+library(ggplot2)
+library(dplyr)
 
-- Multiple spatial equilibria. 
+# Frechet density with T = 1
+dfrechet <- function(z, theta, T = 1) {
+    ifelse(
+        z > 0,
+        T * theta * z^(-(theta + 1)) * exp(-T * z^(-theta)),
+        0
+    )
+}
 
-- Multiple goods and comparative advantage.
+# Parameters
+theta_vals <- c(1, 2, 3)                  # chosen θ values
+z_vals <- seq(0.01, 5, length.out = 500)  # avoid z=0 to prevent Inf
 
+# Data frame
+df <- expand.grid(z = z_vals, theta = theta_vals) %>%
+    mutate(density = mapply(dfrechet, z, theta))
+
+# Plot
+p1 <- ggplot(df, aes(x = z, y = density, color = factor(theta))) +
+    geom_line(size = 1) +
+    labs(title = "Fréchet Distribution (T = 1) for Different θ",
+         x = "z",
+         y = "Density",
+         color = expression(theta)) +
+    theme_minimal(base_size = 14)
+
+# Frechet density with T = 1
+dfrechet <- function(z, theta, T = 3) {
+    ifelse(
+        z > 0,
+        T * theta * z^(-(theta + 1)) * exp(-T * z^(-theta)),
+        0
+    )
+}
+
+# Parameters
+theta_vals <- c(1, 2, 3)                  # chosen θ values
+z_vals <- seq(0.01, 5, length.out = 500)  # avoid z=0 to prevent Inf
+
+# Data frame
+df <- expand.grid(z = z_vals, theta = theta_vals) %>%
+  mutate(density = mapply(dfrechet, z, theta))
+
+# Plot
+p2 <- ggplot(df, aes(x = z, y = density, color = factor(theta))) +
+    geom_line(size = 1) +
+    labs(title = "Fréchet Distribution (T = 3) for Different θ",
+          x = "z",
+          y = "Density",
+          color = expression(theta) ) +
+    theme_minimal(base_size = 14)
+
+```
+
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8.7, fig.width = 12, fig.align="center"}
+ggarrange(p1, p2, ncol=2, nrow=1, common.legend = T, legend = 'bottom')
+```
+
+---
+
+
+## Demand
+
+Consumers have CES preferences defined over the all the goods
+\begin{equation}
+u_i = \left(\int_0^1 q_j(\omega)^{\frac{\sigma-1}{\sigma}}d\omega\right)^{\frac{\sigma}{\sigma-1}},
+\end{equation}
+where $\sigma$ is again the elasticity of substitution. 
+
+Following the usual steps, the price index is given by
+\begin{equation}
+P_i = \left(\int_0^1 p_j(\omega)^{1-\sigma}d\omega\right)^{\frac{1}{1-\sigma}}.
+\end{equation}
+For a given set of prices for $\omega$, $P_i$ gives the price index.
+
+We will next think about how prices are determined in this economy. 
+
+
+
+---
+
+## Equilibrium in the Region 
+
+
+Consumers buy each good $\omega$ from the location with lowest price
+\begin{equation}
+p_j(\omega) = \text{min}\{p_{1j}(\omega), ..., p_{Rj}(\omega)\}.
+\end{equation}
+This is true for all the goods (so we sometimes omit $\omega$, also all draws are i.i.d.).
+
+The price of a variety that can be bought in $j$ is the realization of a random variable with CDF
+\begin{equation}
+G_{ij}(p) = \mathbb{P}\left(p_{ij}(\omega)<p\right) = 1 - \text{exp}\left(-T_i \left(\frac{c_i}{p}\tau_{ij}\right)^{-\theta}\right)
+\end{equation}
+This is not however, the price faced by country $j$ (they might not source $\omega$ from there in practice).
+
+- This would be the price if region $j$ could not source from other locations than $i$. 
+
+
+<!-- It turns out, using the fact that $z_{i}$ follows a Fréchet distribution and is *i.i.d.* that: -->
+
+
+
+
+---
+
+## Equilibrium in the Region
+
+The price actually faced in country $j$ for a given variety is given by 
+\begin{equation}
+G_{j}(p) = \mathbb{P}\left(p_{j}(\omega)<p\right) = 1 - \text{exp}\left(-p^{\theta} \Phi_j \right),
+\end{equation}
+where $\Phi_j = \sum_{i=1}^R T_i(c_i\tau_{ij})^{-\theta}$.
+
+This follows from properties of the Frechet distribution and that shocks are i.d.d. across locations. 
+
+From this, we can show that the price index in location $j$ is given by
+\begin{equation}
+P_j = C \left(\sum_{i=1}^R T_i (c_i\tau_{ij})^{-\theta}\right)^{-\frac{1}{\theta}}
+\end{equation}
+where $C$ is a constant 
+
+The elasticity of substitution $\sigma$ enters $C$.
+
+
+---
+
+## Equilibrium in the Region
+
+Eaton and Kortum (2002) show that expenditure shares equal the share of goods imported. 
+
+The fraction of goods imported from region $i$ is
+\begin{equation}
+\pi_{ij} = \frac{T_i (c_i\tau_{ij})^{-\theta}}{\Phi_j}
+\end{equation}
+We therefore have the gravity equation given by 
+\begin{equation}
+X_{ij} = \frac{T_i (c_i\tau_{ij})^{-\theta}}{\Phi_j} Y_j
+\end{equation}
+where $Y_j$ is the aggregate income of region $j$. 
+
+This is similar to the basic model but with trade elasticity $\theta$ instead of $1-\sigma$.
+
+- As $\tau_{ij}$ rises, the number of goods sourced from $j$ changes; how quickly this happens depends on the dispersion parameter. 
+
+
+
+
+
+
+
+<!-- The share of goods from ... is given by ... -->
+
+<!-- Turns out that in this special case, thats the share of expenditure as well. -->
+
+<!-- PRODUCTIVITY TERM, CHECK NAGY, NOT T SHOULD BE A -->
+
+<!-- <!-- There is perfect competition $\Rightarrow$ $p(\omega) = A$ --> 
+
+<!-- <!-- then chooses min out of all the possible, from this the price index is ...  --> 
+
+<!-- <!-- then the share of goods supplied by a country, this equals the share of expenditure ...  --> 
+
+<!-- <!-- from this we have a gravity equation, that is very similar  --> 
+
+<!-- <!-- so we are basically back to the standard case  --> 
+
+
+---
+
+## General Equilibrium
+
+<br><br>At this stage, we can again close the model like we did with the basic model. 
+
+- We add labor mobility, agglomeration/dispersion economies.
+
+The origin/destination terms are proportional if trade costs are quasi-symmetric.
+
+We then have $R\times2$ equations to solve for $R\times 2$ endogenous variables $\{w_i, L_i\}_{i=1}^R$.
+
+The difference is that we have incorporated differences in technology between places. 
+
+- We have also incorporated many firms with heterogeneous productivity. 
+
+
+
+
+
+
+---
+
+
+class: inverse, center, middle
+
+# Application 2
+
+
+
+
+
+
+
+
+
+---
+
+## Railroads of the Raj - Donaldson (2018)
+
+Does infrastructure promote economic development through economic specialization? 
+- Examines the impact of railroads in colonial India  
+- Combines a reduced-form and structural approach
+- Applies the Eaton–Kortum model of trade to a regional setting 
+
+
+Railroads had a range of effects
+  - Migration  
+  - Disease  
+  - Diffusion of ideas and technology  
+  
+  
+Donaldson (2018) explores whether **specialization** is a key driver of gains of railroads  
+
+
+<!-- papers studies one particular channel: railroads reduced trade costs and thereby allowed regions to gain from trade, is this what matters for the impact of transportion impreovements? -->
+
+
+
+---
+
+## Railroads 1860-1930
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="images/donaldson_1860.png" style="width:35%; margin-right:10px;" />
+    <img src="images/donaldson_1890.png" style="width:35%; margin-right:10px;" />
+  <img src="images/donaldson_1930.png" style="width:35%;" />
+</div>
+
+
+
+
+
+
+
+---
+
+## Model Environment 
+
+**Endowments**: $D$ regions differ in their availability of arable land $L_o$, which is the only factor of production.
+- There is a continuum of varieties in each location of $K$ goods.<br><br>
+
+
+**Demand**: $U_o = \sum_{k=1}^K \left(\frac{\mu_k}{\varepsilon_k}\right)\ln \int_{0}^1\left(C_o^k(j))^{\varepsilon_k}\right)$
+- $K$ different commodities (Cobb-Douglas), that come in different varieties $j$ (CES). <br><br>
+
+
+**Technology**: $z_o^k(j)$ denotes the amount of variety $j$ of commodity $k$ that can be produced with one unit of $L_o$.
+- Assume that $z_o^k \sim F_o^k(z) = e^{-A_{o}^kz^{-\theta_k}}$ where $A_{o}>0$ and $\theta_k>0$. 
+- There is perfect among many small firms: $p_{oo}^k(j) = \frac{r_o}{z_o^k(j)}$.<br><br>
+
+
+**Trade**: All goods can be transported subject to iceberg trade costs $T_{od}^k$. 
+- $p_{od}^k(j) = \frac{T_{od}^k r_o}{z_{o}^k(j)}$
+
+
+---
+
+## Characterizing Prices in Region $o$  
+
+Consumers value all varieties of each good, but they don’t care where a variety is produced. 
+
+They buy from the region that can deliver it at the lowest cost.
+
+$p_{od}^k(j)$ is therefore a realization of $P_{od}^k$ with CDF 
+\begin{equation}
+G_{od}^k(p) = 1- \text{exp}\left(-A_o^k   \left(r_o^k T_{od}^k\right)^{-\theta_k}   p^{\theta_k})\right)
+\end{equation}
+The price distribution actually faced by region $o$ is the distribution of the minimum price of each variety 
+\begin{equation}
+G_d^k(p) = 1 - \Pi_o^D\left(G_{od}^k(p)\right).
+\end{equation}
+Each variety in $d$ will be a realization of a random variable with CDF given by $G_d^k(p)$.
+
+The expected price for each commodity in location $o$ is then 
+\begin{equation}
+\mathbb{E}\left[p_{d}^k(j)\right] = p_{d}^k = \lambda_1^k \left[\sum_{o=1}^D A_o^k\left(r_oT_{od}^k\right)^{-\theta_k}\right]^{\frac{-1}{\theta_k}}
+\end{equation}
+
+
+
+---
+
+## Equilibrium
+
+The expenditure shares of expenditure that consumers in $d$ allocate to varieties from region $o$ are equal to the probability that region $o$ supplies a variety to region $d$ (Eaton and Kortum, 2002).
+
+\begin{equation}
+\frac{X_{od}^k}{X_{d}^k} = \pi_{od}^k = \lambda_3^k A_o^k (r_o T_{od}^k)^{-\theta_k} (p_d^k)^{\theta_k}
+\end{equation}
+This gives us bilateral trade between all locations conditional on $r_o$ (the land price).
+
+We can close the model by assuming that trade needs to be balanced (*D* equations to pin down $\{r_i\}_{i=1}^D$).
+\begin{equation}
+r_o L_o = \sum_{d}^D\sum_{k}^K X_{od}^k = \sum_{d}^D\sum_{k}^K \pi_{od}^k \mu_k r_d L_d
+\end{equation}
+Notice that $\pi_{od}^k$ is only a function of fundamentals and $r_o$.
+
+
+
+
+
+
+---
+
+## Four Results
+
+1. Price differences measure trade costs: $\ln p_{d}^k - \ln p_{o}^k = \ln T_{od}^k$
+
+2. Gravity equation: $\ln X_{od}^k = \ln \lambda_k + \ln A_o^k - \theta_k\ln r_o -\theta_k T_{od}^k + \theta_k p_d^k + \ln X_d^k$
+
+3. Welfare equal to real income: $W_o = \frac{r_o}{\Pi_{k=1}^K\left(\tilde{p}_o^k\right)^{\mu_k}}$.
+
+4. Sufficient statistic for welfare gains: $\ln W_o = \Omega + \sum_{k=1}^K\frac{\mu_k}{\theta_k}\ln A_o^k - \sum_{k=1}^K\frac{\mu_k}{\theta_k}\ln \pi_{oo}^k$.
+
+<br><br> General idea: 
+
+- In autarky $\pi_{oo}^k$ would be one for all locations, the degree of openness therefore summarizes how much they specialize in comparative advantage. 
+
+- Once controlled for, any other effect of railroads go through other channels than specialization. 
+
+<!-- one should see no additional effects of railroads on welfare once the trade share (πoo k ) is controlled for. -->
+
+
+<!-- The actual price for a particular varity is random and the expected price in region $o$ is -->
+
+
+
+
+
+
+
+
+---
+
+## Railroads and Trade Costs
+
+The first step is to estimate the impact of railroads on trade costs. 
+
+Combining 1. in the previous slide and a parameterization of trade costs gives
+\begin{equation}
+\ln p_{dt}^o = \ln p_{ot}^o + \underbrace{\beta_{od}^o + \delta \text{LCRED}\left(\mathbf{R}_t, \mathbf{a}\right)_{odt}+\varepsilon_{odt}^o}_{\ln T_{odt}^o}
+\end{equation}
+
+- $p_{dt}^o$ is the price of salt type $o$ from region $o$ at time $t$
+
+- $p_{ot}^o$ is captured as an origin fixed effect.  
+
+- $\text{LCRED}\left(\mathbf{R}_t, \mathbf{a}\right)_{odt}$ is the *least cost route effective distance*. 
+
+- The parameters of interest are $\delta$ and $\mathbf{a}$.
+
+- He estimates the model using a NLS approach. 
+
+
+
+
+---
+
+## 
+
+<img src="images/trade_costs_donaldson.png" style="width:65%; display:block; margin:auto;" />
+
+
+
+---
+
+## Estimating the Trade Elasticities $\theta^k$ and $A_o^k$
+
+The gravity equation is given by the following equation
+\begin{equation}
+\ln X_{od}^k = \ln \lambda_k + \ln A_o^k - \theta_k\ln r_o -\theta_k \hat{\delta} \text{LCRED}\left(\mathbf{R}_t, \mathbf{\hat{a}}\right)_{odt} + \theta_k p_d^k + \ln X_d^k
+\end{equation}
+<br><br> He estimates the following regression to estimate the trade elasticities $\theta^k$
+\begin{equation}
+\ln X_{od}^k =  \beta_{ot}^k + \beta_{dt}^k + \beta_{od}^k  -\theta_k \hat{\delta} \text{LCRED}\left(\mathbf{R}_t, \mathbf{\hat{a}}\right)_{odt} + \varepsilon_{odt}^k
+\end{equation}
+where $\beta_{ot}^k = \ln A_{ot}^k - \theta_k\ln r_{ot}$.
+
+From data on bilateral trade for different commodities he obtain estimates $\hat{\theta}_k$ 
+
+---
+
+
+## Estimating the Trade Elasticities $\theta^k$ and $A_o^k$
+
+The following approach is taken to estimate $A_o^k$ for all locations and commodities. 
+
+Assume that $\ln A_{ot}^k = \kappa \text{RAIN}_{ot}^k$. 
+
+- $\text{RAIN}_{ot}^k$ is the rainfall in location $o$ at time $t$ in growing season for $k$
+
+- Rainfall during growing season the main determinant for agricultural productivity. <br><br>
+
+Define the variable $\ln \tilde{X}_{odt}^k = \ln X_{odt}^k  + \hat{\theta}^k \ln r_ot +\theta_k \hat{\delta} \text{LCRED}\left(\mathbf{R}_t, \mathbf{\hat{a}}\right)_{odt}$.
+
+Then we get that 
+\begin{equation}
+\ln \tilde{X}_{odt}^k =  \beta_{ot}^k + \beta_{dt}^k + \beta_{od}^k +\kappa \text{RAIN}_{ot}^k  + \varepsilon_{odt}^k
+\end{equation}
+So we can now identify $\kappa$. 
+
+
+
+
+
+
+---
+
+
+## The Effect of Railroads on Real Income
+
+Motivated by the comparative statics, he estimates the following reduced form regression 
+\begin{equation}
+\ln\left(\frac{r_{ot}}{\tilde{P}_{ot}}\right) = \beta_o + \beta_t + \gamma \text{RAIL}_{ot}+\varepsilon_{ot}
+\end{equation}
+where $\frac{r_{ot}}{\tilde{P}_{ot}}$ measures real income.
+
+- $\text{RAIL}_{ot}$ is an indicator taking the value one when district $o$ gets connected to the network.<br><br>
+
+**Assumption**: Districts where not built in anticipation of real income growth. 
+
+He argues that the timing is primarliy driven by military considerations. 
+
+
+
+
+---
+
+## 
+
+<img src="images/effect_rail_donaldson.png" style="width:65%; display:block; margin:auto;" />
+
+
+
+
+---
+
+
+## Did Gains from Trade drive the Effect on Real Income?
+
+Remember the sufficient statistic
+\begin{equation}
+\ln\left(\frac{r_{ot}}{\tilde{P}_{ot}}\right)= \Omega + \sum_{k=1}^K\frac{\mu_k}{\theta_k}\ln A_o^k - \sum_{k=1}^K\frac{\mu_k}{\theta_k}\ln \pi_{oo}^k
+\end{equation}
+Uses all the estimated parameters to see if there is an effect of railroads once the gains from specialization are controlled for 
+\begin{equation}
+\ln\left(\frac{r_{ot}}{\tilde{P}_{ot}}\right) - \sum_{k=1}^K\frac{\mu_k}{\theta_k}\ln \hat{A}_o^k= \beta_o + \beta_t + \gamma \text{RAIL}_{ot}   + \phi \sum_{k=1}^K\frac{\mu_k}{\theta_k}\ln \hat{\pi}_{oo}^k + \varepsilon_{ot}
+\end{equation}
+$\hat{\pi}_{oo}^k$ are found by solving the model for the given set of estimated parameters. 
+
+The suffciient statistic approach says that after controlling for productivity differences, the only way through which transportation costs matter are through the trade share. 
+
+If this is true, then $\gamma$ should be zero. 
+
+
+
+
+---
+
+## 
+
+
+
+<img src="images/donaldson_headline.png" style="width:60%; display:block; margin:auto;" />
+
+
+
+
+
+---
+
+## Summary
+
+<br><br> Gains from specialization appear to account for **around half** of the impact of railroads on real income.  
+
+- Other factors also play an important role.  
+
+- There is a large literature examining the impact of railroads on a wide range of economic, demographic, and social outcomes.  
+
+This provides a good example of how to combine quantitative spatial models with reduced-form empirical evidence to understand the mechanisms behind economic development.
+
+
+
+
+
+
+
+
+
+
+---
+
+## Class of Spatial Models Used for Regions
+
+<br><br>The main interactions between regions are trade and migration.  
+
+Different underlying drivers of trade can help rationalize the observed spatial distribution of economic activity.  
+
+Many different micro-foundations give the same equilibrium system, so we can use the same tools to characterize it. 
+
+These models are well-suited for counterfactual analysis, allowing us to simulate the effects of policy or shocks.  
+
+They also map closely to reduced-form parameters, bridging theory and empirics.  
+
+<br>
+
+ **Next week:** Urban Economics
 
 
 
