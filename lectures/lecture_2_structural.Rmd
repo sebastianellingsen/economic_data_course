@@ -1455,7 +1455,7 @@ Combining 1. in the previous slide and a parameterization of trade costs gives
 
 The gravity equation is given by the following equation
 \begin{equation}
-\ln X_{od}^k = \ln \lambda_k + \ln A_o^k - \theta_k\ln r_o -\theta_k \hat{\delta} \text{LCRED}\left(\mathbf{R}_t, \mathbf{\hat{a}}\right)_{odt} + \theta_k p_d^k + \ln X_d^k
+\ln X_{od}^k =\beta_{od}^k + \ln \lambda_k + \ln A_o^k - \theta_k\ln r_o -\theta_k \hat{\delta} \text{LCRED}\left(\mathbf{R}_t, \mathbf{\hat{a}}\right)_{odt} + \theta_k p_d^k + \ln X_d^k
 \end{equation}
 <br><br> He estimates the following regression to estimate the trade elasticities $\theta^k$
 \begin{equation}
@@ -1467,6 +1467,13 @@ From data on bilateral trade for different commodities he obtain estimates $\hat
 
 ---
 
+## 
+
+<img src="images/donaldson_gravity.png" style="width:65%; display:block; margin:auto;" />
+
+---
+
+
 
 ## Estimating the Trade Elasticities $\theta^k$ and $A_o^k$
 
@@ -1474,7 +1481,7 @@ The following approach is taken to estimate $A_o^k$ for all locations and commod
 
 Assume that $\ln A_{ot}^k = \kappa \text{RAIN}_{ot}^k$. 
 
-- $\text{RAIN}_{ot}^k$ is the rainfall in location $o$ at time $t$ in growing season for $k$
+- $\text{RAIN}_{ot}^k$ is the rainfall in location $o$ at time $t$ in growing season for crop $k$
 
 - Rainfall during growing season the main determinant for agricultural productivity. <br><br>
 
@@ -1484,7 +1491,7 @@ Then we get that
 \begin{equation}
 \ln \tilde{X}_{odt}^k =  \beta_{ot}^k + \beta_{dt}^k + \beta_{od}^k +\kappa \text{RAIN}_{ot}^k  + \varepsilon_{odt}^k
 \end{equation}
-So we can now identify $\kappa$. 
+So we can now identify $\kappa$ (the elasticity of productivity wrt. rain during growing season). 
 
 
 
@@ -1577,7 +1584,7 @@ This provides a good example of how to combine quantitative spatial models with 
 
 ---
 
-## Class of Spatial Models Used for Regions
+## Class of Spatial Models Used applied to Regions
 
 <br><br>The main interactions between regions are trade and migration.  
 

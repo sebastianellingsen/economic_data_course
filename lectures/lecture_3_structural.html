@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Quantitative Economic Geography</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="School of Economics - University of Bristol" />
+    <meta name="date" content="2025-11-16" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Quantitative Economic Geography
+]
+.subtitle[
+## Lecture 3
+]
+.author[
+### School of Economics - University of Bristol
+]
+.date[
+### 2025-11-16
+]
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Adjust based on your needs */
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+&lt;/style&gt;
+
+&lt;style type="text/css"&gt;
+details {
+  background-color: #f9f9f9; /* Light grey background */
+  border: 1px solid #ccc; /* Add a border */
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+&lt;/style&gt;
+
+
+
+
+## Outline of the Lecture 
+
+
+ &lt;br&gt;&lt;br&gt;
+  &lt;br&gt;&lt;br&gt;
+
+- Quantitative urban economics
+
+
+&lt;br&gt;
+
+- A workhorse model
+
+
+&lt;br&gt;
+
+
+- Applications and extensions
+
+
+
+
+---
+
+## 
+
+&lt;img src="images/nyc.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+---
+
+## 
+
+&lt;img src="images/nyc_land_values.png" style="width:70%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+---
+
+## 
+
+&lt;img src="images/commuters.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+---
+
+## 
+
+&lt;img src="images/commuter_gravity.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+---
+
+## Quantitative Regional Economics
+
+What governs the *distribution of economic activity* within cities?
+
+First-Nature Geography
+- Natural amenities
+- Physical geography and endowments
+
+Second-Nature Geography 
+- Agglomeration economies 
+- Dispersion forces 
+- Linkages across locations: Commuting
+- The equilibrium between *agglomeration* and *dispersion* determines spatial outcomes  
+
+
+Understanding these is important in and of themselves, but also important as they mediate the impact of place-based interventions and shocks.
+
+How can we incorporate all these forces into *tractable, quantitative models*?
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# A Benchmark Model
+
+
+
+---
+
+## Geography
+
+&lt;br&gt;&lt;br&gt;
+
+The model has rich heterogeneity across `\(\mathbb{N}\)` neighborhoods (indexed by `\(i\)` or `\(n\)`).
+
+Amenities: Quality-of-life factors (climate, culture, safety) that influence wages and housing prices.  
+
+Productivities: Agglomeration, knowledge spillovers, and scale effects raise urban productivity and wages.  
+
+Commuting costs: Neighborhoods are connected through coommuting.
+
+Trade is costless within the city (typically the numeraire `\(P_c=1\)`).
+
+Locations differ in their suitability for production and living. 
+
+Agents choose a place to live and a place to work. 
+
+
+&lt;!-- - pen vs. Closed City: --&gt;
+&lt;!--   - *Open City*: Mobile population, utility equalized, wages &amp; rents adjust.   --&gt;
+&lt;!--   - *Closed City*: Fixed population, utility varies, shocks absorbed by wages or housing prices. --&gt;
+
+
+
+
+
+---
+
+## Preferences
+
+There are two goods: a costlessly traded consumption good with price `\(P_n\)` and residential floorspace with price `\(Q_n\)`.
+
+Workers have Cobb-Douglas preferences defined over the two goods 
+- Expenditure share on goods given by `\(\alpha\in(0,1)\)`). 
+
+The utility of a worker residing in neighborhood `\(n\)` and working in neighborhood `\(i\)` is
+`\begin{equation}
+u_{ni}(\omega) = \frac{B_n b_{ni}(\omega)w_i}{\kappa_{ni}P_n^{\alpha}Q_n^{1-\alpha}}
+\end{equation}`
+- `\(B_n\)` represents residential amenities
+
+- `\(w_i\)` are nominal wages
+
+- `\(b_{ni}(\omega)\)` are idiosyncratic preferences for residence/work neighbrhood pair `\(ni\)`
+
+- `\(\kappa_{ni} = e^{\kappa\tau_{ni}}\)` are iceberg commuter costs where `\(\tau_{ni}\)` is travel time
+
+---
+
+
+
+## Neighborhood Residential Amenities
+
+Residential amenities in `\(n\)` depend on location fundamentals `\((\bar{B}_n)\)` and externalities `\((\mathbb{B}_n^{\eta^B})\)`
+`\begin{equation}
+B_n = \bar{B}_n\mathbb{B}_n^{\eta^B}
+\end{equation}`
+The externalities take the following form
+`\begin{equation}
+\mathbb{B}_n = \sum_{i\in \mathbb{N}} e^{-\delta^B\tau_{ni} R_i}
+\end{equation}`
+- `\(\tau_{ni}\)` again denotes travel time from `\(n\)` to `\(i\)`
+- `\(\eta^B\)` denotes the strength of externalities
+- `\(\delta^B\)` denotes the rate of decay
+
+This is different than the regional model, but appropriate since the neighborhoods are often very small. 
+
+---
+
+
+
+## Idiosyncratic Preferences
+
+ &lt;br&gt;&lt;br&gt;
+
+`\(b_{ni}(\omega)\)` is drawn from a Fréchet distribution with shape parameter `\(\epsilon\)`
+`\begin{equation}
+\mathbb{P}\left(b_{ni}(\omega)\leq b\right) = e^{-b^{-\epsilon}}
+\end{equation}`
+`\(\epsilon\)` governs the variance of the preference distribution and therefore the degree of heterogeneity. 
+
+Larger `\(\epsilon\)` makes the variance lower, making people more sensitive to `\(economic\)` differences across locations. 
+
+Smaller `\(\epsilon\)` increases the spread, making economic differences less important. 
+
+Scale parameter is set to `\(1\)`
+
+We assume that the shock is i.i.d. 
+
+
+
+---
+
+
+
+
+
+&lt;img src="lecture_3_structural_files/figure-html/unnamed-chunk-4-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+
+## Commuting Flows
+
+The share of workers living in `\(n\)` and working in `\(i\)` is given by 
+`\begin{equation}
+\mathbb{P}\left(u_{ni} \geq u_{jk} \forall jk\in \mathbb{N}\times\mathbb{N}\right)
+\end{equation}`
+This probability will equal the share since we have a continuum of agents in each location. 
+
+Using the properties of the Fréchet distribution and that the shocks are i.i.d., it follows that 
+`\begin{equation}
+\lambda_{ni} = \frac{L_{ni}}{L_{\mathbb{N}}} = \frac{\left(B_n w_i\right)^{\epsilon} \left(\kappa_{ni}P_n^{\alpha}Q_n^{1-\alpha}\right)^{-\epsilon}}{\sum_{k\in\mathbb{N}}\sum_{\ell\in\mathbb{N}} \left(B_k w_{\ell}\right)^{\epsilon}\left(\kappa_{k\ell}P_k^{\alpha} Q_k^{1-\alpha}\right)^{-\epsilon}}
+\end{equation}`
+The number of people residing in `\(n\)` and working in `\(i\)` depends on the relative attractiveness of the `\(ni\)` pair. 
+
+The sensitivity again depends on `\(\epsilon\)`. 
+
+It follows from this that commuting flows satisfy a gravity equation. 
+
+
+
+---
+
+## Residents in Each Location
+
+The fraction of workers who choose to live in a location can be found from `\(\lambda_{ni}\)`:
+`\begin{equation}
+\lambda_n^R = \frac{R_n}{L_{\mathbb{N}}} = \sum_{i\in\mathbb{N}}\lambda_{ni} = \frac{B_n^{\epsilon}\Phi_n^R \left(P_n^{\alpha} Q_n^{1-\alpha}\right)^{-\epsilon}}{\sum_{k\in \mathbb{N}} \left(B_k\right)^{\epsilon} \Phi_k^R \left(P_k^{\alpha}Q_k^{1-\alpha}\right)^{-\epsilon}},
+\end{equation}`
+where `\(\Phi_n^R = \sum_{\ell\in \mathbb{N}}\left(\frac{w_{\ell}}{{\kappa_{n\ell}}}\right)^{\epsilon}\)`.
+
+`\(\Phi_k^R\)` denotes the *residence commuter market access*. 
+
+- Summarizes the access to earnings opportunities for a location. 
+
+Cheaper places with better amenities are more attractive to live in.
+
+The higher `\(\Phi_k^R\)`, the more attractive a location becomes because it potentially provides easier access to well-paying jobs. 
+
+
+
+---
+
+## Workers in Each Location
+
+The fraction of people who choose to work in a location can also be found from `\(\lambda_{ni}\)`:
+`\begin{equation}
+\lambda_i^L = \frac{L_i}{L_{\mathbb{N}}} = \sum_{k\in\mathbb{N}}\lambda_{ki} = \frac{ w_i^{\epsilon}  \Phi_i^L  }{\sum_{\ell \in \mathbb{N}} w_{\ell}^{\epsilon}\Phi_{\ell}^L},
+\end{equation}`
+where `\(\Phi_{i}^L = \sum_{k\in \mathbb{N}} B_k^{\epsilon}\left(\kappa_{ki} P_{k}^{\alpha}Q_{k}^{1-\alpha}\right)^{-\epsilon}\)`
+
+`\(\Phi_k^L\)` denotes the *workplace commuter market access*. 
+
+- Summarizes the access to residential areas in a neighborhood. 
+
+Neighborhoods with higher nominal wages `\(w_i\)` are more attractive to work in.
+
+The higher `\(\Phi_k^L\)`, the more attractive a location becomes for working because you have access to nice places to live. 
+
+
+
+
+
+---
+
+## Production
+
+ &lt;br&gt;&lt;br&gt;
+
+Production of the final good is done with a Cobb-Douglas technology using labour and floorspace.
+- `\(\beta\)` is the labour share.
+
+Perfect competition implies that the unit cost equals the price
+`\begin{equation}
+1 = \frac{1}{A_n}w_n^{\beta}q_{n}^{1-\beta}
+\end{equation}`
+where we have imposed `\(P_n = 1\)` for all `\(n\)` (no trade costs, consumption good is the numeraire).
+
+`\(q_{n}\)` is the price of commercial floor space and `\(w_n\)` nominal wages. 
+
+
+
+
+---
+
+## Production Externalities
+
+&lt;br&gt;&lt;br&gt;
+
+The productivity `\(A_n\)` depends on location fundamentals `\((\bar{A}_n)\)` and production externalities `\((\mathbb{A}_n)\)`.
+`\begin{equation}
+A_n = \bar{A}_n\mathbb{A}_n^{\eta^A}
+\end{equation}`
+The externalities take the following form
+`\begin{equation}
+\mathbb{A}_n = \sum_{i\in \mathbb{N}} e^{-\delta^A\tau_{ni}L_i}
+\end{equation}`
+where `\(\delta^A\)` governs the spatial decay of externalities and `\(\eta^A\)` the overall strength.
+
+Locations closer to many workers have higher productivity. 
+
+
+
+
+---
+
+## Land Market Clearing
+
+&lt;br&gt;&lt;br&gt;
+
+Let `\(v_n\)` denote the per capita income, so `\(v_nR_n\)` is aggregate income in location `\(n\)`. 
+
+Market-clearing for residential requires that the total expenditure on residential floor space equals the payment for its use: 
+`\begin{equation}
+(1-\alpha) v_nR_n = H_n^R Q_n
+\end{equation}`
+Assume an absentee landlord, so we can ignore how income is distributed in the baseline model. 
+
+With Cobb-Douglas technology, we also have that 
+`\begin{equation}
+(1-\beta)w_n L_n = \beta H_n^L q_n
+\end{equation}`
+
+
+
+
+
+---
+
+## General Equilibrium 
+
+&lt;br&gt;&lt;br&gt;
+
+Let's think about the equilibrium distribution of economic activity. 
+
+Endogenous variables: `\(\{w_n, L_n, R_n, v_n, Q_n, q_n, \Phi_n^L, \Phi_n^R, A_n, B_n\}_{i=1}^{\mathbb{N}}\)`. 
+
+Parameters: `\(\{\alpha, \beta, \kappa, \epsilon, \eta^A, \eta^B, \delta^A, \delta^B\}\)`.
+
+Geography: `\(\{\tau_{ij}, \bar{A}_n, \bar{B}, H_n^R, H_n^L\}\)`
+
+To pin down the equilibrium we need ten equations. 
+
+Let's assume that all the parameters and the geography are known. 
+
+
+---
+
+## General Equilibrium 
+
+For each location `\(n\)`, we have that 
+
+(1) Residents: `\(R_n = \xi \left( B_n \left( \Phi^R_n \right)^{\frac{1}{\epsilon}} Q_n^{\alpha - 1} \right)^{\epsilon}\)`
+
+(2) Residence commuter MA: `\(\Phi^R_n = \frac{1}{\xi} \sum_{i \in \mathbb{N}} e^{-\kappa \epsilon \tau_{ni}} L_i \left( \Phi^L_i \right)^{-1}\)`
+
+(3) Workers: `\(L_n = \xi \left( w_n \left( \Phi^L_n \right)^{\frac{1}{\epsilon}} \right)^{\epsilon}\)`
+
+(4) Worker commuter MA: `\(\Phi^L_n = \frac{1}{\xi} \sum_{i \in \mathcal{N}} e^{-\kappa \epsilon \tau_{ni}} R_i \left( \Phi^R_i \right)^{-1}\)`
+
+(5) Nominal wages: `\(w_n = A_n^{\frac{1}{\beta}} q_n^{-\left(\frac{1 - \beta}{\beta}\right)}\)`
+
+(6) Per capita earnings: `\(\Phi^R_n v_n = \sum_{i \in \mathcal{N}} e^{-\kappa \epsilon \tau_{ni}} (w_i)^{\epsilon + 1}\)`
+
+(7) Residential floor space: `\(Q_n = (1 - \alpha) v_n R_n (H^R_n)^{-1}\)`
+
+
+---
+
+## General Equilibrium 
+
+
+(8) Commercial floor space: `\(q_n = A_n \left( \frac{L_n}{\beta} \right)^{\beta} \left( \frac{H^L_n}{1 - \beta} \right)^{-\beta}\)`
+
+(9) Amenities: `\(B_n = \bar{B}_n \left( \sum_{i \in \mathcal{N}} e^{-\delta^B \tau_{ni}} R_i \right)^{\eta^B}\)`
+
+(10) Productivities: `\(A_n = \bar{A}_n \left( \sum_{i \in \mathcal{N}} e^{-\delta^A \tau_{ni}} L_i \right)^{\eta^A}\)`
+
+This gives us `\(10 \times \mathbb{N}\)` equations to pin down `\(10 \times \mathbb{N}\)` equations. 
+
+
+
+
+
+---
+
+## General Equilibrium 
+
+The equilibrium can be written as a system of equations as follows 
+`\begin{equation}
+x_{nh} = \sum_{i \in \mathcal{N}} \kappa_{nih} \prod_{h' \in \mathcal{H}} x_{ih'}^{\gamma_{nhh'}},
+\end{equation}`
+where `\(h\in\mathbb{H}\)` denotes economic interactions and `\(n\in \mathbb{N}\)` locations.
+
+`\(\kappa_{nih}\)` is a "kernel" that incorporates bilateral frictions.
+
+In our example, `\(\mathbb{H} = 1, ..., 10\)` and `\(\mathbb{N}\)` is the number of blocks.
+
+This is very convenient because we can characterize the equilibrium (existence, uniqueness) using results in Allen, Arkolakis, and Li (2024).
+
+The properties of the equilibrium is governed by the coefficient matrix `\(\gamma_{nhh'}\)`.
+- Spectral radius of the coefficient matrix is less than one.
+- Then there exists a simple interative aglorithm that can be used to solve the system.
+
+&lt;!-- We can also characterize when we can solve the model using a simple iterative procedure.  --&gt;
+
+&lt;!-- intutiively it again boils down to a version of weak aglomeration forces relative to dispersion.  --&gt;
+
+---
+
+
+
+
+## Applications and Extensions
+
+There are several applications of the model in the literature:
+- Quantifying agglomeration spillovers
+- Counterfactual exercises
+- Decomposing variation in the spatial distribution of economic activity into various components.
+
+&lt;br&gt;
+
+Several potential extensions (see syllabus)
+- Floor space supply elasticities
+- Goods trade assumptions
+- Worker heterogeneity and sorting
+- Dynamics
+- Normative questions
+- Consumption market access
+
+
+---
+
+class: inverse, center, middle
+
+## Application 1
+
+
+
+---
+
+## The Economics of Density - Ahlfeldt et al. (2016) 
+
+**Key challenge**: distinguishing agglomeration and dispersion forces from variation in locational fundamentals.
+
+The main contribution of the paper is to estimate agglomeration economies flexibly.  
+
+It does this in three steps:
+
+- The paper develops a quantitative model of internal city structure with agglomeration and dispersion forces and an arbitrary number of heterogeneous city blocks.  
+
+- Estimates the reduced form impact of the division of Berlin on the location of economic activity.
+
+- Estimation uses data on thousands of Berlin city blocks (1936, 1986, 2006) together with exogenous variation from the city's division and reunification.  
+
+Results reveal substantial, highly localised production and residential externalities.  
+
+The model, with estimated agglomeration parameters, reproduces observed changes in city structure both qualitatively and quantitatively.  
+
+
+
+
+
+
+
+
+---
+
+## 
+
+&lt;img src="images/berlin_2.png" style="width:75%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+
+---
+
+## Model setup
+
+The model consists of a set of discrete blocks indexed by `\(i = 1, ..., S\)`. 
+
+**Workers**: The utility is given by `\(u_{ijo} = \frac{z_{ijo}B_iw_jQ_i^{\beta-1}}{d_{ij}}\)`
+
+**Production**: Production in block `\(j\)` is given by `\(y_j = A_jH_{Mj}^{\alpha}L_{Mj}^{1-\alpha}\)`
+
+**Floor space**: Floor space is produced using capital and land `\(L_i = \xi_iQ_i\)`
+
+**Floor prices**: Equal subject friction `\(q_i = \xi_iQ_i\)`
+
+**Agglomeration economies**: `\(A_j = a_j \mathcal{Y}_j\)` where `\(\mathcal{Y}_j = \sum_{s\in S}e^{-\delta \tau_{ij}}\frac{H_{Ms}}{K_s}\)`
+
+**Amenities**: `\(B_i = b_i \Omega_j\)` where `\(\Omega_i = \sum_{s\in S}e^{-\rho \tau_{ij}}\frac{H_{Rs}}{K_s}\)`
+
+The spatial equilibrium is a trade-off between agglomeration economies (productivity + amenities) and demand for land.
+
+
+---
+
+## Reduced form analysis 
+
+They begin the analysis by estimating the impact of being close to the division line on subsequent urban development. 
+
+They estimate a version of the following equation
+`\begin{equation}
+\Delta \ln O_i = \alpha + \sum_{k\in K} \mathbb{I}_{ik} + \ln M_i\gamma + u_i
+\end{equation}`
+where `\(O_i\)` denotes an economic outcome (employment, land price, residents, etc.)
+
+`\(\mathbb{I}_{ik}\)` is an indicator variable for whether block `\(i\)` lies within a distance grid cell `\(k\)` from the pre-war CBD.
+
+`\(M_i\)` denotes time-invariant block-level controls.
+
+
+
+---
+
+## 
+
+&lt;img src="images/berlin.png" style="width:90%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+---
+
+## 
+
+&lt;img src="images/reg_1_berlin.png" style="width:85%; height:auto; display:block; margin:auto;" /&gt;
+
+
+---
+
+## 
+
+&lt;img src="images/reg_2_berlin.png" style="width:85%; height:auto; display:block; margin:auto;" /&gt;
+
+
+---
+
+## Next steps
+
+Can the model reproduce these reduced form findings?
+
+
+---
+
+## References
+
+Allen, Treb, Costas Arkolakis, and Xiangliang Li. 2024. “On the Equilibrium Properties of Spatial Models.” *American Economic Review: Insights*, forthcoming.
+
+Ahlfeldt, Gabriel M., Stephen J. Redding, Daniel M. Sturm, and Nikolaus Wolf. 2015. “The Economics of Density: Evidence From the Berlin Wall.” *Econometrica* 83 (6): 2127–89. 
+
+Redding, Stephen J, and Daniel M Sturm. 2024. “Neighborhood Effects: Evidence from Wartime Destruction in London.” *Manuscript*.
+
+Redding, Stephen J. 2024. ”Quantitative Urban Economics.” *NBER Working Paper* 33130.&lt;br&gt;
+
+
+
+
+
+
+
+
+&lt;!-- &lt;!-- In what follows, I introduce the basics of the spatial model of Allen and Arkolakis 2014. --&gt;
+
+&lt;!-- There are `\(R\)` regions indexed by `\(i\)` or `\(j\)` (e.g. states, municipalities, or counties).&lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- Regions differ in their productivity: `\(\large \mathcal{A}=\{\bar{A}_i\}_{i=1}^R\normalsize\)`. --&gt;
+
+&lt;!-- - &lt;small&gt; Different inate characteristics that make it more or less suitable for production.&lt;/small&gt; &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- And their amenities: `\(\large \mathcal{u}=\{\bar{u}_i\}_{i=1}^R\normalsize\)`.  --&gt;
+
+&lt;!-- - &lt;small&gt; Some regions are nicer to live than others (e.g. natural amenities). &lt;/small&gt; &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- Trade between regions are subject to iceberg trade costs: `\(\large \mathcal{T}=\{\tau_{ij}\}_{i,j\in R}\normalsize\)` where `\(\tau_{ij}\geq 1\)`. --&gt;
+
+&lt;!-- - &lt;small&gt; For one unit to arrive in `\(j\)`, `\(\tau_{ij}\)` units must be shipped from `\(i\)`. &lt;/small&gt; &lt;br&gt;&lt;br&gt; --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
