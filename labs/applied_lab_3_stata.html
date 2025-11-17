@@ -356,10 +356,10 @@ display: none;
 </div>
 
 
-<p>Open a script in R to do these exercises. Save the script as
-<code>lab_3.R</code>. To answer the questions, you can write in the
-script after a <code>#</code>. The datasets can be found in this week’s
-folder on Blackboard.</p>
+<p>Open a script in R or a do-file to do these exercises. Save the
+script as <code>lab_3.do</code>. To answer the questions, you can write
+the asnwer in the script after a <code>*</code>. The datasets can be
+found in this week’s folder on Blackboard.</p>
 <p><br><br></p>
 <div id="part-1-regression" class="section level2">
 <h2>Part 1 (Regression)</h2>
@@ -370,15 +370,13 @@ current population survey which is stored in the file
 <ol style="list-style-type: decimal">
 <li><p>Load the dataset <code>cps09mar.xlsx</code> which is available on
 Blackboard. Give the dataset the name <code>df</code>.
-<strong>Hint</strong>: In RStudio, go to the environment/import
-dataset/from Excel.</p></li>
+<strong>Hint</strong>: In Stata, go to the file/import/Excel.</p></li>
 <li><p>How many variables and observations are there in the dataset?
-<strong>Hint</strong>: <code>dim(df)</code>.</p></li>
+<strong>Hint</strong>: <code>describe</code>.</p></li>
 <li><p>Calculate the average income for individuals who are members of a
 union and the average earnings for individuals who are not.
 <strong>Hint</strong>: You can use the commands
-<code>mean(df[df$union == 1,]$earnings, na.rm = T)</code> and
-<code>mean(df[df$union == 0,]$earnings, na.rm = T)</code>.</p></li>
+<code>summ earnings if union == 0</code>.</p></li>
 <li><p>What is the difference in average incomes across the two
 groups?</p></li>
 <li><p>Let <span class="math inline">\(W_i\)</span> denote the earnings
@@ -387,15 +385,14 @@ value one if <span class="math inline">\(i\)</span> is member of a
 union. Estimate the parameters of the following regression, <span class="math display">\[\begin{equation}
 W_i = \alpha + \beta U_i + \varepsilon_i.
 \end{equation}\]</span> Comment on the results. <strong>Hint</strong>:
-You can use the commands
-<code>summary(lm(data = df, earnings~union))</code>.</p></li>
+You can use the commands <code>reg earnings union</code>.</p></li>
 <li><p>Why is the difference in means the same as the regression
 coefficient?</p></li>
 <li><p>Add the variables <code>age</code>, <code>female</code>,
-<code>race</code>, <code>marital</code>, and
-<code>as.factor(region)</code> as controls in the regression and
-estimate the parameters. Comment on the results. <strong>Hint</strong>:
-<code>summary(lm(data = df, earnings~union + age + female + race + marital + as.factor(region)))</code>.</p></li>
+<code>race</code>, <code>marital</code>, and <code>region</code> as
+controls in the regression and estimate the parameters. Comment on the
+results. <strong>Hint</strong>:
+<code>reg earnings union age female race marital i.region</code>.</p></li>
 <li><p>How does the coefficient change as you include controls? Is the
 above regression saturated?</p></li>
 <li><p>Do the results from the regression suggest that there is a causal
@@ -404,16 +401,12 @@ relationship between union membership and earnings?</p></li>
 Would you want to include robust standard errors in this
 regression?</p></li>
 <li><p>The following commands will calculate the robust standard errors
-for the regression above. <strong>Hint</strong>: You might have to
-install the library <code>estimatr</code>. You can do this using the
-command <code>install.packages(&quot;estimatr&quot;)</code>.</p></li>
+for the regression above. Are the robust standard errors different? Why
+are they different?</p></li>
 </ol>
 <pre class="r"><code>library(estimatr)
 
-model_robust &lt;- lm_robust(earnings ~ union + age + female + race + marital + as.factor(region), data = df)
-
-summary(model_robust)</code></pre>
-<p>Are the robust standard errors different? Why are they different?</p>
+reg earnings union age female race marital i.region, r</code></pre>
 <p><br><br></p>
 </div>
 <div id="part-2-partial-regression" class="section level2">
@@ -423,22 +416,20 @@ GDP per capita between 1960 and 2010 and GDP per capita in 1960. We will
 use data from the Maddison database.</p>
 <ol style="list-style-type: decimal">
 <li><p>Load the dataset in R under the name
-<code>maddison_growth.csv</code>. <strong>Hint</strong>: In RStudio, go
-to the environment/import dataset/from text (readr).</p></li>
+<code>maddison_growth.csv</code>.</p></li>
 <li><p>Generate a variable giving the natural logarithm of GDP per
 capita in <span class="math inline">\(1960\)</span>.
 <strong>Hint</strong>:
-<code>maddison$l_gdppc_1960 &lt;- log(maddison$gdppc_1960)</code>.</p></li>
+<code>gen l_gdppc_1960 = log(gdppc_1960)</code>.</p></li>
 <li><p>Keep only countries for which the log of GDP per capita is above
 <span class="math inline">\(8.551\)</span> (the third quintile).
 <strong>Hint</strong>:
-<code>maddison &lt;- maddison[maddison$l_gdppc_1960&gt;8.551,]</code>.</p></li>
+<code>keep if l_gdppc_1960 &gt; 8.551</code>.</p></li>
 <li><p>Estimate the parameters of the regression <span class="math display">\[\begin{equation}
 Y_i = \alpha_1 + \beta_1 X_i + u_i
 \end{equation}\]</span> where <span class="math inline">\(Y_i\)</span>
 denotes <code>gdppc_g</code> and <span class="math inline">\(X_i\)</span> denotes <code>l_gdppc_1960</code>.
-Can you provide an interpretation of <span class="math inline">\(\beta_1\)</span>? <strong>Hint</strong>:
-<code>summary(lm(data = maddison, gdppc_g~l_gdppc_1960))</code>.</p></li>
+Can you provide an interpretation of <span class="math inline">\(\beta_1\)</span>?</p></li>
 <li><p>Estimate the parameters of the regression <span class="math display">\[\begin{equation}
 Y_i = \alpha_2 + \beta_2 X_i + \gamma Z_i+ v_i
 \end{equation}\]</span> where <span class="math inline">\(Y_i\)</span>
@@ -453,15 +444,13 @@ X_i = \phi_2 + \gamma_2 Z_i + \theta_i
 the remaining variables are defined as above. Store the vectors of
 residuals from each regression as the variables <code>psi</code> and
 <code>theta</code> respectively. <strong>Hint</strong>:
-<code>psi &lt;- lm(data = maddison, gdppc_g~pop_1960)[[&quot;residuals&quot;]]</code>
-and
-<code>theta &lt;- lm(data = maddison, l_gdppc_1960~pop_1960)[[&quot;residuals&quot;]]</code>.</p></li>
+<code>reg gdppc_g pop_1960</code> and
+<code>predict psi, resid</code>.</p></li>
 <li><p>Finally, consider the regression <span class="math inline">\(\hat{\psi_i} = \beta_2\hat{\theta_i} +
 \lambda_i\)</span> where <span class="math inline">\(\hat{\psi_i}\)</span> is the residual from the
 regression of <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(Z_i\)</span>, <span class="math inline">\(\hat{\theta_i}\)</span> is the residual from the
 regression of <span class="math inline">\(X_i\)</span> on <span class="math inline">\(Z_i\)</span>, and <span class="math inline">\(\lambda_i\)</span> is an unobserved error term.
-Estimate the coefficient <span class="math inline">\(\beta_2\)</span>.
-<strong>Hint</strong>: <code>summary(lm(psi~theta))</code>.</p></li>
+Estimate the coefficient <span class="math inline">\(\beta_2\)</span>.</p></li>
 <li><p>Why is the coefficient in this regression the same as the “long”
 regression above?</p></li>
 </ol>
