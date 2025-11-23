@@ -1,5 +1,5 @@
 ---
-title: "Economic Data - Lecture 8"
+title: "Economic Data - Lecture 9"
 subtitle: "Sebastian Ellingsen"
 author: "School of Economics - University of Bristol"
 date: "`r Sys.Date()`"
@@ -77,6 +77,8 @@ code.r.hljs.remark-code:hover{
 
 <br><br>
 
+How to measure poverty.
+
 Explain basic inequality measures. 
 
 - Lorenz curves.
@@ -95,8 +97,42 @@ Explain how to calculate these.
 ---
 class: inverse, center, middle
 
-# Data on Inequality 
+# Data on Inequality and Poverty
 
+
+
+
+
+
+---
+
+## Measuring Poverty 
+
+<br><br>
+ 
+Poverty thresholds: income below a defined minimum.
+
+
+Absolute poverty: fixed standard (e.g., minimum calories needed to survive).
+Relative poverty: defined relative to society (e.g., share of median income).
+
+Income vs. consumption: consumption is ideal but hard to measure; income is typically used.
+
+Common measures:
+- OECD: < 50% of median income
+- EU: < 60% of median income
+- UK: < 60% of median income
+- Multidimensional poverty indices also widely used.
+
+
+
+---
+
+
+
+## 
+
+<img src="images/share-of-population-in-extreme-poverty.png" style="width:57%; height:auto; display:block; margin:auto;" />
 
 
 
@@ -119,11 +155,7 @@ $\Rightarrow$ We need to go beyond data on GDP to explore these issues.
 
 
 
-
 ---
-
-
-
 
 
 
@@ -836,21 +868,16 @@ class: inverse, center, middle
 ## Things to consider when measuring inequality
 
 Data sources:
-
 - Administrative or survey<br><br>
 
 Domains:
-
 - Income or wealth? – gross or net? Health, education, etc.<br><br>
 
 Units:
-
 - Individuals or equivalised households<br><br>
 
 Measurement:
-
 - Income shares
-
 - Gini coefficient
 
 ---
