@@ -680,9 +680,305 @@ $M_i$ denotes time-invariant block-level controls.
 
 ---
 
-## Next steps
+## Counterfactuals - Exogenous Location Characteristics 
 
-Can the model reproduce these reduced form findings?
+They consider first a version of the model with exogenous location characteristics only. 
+
+They calibrate the model by combining parameters from the model with estimates of the gravity equation. 
+- $\varepsilon = 6.83$
+- $\kappa = 0.01$
+- $1-\beta = 0.25$
+- $1-\alpha = 0.2$
+- $1-\mu = 0.25$
+
+The authors then simulate the impact of the Berlin wall and re-estimate the reduced form on the simulated data. 
+
+
+
+---
+
+## 
+
+<img src="images/reg_3_berlin.png" style="width:55%; height:auto; display:block; margin:auto;" />
+
+
+
+---
+
+## Structural Estimation
+
+The authors then estimate the full model with endogenous spillovers using a GMM approach. 
+
+Obtain closed-form solutions for adjusted fundamentals in terms of the observed data and parameters
+\begin{equation}
+\Delta \ln \left( \frac{\tilde{a}_{it}}{\tilde{a}_{t}} \right) 
+= (1-\alpha)\Delta \ln\left( \frac{\mathbb{Q}_{it}}{\mathbb{Q}_{t}} \right) +\frac{\alpha}{\varepsilon}\Delta\ln \left(\frac{\omega_{it}}{\bar{\omega}_t}\right) - \lambda\Delta\ln\left(\frac{\Upsilon_{it}}{\bar{\Upsilon}_{it}}\right)
+\end{equation}
+\begin{equation}
+\Delta \ln\!\left( \frac{\tilde{b}_{it}}{\tilde{b}_{t}} \right)= \frac{1}{\varepsilon}\,\Delta \ln\!\left( \frac{H_{Rit}}{H_{Rt}} \right)+ (1-\beta)\,\Delta \ln\!\left(\frac{\mathbb{Q}_{it}}{\mathbb{Q}_{t}} \right)- \frac{1}{\varepsilon}\,\Delta \ln\!\left( \frac{W_{it}}{W_{t}} \right)- \eta\,\Delta \ln\!\left( \frac{\Omega_{it}}{\Omega_{t}} \right),
+\end{equation}
+All the variables on the left-hand side can be measured directly or calculated from observed data.
+
+The authors use these equations to construct moments to estimate the parameters of the model.
+
+
+
+---
+
+## Moments and identification
+
+The identification rests on the following moment equations
+\begin{equation}
+\mathbb{E}\!\left[ I_k \times \Delta \ln(\tilde{a}_{it} / \tilde{a}_{t}) \right] = 0, \qquad k \in \{1, \ldots, K_{\mathbb{I}}\},
+\end{equation}
+\begin{equation}
+\mathbb{E}\!\left[ I_k \times \Delta \ln(\tilde{b}_{it} / \tilde{b}_{t}) \right] = 0, \qquad k \in \{1, \ldots, K_{\mathbb{I}}\},
+\end{equation}
+where $k$ denotes the distance grid cells.<br><br>
+
+
+**Key assumption:** 
+
+- The systematic change in the gradient of economic activity in West Berlin relative to the pre-war CBD following division is explained by the mechanisms of the model.
+
+- Not by systematic changes in the pattern of structural residuals.
+
+- Division driven by global geopolitical changes, not internal fundamentals across neighborhoods in Berlin.
+
+- They use some additional moment conditions in the main approach.
+
+<!-- 51 Since Berlin’s division stemmed from military considerations during the Second World War and its reunification originated in the wider collapse of Communism, the resulting changes in the surrounding concentration of economic activity are plausibly exogenous to changes in adjusted production and residential fundamentals in West Berlin blocks -->
+
+
+
+---
+
+## Estimation
+
+The set of parameters they estimate are $\Lambda = \{\upsilon, \varepsilon, \lambda, \eta, \delta, \rho\}$. 
+
+Stacking the sample equivalent of the moment conditions gives
+\begin{equation}
+\mathbb{M}\left(\Lambda\right) = \frac{1}{N}\sum_{i=1}^N m\left(\mathbf{X}_i, \Lambda\right) = 0,
+\end{equation}
+where $N$ is the sample size. The GMM estimate $\hat{\Lambda}$ is the one that minimizes
+\begin{equation}
+\hat{\Lambda} = \text{arg min} \left(\frac{1}{N}\sum_{i=1}^N m\left(\mathbf{X}_i, \Lambda\right)^{\prime}\right)\mathbb{W}\left(\frac{1}{N}\sum_{i=1}^N m\left(\mathbf{X}_i, \Lambda\right)\right),
+\end{equation}
+where $\mathbb{W}$ is a weighting matrix.
+
+
+
+---
+
+## 
+
+<img src="images/gmm_results.png" style="width:65%; height:auto; display:block; margin:auto;" />
+
+
+
+
+---
+
+## 
+
+<img src="images/berlin_main_counterfactual.png" style="width:85%; height:auto; display:block; margin:auto;" />
+
+
+
+
+
+
+
+---
+
+## Conclusion
+
+<br><br>
+
+The key takeaways:
+
+- A quantitative theoretical model of city structure that incorporates agglomeration and dispersion forces, allows for asymmetries in locational fundamentals.
+
+- Combine the model with the exogenous source of variation in the surrounding concentration of economic activity provided by Berlin’s division and reunification
+
+- When productivity and amenities are exogenous, the model is unable to account quantitatively for the observed treatment effects of division and reunification.
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+## Application 2
+
+
+
+---
+
+## Neighborhood Effects: Evidence from Wartime Destruction in London
+
+
+What explains large differences in property prices and socioeconomic outcomes across locations?
+
+Two competing mechanisms:
+
+- **Location fundamentals:** amenities (green space, views) increase desirability.
+
+- **Neighborhood effects:** residents influence each other (behavior, composition); small interventions can shift outcomes by changing who lives there.
+
+Redding and Sturm (2024) combine granular data from London with a quantitative urban model. 
+- Reduced-form evidence suggesting bombing affects amenities + neighborhood effects
+- Use a quantitative urban model to measure amenities and spillovers
+- Identify the impact of neighborhood effects on amenities using a "natural experiment"
+
+
+
+
+---
+
+## 
+
+<img src="images/war_damage_london.png" style="width:85%; height:auto; display:block; margin:auto;" />
+
+[Booth Map from LSE](https://booth.lse.ac.uk/map)
+
+
+---
+
+
+
+
+## 
+
+<img src="images/wartime_destruction_detail_london.png" style="width:85%; height:auto; display:block; margin:auto;" />
+
+
+---
+
+## Reduced-Form Evidence
+
+<br><br>
+
+To explore the spatial distribution of bombing, they estimate the following regression 
+\begin{equation}
+Y_{it} = \beta D_{it} + \varrho_k + u_{it},
+\end{equation}
+where $i$ denotes output area and $k$ denotes grid-cell.  
+
+- $D_{it}$ is an indicator for the neighborhood being bombed during World War 2.
+
+- Standard errors are clustered at the grid-cell level. 
+
+- They consider a range of pre- and post-war outcomes.
+
+
+---
+
+
+
+## 
+
+<img src="images/exogenous_wartime_table.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
+
+---
+
+
+
+## 
+
+<img src="images/long_term_destruction.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
+---
+
+
+
+## 
+
+<img src="images/reduced_form_spillovers_london.png" style="width:70%; height:auto; display:block; margin:auto;" />
+
+
+---
+
+## Quantitative Model
+
+The basic structure of the model is as follows:
+
+- $\mathbb{N}$ neighborhoods indexed by $n$ and $i$.  
+
+- There are three socioeconomic groups: $o\in\{L, M, H\}$.
+
+- Preferences: $u_{ni}^{o}(\omega) = \frac{B_n^{o} b_{ni}^{o}(\omega)w_i^{o}}{\kappa_{ni}^{o}P_n^{\alpha^{o}}Q_n^{1-\alpha^{o}}}$
+
+- Technology: $1 = \frac{1}{A_{it}} \mathbb{W}_{it}^{\beta}q_{it}^{1-\beta}$ where $W_{it}= \left[\left( \frac{w^{L}_{it}}{\gamma^{L}} \right)^{1-\sigma}+ \left( \frac{w^{M}_{it}}{\gamma^{M}} \right)^{1-\sigma}+ \left( \frac{w^{H}_{it}}{\gamma^{H}}\right)^{1-\sigma}\right]^{\frac{1}{1-\sigma}}$
+
+- Both amenities and production spillovers are modeled in a standard manner.
+
+
+
+---
+
+## Model calibration
+
+The authors calibrate the model in several steps. 
+
+- Choose parameters from the literature (expenditure shares, etc.)
+
+- Estimate the gravity equation for commuting.
+
+Then they use the model to quantify the local amenities of each location.
+\begin{equation}
+\ln B^{o}_{nt} = \ln\left(\frac{U_t^o}{\delta^o}\right) + \frac{1}{\epsilon^o}\ln(\lambda_{nt}^{Ro}) + (1-\alpha^o)\ln\left(Q_{nt}\right) - \ln RMA^{0}_{nt}
+\end{equation}
+where $RMA^{0}_{nt}=\left[\sum_{\ell \in \mathbb{N}}\left( w^{0}_{\ell t} \right)^{\varepsilon^{0}}\tau_{n\ell t}^{-\phi^{0}}\right]^{\frac{1}{\varepsilon^{0}}}$.
+
+They use this to solve for neighborhood amenities.
+
+
+---
+
+
+## 
+
+<img src="images/amenities_london.png" style="width:70%; height:auto; display:block; margin:auto;" />
+
+
+
+---
+
+
+## 
+
+<img src="images/main_results_london.png" style="width:55%; height:auto; display:block; margin:auto;" />
+
+
+
+---
+
+
+## Conclusion 
+
+<br><br>
+
+Find a large and persistent impact of wartime destruction on the location of economic activity in London. 
+
+They use a model to measure residential amenities and 
+
+The authors present evidence that this is driven by sorting and changes in residential amenities. 
+
+The model with spillovers is able to quantitatively account for the reduced form findings.
+
+A broader implication is that place-based interventions can have lasting effects on the spatial distribution of economic activity within cities.
+
+
+
+
+
+
 
 
 ---
@@ -691,7 +987,7 @@ Can the model reproduce these reduced form findings?
 
 Allen, Treb, Costas Arkolakis, and Xiangliang Li. 2024. “On the Equilibrium Properties of Spatial Models.” *American Economic Review: Insights*, forthcoming.
 
-Ahlfeldt, Gabriel M., Stephen J. Redding, Daniel M. Sturm, and Nikolaus Wolf. 2015. “The Economics of Density: Evidence From the Berlin Wall.” *Econometrica* 83 (6): 2127–89. 
+Ahlfeldt, Gabriel M., Stephen J. Redding, Daniel M. Sturm, and Nikolaus Wolf. 2015. “The Economics of Density: Evidence From the Berlin Wall.” *Econometrica* 83 (6): 2127–89.
 
 Redding, Stephen J, and Daniel M Sturm. 2024. “Neighborhood Effects: Evidence from Wartime Destruction in London.” *Manuscript*.
 
