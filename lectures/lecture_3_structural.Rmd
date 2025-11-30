@@ -849,6 +849,12 @@ Redding and Sturm (2024) combine granular data from London with a quantitative u
 
 ---
 
+## 
+
+<img src="images/london_1936.png" style="width:70%; height:auto; display:block; margin:auto;" />
+
+---
+
 
 
 
