@@ -438,17 +438,16 @@ variables are there in the dataset?</p></li>
 <li><p>The main outcome of interest is the total employment for each
 restaurant <code>empft</code>. Change the format from a character to a
 numeric variable. <strong>Hint</strong>:
-<code>df$empft &lt;- as.numeric(df$empft)</code>.</p></li>
+<code>destring empft wage_st pricesoda, replace force</code>.</p></li>
 <li><p>Define a variable that takes the value one if the restaurant is
 in New Jersey, and zero if the restaurant is in Pennsylvania.
-<strong>Hint</strong>:
-<code>df$treat &lt;- ifelse(df$state == 1, 1, 0)</code>.</p></li>
+<strong>Hint</strong>: <code>gen treat = (state == 1)</code>.</p></li>
 <li><p>What is the average number of employees for all the restaurants
 in your sample?</p></li>
 <li><p>What is the difference between the treated restaurants and the
 untreated restaurants after the introduction of the minimum wage?
 <strong>Hint</strong>:
-<code>mean(df[df$treat == 1 &amp; df$time == 1,]$empft, na.rm = T) - mean(df[df$treat == 0 &amp; df$time == 1,]$empft, na.rm = T)</code>.</p></li>
+<code>summarize empft if treat==1 &amp; time==1</code>.</p></li>
 <li><p>Propose an estimator for <span class="math inline">\(\mathbb{E}(\text{empft}\mid \text{state} = 1,
 \text{time} = 1) - \mathbb{E}(\text{empft}\mid \text{state} = 0,
 \text{time} = 1).\)</span> Is this a credible estimate of the causal
@@ -483,7 +482,7 @@ estimand? Interpret the coefficients.</p></li>
 <li><p>Use the regression to produce an estimate of the difference in
 differences? Interpret the magnitude and significance of the estimates.
 <strong>Hint</strong>:
-<code>summary(lm(data = df, wage_st~ treat + time + treat:time))</code>.</p></li>
+<code>reg empft treat##time, robust</code>.</p></li>
 <li><p>Should you estimate robust standard errors in this case or
 not?</p></li>
 <li><p>Estimate the above regression using robust standard errors. What
