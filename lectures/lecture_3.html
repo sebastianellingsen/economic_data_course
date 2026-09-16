@@ -4,8 +4,11 @@
     <title>Economic Data - Lecture 3</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2025-10-06" />
+    <meta name="date" content="2026-05-29" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -22,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2025-10-06
+### 2026-05-29
 ]
 
 ---
@@ -32,50 +35,86 @@ class: center, middle, inverse, title-slide
 
 
 &lt;style type="text/css"&gt;
-.remark-code{line-height: 1.5; font-size: 80%}
-
-@media print {
-  .has-continuation {
-    display: block;
-  }
+/* Code blocks */
+.remark-code {
+  line-height: 1.5;
+  font-size: 78%;
+  border-radius: 6px;
 }
 
-code.r.hljs.remark-code{
+code.r.hljs.remark-code {
   position: relative;
   overflow-x: hidden;
 }
 
-
-code.r.hljs.remark-code:hover{
-  overflow-x:visible;
+code.r.hljs.remark-code:hover {
+  overflow-x: visible;
   width: 500px;
   border-style: solid;
 }
 
+/* Print */
+@media print {
+  .has-continuation { display: block; }
+}
+
+/* Headings: thin accent rule underneath */
+.remark-slide-content h1,
+.remark-slide-content h2 {
+  margin-top: 0;
+  margin-bottom: 1.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #e07b39;
+}
+
+/* Inverse slides: generous vertical centering */
+.inverse h1,
+.inverse h2 {
+  border-bottom: none;
+  margin-bottom: 0.4em;
+}
+
+/* Auto-generated title slide */
+.title-slide {
+  background-image: url('images/University_of_Bristol_idurZxaqHR_0.png');
+  background-size: 210px auto;
+  background-repeat: no-repeat;
+  background-position: 50% 18%;
+  padding-top: 110px;
+}
+
+/* Title overview slide */
 .centered-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh; /* Adjust based on your needs */
+  height: 60vh;
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.centered-content h2 {
+  border-bottom: none;
+  margin-bottom: 0.6em;
+}
+
+.centered-content p {
+  margin: 0.3em 0;
+  font-size: 1.15rem;
+  color: #555;
 }
 
 &lt;/style&gt;
 
 
 &lt;div class="centered-content"&gt;
-  &lt;h2&gt; &lt;/h2&gt;
-   &lt;p&gt;  Lab 2 - Extension &lt;p&gt; 
-
-  &lt;p&gt;  Measuring economic actvity&lt;p&gt; 
-
-   &lt;p&gt; Approaches to measuring GDP &lt;p&gt;
-
-  &lt;p&gt; Applications of GDP &lt;p&gt;
-
+  &lt;h2&gt;Lecture 3: Measuring GDP&lt;/h2&gt;
+  &lt;p&gt;Lab 2 — Extension&lt;/p&gt;
+  &lt;p&gt;Measuring economic activity&lt;/p&gt;
+  &lt;p&gt;Approaches to measuring GDP&lt;/p&gt;
+  &lt;p&gt;Applications of GDP&lt;/p&gt;
 &lt;/div&gt;
 
 
@@ -95,27 +134,35 @@ class: inverse, center, middle
 
 # Style guide
 
-To make the scripts understandable for other people and yourself, it is important to follow a few principles.
+.pull-left[
+Follow these principles to make scripts readable:
 
-- Add comments in scripts. This is done with a `\(\texttt{#}\)`. R will ignore anything after a `\(\texttt{#}\)`.
+- Comment with `#` — R ignores everything after it
+- Use descriptive, lowercase names separated by underscores
+- Add spaces around operators: `x = y + 1`
+- Break long lines vertically
+- Vertically align repetitive assignments
+- Load data at the top of the script
+- Never modify raw data files
+]
 
-- Names should be descriptive and meaningful. 
+.pull-right[
+```r
+# Good
+gdp_data   &lt;- read_csv("gdp.csv")
+gdp_growth &lt;- diff(gdp_data$value) /
+                head(gdp_data$value, -1)
 
-- Use underscore to separate words in a variable name of several words, not spaces.
+alpha  &lt;- 0.05
+beta   &lt;- 1.20
+gamma  &lt;- 0.33
 
-- Add line breaks and avoid very long lines. 
-
-- Variable and function names should be written in lowercase. 
-
-- Avoid using names that are the same as existing variables.
-
-- Add spacing between symbols such as `\(\texttt{+}\)`, `\(\texttt{=}\)`, and `\(\texttt{-}\)`.
-
-- Vertically align some repetitive coding tasks.
-
-- Always start the script by loading the dataset. 
-
-- Never change the file containing raw data. 
+# Bad
+x&lt;-read_csv("gdp.csv")
+GrowthGDP=(x$value-lag(x$value))/lag(x$value)
+a=0.05; b=1.20; c=0.33
+```
+]
 
 
 
@@ -393,6 +440,8 @@ This is **not** how GDP is defined though. Why?
 
 ## A Very Simple Economy
 
+Firm A makes pasta in Year 1. In Year 2 it splits: A1 produces flour worth \$30,000; A2 buys the flour and sells finished pasta for \$100,000.
+
 &lt;table style="border-collapse: collapse; width: 100%; text-align: center; font-family: sans-serif;"&gt;
   &lt;thead&gt;
     &lt;tr&gt;
@@ -429,14 +478,7 @@ This is **not** how GDP is defined though. Why?
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;br&gt;&lt;br&gt;
-&lt;!-- Firm A produces 100,000 worth of pasta in year 1.  --&gt;
-
-&lt;!-- The firm splits into A1 and A2 in year 2 --&gt;
-
-&lt;!-- - A1 produces 30,000 worth of flour. --&gt;
-
-&lt;!-- - A2 buys it and sells total output for 100,000 --&gt;
+&lt;br&gt;
 
 Total value of output increases to 130,000.
 
@@ -542,13 +584,13 @@ How about `\(N\)`, what counts as economic activity?
 
 According to the ESA 2010 standards:
 
-- Does the activity produce a useful output?
+- The activity must produce a useful output.
 
-- Is the product or activity marketable and does it have a market value?
+- The product must be marketable and have a market value.
 
-- If the product does not have a meaningful market value, can one be assigned (imputed)?
+- If no market value exists, one can be imputed.
 
-- Would exclusion (or inclusion) of the product of the activity make comparisons between countries over time more meaningful?
+- Inclusion or exclusion must make cross-country and cross-time comparisons more meaningful.
 
 &lt;br&gt;&lt;br&gt; Not always obvious what is accounted for in GDP and what is not. 
 
@@ -605,11 +647,11 @@ In a bigger economy, it can be written
 `\begin{equation}
 \text{GDP}_t^I = W + P + NT
 \end{equation}`
-- W denotes worker compensation 
+- `\(W\)` denotes worker compensation
 
-- P denotes profits
+- `\(P\)` denotes profits
 
-- NT taxes minus subsidies
+- `\(NT\)` denotes taxes minus subsidies
 
 
 
@@ -644,6 +686,9 @@ Based on this discussion, the following identities must hold: &lt;br&gt;&lt;br&g
     &lt;th&gt; &lt;/th&gt;
     &lt;th&gt;1991&lt;/th&gt;
     &lt;th&gt;2012&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr style="font-style: italic; font-size: 0.85em;"&gt;
+    &lt;td colspan="4"&gt;Billions of euros&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td&gt;GDP&lt;/td&gt;
@@ -790,26 +835,32 @@ Calculating contributions to growth (expenditure approach):
 ---
 ## Contributions to Growth
 
-GDP in the expenditure approach is defined as
+Each component contributes its own growth rate, weighted by its share of GDP:
 `\begin{equation}
-GDP_t = C_t + I_t + G_t + X_t. 
+\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}}
 \end{equation}`
-Taking the first difference gives
+
+- Each term = (GDP share in `\(t-1\)`) `\(\times\)` (growth rate of that component).
+
+- Enables us to decompose which components drove GDP growth between two periods.
+
+- Widely used by macroeconomists and policy institutions.
+
+---
+## Contributions to Growth — Derivation
+
+Start from `\(GDP_t = C_t + I_t + G_t + X_t\)` and take the first difference:
 `\begin{equation}
-GDP_t - GDP_{t-1} = C_t - C_{t-1} + I_t - I_{t-1} + G_t - G_{t-1} + X_t - X_{t-1} = \Delta C_t + \Delta I_t + \Delta G_t + \Delta X_t.
+\Delta GDP_t = \Delta C_t + \Delta I_t + \Delta G_t + \Delta X_t.
 \end{equation}`
-Dividing by `\(GDP_{t-1}\)` gives 
+Divide through by `\(GDP_{t-1}\)`:
 `\begin{equation}
 \frac{\Delta GDP_t}{GDP_{t-1}} = \frac{\Delta C_t}{GDP_{t-1}} + \frac{\Delta I_t}{GDP_{t-1}} + \frac{\Delta G_t}{GDP_{t-1}} + \frac{\Delta X_t}{GDP_{t-1}}.
 \end{equation}`
-Multiplying and dividing each element by its value in the previous period gives the expression
+Multiply and divide each term by the component's lagged value:
 `\begin{equation}
-\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}} 
+\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}}
 \end{equation}`
-
-- Enables us to explore the various components of GDP growth between two periods.
-
-- Equals the rate of growth times the GDP share in the previous period. 
 
 
 
@@ -872,9 +923,7 @@ GDP is the most publicized economic data.
 
 - GDP measures economic activity in terms of expenditures, production or income.
 
-- GDP is based on the national accounts.
-
-- There are international standards for what is included in GDP.
+- International standards (ESA 2010) govern what is included — but GDP still misses non-market activity, the informal sector, and environmental costs.
 
 - GDP is used for measuring economic growth, defining business cycles, measuring productivity, measuring wellbeing.&lt;br&gt;&lt;br&gt; 
 

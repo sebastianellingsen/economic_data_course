@@ -13,7 +13,7 @@ output:
       countIncrementalSlides: false
       ratio: '16:9'
       navigation:
-        scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+        scroll: true # false if wish to disable scrolling by mouse and use keyboard only
 
 ---
 
@@ -21,10 +21,18 @@ output:
 options(htmltools.dir.version = FALSE)
 
 library(xaringanthemer)
-style_mono_accent(
-  base_color = "#1c5253")
-
-options(htmltools.dir.version = FALSE)
+style_duo_accent(
+  primary_color   = "#1d3557",
+  secondary_color = "#e07b39",
+  header_font_google  = google_font("Montserrat", "600"),
+  text_font_google    = google_font("Lato", "400", "400i"),
+  code_font_google    = google_font("Fira Code"),
+  header_color        = "#1d3557",
+  text_font_size      = "1.1rem",
+  header_h1_font_size = "2.0rem",
+  header_h2_font_size = "1.6rem",
+  link_color          = "#e07b39"
+)
 
 # This is a recommended set up for flipbooks
 knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
@@ -33,54 +41,115 @@ library(tidyverse)
 library(readxl)
 library(scales)
 library(ggthemes)
+library(xaringanExtra)
+xaringanExtra::use_progress_bar(color = "#e07b39", location = "bottom")
+xaringanExtra::use_tile_view()
+
+gdp_theme <- theme_minimal(base_size = 14) +
+  theme(
+    plot.title       = element_text(size = 20, face = "bold", colour = "#1d3557",
+                                    margin = margin(b = 8)),
+    plot.subtitle    = element_text(size = 14, colour = "#555555"),
+    plot.caption     = element_text(size = 10, hjust = 0, colour = "#888888",
+                                    margin = margin(t = 8)),
+    axis.title       = element_text(size = 13, colour = "#333333"),
+    axis.text        = element_text(size = 11, colour = "#444444"),
+    axis.text.x      = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(colour = "#e0e0e0", linewidth = 0.4),
+    panel.background = element_rect(fill = "transparent", colour = NA),
+    plot.background  = element_rect(fill = "transparent", colour = NA),
+    legend.title     = element_blank(),
+    legend.text      = element_text(size = 12),
+    legend.background = element_rect(fill = "transparent", colour = NA),
+    legend.key       = element_blank(),
+    strip.background = element_blank(),
+    plot.margin      = margin(10, 15, 10, 10)
+  )
 ```
 
 
 ```{css, eval = TRUE, echo = FALSE}
-.remark-code{line-height: 1.5; font-size: 80%}
-
-@media print {
-  .has-continuation {
-    display: block;
-  }
+/* Code blocks */
+.remark-code {
+  line-height: 1.5;
+  font-size: 78%;
+  border-radius: 6px;
 }
 
-code.r.hljs.remark-code{
+code.r.hljs.remark-code {
   position: relative;
   overflow-x: hidden;
 }
 
-
-code.r.hljs.remark-code:hover{
-  overflow-x:visible;
+code.r.hljs.remark-code:hover {
+  overflow-x: visible;
   width: 500px;
   border-style: solid;
 }
 
+/* Print */
+@media print {
+  .has-continuation { display: block; }
+}
+
+/* Headings: thin accent rule underneath */
+.remark-slide-content h1,
+.remark-slide-content h2 {
+  margin-top: 0;
+  margin-bottom: 1.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #e07b39;
+}
+
+/* Inverse slides: generous vertical centering */
+.inverse h1,
+.inverse h2 {
+  border-bottom: none;
+  margin-bottom: 0.4em;
+}
+
+/* Auto-generated title slide */
+.title-slide {
+  background-image: url('images/University_of_Bristol_idurZxaqHR_0.png');
+  background-size: 210px auto;
+  background-repeat: no-repeat;
+  background-position: 50% 18%;
+  padding-top: 110px;
+}
+
+/* Title overview slide */
 .centered-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh; /* Adjust based on your needs */
+  height: 60vh;
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.centered-content h2 {
+  border-bottom: none;
+  margin-bottom: 0.6em;
+}
+
+.centered-content p {
+  margin: 0.3em 0;
+  font-size: 1.15rem;
+  color: #555;
 }
 
 ```
 
 
 <div class="centered-content">
-  <h2> </h2>
-   <p>  Lab 2 - Extension <p> 
-
-  <p>  Measuring economic actvity<p> 
-
-   <p> Approaches to measuring GDP <p>
-
-  <p> Applications of GDP <p>
-
+  <h2>Lecture 3: Measuring GDP</h2>
+  <p>Lab 2 — Extension</p>
+  <p>Measuring economic activity</p>
+  <p>Approaches to measuring GDP</p>
+  <p>Applications of GDP</p>
 </div>
 
 
@@ -100,27 +169,35 @@ class: inverse, center, middle
 
 # Style guide
 
-To make the scripts understandable for other people and yourself, it is important to follow a few principles.
+.pull-left[
+Follow these principles to make scripts readable:
 
-- Add comments in scripts. This is done with a $\texttt{#}$. R will ignore anything after a $\texttt{#}$.
+- Comment with `#` — R ignores everything after it
+- Use descriptive, lowercase names separated by underscores
+- Add spaces around operators: `x = y + 1`
+- Break long lines vertically
+- Vertically align repetitive assignments
+- Load data at the top of the script
+- Never modify raw data files
+]
 
-- Names should be descriptive and meaningful. 
+.pull-right[
+```r
+# Good
+gdp_data   <- read_csv("gdp.csv")
+gdp_growth <- diff(gdp_data$value) /
+                head(gdp_data$value, -1)
 
-- Use underscore to separate words in a variable name of several words, not spaces.
+alpha  <- 0.05
+beta   <- 1.20
+gamma  <- 0.33
 
-- Add line breaks and avoid very long lines. 
-
-- Variable and function names should be written in lowercase. 
-
-- Avoid using names that are the same as existing variables.
-
-- Add spacing between symbols such as $\texttt{+}$, $\texttt{=}$, and $\texttt{-}$.
-
-- Vertically align some repetitive coding tasks.
-
-- Always start the script by loading the dataset. 
-
-- Never change the file containing raw data. 
+# Bad
+x<-read_csv("gdp.csv")
+GrowthGDP=(x$value-lag(x$value))/lag(x$value)
+a=0.05; b=1.20; c=0.33
+```
+]
 
 
 
@@ -263,6 +340,8 @@ This is **not** how GDP is defined though. Why?
 
 ## A Very Simple Economy
 
+Firm A makes pasta in Year 1. In Year 2 it splits: A1 produces flour worth \$30,000; A2 buys the flour and sells finished pasta for \$100,000.
+
 <table style="border-collapse: collapse; width: 100%; text-align: center; font-family: sans-serif;">
   <thead>
     <tr>
@@ -299,14 +378,7 @@ This is **not** how GDP is defined though. Why?
   </tbody>
 </table>
 
-<br><br>
-<!-- Firm A produces 100,000 worth of pasta in year 1.  -->
-
-<!-- The firm splits into A1 and A2 in year 2 -->
-
-<!-- - A1 produces 30,000 worth of flour. -->
-
-<!-- - A2 buys it and sells total output for 100,000 -->
+<br>
 
 Total value of output increases to 130,000.
 
@@ -412,13 +484,13 @@ How about $N$, what counts as economic activity?
 
 According to the ESA 2010 standards:
 
-- Does the activity produce a useful output?
+- The activity must produce a useful output.
 
-- Is the product or activity marketable and does it have a market value?
+- The product must be marketable and have a market value.
 
-- If the product does not have a meaningful market value, can one be assigned (imputed)?
+- If no market value exists, one can be imputed.
 
-- Would exclusion (or inclusion) of the product of the activity make comparisons between countries over time more meaningful?
+- Inclusion or exclusion must make cross-country and cross-time comparisons more meaningful.
 
 <br><br> Not always obvious what is accounted for in GDP and what is not. 
 
@@ -475,11 +547,11 @@ In a bigger economy, it can be written
 \begin{equation}
 \text{GDP}_t^I = W + P + NT
 \end{equation}
-- W denotes worker compensation 
+- $W$ denotes worker compensation
 
-- P denotes profits
+- $P$ denotes profits
 
-- NT taxes minus subsidies
+- $NT$ denotes taxes minus subsidies
 
 
 
@@ -514,6 +586,9 @@ Based on this discussion, the following identities must hold: <br><br>
     <th> </th>
     <th>1991</th>
     <th>2012</th>
+  </tr>
+  <tr style="font-style: italic; font-size: 0.85em;">
+    <td colspan="4">Billions of euros</td>
   </tr>
   <tr>
     <td>GDP</td>
@@ -592,39 +667,24 @@ Based on this discussion, the following identities must hold: <br><br>
 
 ---
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-# Loading and cleaning data 
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption=FALSE, include=FALSE}
+# Loading and cleaning data
 df <- read_csv('../data/nama_10_gdp__custom_13032981_linear.csv')
 
 # Constructing plots 
 p1 <- ggplot(data=df, aes(x = TIME_PERIOD, y = OBS_VALUE))+
-  geom_line(size = 1.1, alpha = 0.7)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(angle=45, hjust=1, size = 12),
-        axis.text.y=element_text(size = 12),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-    scale_y_continuous(label=comma)+
+  geom_line(linewidth = 0.9, colour = "#1d3557")+
+  gdp_theme +
+  theme(legend.position = "none") +
+  scale_y_continuous(labels = comma)+
   xlab("Year") +
   ylab("Million GBP") +
-  labs(title = "GDP UK in value (current prices), 2000-2019",
+  labs(title = "GDP UK in value (current prices), 2000–2019",
        caption = "Source: Eurostat (nama_10_gdp).")
   
 ```
 
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption=FALSE, fig.height = 8, fig.width = 11}
 p1
 ```
 
@@ -649,41 +709,29 @@ We will see much more on this later!
 
 ---
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-# Loading and cleaning data 
-df <- read_csv('../data/nama_10_gdp__custom_13033988_linear.csv') %>% 
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption=FALSE, include=FALSE}
+# Loading and cleaning data
+df <- read_csv('../data/nama_10_gdp__custom_13033988_linear.csv') %>%
   mutate(unit = ifelse(unit == 'CP_MNAC', 'Current prices', unit),
          unit = ifelse(unit == 'CLV10_MNAC', '2010 prices', unit))
 
 # Constructing plots 
-p1 <- ggplot(data=df, aes(x = TIME_PERIOD, y = OBS_VALUE, linetype = unit))+
-  geom_line(size = 1.1, alpha = 0.7)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="right",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(angle=45, hjust=1, size = 12),
-        axis.text.y=element_text(size = 12),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-    scale_y_continuous(label=comma)+
+p1 <- ggplot(data=df, aes(x = TIME_PERIOD, y = OBS_VALUE,
+                          colour = unit, linetype = unit))+
+  geom_line(linewidth = 0.9)+
+  gdp_theme +
+  theme(legend.position = "bottom") +
+  scale_colour_manual(values = c("Current prices" = "#1d3557",
+                                 "2010 prices"    = "#e07b39")) +
+  scale_y_continuous(labels = comma)+
   xlab("Year") +
   ylab("Million GBP") +
-  labs(title = "GDP UK, 2000-2019",
+  labs(title = "GDP UK, 2000–2019",
        caption = "Source: Eurostat (nama_10_gdp).")
   
 ```
 
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption=FALSE, fig.height = 8, fig.width = 11}
 p1
 ```
 
@@ -694,41 +742,26 @@ p1
 
 ---
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-# Loading and cleaning data 
-df <- read_csv('../data/nama_10_gdp__custom_13033988_linear.csv') %>% 
+```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption=FALSE, include=FALSE}
+# Loading and cleaning data
+df <- read_csv('../data/nama_10_gdp__custom_13033988_linear.csv') %>%
   pivot_wider(names_from = unit, values_from = OBS_VALUE) %>% 
   mutate(gdp_def = CP_MNAC/CLV10_MNAC)
 
 # Constructing plots 
 p1 <- ggplot(data=df, aes(x = TIME_PERIOD, y = gdp_def*100))+
-  geom_line(size = 1.1, alpha = 0.7)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="right",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(angle=45, hjust=1, size = 12),
-        axis.text.y=element_text(size = 12),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-    scale_y_continuous(label=comma)+
+  geom_line(linewidth = 0.9, colour = "#1d3557")+
+  gdp_theme +
+  theme(legend.position = "none") +
+  scale_y_continuous(labels = comma)+
   xlab("Year") +
   ylab("GDP deflator (2010 = 100)") +
-  labs(title = "GDP Deflator UK, 2000-2019",
+  labs(title = "GDP Deflator UK, 2000–2019",
        caption = "Source: Eurostat (nama_10_gdp).")
   
 ```
 
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption=FALSE, fig.height = 8, fig.width = 11}
 p1
 ```
 
@@ -760,26 +793,32 @@ Calculating contributions to growth (expenditure approach):
 ---
 ## Contributions to Growth
 
-GDP in the expenditure approach is defined as
+Each component contributes its own growth rate, weighted by its share of GDP:
 \begin{equation}
-GDP_t = C_t + I_t + G_t + X_t. 
+\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}}
 \end{equation}
-Taking the first difference gives
+
+- Each term = (GDP share in $t-1$) $\times$ (growth rate of that component).
+
+- Enables us to decompose which components drove GDP growth between two periods.
+
+- Widely used by macroeconomists and policy institutions.
+
+---
+## Contributions to Growth — Derivation
+
+Start from $GDP_t = C_t + I_t + G_t + X_t$ and take the first difference:
 \begin{equation}
-GDP_t - GDP_{t-1} = C_t - C_{t-1} + I_t - I_{t-1} + G_t - G_{t-1} + X_t - X_{t-1} = \Delta C_t + \Delta I_t + \Delta G_t + \Delta X_t.
+\Delta GDP_t = \Delta C_t + \Delta I_t + \Delta G_t + \Delta X_t.
 \end{equation}
-Dividing by $GDP_{t-1}$ gives 
+Divide through by $GDP_{t-1}$:
 \begin{equation}
 \frac{\Delta GDP_t}{GDP_{t-1}} = \frac{\Delta C_t}{GDP_{t-1}} + \frac{\Delta I_t}{GDP_{t-1}} + \frac{\Delta G_t}{GDP_{t-1}} + \frac{\Delta X_t}{GDP_{t-1}}.
 \end{equation}
-Multiplying and dividing each element by its value in the previous period gives the expression
+Multiply and divide each term by the component's lagged value:
 \begin{equation}
-\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}} 
+\frac{\Delta GDP_t}{GDP_{t-1}} = \frac{C_{t-1}}{GDP_{t-1}} \frac{\Delta C_t}{C_{t-1}} + \frac{I_{t-1}}{GDP_{t-1}} \frac{\Delta I_t}{I_{t-1}} + \frac{G_{t-1}}{GDP_{t-1}} \frac{\Delta G_t}{G_{t-1}} + \frac{X_{t-1}}{GDP_{t-1}} \frac{\Delta X_t}{X_{t-1}}
 \end{equation}
-
-- Enables us to explore the various components of GDP growth between two periods.
-
-- Equals the rate of growth times the GDP share in the previous period. 
 
 
 
@@ -842,9 +881,7 @@ GDP is the most publicized economic data.
 
 - GDP measures economic activity in terms of expenditures, production or income.
 
-- GDP is based on the national accounts.
-
-- There are international standards for what is included in GDP.
+- International standards (ESA 2010) govern what is included — but GDP still misses non-market activity, the informal sector, and environmental costs.
 
 - GDP is used for measuring economic growth, defining business cycles, measuring productivity, measuring wellbeing.<br><br> 
 

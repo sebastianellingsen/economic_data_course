@@ -1,5 +1,5 @@
 ---
-title: "Economic Data - Lecture 1"
+title: "Economic Data: Lecture 1"
 subtitle: "Sebastian Ellingsen"
 author: "School of Economics - University of Bristol"
 date: "`r Sys.Date()`"
@@ -13,7 +13,7 @@ output:
       countIncrementalSlides: false
       ratio: '16:9'
       navigation:
-        scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+        scroll: true
 
 ---
 
@@ -22,65 +22,170 @@ options(htmltools.dir.version = FALSE)
 
 library(xaringanthemer)
 style_mono_accent(
-  base_color = "#1c5253")
+  base_color          = "#1D3557",   # deep navy
+  header_font_google  = google_font("Lato"),
+  text_font_google    = google_font("Lato"),
+  code_font_google    = google_font("Fira Mono"),
+  text_font_size      = "1.1rem"
+)
+```
 
-options(htmltools.dir.version = FALSE)
 
-# This is a recommended set up for flipbooks
-knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(
+  fig.width  = 11,
+  fig.height = 6,
+  fig.retina = 5,
+  fig.align  = "center",
+  message    = FALSE,
+  warning    = FALSE,
+  comment    = "",
+  cache      = FALSE,
+  small.mar  = TRUE
+)
+
 library(flipbookr)
 library(tidyverse)
 library(readxl)
 library(scales)
 library(ggthemes)
+library(xaringanExtra)
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_progress_bar(color = "#E63946", location = "bottom", height = "3px")
+xaringanExtra::use_extra_styles(hover_code_line = TRUE, mute_unhighlighted_code = TRUE)
+
+# Reusable lecture theme
+theme_lecture <- function() {
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.minor   = element_blank(),
+    panel.grid.major.x = element_blank(),
+    plot.title         = element_text(face = "bold", size = 20),
+    plot.subtitle      = element_text(size = 14, color = "grey40"),
+    plot.caption       = element_text(hjust = 0, color = "grey50", size = 10),
+    axis.title         = element_text(size = 13),
+    axis.text          = element_text(size = 11),
+    plot.background    = element_rect(fill = "transparent", colour = NA),
+    panel.background   = element_rect(fill = "transparent", colour = NA),
+    legend.background  = element_rect(fill = "transparent"),
+    legend.key         = element_blank()
+  )
+}
+
+theme_set(theme_lecture())
+
+# Load and clean inflation data
+df <- read_csv("../data/cpi_annual_2013_2026.csv") %>%
+  rename(p = CPI) %>%
+  mutate(date = as.Date(paste("01", date), format = "%d %b %Y"))
+
+# Find peak for annotation
+peak <- df %>% filter(p == max(p, na.rm = TRUE))
+
+# Build plot
+p1 <- ggplot(df, aes(x = date, y = p)) +
+  geom_hline(yintercept = 2, linetype = "dashed", colour = "grey70", linewidth = 0.5) +
+  geom_line(linewidth = 1.2, color = "#1c5253") +
+  geom_point(data = peak, aes(x = date, y = p),
+             color = "#1c5253", size = 3) +
+  annotate("text",
+           x     = peak$date + 60,
+           y     = peak$p + 0.4,
+           label = paste0("Peak: ", round(peak$p, 1), "%\n", format(peak$date, "%b %Y")),
+           size  = 3.5, hjust = 0, color = "grey30") +
+  annotate("text",
+           x     = as.Date("2013-02-01"),
+           y     = 2.5,
+           label = "BoE target (2%)",
+           size  = 3, hjust = 0, color = "grey50") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::label_number(suffix = "%")) +
+  labs(
+    title    = "UK inflation surged to over 11% in late 2022, then fell back",
+    subtitle = "Annual CPI inflation rate, Jan. 2013 – Aug. 2026",
+    x        = NULL,
+    y        = "Annual rate",
+    caption  = "Source: ONS."
+  )
 ```
 
 
-```{css, eval = TRUE, echo = FALSE}
-.remark-code{line-height: 1.5; font-size: 80%}
+```{css, eval=TRUE, echo=FALSE}
+.remark-code { line-height: 1.5; font-size: 80% }
 
 @media print {
-  .has-continuation {
-    display: block;
-  }
+  .has-continuation { display: block; }
 }
 
-code.r.hljs.remark-code{
+code.r.hljs.remark-code {
   position: relative;
   overflow-x: hidden;
 }
 
-
-code.r.hljs.remark-code:hover{
-  overflow-x:visible;
+code.r.hljs.remark-code:hover {
+  overflow-x: visible;
   width: 500px;
   border-style: solid;
 }
 
-.centered-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 60vh; /* Adjust based on your needs */
+.slide-caption {
   text-align: center;
-  margin-top: auto;
-  margin-bottom: auto;
+  font-size: 0.75em;
+  color: #666;
+  margin-top: 8px;
 }
 
+blockquote {
+  border-left: 4px solid #457B9D;
+  background-color: #f8f9fa;
+  padding: 0.7em 1.2em;
+  margin: 0.8em 0;
+  border-radius: 0 4px 4px 0;
+  color: #333;
+}
+
+.callout {
+  background-color: #f0f4f8;
+  border-left: 4px solid #1D3557;
+  padding: 0.8em 1.2em;
+  margin: 1em 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.95em;
+}
+
+.formula {
+  font-size: 1.9em;
+  font-weight: bold;
+  margin: 0.4em 0;
+  line-height: 1.4;
+}
+
+.agenda {
+  font-size: 1.25em;
+  line-height: 2.4;
+  margin-top: 0.5em;
+}
 ```
 
 
-<div class="centered-content">
-  <h2> </h2>
-  <p>  Why economic data?<p> 
+---
 
-   <p> How this unit works. <p>
+class: center, middle
 
-  <p> Data visualisation basics. <p>
+### Today
 
-  <p> What is R? <p>
-</div>
+.agenda[
+Why economic data?
+
+How this unit works
+
+Data visualisation basics
+
+What is R?
+
+Use of AI
+]
 
 
 
@@ -99,44 +204,45 @@ class: inverse, center, middle
 
 You work for the Bank of England and your boss asks you for an update on the latest inflation numbers.
 
-*"(insert your name here), I need to know:*
+.callout[
+*"I need to know:*
 
 - *How much are prices increasing?*
-
 - *How much have prices increased over the last decade?*
-
 - *Why are prices going up?*
-
 - *What can we do to stop prices going up?*
 
-*get back to me in an hour."*
+*Get back to me in an hour."*
+]
 
-
-$\Rightarrow$ What do you need to know to approach this question? 
-
-<!-- What do you need to know to approach this task?  -->
-
+$\Rightarrow$ What do you need to know to approach this question?
 
 
 
 
 ---
 
-## What do you need to know? 
+## What do you need to know?
 
 - What is inflation?
 
-- How are prices measured? How is the price level measured? 
+- How are prices measured? 
 
-- Where can I find reliable data on prices? 
+- How is the price level measured?
 
-- How is inflation defined? 
+- How is inflation defined?
 
-- How do I analyse the data? 
+- Where can I find reliable data on prices?
 
-- How do I present the data and communicate the insights? 
+- How can I access these data?
 
-- How can I make the analysis reproducible? 
+- How do I calculate inflation from data on prices?
+
+- How do I analyse the data?
+
+- How do I present the data and communicate the insights?
+
+- How can I make the analysis reproducible?
 
 
 
@@ -148,7 +254,9 @@ The answers require the skills developed in this course.
 
 - Knowledge of concepts and definitions: How is inflation measured?
 
-- Software skills to work with datasets and organize data.
+- Knowledge of data sources in economics and how economic data is collected.
+
+- Software skills to work with datasets and organise data.
 
 - Data visualisation and description skills.
 
@@ -157,63 +265,24 @@ The answers require the skills developed in this course.
 
 ---
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-# Loading and cleaning the main dataset
-library(tidyverse)
-
-df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
-  rename(date    = `...1`) %>%
-  mutate(date = paste(date, "01", sep=" "),
-         date = as.Date(date, format = "%b %Y %d")) %>% 
-  gather(series, p, 2:4, -date)  %>% 
-  filter(series == 'CPI')
-  
-p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
-  geom_line(stat='identity', lwd = 1.2)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(angle=45, hjust=1, size = 12),
-        axis.text.y=element_text(size = 12),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
-  xlab("") +
-  ylab("Inflation rate (%)") +
-  labs(title = "Monthly Inflation in UK",
-       subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.",
-       caption = "Source: ONS.") 
-
-```
-
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+```{r echo=FALSE}
 p1
 ```
 
 
 ---
 
-##  A Scenario cont.
+## Reproducibility
 
-*Your boss liked your analysis!* 
+*Your boss liked your analysis!*
 
-*In fact, he liked it so much that he wants to construct the same chart but beginning in 2003.*
+*In fact, they liked it so much that they want to construct the same chart but beginning in 2003.*
 
 *No problem!*
 
-*You wrote a computer script that runs the analysis that we can share with him.*
+*You wrote a computer script that runs the analysis that we can share with them.*
 
-*You give him the script and he can re-run every step of the analysis himself.*
+*You give them the script and they can re-run every step of the analysis themselves.*
 
 
 
@@ -228,48 +297,27 @@ Being able to reproduce the analysis is extremely important:
 
 
 
-
 ---
 
-```{r, fig.align="center", echo=T, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=T}
-df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", 
-               skip =6) %>%
-  rename(date    = `...1`) %>%
-  mutate(date = paste(date, "01", sep=" "),
-         date = as.Date(date, format = "%b %Y %d")) %>% 
-  gather(series, p, 2:4, -date)  %>% 
-  filter(series == 'CPI')
-  
-p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
-  geom_line(stat='identity', lwd = 1.2)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        axis.text.x=element_text(angle=45, hjust=1, size = 12),
-        axis.text.y=element_text(size = 12),
-        legend.key=element_blank())+
-  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
-  xlab("") +
-  ylab("Inflation rate (%)") +
-  labs(title = "Monthly Inflation in UK",
-       subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.",
-       caption = "Source: ONS.") 
+```{r echo=TRUE, eval=FALSE}
+df <- read_csv("../data/cpi_annual_2013_2026.csv") %>%
+  rename(p = CPI) %>%
+  mutate(date = as.Date(paste("01", date), format = "%d %b %Y"))
+
+ggplot(df, aes(x = date, y = p)) +
+  geom_hline(yintercept = 2, linetype = "dashed", colour = "grey70", linewidth = 0.5) +
+  geom_line(linewidth = 1.2, color = "#1c5253") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::label_number(suffix = "%")) +
+  labs(title = "UK inflation surged to over 11% in late 2022, then fell back",
+       subtitle = "Annual CPI inflation rate, Jan. 2013 – Aug. 2026",
+       x = NULL, y = "Annual rate", caption = "Source: ONS.")
 ```
 
 
-<!-- --- -->
 
-<!-- ## Why Economic Data -->
 
-<!-- Beyond tangible skills needed for professional economists.  -->
 
-<!-- both inductive and deductive elements.  -->
-
-<!-- data plays a crucial part in any economic analysis.  -->
 
 
 
@@ -279,7 +327,7 @@ p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
 
 ## Topics
 
-This unit is organized around topics. 
+This unit is organized around topics.
 
 - Demographic data
 
@@ -289,13 +337,11 @@ This unit is organized around topics.
 
 - Prices
 
-- Unemployment 
+- Unemployment
 
 - Inequality
 
 - Money
-
-
 
 
 
@@ -311,25 +357,22 @@ class: inverse, center, middle
 
 ## Structure of the unit
 
+.pull-left[
 **Learning method:**
 
 - Lectures & background reading.
-
 - Work on projects at home and in labs.
-
 - Give & receive feedback.
+- Test understanding with a weekly quiz.
+]
 
-- Test understanding on quiz.<br><br>
-
+.pull-right[
 **Learning objectives:**
 
 - Economic concepts and definitions.
-
 - Software: R
-
 - Data visualisation and description.
-
-
+]
 
 
 
@@ -338,25 +381,23 @@ class: inverse, center, middle
 
 ## Lectures and labs
 
+.pull-left[
 **Lectures:**
 
 - 1 hour.
-
 - Recorded.
+- Provides an overview of the topic.
+]
 
-- Provides overview of topic<br><br>
-
+.pull-right[
 **Lab sessions:**
 
-- 2 hours
-
+- 2 hours.
 - Attendance recorded.
-
-- Part 1: We create two visualisations on the topic of the week.
-
-- Part 2: We give individual feedback and support.
-
-- You should use the labs to work on the mini projects.
+- Part 1: Two visualisations on the topic of the week.
+- Part 2: Individual feedback and support.
+- Use the labs to work on the mini projects.
+]
 
 
 
@@ -364,21 +405,20 @@ class: inverse, center, middle
 
 ## Formative assessments
 
+.pull-left[
 **What:**
 
 - Will not affect your mark.
-
 - Four mini projects.
+- Weekly quiz questions.
+]
 
-- Weekly quiz questions. <br><br>
-
-
+.pull-right[
 **Feedback:**
 
-- Four mini projects: feedback from us in labs and from peers.
-
-- Weekly quiz questions: feedback at the end of the week.
-
+- Mini projects: from us the teaching team and from peers.
+- Quiz questions: solutions at the end of the week.
+]
 
 
 
@@ -388,8 +428,13 @@ class: inverse, center, middle
 
 ---
 
-
 ## Mini projects
+
+Mini-projects are open-ended exercises in which you investigate a question of your own choosing, applying the skills and methods covered in this course.
+
+.callout[
+Your task is to analyse the change in the number of people in your assigned country since the 1980s. Your answer could cover topics such as population stocks and flows, changes in fertility, migration, emigration, mortality or life expectancy. The task description is intentionally vague: you decide on the precise time periods and the exact focus of your assignment. Use around 400 words and 2 visualisations for this exercise. All visualisations should be made from scratch using R. Data can be drawn from sources such as Eurostat, OECD, the World Bank, or national statistical offices.
+]
 
 **Rules:**
 
@@ -399,22 +444,7 @@ class: inverse, center, middle
 
 - Use data from one of the following sources: Eurostat, OECD, Bank of England, IMF, World Bank Data, The Maddison Project.
 
-- You are assigned to one of four countries
-
-
-
-
----
-
-## Mini projects
-
-**Marking criteria:**
-
-- Data visualisations: self-explanatory, clear, appropriate type.
-
-- Description: concise, non-speculative.
-
-- Coherence: close link between text and visualisations, coherent, readability.
+- You are assigned to one of four countries.
 
 
 
@@ -424,28 +454,37 @@ class: inverse, center, middle
 
 ## Summative assessment
 
+
+
+The summative assessment consists of four “mini-project” exercises, two of which are based on the formative mini-projects.
+
 **What:**
 
-- Coursework project after teaching finishes!
+- Coursework project after teaching finishes.
 
-- Released and due in December.
+- Released on December 2.
+
+- Deadline December 9.
 
 
-<!-- Tell me more about what -->
 
-<!-- - 4 mini projects -->
 
-<!-- - Mini project 2 -->
 
-<!-- - One of mini project 1, 3, or 4 -->
+---
 
-<!-- - 2 new mini projects -->
+## Marking criteria
 
-<!-- - 20 quiz questions -->
+Five criteria are assessed for each mini-project:
 
-<!-- - The same questions as the formative questions, but different variants -->
+1. Can locate and analyse relevant data and produce visualizations from scratch using R.
 
-<!-- - 1 feedback task -->
+2. Describes the data and sources in sufficient detail for someone to reproduce the analysis. Each variable is defined: (i) how it is defined and (ii) what the underlying data source is.
+
+3. Justifies the choice of data sources and variables. Why was a particular variable chosen? E.g., GDP adjusted for PPP for international comparisons.
+
+4. Description of the main pattern is included but non-speculative — no causal claims. Close link between analysis and discussion. Clearly stated objective or question.
+
+5. Figure follows data visualisation principles: self-contained with a source note and appropriate chart type; descriptive title and labelled axes; no visual clutter, shadows, or superfluous elements.
 
 
 
@@ -479,6 +518,32 @@ class: inverse, center, middle
 
 ---
 
+## Use of AI
+
+AI tools can be helpful for coding — but how you use them matters.
+
+.pull-left[
+**Early in the unit: avoid AI**
+
+- You need to build understanding from scratch.
+- Using AI before you understand the basics means you cannot judge whether the output is correct.
+- Struggle is part of learning.
+]
+
+.pull-right[
+**Later in the unit: coding suggestions only**
+
+- AI can help with syntax, debugging, and efficiency once you have a foundation.
+- Never use AI to write your text. All writing should be yours.
+- You must understand every line of code you submit.
+]
+
+.callout[
+**Important**: submitted code may be checked. If you cannot explain what your code does, that is a problem.
+]
+
+---
+
 class: inverse, center, middle
 
 # Data Visualisation Basics
@@ -486,106 +551,59 @@ class: inverse, center, middle
 
 
 
-
 ---
 
 <div style="text-align: center; margin-top: 50px;">
-  <img src="images/data_table.png" alt="A descriptive alt text" style="width: 600px;">
+  <img src="images/data_table.png" alt="Raw economic data presented in tabular form" style="width: 600px;">
+  <p class="slide-caption">Raw data in tabular form — hard to see patterns at a glance.</p>
 </div>
 
 
 
 ---
 
-```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
-# Loading and cleaning the main dataset
-library(tidyverse)
-
-df <- read_csv("../data/Figure_1__Annual_CPIH_and_CPI_inflation_rates_eased_slightly_in_August_2023.csv", skip =6) %>%
-  rename(date    = `...1`) %>%
-  mutate(date = paste(date, "01", sep=" "),
-         date = as.Date(date, format = "%b %Y %d")) %>% 
-  gather(series, p, 2:4, -date)  %>% 
-  filter(series == 'CPI')
-  
-p1 <- ggplot(data = df, aes(x = date, y = p, color = series))+
-  geom_line(stat='identity', lwd = 1.2)+
-  theme(plot.title = element_text(size=22),
-        plot.subtitle = element_text(size=16),
-        legend.title = element_blank(),
-        legend.text=element_text(size=14),
-        legend.position="none",
-        plot.caption = element_text(size=12, hjust = 0),
-        axis.title = element_text(size = 18),
-        strip.background = element_blank(),
-        axis.text.x=element_text(angle=45, hjust=1, size = 12),
-        axis.text.y=element_text(size = 12),
-        strip.placement = "outside",
-        panel.grid.minor = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.grid.major = element_line('grey', size = 0.1, linetype = 'dashed'),
-        panel.background = element_rect(fill = "transparent", colour = NA),
-        plot.background  = element_rect(fill = "transparent", colour = NA),
-        legend.background = element_rect(fill='transparent'),
-        legend.key=element_blank())+
-  scale_x_date(date_breaks = "6 month", date_labels = "%m-%Y")+
-  xlab("") +
-  ylab("Inflation rate (%)") +
-  labs(title = "Monthly Inflation in UK",
-       subtitle = "Measures monthly annual change in prices, Aug. 2013 - Aug. 2023.",
-       caption = "Source: ONS.") 
-
-```
-
-```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 8, fig.width = 11, fig.align="center"}
+```{r echo=FALSE}
 p1
 ```
 
+<p class="slide-caption">The same information as a chart — the trend is immediately visible.</p>
+
 
 ---
 
-<!-- check principles in the book ...  -->
-
-## Charts and Economic Data 
+## Charts and Economic Data
 
 Plotting economic data is important:
 
-- Highlights patterns and trends. 
+- Highlights patterns and trends.
 
-- Facilitates comparison across groups or over time. 
+- Facilitates comparison across groups or over time.
 
 - Helps communicate insights from economic analysis. <br><br>
 
-What is a good chart? Unfortunately, no simple rules of thumb exist. 
+What is a good chart? There are no simple rules of thumb.
 
-A good chart requires good judgment and domain knowledge. 
+A good chart requires judgment and domain knowledge. It also depends on who is looking at it, and why.
 
-Also a question of who is looking at it, and why.
+Human perception matters: position-based encodings (line and bar charts) are read more accurately than angles or areas (pie charts). This follows from research by Cleveland and McGill on how we decode visual information.
 
-We will consider two fairly general principles.
-
-<!-- no simple list of crieteria, but a number of issues to consider  -->
-
-<!-- The effectiveness of any particular graph is not just a matter of how it looks in the abstract, but also a question of who is looking at it, and why. -->
-
-
-<!-- what looks good and more to do with how human visual perception works -->
-
-
-<!--  practice those compositional principles have amounted to an encouragement to maximize the “data-to-ink” ratio -->
+We will consider two widely used principles.
 
 
 ---
 
 class: inverse, center, middle
 
-
-## Data to ink ratio  = Data / Ink
+.formula[
+Data-to-ink ratio = Data / Ink
+]
 
 ---
 
 
 <div style="text-align: center; margin-top: 100px;">
-  <img src="images/d_ink_1.png" alt="A descriptive alt text" style="width: 600px;">
+  <img src="images/d_ink_1.png" alt="Chart with high non-data ink: background, heavy grid, thick borders" style="width: 600px;">
+  <p class="slide-caption">Starting point — heavy use of non-data ink.</p>
 </div>
 
 
@@ -595,7 +613,8 @@ class: inverse, center, middle
 
 
 <div style="text-align: center; margin-top: 100px;">
-  <img src="images/d_ink_2.png" alt="A descriptive alt text" style="width: 600px;">
+  <img src="images/d_ink_2.png" alt="Chart with background removed" style="width: 600px;">
+  <p class="slide-caption">Remove the background fill.</p>
 </div>
 
 
@@ -603,16 +622,8 @@ class: inverse, center, middle
 
 
 <div style="text-align: center; margin-top: 100px;">
-  <img src="images/d_ink_3.png" alt="A descriptive alt text" style="width: 600px;">
-</div>
-
-
-
----
-
-
-<div style="text-align: center; margin-top: 100px;">
-  <img src="images/d_ink_4.png" alt="A descriptive alt text" style="width: 600px;">
+  <img src="images/d_ink_3.png" alt="Chart with grid lines removed" style="width: 600px;">
+  <p class="slide-caption">Remove the grid lines.</p>
 </div>
 
 
@@ -621,7 +632,18 @@ class: inverse, center, middle
 
 
 <div style="text-align: center; margin-top: 100px;">
-  <img src="images/d_ink_5.png" alt="A descriptive alt text" style="width: 600px;">
+  <img src="images/d_ink_4.png" alt="Chart with border removed" style="width: 600px;">
+  <p class="slide-caption">Remove the border.</p>
+</div>
+
+
+
+---
+
+
+<div style="text-align: center; margin-top: 100px;">
+  <img src="images/d_ink_5.png" alt="Chart with fill colours removed from bars" style="width: 600px;">
+  <p class="slide-caption">Remove redundant fill colours.</p>
 </div>
 
 
@@ -629,9 +651,9 @@ class: inverse, center, middle
 ---
 
 <div style="text-align: center; margin-top: 100px;">
-  <img src="images/d_ink_6.png" alt="A descriptive alt text" style="width: 600px;">
+  <img src="images/d_ink_6.png" alt="Final simplified chart with maximum data-to-ink ratio" style="width: 600px;">
+  <p class="slide-caption">Final result — maximum data-to-ink ratio. A useful guide, though some contextual elements (light grid lines) can still aid reading.</p>
 </div>
-
 
 
 
@@ -640,14 +662,17 @@ class: inverse, center, middle
 
 class: inverse, center, middle
 
-
-## Lie factor  = Visual size of effect / Size of effect in data 
+.formula[
+Lie factor = Visual size of effect / Size of effect in data
+]
 
 
 
 ---
+
 <div style="text-align: center; margin-top: 100px;">
-  <img src="images/visualization_bad.png" alt="A descriptive alt text" style="width: 650px;">
+  <img src="images/visualization_bad.png" alt="Example of a misleading chart where the visual size of the effect greatly exceeds the actual data change" style="width: 650px;">
+  <p class="slide-caption">A truncated y-axis makes a small change look dramatic — lie factor well above 1. Note: restricting the axis range is not always deceptive; intent and context matter.</p>
 </div>
 
 ---
@@ -661,53 +686,38 @@ class: inverse, center, middle
 ---
 
 
-## Why R?
+## Why programming?
 
 **Automation**: Scripts automate repetitive tasks like data cleaning, transformation, and analysis.
 
 **Reproducibility**: Scripts offer a clear, documented workflow that's easy to share and reproduce.
 
-**Error Reduction**: Manual data entry and copying formulas can easily introduce errors.<br><br> 
+**Error Reduction**: Manual data entry and copying formulas can easily introduce errors.<br><br>
 
 For these reasons, we will learn how to write computer scripts to analyse data in this course.
 
-Two useful languages are Python and R. 
+Python and R are the two most widely used languages for data analysis.
 
-We will use R and the RStudio GUI since they are more developed for statistics and econometrics. 
-
-
+We will use R via RStudio, which provides a well-developed environment for statistics and econometrics.
 
 
 
 
 ---
+
 <div style="text-align: center; margin-top: 80px;">
-  <img src="images/excel_error.png" alt="A descriptive alt text" style="width: 650px;">
+  <img src="images/excel_error.png" alt="News headline about a significant error caused by a spreadsheet mistake" style="width: 650px;">
+  <p class="slide-caption"></p>
 </div>
 
 
-<!-- - Highlights patterns and trends.  -->
-
-<!-- - Facilitates comparison across groups or over time.  -->
-
-<!-- - Helps communicate insights from economic analysis. <br><br> -->
-
-<!-- What is a good chart? Unfortunately, no simple rules of thumb exist.  -->
-
-<!-- A good chart requires good judgment and domain knowledge.  -->
-
-<!-- Also a question of who is looking at it, and why. -->
-
-<!-- We will consider two fairly general principles. -->
-
-
-
-
 
 
 ---
+
 <div style="text-align: center; margin-top: 80px;">
-  <img src="images/rstudio.png" alt="A descriptive alt text" style="width: 950px;">
+  <img src="images/rstudio.png" alt="The RStudio interface showing the editor, console, environment, and files panels" style="width: 950px;">
+  <p class="slide-caption"></p>
 </div>
 
 
@@ -726,19 +736,20 @@ class: inverse, center, middle
 
 ## Summary
 
-You should know: 
+You should know:
 
-- How this course is organized. 
+- How this course is organized.
 
-- Why we need to learn about economic data. 
+- Why we need to learn about economic data.
 
-- Two principles of data visualization. 
+- Two principles of data visualisation.
 
-- What R is. <br><br> 
+- What R is.
+
+- How to use AI responsibly in this unit. <br><br>
 
 
-**Next week**: Overview of demographic data. 
-
+**Next week**: Overview of demographic data.
 
 
 
@@ -747,13 +758,6 @@ You should know:
 
 class: inverse, center, middle
 
-# See you in the labs! 
+# See you in the labs!
 
-Questions? $\texttt{sebastian.ellingsen@bristol.ac.uk}$.
-
-
-
-
-
-
-
+Questions? $\texttt{sebastian.ellingsen@bristol.ac.uk}$
