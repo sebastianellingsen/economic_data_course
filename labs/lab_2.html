@@ -383,9 +383,9 @@ RStudio. <strong>Hint</strong>: Click <strong>Import Dataset &gt; From
 Excel</strong>, use <strong>Browse</strong> to locate the file, then
 click <strong>Import</strong>. Do you need to skip a line?</p></li>
 <li><p>Assign the dataframe the name <code>df</code>.</p></li>
-<li><p>Run the command <code>df$year&gt;=1980</code>. How do you
+<li><p>Run the command <code>df[df$year&gt;=1980,]</code>. How do you
 interpret the output? <strong>Hint</strong>: Run the command
-<code>df[df$year&gt;=1980,]</code>. What does it do?</p></li>
+<code>df$year&gt;=1980</code>. What does it do?</p></li>
 <li><p>Create a new dataframe that contains only observations after
 1980.</p></li>
 <li><p>Create a new dataframe that contains only data for your assigned
