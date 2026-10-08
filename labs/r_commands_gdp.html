@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic R Commands: GDP Example</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #222;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 2em;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+    }
+    h2 {
+      font-size: 1.3em;
+      margin-top: 40px;
+      color: #333;
+      border-left: 4px solid #666;
+      padding-left: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.95em;
+    }
+    th {
+      background-color: #f0f0f0;
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 2px solid #ccc;
+    }
+    td {
+      padding: 7px 12px;
+      border-bottom: 1px solid #ddd;
+      vertical-align: top;
+    }
+    tr:hover {
+      background-color: #fafafa;
+    }
+    code {
+      font-family: "Courier New", monospace;
+      background-color: #f4f4f4;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 0.92em;
+    }
+    .note {
+      font-size: 0.9em;
+      color: #555;
+      background-color: #f9f9f9;
+      border-left: 3px solid #aaa;
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+    p.intro {
+      font-size: 0.97em;
+      color: #444;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Basic R Commands</h1>
+
+<div class="note">
+  Throughout this guide we use a simple dataset containing GDP (in billions of USD) and year for a hypothetical country from 1980 to 2023. All examples build on this dataset.
+</div>
+
+<!-- ── 1. CREATING THE DATASET ── -->
+<h2>1. Creating the Dataset</h2>
+<p class="intro">We start by constructing the dataset directly in R.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>year &lt;- 1980:2023</code></td><td>Create a vector of years from 1980 to 2023</td></tr>
+  <tr><td><code>gdp &lt;- c(2.8, 3.1, 3.0, 3.4, 3.7, 4.0, 4.3, 4.7, 5.1, 5.5,<br>5.9, 6.2, 6.5, 6.9, 7.3, 7.7, 8.1, 8.4, 8.7, 8.9,<br>9.2, 9.6, 10.1, 10.5, 10.9, 11.3, 11.8, 12.2, 12.5, 12.1,<br>12.8, 13.3, 13.9, 14.5, 14.2, 14.8, 15.3, 15.9, 16.4, 16.9,<br>17.4, 17.9, 18.5, 19.1)</code></td><td>Create a vector of GDP values (one per year)</td></tr>
+  <tr><td><code>df &lt;- data.frame(year = year, gdp = gdp)</code></td><td>Combine into a data frame</td></tr>
+</table>
+
+<!-- ── 2. INSPECTING THE DATA ── -->
+<h2>2. Inspecting the Data</h2>
+<p class="intro">Before analysing data it is good practice to inspect its structure and contents.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>head(df)</code></td><td>Show the first 6 rows of the data frame</td></tr>
+  <tr><td><code>tail(df)</code></td><td>Show the last 6 rows</td></tr>
+  <tr><td><code>str(df)</code></td><td>Show variable types and a preview of values</td></tr>
+  <tr><td><code>dim(df)</code></td><td>Number of rows and columns (44 rows, 2 columns)</td></tr>
+  <tr><td><code>nrow(df)</code></td><td>Number of rows (44)</td></tr>
+  <tr><td><code>ncol(df)</code></td><td>Number of columns (2)</td></tr>
+  <tr><td><code>names(df)</code></td><td>Column names: "year" and "gdp"</td></tr>
+</table>
+
+<!-- ── 3. ACCESSING VARIABLES ── -->
+<h2>3. Accessing Variables</h2>
+<p class="intro">There are several ways to access columns or specific values.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>df$gdp</code></td><td>Extract the gdp column as a vector</td></tr>
+  <tr><td><code>df$year</code></td><td>Extract the year column</td></tr>
+  <tr><td><code>df[1, ]</code></td><td>First row (year 1980)</td></tr>
+  <tr><td><code>df[, 2]</code></td><td>Second column (gdp)</td></tr>
+  <tr><td><code>df[1, 2]</code></td><td>GDP in 1980 (first row, second column)</td></tr>
+  <tr><td><code>df$gdp[1]</code></td><td>GDP in 1980 (first element of gdp vector)</td></tr>
+</table>
+
+<!-- ── 4. SUMMARY STATISTICS ── -->
+<h2>4. Summary Statistics</h2>
+<p class="intro">Compute basic statistics on GDP across all years.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>summary(df)</code></td><td>Summary statistics for all columns</td></tr>
+  <tr><td><code>mean(df$gdp)</code></td><td>Average GDP across all years</td></tr>
+  <tr><td><code>median(df$gdp)</code></td><td>Median GDP</td></tr>
+  <tr><td><code>sd(df$gdp)</code></td><td>Standard deviation of GDP</td></tr>
+  <tr><td><code>var(df$gdp)</code></td><td>Variance of GDP</td></tr>
+  <tr><td><code>min(df$gdp)</code></td><td>Lowest GDP value (1980)</td></tr>
+  <tr><td><code>max(df$gdp)</code></td><td>Highest GDP value (2023)</td></tr>
+  <tr><td><code>range(df$gdp)</code></td><td>Min and max together</td></tr>
+  <tr><td><code>quantile(df$gdp, 0.25)</code></td><td>25th percentile of GDP</td></tr>
+  <tr><td><code>sum(df$gdp)</code></td><td>Total GDP summed across all years</td></tr>
+</table>
+
+<!-- ── 5. CREATING NEW VARIABLES ── -->
+<h2>5. Creating New Variables</h2>
+<p class="intro">We can create new columns derived from existing ones.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>df$gdp_log &lt;- log(df$gdp)</code></td><td>Log of GDP</td></tr>
+  <tr><td><code>df$gdp_growth &lt;- c(NA, diff(df$gdp) / df$gdp[-nrow(df)] * 100)</code></td><td>Year-on-year GDP growth rate (%)</td></tr>
+  <tr><td><code>df$decade &lt;- floor(df$year / 10) * 10</code></td><td>Decade each year belongs to</td></tr>
+  <tr><td><code>df$post2000 &lt;- as.integer(df$year &gt;= 2000)</code></td><td>Dummy variable equal to 1 from year 2000 onward</td></tr>
+</table>
+
+<!-- ── 6. SUBSETTING THE DATA ── -->
+<h2>6. Subsetting the Data</h2>
+<p class="intro">Select specific rows based on conditions.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>df[df$year &gt;= 2000, ]</code></td><td>Rows from year 2000 onward</td></tr>
+  <tr><td><code>subset(df, year &gt;= 2000)</code></td><td>Same result using subset()</td></tr>
+  <tr><td><code>subset(df, year &gt;= 1990 &amp; year &lt;= 1999)</code></td><td>Only the 1990s</td></tr>
+  <tr><td><code>subset(df, gdp &gt; 15)</code></td><td>Years where GDP exceeded 15 billion</td></tr>
+  <tr><td><code>df[df$year == 2008, ]</code></td><td>Data for the year 2008</td></tr>
+</table>
+
+<!-- ── 7. SORTING AND ORDERING ── -->
+<h2>7. Sorting and Ordering</h2>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>df[order(df$gdp), ]</code></td><td>Sort rows by GDP ascending</td></tr>
+  <tr><td><code>df[order(-df$gdp), ]</code></td><td>Sort rows by GDP descending</td></tr>
+  <tr><td><code>which.max(df$gdp)</code></td><td>Row index of the highest GDP</td></tr>
+  <tr><td><code>which.min(df$gdp)</code></td><td>Row index of the lowest GDP</td></tr>
+  <tr><td><code>df$year[which.max(df$gdp)]</code></td><td>Year with the highest GDP</td></tr>
+</table>
+
+<!-- ── 8. MISSING VALUES ── -->
+<h2>8. Missing Values</h2>
+<p class="intro">GDP growth in the first year is NA because there is no previous year to compare with.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>is.na(df$gdp_growth)</code></td><td>Identify missing values (TRUE/FALSE for each row)</td></tr>
+  <tr><td><code>sum(is.na(df$gdp_growth))</code></td><td>Count of missing values (1, for 1980)</td></tr>
+  <tr><td><code>mean(df$gdp_growth, na.rm=TRUE)</code></td><td>Mean growth rate ignoring the missing value</td></tr>
+  <tr><td><code>na.omit(df)</code></td><td>Remove all rows containing any missing value</td></tr>
+</table>
+
+<!-- ── 9. READING AND WRITING DATA ── -->
+<h2>9. Reading and Writing Data</h2>
+<p class="intro">In practice you will load data from a file rather than typing it in manually.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>df &lt;- read.csv("gdp_data.csv")</code></td><td>Load data from a CSV file</td></tr>
+  <tr><td><code>write.csv(df, "gdp_data.csv", row.names=FALSE)</code></td><td>Save data frame to a CSV file</td></tr>
+  <tr><td><code>saveRDS(df, "gdp_data.rds")</code></td><td>Save as an R object file</td></tr>
+  <tr><td><code>df &lt;- readRDS("gdp_data.rds")</code></td><td>Load an R object file</td></tr>
+</table>
+
+<!-- ── 10. PLOTTING ── -->
+<h2>10. Plotting</h2>
+<p class="intro">Visualise the relationship between year and GDP.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>plot(df$year, df$gdp, type="l")</code></td><td>Line plot of GDP over time</td></tr>
+  <tr><td><code>plot(df$year, df$gdp, type="l",<br>main="GDP over Time",<br>xlab="Year", ylab="GDP (billions USD)")</code></td><td>Line plot with title and axis labels</td></tr>
+  <tr><td><code>hist(df$gdp_growth, main="GDP Growth Rate",<br>xlab="Growth (%)")</code></td><td>Histogram of annual growth rates</td></tr>
+  <tr><td><code>boxplot(df$gdp_growth,<br>main="Distribution of GDP Growth")</code></td><td>Box plot of growth rates</td></tr>
+  <tr><td><code>abline(v=2008, col="red", lty=2)</code></td><td>Add a vertical dashed line at 2008 (financial crisis)</td></tr>
+</table>
+
+<!-- ── 11. IFELSE ── -->
+<h2>11. Conditional Logic with ifelse()</h2>
+<p class="intro">ifelse() applies a condition to every row and returns one value if TRUE and another if FALSE. This is useful for creating new variables based on conditions.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>df$high_gdp &lt;- ifelse(df$gdp &gt; 10, "High", "Low")</code></td><td>Label years as "High" or "Low" GDP (threshold: 10 billion)</td></tr>
+  <tr><td><code>df$recession &lt;- ifelse(df$gdp_growth &lt; 0, 1, 0)</code></td><td>Dummy equal to 1 in years where GDP shrank</td></tr>
+  <tr><td><code>df$era &lt;- ifelse(df$year &lt; 2000, "Pre-2000", "Post-2000")</code></td><td>Label each year as pre- or post-2000</td></tr>
+  <tr><td><code>df$growth_label &lt;- ifelse(df$gdp_growth &gt; 3, "Fast",<br>&nbsp;&nbsp;ifelse(df$gdp_growth &gt; 0, "Slow", "Negative"))</code></td><td>Nested ifelse(): three categories of growth</td></tr>
+</table>
+
+<p class="note">Last updated: October 2026</p>
+
+</body>
+</html>
