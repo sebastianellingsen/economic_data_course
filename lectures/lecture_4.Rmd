@@ -22,7 +22,11 @@ options(htmltools.dir.version = FALSE)
 
 library(xaringanthemer)
 style_mono_accent(
-  base_color = "#1c5253")
+  base_color         = "#1B3A6B",
+  header_font_google = google_font("Raleway", "700"),
+  text_font_google   = google_font("Source Sans Pro", "400"),
+  code_font_google   = google_font("Fira Code")
+)
 
 options(htmltools.dir.version = FALSE)
 
@@ -37,7 +41,7 @@ library(ggthemes)
 
 
 ```{css, eval = TRUE, echo = FALSE}
-.remark-code{line-height: 1.5; font-size: 80%}
+.remark-code{line-height: 1.5; font-size: 80%; font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0;}
 
 @media print {
   .has-continuation {
@@ -349,6 +353,65 @@ p1
 
 ---
 
+## The Easterlin Paradox
+
+The scatter plot shows richer countries report higher life satisfaction — but is that the full picture?
+
+Richard Easterlin (1974) compared the *cross-sectional* and *time-series* evidence:
+
+- **Across countries** at a point in time: richer countries are happier. ✓
+
+- **Within countries** over time: as countries get richer, average happiness does not sustainably rise. ✗ <br><br>
+
+The two findings are in direct tension. This is the **Easterlin Paradox**.
+
+
+---
+
+## Why Might the Paradox Hold?
+
+Three candidate explanations:
+
+- **Adaptation**: people adjust their expectations upward as income rises — the gain in wellbeing fades over time.
+
+- **Relative income**: what matters is income *relative to others*, not absolute income. If everyone gets richer together, no one gains in relative terms.
+
+- **Satiation**: beyond a threshold, extra income buys progressively less additional wellbeing — the diminishing marginal utility idea from the previous slide, applied over time. <br><br>
+
+The paradox is still debated. Some researchers argue it disappears with better data; others argue it is robust.
+
+It is a reminder that cross-sectional patterns, do not tell us what happens as economies grow.
+
+Have a look at https://ourworldindata.org/happiness-and-life-satisfaction for more detail and references.
+
+
+---
+
+## 
+
+<div style="text-align: center; margin-top: 30px;">
+  <img src="images/easterlin_japan.png" alt="" style="width: 600px;">
+</div>
+
+
+---
+
+
+## 
+
+<div style="text-align: center; margin-top: 50px;">
+  <img src="images/Life-Satisfaction-and-GDP-per-Capita-over-Time-in-Japan-Stevenson-Wolfers.png" alt="" style="width: 800px;">
+</div>
+
+
+
+
+
+
+
+---
+
+
 class: inverse, center, middle
 
 # Measuring Wellbeing in Practice
@@ -523,7 +586,15 @@ HDI_{it} = \left(I_{it}^{Health}I_{it}^{Education}I_{it}^{Income}\right)^{\frac{
 
 The geometric mean is chosen to make the function concave in $I_{it}^{Health}I_{it}^{Education}I_{it}^{Income}$.
 
-- The idea is that increases matter less the larger the product of the indices are. 
+- The idea is that increases matter less the larger the product of the indices are. <br><br>
+
+**Why not an arithmetic mean?**
+
+An arithmetic mean allows high scores in one dimension to compensate for low scores in another.
+
+- A country with very low life expectancy could score well overall simply by having high income.
+
+The geometric mean penalises low scores on *any* dimension — a near-zero index in one component pulls the whole score toward zero regardless of performance elsewhere.
 
 
 
@@ -646,7 +717,7 @@ I^k = \frac{Y^k - Y^k_{\text{min}}}{Y^k_{\text{max}}- Y^k_{\text{min}}}
 
 Then calculate the geometric mean
 \begin{equation}
-\text{Index} = \left(\Pi_{k = 1}^N I^k\right)^{\frac{1}{k}}
+\text{Index} = \left(\Pi_{k = 1}^N I^k\right)^{\frac{1}{N}}
 \end{equation}
 
 In the lab, you will explore the evolution of your own development index.
@@ -659,17 +730,19 @@ In the lab, you will explore the evolution of your own development index.
 ## Why GDP in Objective Wellbeing Measures?
 
 
-If there are issues with using GDP for measuring wellbeing, why include it? 
+If there are issues with using GDP for measuring wellbeing, why include it?
 
-It is a good measure of *material* wellbeing. 
+It is a good measure of *material* wellbeing.
 
-Harmonized across many countries. 
+Harmonized across many countries.
 
-- More so than any other economic statistic. 
+- More so than any other economic statistic.
 
 It is associated with a lot of variables that are associated with wellbeing. <br><br>
 
-So while GDP is not the full story, it contains useful information about wellbeing. 
+So while GDP is not the full story, it contains useful information about wellbeing.
+
+
 
 
 
@@ -987,7 +1060,7 @@ Measuring the co-dispersion between $X$ and $Y$:
 cov(df$gdppc, df$life_sat)
 ```
 
-- Correlation: $\text{cor}\left(X, Y\right) = \frac{\text{cov}\left(X, Y\right)}{\sigma_X, \sigma_Y}$ 
+- Correlation: $\text{cor}\left(X, Y\right) = \frac{\text{cov}\left(X, Y\right)}{\sigma_X \sigma_Y}$
 
 ```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=T, message=FALSE, warning=FALSE, fig_caption= FALSE, eval = T, fig.height = 3.7, fig.width = 7.1, fig.align="center"}
 cor(df$gdppc, df$life_sat)
@@ -1010,7 +1083,7 @@ A widely published measure is the Human Development Index.
 You have seen ways to calculate descriptive statistics in R. <br><br>
 
 
-**Next**: Constructing functions and combining datasets in R. Adjusting for prices (spatially and temporally). 
+**Next**: Adjusting for prices across time (inflation) and space (purchasing power parity).
 
 
 
