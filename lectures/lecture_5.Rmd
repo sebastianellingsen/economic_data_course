@@ -196,7 +196,7 @@ xlab("") +
   ylab("Inflation rate (%)") +
   labs(title = "Monthly Annual Rate of Inflation in the UK",
        subtitle = "Measures monthly annual change in the CPIH, Jan. 1992 - April. 2024.",
-       caption = "Source: Source: ONS, Consumer price inflation time series (MM23).")
+       caption = "Source: ONS, Consumer price inflation time series (MM23).")
 
 ```
 
@@ -239,7 +239,7 @@ xlab("") +
   ylab("Inflation rate (%)") +
   labs(title = "Monthly Annual Rate of Inflation in the UK",
        subtitle = "Measures monthly annual change in the CPIH, Jan. 1992 - April. 2024.",
-       caption = "Source: Source: ONS, Consumer price inflation time series (MM23).")
+       caption = "Source: ONS, Consumer price inflation time series (MM23).")
 
 ```
 
@@ -465,7 +465,7 @@ More demanding to collect data.
 
 Some other price indicies you might encounter: 
 
-The Fisher Price Index: $I_t^F = \sqrt{I_{t}^P\times I_{t}^F}$.
+The Fisher Price Index: $I_t^F = \sqrt{I_{t}^L\times I_{t}^P}$.
 
 The Lowe Price Index: $I_t^{Lo} = 100\times  \frac{\sum_{i = 1}^N Q_{ir} P_{ir}}{\sum_{i = 1}^N Q_{ir} P_{i0}}$.
 
@@ -532,9 +532,9 @@ The growth always relative to the $t-1$.
 
 The Chained-linked Paasche index is given by
 \begin{equation}
-\large I^L_t = I^L_{t-1}\times \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{it-1}}\normalsize
+\large I^P_t = I^P_{t-1}\times \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{it-1}}\normalsize
 \end{equation}
-where $Q_{it-1}$ denotes the weight in period $t-1$.
+where $Q_{it}$ denotes the weight in period $t$.
 
 The growth always relative to the $t-1$.
 
@@ -740,7 +740,7 @@ p1 <- ggplot(data = df, aes(x = date, y = p, color = geo))+
   scale_x_date(date_breaks = "18 month", date_labels = "%m-%Y")+
 xlab("") +
   ylab("Index, base year = 2005") +
-  labs(title = "HCPI Index: All Items, 2005=100",
+  labs(title = "HICP Index: All Items, 2005=100",
        subtitle = "HCPI for the European Countries, Jan. 2005 - Aug. 2024.",
        caption = "Source: Eurostat, series prc_hicp_midx.")
 
@@ -918,7 +918,7 @@ Goal:
 
 - Track price development (over time).
 
-- Laspeyres price index: Update the basket based on what we consume.
+- Laspeyres price index: Keep the basket fixed at the base period quantities.
 
 - Weights (quanties) from surveys and national accounts.<br><br>
 

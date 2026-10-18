@@ -1,0 +1,309 @@
+---
+title: "Economic Data 2026 - Labs"
+output:
+  html_document:
+    theme: cosmo
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(pwt10)
+
+data("pwt10.0")
+df <- as.data.frame(pwt10.0)
+df$gdp_pc <- df$rgdpe / df$pop
+```
+
+## GDP per Capita Growth Across Countries
+
+**Aims:** Familiarise yourself with the Penn World Tables, compute GDP per capita growth rates for a single country, and compare economic performance across a selection of countries.
+
+Your country depends on the timing of your lab session:
+
+| Monday | Tuesday | Wednesday | Thursday |
+|--------|---------|-----------|----------|
+| Norway (NOR) | Germany (DEU) | Spain (ESP) | France (FRA) |
+
+---
+
+## Part 1: Loading the Penn World Tables
+
+The Penn World Tables (PWT) is one of the most widely used datasets in macroeconomics and growth economics. It covers GDP, population, and productivity for over 180 countries from 1950 onwards. In this exercise we use version 10.0, which is available as an R package.
+
+Open an R script and save it as `lab_pwt.R`. Then go through the following steps.
+
+1. Install and load the `pwt10` package.
+
+    **Hint:** `install.packages("pwt10")` then `library(pwt10)`
+
+2. Load the dataset and assign it the name `df`.
+
+    **Hint:** `data("pwt10.0")` then `df <- pwt10.0`
+
+3. Run `head(df)`, `names(df)`, and `dim(df)` in the console. What do they return? How many observations are in the dataset?
+
+4. The variables you will need for this exercise are described in the table below. Run `?pwt10.0` to see the full list of variables.
+
+    | Variable | Description |
+    |----------|-------------|
+    | `isocode` | ISO 3-letter country code |
+    | `country` | Country name |
+    | `year` | Year |
+    | `rgdpe` | Expenditure-side real GDP at chained PPPs, millions of 2017 USD |
+    | `pop` | Population, millions |
+
+5. Keep only these five columns and overwrite `df`.
+
+    **Hint:** `df <- df[, c("isocode", "country", "year", "rgdpe", "pop")]`
+
+6. Run `sum(is.na(df$rgdpe))`. How many missing values are there in the GDP variable?
+
+---
+
+## Part 2: Computing GDP per Capita
+
+Since `rgdpe` and `pop` are both measured in millions, dividing one by the other gives GDP per capita directly in US dollars (2017 PPP).
+
+$$\text{GDP per capita}_t = \frac{\text{rgdpe}_t}{\text{pop}_t}$$
+
+1. Generate a new column `gdp_pc` in `df` equal to `rgdpe / pop`.
+
+    **Hint:** `df$gdp_pc <- df$rgdpe / df$pop`
+
+2. Run `summary(df$gdp_pc)`. What is the minimum and maximum GDP per capita in the dataset?
+
+3. Filter the data to the year 2019 (the most recent year in PWT 10.0) and assign the result to `df_2019`.
+
+    **Hint:** `df_2019 <- subset(df, year == 2019)`
+
+4. Sort `df_2019` by `gdp_pc` in descending order. Which country had the highest GDP per capita in 2019? Which had the lowest?
+
+    **Hint:** `df_2019[order(-df_2019$gdp_pc), ]`
+
+The ten richest countries by GDP per capita in 2019 are shown below.
+
+```{r top10, echo=FALSE, fig.width=8, fig.height=4}
+df_2019 <- subset(df, year == 2019)
+df_2019 <- df_2019[order(-df_2019$gdp_pc), ]
+df_top10 <- head(df_2019[!is.na(df_2019$gdp_pc), ], 10)
+
+par(mar = c(5, 9, 3, 2))
+barplot(rev(df_top10$gdp_pc),
+        names.arg = rev(df_top10$country),
+        horiz     = TRUE,
+        col       = "steelblue",
+        border    = NA,
+        main = "Top 10 countries by GDP per capita, 2019",
+        sub  = "Real GDP per capita, chained 2017 PPP USD. Source: Penn World Tables 10.0",
+        xlab = "GDP per capita (USD)",
+        cex.main = 0.9, cex.sub = 0.7, cex.lab = 0.8, cex.names = 0.75,
+        las  = 1)
+```
+
+5. Run `sum(!is.na(df_2019$gdp_pc))`. How many countries have non-missing GDP per capita in 2019?
+
+---
+
+## Part 3: Growth Rates for a Single Country
+
+We now compute the annual growth rate of GDP per capita for your country. We use the same formula as in Lab 3:
+
+$$g_t = 100 \times \left(\frac{\text{GDP\_pc}_t}{\text{GDP\_pc}_{t-1}} - 1\right)$$
+
+where $t$ refers to the current period and $t-1$ the previous period.
+
+1. Filter `df` to your country (see the table at the top) and assign the result to `df_c`. Make sure the data is sorted by year.
+
+    **Hint:** `df_c <- subset(df, isocode == "NOR")` then `df_c <- df_c[order(df_c$year), ]`
+
+2. Run `nrow(df_c)` in the console. What does it return?
+
+3. Run `df_c$gdp_pc[-1]` and `df_c$gdp_pc[-nrow(df_c)]` in the console. Explain what these commands return.
+
+4. Generate a new column `gdp_pc_1` equal to the lagged GDP per capita (that is $\text{GDP\_pc}_{t-1}$).
+
+    **Hint:** `df_c$gdp_pc_1 <- c(NA, df_c$gdp_pc[-nrow(df_c)])`
+
+5. Generate a new column `gdp_pc_g` equal to the annual growth rate of GDP per capita.
+
+6. Generate a new column `positive` equal to `"positive"` if `gdp_pc_g > 0` and `"negative"` otherwise.
+
+    **Hint:** `df_c$positive <- ifelse(df_c$gdp_pc_g > 0, "positive", "negative")`
+
+7. Use the commands below to construct a bar chart of the growth rate over time. Adjust the country name in the title to match your country.
+
+```r
+colors <- ifelse(df_c$positive == "positive", "skyblue", "lightcoral")
+
+barplot(df_c$gdp_pc_g,
+        names.arg = df_c$year,
+        col       = colors,
+        border    = NA,
+        main = "Growth rate of GDP per capita: Norway, 1950-2019",
+        sub  = "Real GDP per capita, chained 2017 PPP USD. Source: Penn World Tables 10.0",
+        xlab = "Year",
+        ylab = "Growth rate (%)",
+        cex.main = 0.9, cex.sub = 0.7, cex.lab = 0.8, cex.names = 0.5)
+```
+
+The plot below shows this for the United Kingdom as an example.
+
+```{r barplot_gbr, echo=FALSE, fig.width=9, fig.height=4}
+df_c <- subset(df, isocode == "GBR")
+df_c <- df_c[order(df_c$year), ]
+df_c$gdp_pc_1 <- c(NA, df_c$gdp_pc[-nrow(df_c)])
+df_c$gdp_pc_g <- 100 * (df_c$gdp_pc / df_c$gdp_pc_1 - 1)
+df_c$positive <- ifelse(df_c$gdp_pc_g > 0, "positive", "negative")
+
+colors <- ifelse(df_c$positive == "positive", "skyblue", "lightcoral")
+
+par(mar = c(4, 4, 3, 2))
+barplot(df_c$gdp_pc_g,
+        names.arg = df_c$year,
+        col       = colors,
+        border    = NA,
+        main = "Growth rate of GDP per capita: United Kingdom, 1950-2019",
+        sub  = "Real GDP per capita, chained 2017 PPP USD. Source: Penn World Tables 10.0",
+        xlab = "Year",
+        ylab = "Growth rate (%)",
+        cex.main = 0.9, cex.sub = 0.7, cex.lab = 0.8, cex.names = 0.5)
+```
+
+8. Discuss your findings by writing a comment in your script. What are the most striking features of the growth rate series for your country?
+
+    **Hint:** Use `#` to write a comment.
+
+---
+
+## Part 4: Comparing Growth Rates Across Countries
+
+We now extend the analysis to several countries using only base R.
+
+1. Filter `df` to the six countries below and keep only years from 1960 onward. Assign the result to `df_sel`.
+
+    ```r
+    countries <- c("USA", "GBR", "DEU", "JPN", "CHN", "IND")
+
+    df_sel <- df[df$isocode %in% countries & df$year >= 1960, ]
+    ```
+
+2. Sort `df_sel` by country and year, then generate the lagged GDP per capita and the annual growth rate within each country.
+
+    ```r
+    df_sel <- df_sel[order(df_sel$isocode, df_sel$year), ]
+
+    df_sel$gdp_pc_1 <- ave(df_sel$gdp_pc, df_sel$isocode,
+                            FUN = function(x) c(NA, x[-length(x)]))
+
+    df_sel$gdp_pc_g <- 100 * (df_sel$gdp_pc / df_sel$gdp_pc_1 - 1)
+    ```
+
+    Run `names(df_sel)`. What new columns have been added?
+
+    **Hint:** `ave()` applies a function separately within each group defined by the second argument and returns a vector of the same length as the input.
+
+3. Plot the GDP per capita **level** over time for all six countries. Use `plot()` to initialise an empty plot, then add one line per country with `lines()`.
+
+    ```r
+    cols <- c("steelblue", "coral", "darkgreen", "purple", "orange", "brown")
+
+    plot(NA,
+         xlim = range(df_sel$year),
+         ylim = range(df_sel$gdp_pc, na.rm = TRUE),
+         main = "Real GDP per capita, 1960-2019",
+         sub  = "Chained 2017 PPP USD. Source: Penn World Tables 10.0",
+         xlab = "Year", ylab = "GDP per capita (USD)",
+         cex.main = 0.9, cex.sub = 0.7)
+
+    for (i in seq_along(countries)) {
+      d <- df_sel[df_sel$isocode == countries[i], ]
+      lines(d$year, d$gdp_pc, col = cols[i], lwd = 1.5)
+    }
+
+    legend("topleft", legend = countries, col = cols,
+           lty = 1, lwd = 1.5, cex = 0.8, bty = "n")
+    ```
+
+```{r gdp_pc_level, echo=FALSE, fig.width=8, fig.height=4}
+countries <- c("USA", "GBR", "DEU", "JPN", "CHN", "IND")
+
+df_sel <- df[df$isocode %in% countries & df$year >= 1960, ]
+df_sel <- df_sel[order(df_sel$isocode, df_sel$year), ]
+df_sel$gdp_pc_1 <- ave(df_sel$gdp_pc, df_sel$isocode,
+                        FUN = function(x) c(NA, x[-length(x)]))
+df_sel$gdp_pc_g <- 100 * (df_sel$gdp_pc / df_sel$gdp_pc_1 - 1)
+
+cols <- c("steelblue", "coral", "darkgreen", "purple", "orange", "brown")
+
+par(mar = c(4, 4, 3, 2))
+plot(NA,
+     xlim = range(df_sel$year),
+     ylim = range(df_sel$gdp_pc, na.rm = TRUE),
+     main = "Real GDP per capita, 1960-2019",
+     sub  = "Chained 2017 PPP USD. Source: Penn World Tables 10.0",
+     xlab = "Year", ylab = "GDP per capita (USD)",
+     cex.main = 0.9, cex.sub = 0.7)
+
+for (i in seq_along(countries)) {
+  d <- df_sel[df_sel$isocode == countries[i], ]
+  lines(d$year, d$gdp_pc, col = cols[i], lwd = 1.5)
+}
+
+legend("topleft", legend = countries, col = cols,
+       lty = 1, lwd = 1.5, cex = 0.8, bty = "n")
+```
+
+4. Now adapt the plot to show the annual **growth rate** of GDP per capita over time for all six countries.
+
+    **Hint:** Replace `ylim = range(df_sel$gdp_pc, ...)` with `ylim = range(df_sel$gdp_pc_g, ...)` and update the axis label. Add a horizontal line at zero with `abline(h = 0, lty = 2, col = "grey50")`.
+
+```{r gdp_pc_growth, echo=FALSE, fig.width=8, fig.height=4}
+par(mar = c(4, 4, 3, 2))
+plot(NA,
+     xlim = range(df_sel$year),
+     ylim = range(df_sel$gdp_pc_g, na.rm = TRUE),
+     main = "Annual growth rate of GDP per capita, 1960-2019",
+     sub  = "Chained 2017 PPP USD. Source: Penn World Tables 10.0",
+     xlab = "Year", ylab = "Growth rate (%)",
+     cex.main = 0.9, cex.sub = 0.7)
+
+abline(h = 0, lty = 2, col = "grey50")
+
+for (i in seq_along(countries)) {
+  d <- df_sel[df_sel$isocode == countries[i], ]
+  lines(d$year, d$gdp_pc_g, col = cols[i], lwd = 1.2)
+}
+
+legend("bottomleft", legend = countries, col = cols,
+       lty = 1, lwd = 1.5, cex = 0.8, bty = "n")
+```
+
+5. Compute the average annual growth rate for each country over the full period. Which country grew fastest on average?
+
+    **Hint:** `tapply(df_sel$gdp_pc_g, df_sel$isocode, mean, na.rm = TRUE)`
+
+```{r avg_growth, echo=FALSE, fig.width=7, fig.height=3.5}
+avg_g <- tapply(df_sel$gdp_pc_g, df_sel$isocode, mean, na.rm = TRUE)
+avg_g <- sort(avg_g)
+
+par(mar = c(4, 6, 3, 2))
+barplot(avg_g,
+        horiz  = TRUE,
+        col    = "steelblue",
+        border = NA,
+        main = "Average annual growth rate of GDP per capita, 1960-2019",
+        sub  = "Chained 2017 PPP USD. Source: Penn World Tables 10.0",
+        xlab = "Average annual growth rate (%)",
+        cex.main = 0.9, cex.sub = 0.7, cex.lab = 0.8, cex.names = 0.85,
+        las  = 1)
+```
+
+6. Filter to years between 1980 and 2019 and repeat step 5. Does the ranking change? Write a comment in your script discussing the result.
+
+    **Hint:** `df_sel_80 <- df_sel[df_sel$year >= 1980, ]`
+
+7. Discuss your findings. Are the results surprising? Which decades saw the fastest growth in China and India compared with the United States?
+
+---
+

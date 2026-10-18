@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 5</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2025-10-19" />
+    <meta name="date" content="2026-10-18" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2025-10-19
+### 2026-10-18
 ]
 
 ---
@@ -333,7 +333,7 @@ More demanding to collect data.
 
 Some other price indicies you might encounter: 
 
-The Fisher Price Index: `\(I_t^F = \sqrt{I_{t}^P\times I_{t}^F}\)`.
+The Fisher Price Index: `\(I_t^F = \sqrt{I_{t}^L\times I_{t}^P}\)`.
 
 The Lowe Price Index: `\(I_t^{Lo} = 100\times  \frac{\sum_{i = 1}^N Q_{ir} P_{ir}}{\sum_{i = 1}^N Q_{ir} P_{i0}}\)`.
 
@@ -400,9 +400,9 @@ The growth always relative to the `\(t-1\)`.
 
 The Chained-linked Paasche index is given by
 `\begin{equation}
-\large I^L_t = I^L_{t-1}\times \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{it-1}}\normalsize
+\large I^P_t = I^P_{t-1}\times \frac{\sum_{i = 1}^N Q_{it} P_{it}}{\sum_{i = 1}^N Q_{it} P_{it-1}}\normalsize
 \end{equation}`
-where `\(Q_{it-1}\)` denotes the weight in period `\(t-1\)`.
+where `\(Q_{it}\)` denotes the weight in period `\(t\)`.
 
 The growth always relative to the `\(t-1\)`.
 
@@ -616,7 +616,7 @@ Goal:
 
 - Track price development (over time).
 
-- Laspeyres price index: Update the basket based on what we consume.
+- Laspeyres price index: Keep the basket fixed at the base period quantities.
 
 - Weights (quanties) from surveys and national accounts.&lt;br&gt;&lt;br&gt;
 
