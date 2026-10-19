@@ -129,6 +129,10 @@
   <tr><td><code>sum(df$gdp)</code></td><td>Total GDP summed across all years</td></tr>
 </table>
 
+<div class="note">
+  <strong>The <code>na.rm = TRUE</code> option.</strong> By default, functions like <code>mean()</code>, <code>sum()</code>, and <code>sd()</code> return <code>NA</code> if there are any missing values in the input. R is being cautious and telling you the answer is unknown. Adding <code>na.rm = TRUE</code> tells R to remove the missing values before computing. For example, <code>df$gdp_growth</code> has one <code>NA</code> in the first year, so <code>mean(df$gdp_growth)</code> returns <code>NA</code>, while <code>mean(df$gdp_growth, na.rm = TRUE)</code> returns the average of all non-missing values.
+</div>
+
 <!-- ── 5. CREATING NEW VARIABLES ── -->
 <h2>5. Creating New Variables</h2>
 <p class="intro">We can create new columns derived from existing ones.</p>
@@ -179,6 +183,7 @@
 <p class="intro">In practice you will load data from a file rather than typing it in manually.</p>
 <table>
   <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>getwd()</code></td><td>Print the current working directory. This is the folder R looks in when you read or write a file using just a filename. Run this first if R cannot find your file.</td></tr>
   <tr><td><code>df &lt;- read.csv("gdp_data.csv")</code></td><td>Load data from a CSV file</td></tr>
   <tr><td><code>write.csv(df, "gdp_data.csv", row.names=FALSE)</code></td><td>Save data frame to a CSV file</td></tr>
   <tr><td><code>saveRDS(df, "gdp_data.rds")</code></td><td>Save as an R object file</td></tr>
@@ -206,6 +211,22 @@
   <tr><td><code>df$recession &lt;- ifelse(df$gdp_growth &lt; 0, 1, 0)</code></td><td>Dummy equal to 1 in years where GDP shrank</td></tr>
   <tr><td><code>df$era &lt;- ifelse(df$year &lt; 2000, "Pre-2000", "Post-2000")</code></td><td>Label each year as pre- or post-2000</td></tr>
   <tr><td><code>df$growth_label &lt;- ifelse(df$gdp_growth &gt; 3, "Fast",<br>&nbsp;&nbsp;ifelse(df$gdp_growth &gt; 0, "Slow", "Negative"))</code></td><td>Nested ifelse(): three categories of growth</td></tr>
+</table>
+
+<!-- ── 12. FUNCTIONS ── -->
+<h2>12. Writing and Using Functions</h2>
+<p class="intro">A function packages a block of code so you can reuse it with different inputs. The basic syntax is <code>my_fun &lt;- function(arg1, arg2) { ... }</code>. The last evaluated expression is returned automatically, or you can use <code>return()</code> explicitly.</p>
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+  <tr><td><code>growth_rate &lt;- function(x) {<br>&nbsp;&nbsp;c(NA, diff(x) / x[-length(x)] * 100)<br>}</code></td><td>Define a function that computes year-on-year growth rates for any numeric vector</td></tr>
+  <tr><td><code>growth_rate(df$gdp)</code></td><td>Call the function on the GDP column</td></tr>
+  <tr><td><code>normalize &lt;- function(x) {<br>&nbsp;&nbsp;(x - min(x)) / (max(x) - min(x))<br>}</code></td><td>Define a function that rescales a vector to the range [0, 1]</td></tr>
+  <tr><td><code>df$gdp_norm &lt;- normalize(df$gdp)</code></td><td>Apply the normalise function and store the result as a new column</td></tr>
+  <tr><td><code>above_threshold &lt;- function(x, threshold = 10) {<br>&nbsp;&nbsp;sum(x &gt; threshold)<br>}</code></td><td>Function with a default argument: counts values above a threshold (default 10)</td></tr>
+  <tr><td><code>above_threshold(df$gdp)</code></td><td>Count years where GDP exceeded 10 billion (uses default threshold)</td></tr>
+  <tr><td><code>above_threshold(df$gdp, threshold = 15)</code></td><td>Same function with a custom threshold of 15</td></tr>
+  <tr><td><code>decade_avg &lt;- function(data, dec) {<br>&nbsp;&nbsp;sub &lt;- subset(data, decade == dec)<br>&nbsp;&nbsp;mean(sub$gdp)<br>}</code></td><td>Function that takes the data frame and a decade, and returns mean GDP for that decade</td></tr>
+  <tr><td><code>decade_avg(df, 1990)</code></td><td>Average GDP during the 1990s</td></tr>
 </table>
 
 <p class="note">Last updated: October 2026</p>
