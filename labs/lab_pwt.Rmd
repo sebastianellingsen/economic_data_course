@@ -1,9 +1,8 @@
 ---
-title: "Economic Data 2026 - Labs"
-output:
-  html_document:
-    theme: cosmo
-    highlight: tango
+title: "Economic Data 2026 - Revision Lab with Solutions"
+subtitle: "Week 5"
+
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -15,19 +14,24 @@ df <- as.data.frame(pwt10.0)
 df$gdp_pc <- df$rgdpe / df$pop
 ```
 
-## GDP per Capita Growth Across Countries
-
-**Aims:** Familiarise yourself with the Penn World Tables, compute GDP per capita growth rates for a single country, and compare economic performance across a selection of countries.
+*Aims*: Data cleaning, functions, applying functions by groups, libraries and classes in R. \bigskip
 
 Your country depends on the timing of your lab session:
 
-| Monday | Tuesday | Wednesday | Thursday |
-|--------|---------|-----------|----------|
-| Norway (NOR) | Germany (DEU) | Spain (ESP) | France (FRA) |
+- Monday: Norway
 
----
+- Tuesday: Germany
 
-## Part 1: Loading the Penn World Tables
+- Wednesday: Spain
+
+- Thursday: France
+
+
+The [R commands](https://sebastianellingsen.github.io/economic_data_course/labs/r_commands_gdp.html) worksheet might be useful for these exercises.
+
+<br><br>
+
+## Part 1 (Loading the Penn World Tables)
 
 The Penn World Tables (PWT) is one of the most widely used datasets in macroeconomics and growth economics. It covers GDP, population, and productivity for over 180 countries from 1950 onwards. In this exercise we use version 10.0, which is available as an R package.
 
@@ -37,11 +41,51 @@ Open an R script and save it as `lab_pwt.R`. Then go through the following steps
 
     **Hint:** `install.packages("pwt10")` then `library(pwt10)`
 
+    <details>
+    <summary>**Solution**</summary>
+
+    Run this once to install the package from CRAN:
+
+    ```r
+    install.packages("pwt10")
+    ```
+
+    Then load it at the top of your script every time you open R:
+
+    ```r
+    library(pwt10)
+    ```
+
+    You only need to install a package once. After that, `library()` loads it into the current session.
+
+    </details>
+
 2. Load the dataset and assign it the name `df`.
 
     **Hint:** `data("pwt10.0")` then `df <- pwt10.0`
 
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    data("pwt10.0")
+    df <- as.data.frame(pwt10.0)
+    ```
+
+    `data()` loads the built-in dataset from the package into your environment. Converting to a data frame with `as.data.frame()` makes it easier to work with in base R.
+
+    </details>
+
 3. Run `head(df)`, `names(df)`, and `dim(df)` in the console. What do they return? How many observations are in the dataset?
+
+    <details>
+    <summary>**Solution**</summary>
+
+    - `head(df)` returns the first 6 rows of the dataset, giving a quick preview of its structure.
+    - `names(df)` returns the names of all 52 variables.
+    - `dim(df)` returns the dimensions: **12,810 rows and 52 columns**. There are 12,810 observations — roughly 183 countries observed over 70 years (1950–2019).
+
+    </details>
 
 4. The variables you will need for this exercise are described in the table below. Run `?pwt10.0` to see the full list of variables.
 
@@ -55,13 +99,33 @@ Open an R script and save it as `lab_pwt.R`. Then go through the following steps
 
 5. Keep only these five columns and overwrite `df`.
 
-    **Hint:** `df <- df[, c("isocode", "country", "year", "rgdpe", "pop")]`
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df <- df[, c("isocode", "country", "year", "rgdpe", "pop")]
+    ```
+
+    The square bracket notation `df[rows, columns]` selects rows and columns. Leaving the rows part empty keeps all rows. Passing a character vector of column names keeps only those columns.
+
+    </details>
 
 6. Run `sum(is.na(df$rgdpe))`. How many missing values are there in the GDP variable?
 
----
+    <details>
+    <summary>**Solution**</summary>
 
-## Part 2: Computing GDP per Capita
+    ```r
+    sum(is.na(df$rgdpe))
+    ```
+
+    This returns **1,431**. `is.na()` returns `TRUE` for each missing observation and `FALSE` otherwise; `sum()` then counts the `TRUE` values. Missing values arise because some countries do not have GDP data for all years, particularly in the early decades.
+
+    </details>
+
+
+
+## Part 2 (Computing GDP per Capita)
 
 Since `rgdpe` and `pop` are both measured in millions, dividing one by the other gives GDP per capita directly in US dollars (2017 PPP).
 
@@ -71,15 +135,59 @@ $$\text{GDP per capita}_t = \frac{\text{rgdpe}_t}{\text{pop}_t}$$
 
     **Hint:** `df$gdp_pc <- df$rgdpe / df$pop`
 
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df$gdp_pc <- df$rgdpe / df$pop
+    ```
+
+    Since both `rgdpe` and `pop` are in millions, dividing them cancels the units and gives GDP per capita in USD directly.
+
+    </details>
+
 2. Run `summary(df$gdp_pc)`. What is the minimum and maximum GDP per capita in the dataset?
+
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    summary(df$gdp_pc)
+    ```
+
+    The minimum is around **168 USD** (a very poor country in an early year) and the maximum is around **235,000 USD** (Luxembourg in a recent year). The large range reflects both cross-country inequality and long-run economic growth over time.
+
+    </details>
 
 3. Filter the data to the year 2019 (the most recent year in PWT 10.0) and assign the result to `df_2019`.
 
     **Hint:** `df_2019 <- subset(df, year == 2019)`
 
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df_2019 <- subset(df, year == 2019)
+    ```
+
+    Alternatively: `df_2019 <- df[df$year == 2019, ]`. Both give the same result. `subset()` is often more readable for simple conditions.
+
+    </details>
+
 4. Sort `df_2019` by `gdp_pc` in descending order. Which country had the highest GDP per capita in 2019? Which had the lowest?
 
     **Hint:** `df_2019[order(-df_2019$gdp_pc), ]`
+
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df_2019 <- df_2019[order(-df_2019$gdp_pc), ]
+    head(df_2019[!is.na(df_2019$gdp_pc), ])
+    tail(df_2019[!is.na(df_2019$gdp_pc), ])
+    ```
+
+    </details>
 
 The ten richest countries by GDP per capita in 2019 are shown below.
 
@@ -103,33 +211,112 @@ barplot(rev(df_top10$gdp_pc),
 
 5. Run `sum(!is.na(df_2019$gdp_pc))`. How many countries have non-missing GDP per capita in 2019?
 
----
+    <details>
+    <summary>**Solution**</summary>
 
-## Part 3: Growth Rates for a Single Country
+    ```r
+    sum(!is.na(df_2019$gdp_pc))
+    ```
+
+    The `!` negates `is.na()`, so this counts all non-missing observations. Not all 183 countries in the PWT have GDP data for 2019.
+
+    </details>
+
+
+
+## Part 3 (Growth Rates for a Single Country)
 
 We now compute the annual growth rate of GDP per capita for your country. We use the same formula as in Lab 3:
 
-$$g_t = 100 \times \left(\frac{\text{GDP\_pc}_t}{\text{GDP\_pc}_{t-1}} - 1\right)$$
+\begin{equation}
+g_t = 100 \times  \left(\frac{Y_t}{Y_{t-1}} - 1\right)
+\end{equation}
+
 
 where $t$ refers to the current period and $t-1$ the previous period.
 
 1. Filter `df` to your country (see the table at the top) and assign the result to `df_c`. Make sure the data is sorted by year.
 
-    **Hint:** `df_c <- subset(df, isocode == "NOR")` then `df_c <- df_c[order(df_c$year), ]`
+
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df_c <-  df[isocode == "NOR",]      # replace NOR with your country code
+    df_c <- df_c[order(df_c$year), ]
+    ```
+
+    Sorting by year is essential before computing lags. If the data were in a different order, the "previous year" values would be wrong.
+
+    </details>
 
 2. Run `nrow(df_c)` in the console. What does it return?
 
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    nrow(df_c)
+    ```
+
+    Returns **70**. The PWT covers 1950 to 2019, so there are 70 annual observations for each country.
+
+    </details>
+
 3. Run `df_c$gdp_pc[-1]` and `df_c$gdp_pc[-nrow(df_c)]` in the console. Explain what these commands return.
+
+    <details>
+    <summary>**Solution**</summary>
+
+    - `df_c$gdp_pc[-1]` removes the first element, returning values for years 1951–2019 (69 values).
+    - `df_c$gdp_pc[-nrow(df_c)]` removes the last element, returning values for years 1950–2018 (69 values).
+
+    These two vectors align so that element $i$ in the first vector is the current year and element $i$ in the second is the previous year — exactly what we need to compute year-on-year growth rates.
+
+    </details>
 
 4. Generate a new column `gdp_pc_1` equal to the lagged GDP per capita (that is $\text{GDP\_pc}_{t-1}$).
 
     **Hint:** `df_c$gdp_pc_1 <- c(NA, df_c$gdp_pc[-nrow(df_c)])`
 
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df_c$gdp_pc_1 <- c(NA, df_c$gdp_pc[-nrow(df_c)])
+    ```
+
+    `c(NA, ...)` prepends a missing value for the first year (1950), which has no previous year in the dataset. `[-nrow(df_c)]` drops the last value so the vector stays the same length as `df_c`.
+
+    </details>
+
 5. Generate a new column `gdp_pc_g` equal to the annual growth rate of GDP per capita.
+
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df_c$gdp_pc_g <- 100 * (df_c$gdp_pc / df_c$gdp_pc_1 - 1)
+    ```
+
+    This applies the growth rate formula element-by-element across the two columns. The result is a percentage: a value of 2.5 means GDP per capita grew by 2.5% in that year.
+
+    </details>
 
 6. Generate a new column `positive` equal to `"positive"` if `gdp_pc_g > 0` and `"negative"` otherwise.
 
     **Hint:** `df_c$positive <- ifelse(df_c$gdp_pc_g > 0, "positive", "negative")`
+
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df_c$positive <- ifelse(df_c$gdp_pc_g > 0, "positive", "negative")
+    ```
+
+    `ifelse()` applies the condition element-by-element. We use this column to colour bars in the next step — blue for positive years, red for negative.
+
+    </details>
 
 7. Use the commands below to construct a bar chart of the growth rate over time. Adjust the country name in the title to match your country.
 
@@ -174,19 +361,30 @@ barplot(df_c$gdp_pc_g,
 
     **Hint:** Use `#` to write a comment.
 
----
 
-## Part 4: Comparing Growth Rates Across Countries
+
+
+
+
+
+## Part 4 (Comparing Growth Rates Across Countries)
 
 We now extend the analysis to several countries using only base R.
 
 1. Filter `df` to the six countries below and keep only years from 1960 onward. Assign the result to `df_sel`.
 
+
+    <details>
+    <summary>**Solution**</summary>
+
     ```r
     countries <- c("USA", "GBR", "DEU", "JPN", "CHN", "IND")
-
     df_sel <- df[df$isocode %in% countries & df$year >= 1960, ]
     ```
+
+    `%in%` checks whether each value of `isocode` appears in the `countries` vector. The `&` operator combines two logical conditions — both must be true for a row to be kept.
+
+    </details>
 
 2. Sort `df_sel` by country and year, then generate the lagged GDP per capita and the annual growth rate within each country.
 
@@ -203,6 +401,15 @@ We now extend the analysis to several countries using only base R.
 
     **Hint:** `ave()` applies a function separately within each group defined by the second argument and returns a vector of the same length as the input.
 
+    <details>
+    <summary>**Solution**</summary>
+
+    `names(df_sel)` returns: `isocode`, `country`, `year`, `rgdpe`, `pop`, `gdp_pc`, `gdp_pc_1`, `gdp_pc_g` — two new columns: the lag and the growth rate.
+
+    The key here is `ave()`. Because the dataset contains multiple countries, a simple lag would incorrectly use the last year of one country as the "previous year" for the first year of the next. `ave()` applies the lag function separately within each country, avoiding this error.
+
+    </details>
+
 3. Plot the GDP per capita **level** over time for all six countries. Use `plot()` to initialise an empty plot, then add one line per country with `lines()`.
 
     ```r
@@ -216,14 +423,25 @@ We now extend the analysis to several countries using only base R.
          xlab = "Year", ylab = "GDP per capita (USD)",
          cex.main = 0.9, cex.sub = 0.7)
 
-    for (i in seq_along(countries)) {
-      d <- df_sel[df_sel$isocode == countries[i], ]
-      lines(d$year, d$gdp_pc, col = cols[i], lwd = 1.5)
-    }
+    lines(df_sel[df_sel$isocode == "USA", ]$year, df_sel[df_sel$isocode == "USA", ]$gdp_pc, col = "steelblue",  lwd = 1.5)
+    lines(df_sel[df_sel$isocode == "GBR", ]$year, df_sel[df_sel$isocode == "GBR", ]$gdp_pc, col = "coral",     lwd = 1.5)
+    lines(df_sel[df_sel$isocode == "DEU", ]$year, df_sel[df_sel$isocode == "DEU", ]$gdp_pc, col = "darkgreen", lwd = 1.5)
+    lines(df_sel[df_sel$isocode == "JPN", ]$year, df_sel[df_sel$isocode == "JPN", ]$gdp_pc, col = "purple",    lwd = 1.5)
+    lines(df_sel[df_sel$isocode == "CHN", ]$year, df_sel[df_sel$isocode == "CHN", ]$gdp_pc, col = "orange",    lwd = 1.5)
+    lines(df_sel[df_sel$isocode == "IND", ]$year, df_sel[df_sel$isocode == "IND", ]$gdp_pc, col = "brown",     lwd = 1.5)
 
     legend("topleft", legend = countries, col = cols,
            lty = 1, lwd = 1.5, cex = 0.8, bty = "n")
     ```
+
+    <details>
+    <summary>**Solution**</summary>
+
+    Each `lines()` call adds one country to the plot. We filter to that country's rows using `df_sel[df_sel$isocode == "...", ]` and pass the `year` and `gdp_pc` columns as the x and y arguments.
+
+    `plot(NA, ...)` creates a blank plot with the correct axis ranges without drawing anything — `range()` finds the min and max automatically, and `na.rm = TRUE` ignores missing values when computing it.
+
+    </details>
 
 ```{r gdp_pc_level, echo=FALSE, fig.width=8, fig.height=4}
 countries <- c("USA", "GBR", "DEU", "JPN", "CHN", "IND")
@@ -245,10 +463,12 @@ plot(NA,
      xlab = "Year", ylab = "GDP per capita (USD)",
      cex.main = 0.9, cex.sub = 0.7)
 
-for (i in seq_along(countries)) {
-  d <- df_sel[df_sel$isocode == countries[i], ]
-  lines(d$year, d$gdp_pc, col = cols[i], lwd = 1.5)
-}
+lines(df_sel[df_sel$isocode == "USA", ]$year, df_sel[df_sel$isocode == "USA", ]$gdp_pc, col = "steelblue",  lwd = 1.5)
+lines(df_sel[df_sel$isocode == "GBR", ]$year, df_sel[df_sel$isocode == "GBR", ]$gdp_pc, col = "coral",     lwd = 1.5)
+lines(df_sel[df_sel$isocode == "DEU", ]$year, df_sel[df_sel$isocode == "DEU", ]$gdp_pc, col = "darkgreen", lwd = 1.5)
+lines(df_sel[df_sel$isocode == "JPN", ]$year, df_sel[df_sel$isocode == "JPN", ]$gdp_pc, col = "purple",    lwd = 1.5)
+lines(df_sel[df_sel$isocode == "CHN", ]$year, df_sel[df_sel$isocode == "CHN", ]$gdp_pc, col = "orange",    lwd = 1.5)
+lines(df_sel[df_sel$isocode == "IND", ]$year, df_sel[df_sel$isocode == "IND", ]$gdp_pc, col = "brown",     lwd = 1.5)
 
 legend("topleft", legend = countries, col = cols,
        lty = 1, lwd = 1.5, cex = 0.8, bty = "n")
@@ -257,6 +477,33 @@ legend("topleft", legend = countries, col = cols,
 4. Now adapt the plot to show the annual **growth rate** of GDP per capita over time for all six countries.
 
     **Hint:** Replace `ylim = range(df_sel$gdp_pc, ...)` with `ylim = range(df_sel$gdp_pc_g, ...)` and update the axis label. Add a horizontal line at zero with `abline(h = 0, lty = 2, col = "grey50")`.
+
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    plot(NA,
+         xlim = range(df_sel$year),
+         ylim = range(df_sel$gdp_pc_g, na.rm = TRUE),
+         main = "Annual growth rate of GDP per capita, 1960-2019",
+         sub  = "Chained 2017 PPP USD. Source: Penn World Tables 10.0",
+         xlab = "Year", ylab = "Growth rate (%)",
+         cex.main = 0.9, cex.sub = 0.7)
+
+    abline(h = 0, lty = 2, col = "grey50")
+
+    for (i in seq_along(countries)) {
+      d <- df_sel[df_sel$isocode == countries[i], ]
+      lines(d$year, d$gdp_pc_g, col = cols[i], lwd = 1.2)
+    }
+
+    legend("bottomleft", legend = countries, col = cols,
+           lty = 1, lwd = 1.5, cex = 0.8, bty = "n")
+    ```
+
+    The only changes from step 3 are: replacing `gdp_pc` with `gdp_pc_g` in `ylim` and in `lines()`, updating the axis label, and adding `abline()` to draw a reference line at zero.
+
+    </details>
 
 ```{r gdp_pc_growth, echo=FALSE, fig.width=8, fig.height=4}
 par(mar = c(4, 4, 3, 2))
@@ -281,10 +528,31 @@ legend("bottomleft", legend = countries, col = cols,
 
 5. Compute the average annual growth rate for each country over the full period. Which country grew fastest on average?
 
-    **Hint:** `tapply(df_sel$gdp_pc_g, df_sel$isocode, mean, na.rm = TRUE)`
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    mean(df_sel[df_sel$isocode == "USA", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel[df_sel$isocode == "GBR", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel[df_sel$isocode == "DEU", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel[df_sel$isocode == "JPN", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel[df_sel$isocode == "CHN", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel[df_sel$isocode == "IND", ]$gdp_pc_g, na.rm = TRUE)
+    ```
+
+    **China** grew fastest on average, followed by Japan and India. The United States and United Kingdom had the lowest average growth rates among the six — reflecting their already high income levels in 1960. Fast growth is easier from a lower starting point, since poorer countries can adopt technologies already developed elsewhere (catch-up growth).
+
+    </details>
 
 ```{r avg_growth, echo=FALSE, fig.width=7, fig.height=3.5}
-avg_g <- tapply(df_sel$gdp_pc_g, df_sel$isocode, mean, na.rm = TRUE)
+avg_g <- c(
+  USA = mean(df_sel[df_sel$isocode == "USA", ]$gdp_pc_g, na.rm = TRUE),
+  GBR = mean(df_sel[df_sel$isocode == "GBR", ]$gdp_pc_g, na.rm = TRUE),
+  DEU = mean(df_sel[df_sel$isocode == "DEU", ]$gdp_pc_g, na.rm = TRUE),
+  JPN = mean(df_sel[df_sel$isocode == "JPN", ]$gdp_pc_g, na.rm = TRUE),
+  CHN = mean(df_sel[df_sel$isocode == "CHN", ]$gdp_pc_g, na.rm = TRUE),
+  IND = mean(df_sel[df_sel$isocode == "IND", ]$gdp_pc_g, na.rm = TRUE)
+)
 avg_g <- sort(avg_g)
 
 par(mar = c(4, 6, 3, 2))
@@ -303,7 +571,21 @@ barplot(avg_g,
 
     **Hint:** `df_sel_80 <- df_sel[df_sel$year >= 1980, ]`
 
+    <details>
+    <summary>**Solution**</summary>
+
+    ```r
+    df_sel_80 <- df_sel[df_sel$year >= 1980, ]
+    mean(df_sel_80[df_sel_80$isocode == "USA", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel_80[df_sel_80$isocode == "GBR", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel_80[df_sel_80$isocode == "DEU", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel_80[df_sel_80$isocode == "JPN", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel_80[df_sel_80$isocode == "CHN", ]$gdp_pc_g, na.rm = TRUE)
+    mean(df_sel_80[df_sel_80$isocode == "IND", ]$gdp_pc_g, na.rm = TRUE)
+    ```
+
+    </details>
+
 7. Discuss your findings. Are the results surprising? Which decades saw the fastest growth in China and India compared with the United States?
 
----
 

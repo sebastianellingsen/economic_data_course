@@ -4,7 +4,7 @@
     <title>Economic Data - Lecture 6</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2025-11-02" />
+    <meta name="date" content="2026-10-21" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2025-11-02
+### 2026-10-21
 ]
 
 ---
@@ -51,6 +51,18 @@ code.r.hljs.remark-code:hover{
   width: 500px;
   border-style: solid;
 }
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 &lt;/style&gt;
 
 
@@ -72,10 +84,24 @@ code.r.hljs.remark-code:hover{
 
 
 
+&lt;div class="centered-content"&gt;
+  &lt;h2&gt; &lt;/h2&gt;
+   &lt;p&gt;  Measuring Prices Over Time &lt;p&gt;
+
+   &lt;p&gt;  Measuring Prices Across Space &lt;p&gt;
+
+  &lt;p&gt;  Data Formats &lt;p&gt;
+
+
+&lt;/div&gt;
+
+
+
+
 ---
 
 
-## More About Data on Prices 
+## More About Data on Prices
 
 **Previous lecture**: 
 
@@ -1964,23 +1990,6 @@ where `\(Q_{it}\)` denotes the quantity and `\(P_{it}\)` the price of good `\(i\
 
 ---
 
-## Summary
-
-In all cases the increase is a weighted average of prices (Laspeyres).
-
-- Weights are based on expenditure surveys and national account flows.
-
-- We buy *more* of it `\(\Rightarrow\)` it gets *higher* weight!
-
-- Weights updated regularly and linked (chain-linking).
-
-Then we study how the index changes over time to measure inflation.&lt;br&gt;&lt;br&gt;
-
-There are many ways to measure inflation, the key is to make an informed choice of data depending on the question. 
-
-
-
-
 
 ---
 
@@ -2192,11 +2201,11 @@ class: inverse, center, middle
 
  &lt;br&gt;&lt;br&gt;
  
-- Displays GDP data across multiple years with each year in a separate column.
+- Displays data across multiple years with each year in a separate column.
 
-- Is often more readable and therefore provided when downloaded in Excel formats (like Eurostat).
+- More readable for humans and the default format in Excel downloads (e.g. Eurostat).
 
-- Preffered by statistical software: simplifies functions like grouping, filtering, and calculating trends over time.
+- Each row represents one unit (e.g. a country), making it compact.
 
 
 ---
@@ -2263,29 +2272,62 @@ class: inverse, center, middle
   &lt;/table&gt;
 &lt;/div&gt;
 
+ &lt;br&gt;&lt;br&gt;
 
+- Each row is one observation: one country in one year.
+
+- Preferred by statistical software: ggplot2, dplyr, and most R functions expect this format.
+
+- Makes it straightforward to group by country, filter by year, or compute growth rates.
 
 
 
 
 ---
 
+## Citing Data
+&lt;br&gt;
+
+Always cite the data you use just like academic papers. The AEA recommends:
+
+**Author(s)/Institution. Year. "Title." Publisher/Distributor. Place. URL. Date accessed.**
+
+Examples from this course:
+
+- Eurostat. 2026. "Harmonised Indices of Consumer Prices (HICP)." Online data code: prc_hicp_minr. Eurostat, Luxembourg. https://doi.org/10.2908/PRC_HICP_MINR. Accessed: 21/10/2026.
+
+- Feenstra, Robert C., Robert Inklaar, and Marcel P. Timmer. 2015. "The Next Generation of the Penn World Tables." *American Economic Review* 105 (10): 3150–82. https://www.ggdc.net/pwt.
+
+Many datasets also have citation guides, in that case you can just follow that.Full guidance: [AEA Data Citation Guide Guide](https://social-science-data-editors.github.io/guidance/Guidance/addtl-data-citation-guidance.html)
+
+The key point is that someone is able to reproduce your analysis!
+
+---
+
+class: inverse, center, middle
+
+# Summary
+
+
+
+
+---
 
 ## Summary
 
 After this lecture you should be able to:
 
-- Know how the coursework works.
-
-- How inflation is measured.
+- Explain how inflation is measured and what the CPI captures.
 
 - Explain and use the PPS adjustment to compare prices across regions.
 
-- Adjustment for price level differences across countries.
+- Understand how price level differences affect international income comparisons.
 
-- Used to adjust monetary values across countries. 
+- Convert between wide and long data formats.
 
-We will work more on this material in this weeks lab.
+- Cite data sources correctly using the AEA format.
+
+We will work more on this material in this week's lab.
 
 
 
