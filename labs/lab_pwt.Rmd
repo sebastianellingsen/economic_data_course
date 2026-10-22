@@ -87,15 +87,8 @@ Open an R script and save it as `lab_pwt.R`. Then go through the following steps
 
     </details>
 
-4. The variables you will need for this exercise are described in the table below. Run `?pwt10.0` to see the full list of variables.
+4. The variables you will need for this exercise are described in the table below. Run `??pwt10` to see the full list of variables.
 
-    | Variable | Description |
-    |----------|-------------|
-    | `isocode` | ISO 3-letter country code |
-    | `country` | Country name |
-    | `year` | Year |
-    | `rgdpe` | Expenditure-side real GDP at chained PPPs, millions of 2017 USD |
-    | `pop` | Population, millions |
 
 5. Keep only these five columns and overwrite `df`.
 

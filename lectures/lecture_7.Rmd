@@ -58,6 +58,18 @@ code.r.hljs.remark-code:hover{
   width: 500px;
   border-style: solid;
 }
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 ```
 
 
@@ -65,6 +77,22 @@ code.r.hljs.remark-code:hover{
 
 
 
+
+<div class="centered-content">
+  <h2> </h2>
+   <p>  Labour Market Data <p>
+
+   <p>  Register and Survey Data <p>
+
+  <p>  Seasonal Adjustment <p>
+
+
+</div>
+
+
+
+
+---
 
 ## After this lecture you should be able to
 
@@ -74,7 +102,7 @@ code.r.hljs.remark-code:hover{
 
 2. Explain the difference between register and survey data.
 
-3. Explain the intuition behind seasonal adjustment. 
+3. Explain the intuition behind seasonal adjustment.
 
 
 <!-- froim pop to labor market, some def of labor market, then the data sources, then seasnoall adjustment  -->
@@ -84,7 +112,7 @@ code.r.hljs.remark-code:hover{
 ---
 class: inverse, center, middle
 
-# Data About the Labor Market
+# Data About the Labour Market
 
 
 ---
@@ -387,7 +415,7 @@ p1 <- ggplot(data = df, aes(x = DATE, y = AURUKM))+
         plot.background  = element_rect(fill = "transparent", colour = NA),
         legend.background = element_rect(fill='transparent'),
         legend.key=element_blank())+
-  scale_x_date(date_breaks = "120 month", date_labels = "%m-%Y")+
+  scale_x_date(date_breaks = "120 month", date_labels = "%Y")+
   xlab("") +
   ylab("Unemployment rate (%)") +
   labs(title = "Monthly unemployment rate for the UK, 1855-2016",
@@ -570,24 +598,28 @@ Administrative data
 
 ```{r, fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE,fig.align="center", include=FALSE}
 
-register <- read_csv("../data/Figure_6__Claimant_Count_has_increased_since_March_2020.csv", skip = 6) %>% 
-  rename(date = '...1',
-         register = 'Unemployment (18-64)',
-         survey = 'Claimant Count (18+)') %>% 
-  select(date, register) %>% 
-  rename(emp = register) %>% 
-  mutate(Measure = 'Register') %>% 
-  mutate(date = seq(1, 340))
+parse_ons_date <- function(x) {
+  end_part <- trimws(gsub(".* to ", "", trimws(x)))
+  as.Date(paste("01", end_part), format = "%d %b %Y")
+}
 
-
-survey <- read_csv("../data/Figure_6__Claimant_Count_has_increased_since_March_2020.csv", skip = 6) %>% 
+register <- read_csv("../data/Figure_6__Claimant_Count_has_increased_since_March_2020.csv", skip = 6) %>%
   rename(date = '...1',
-         register = 'Unemployment (18-64)',
-         survey = 'Claimant Count (18+)') %>% 
-  select(date, survey)%>% 
-  rename(emp = survey) %>% 
-  mutate(Measure = 'Survey') %>% 
-  mutate(date = seq(1, 340))
+         lfs = 'Unemployment (18-64)',
+         claimant = 'Claimant Count (18+)') %>%
+  select(date, claimant) %>%
+  rename(emp = claimant) %>%
+  mutate(Measure = 'Register',
+         date = parse_ons_date(date))
+
+survey <- read_csv("../data/Figure_6__Claimant_Count_has_increased_since_March_2020.csv", skip = 6) %>%
+  rename(date = '...1',
+         lfs = 'Unemployment (18-64)',
+         claimant = 'Claimant Count (18+)') %>%
+  select(date, lfs) %>%
+  rename(emp = lfs) %>%
+  mutate(Measure = 'Survey',
+         date = parse_ons_date(date))
 
 df <- rbind(register, survey)
 
@@ -610,6 +642,7 @@ p1 <- ggplot(data = df, aes(x = date, y = emp, linetype = as.factor(Measure))) +
         panel.background = element_rect(fill = "transparent", colour = NA),
         plot.background  = element_rect(fill = "transparent", colour = NA),
         legend.key=element_blank())+
+  scale_x_date(date_breaks = "4 years", date_labels = "%Y") +
   xlab("") +
   ylab("Population (thousands)") +
   labs(title = "Unemployed in the UK, 1992 - 2019",
@@ -660,7 +693,7 @@ class: inverse, center, middle
 
 ## Seasonal variation 
 
-Labor market data has a substantial seasonal component.
+Labour market data has a substantial seasonal component.
 
 - Night: fewer people work, travel etc.
 
@@ -1305,6 +1338,14 @@ There is a large literature in econometrics and statistics on filtering time ser
 
 <!-- - Earnings & promotions -->
 
+
+
+
+---
+
+class: inverse, center, middle
+
+# Summary
 
 
 
