@@ -95,7 +95,7 @@ code.r.hljs.remark-code:hover{
 
    <p>  Measuring Prices Across Space <p>
 
-  <p>  Data Formats <p>
+  <p>  Some Loose Ends <p>
 
 
 </div>
@@ -1085,7 +1085,7 @@ In economics, this is known as the Balassa–Samuelson effect
 
 class: inverse, center, middle
 
-# Data Formats
+# Some Loose Ends 
 
 
 
@@ -1142,6 +1142,7 @@ class: inverse, center, middle
 
 ## Long Data Formats
 
+.pull-left[
 <div>
   <table>
     <caption>GDP by Country in Long Format</caption>
@@ -1201,14 +1202,19 @@ class: inverse, center, middle
     </tbody>
   </table>
 </div>
+]
 
- <br><br>
+.pull-right[
+<br><br>
 
 - Each row is one observation: one country in one year.
 
 - Preferred by statistical software: ggplot2, dplyr, and most R functions expect this format.
 
 - Makes it straightforward to group by country, filter by year, or compute growth rates.
+
+- You need to be able to transition between these different formats.
+]
 
 
 
@@ -1228,9 +1234,102 @@ Examples from this course:
 
 - Feenstra, Robert C., Robert Inklaar, and Marcel P. Timmer. 2015. "The Next Generation of the Penn World Tables." *American Economic Review* 105 (10): 3150–82. https://www.ggdc.net/pwt.
 
-Many datasets also have citation guides, in that case you can just follow that.Full guidance: [AEA Data Citation Guide Guide](https://social-science-data-editors.github.io/guidance/Guidance/addtl-data-citation-guidance.html)
+Many datasets also have citation guides, in that case you can just follow that. Full guidance: [AEA Data Citation Guide Guide](https://social-science-data-editors.github.io/guidance/Guidance/addtl-data-citation-guidance.html)
 
 The key point is that someone is able to reproduce your analysis!
+
+
+
+
+---
+
+## Correlation is Not Causation
+
+Two variables are correlated if they move together. 
+
+This does **not** mean one causes the other. 
+
+Three common reasons a correlation can mislead:
+
+- confounding, 
+
+- reverse causality,
+
+- spurious correlation. 
+
+<!-- - **Confounding**: a third variable drives both. Countries with more storks have higher birth rates — both are driven by rural land area, not by storks delivering babies. -->
+
+<!-- - **Reverse causality**: cities with more police officers tend to have more crime — not because officers cause crime, but because high-crime areas hire more officers. -->
+
+<!-- - **Spurious coincidence**: per capita cheese consumption correlates almost perfectly with deaths by bedsheet tangling (Vigen, *Spurious Correlations*). Both happen to trend similarly over time, for no reason at all. <br><br> -->
+
+Trending variables are especially prone to this:
+
+Any two series that both grow over time will appear correlated: GDP, life expectancy, phone ownership, and CO2 emissions all rise together, but that does not mean each causes the others.
+
+
+
+
+---
+
+## Confounding
+
+<img src="images/chocolate.png" style="width:50%; height:auto; display:block; margin:auto;" />
+
+.center[Source: *New England Journal of Medicine* ([Messerli, 2012](https://www.nejm.org/doi/full/10.1056/NEJMon1211064))]
+
+
+
+
+---
+
+## Reverse causality
+
+<img src="images/police_crime_scatter.png" style="width:60%; height:auto; display:block; margin:auto;" />
+
+<!-- .center[Sources: Eurostat (gov_10a_exp, demo_pjan, crim_off_cat), 2019.] -->
+
+---
+
+
+## Spurious correlation
+
+<img src="images/sociology.png" style="width:60%; height:auto; display:block; margin:auto;" />
+
+.center[Sources: *Thinking Clearly with Data*, Bueno de Mesquita and Fowler, 2021.]
+
+
+---
+
+## Spurious correlation
+
+<img src="images/nic_cage.png" style="width:60%; height:auto; display:block; margin:auto;" />
+
+.center[Sources: *Thinking Clearly with Data*, Bueno de Mesquita and Fowler, 2021.]
+
+
+
+---
+
+
+## What This Means for This Course
+
+This course is mostly about description or documenting patterns in data: 
+
+- how prices move over time, 
+
+- how GDP differs across countries, 
+
+- how inequality across places.
+
+Description is valuable: you need to know the facts before you can explain them. <br><br>
+
+But a correlation in the data only sometimes tell us *why* something happens.
+
+- Establishing causality requires a different toolkit: experiments, natural experiments, instrumental variables (covered in econometrics). <br><br>
+
+$\Rightarrow$ Think carefully about what your data can and cannot tell you.
+
 
 ---
 
@@ -1256,6 +1355,8 @@ After this lecture you should be able to:
 - Convert between wide and long data formats.
 
 - Cite data sources correctly using the AEA format.
+
+- The difference between causation and correlation.
 
 We will work more on this material in this week's lab.
 

@@ -1,5 +1,5 @@
 ---
-title: "Economic Data - Lecture 9"
+title: "Economic Data - Lecture 8"
 subtitle: "Sebastian Ellingsen"
 author: "School of Economics - University of Bristol"
 date: "`r Sys.Date()`"
@@ -57,6 +57,17 @@ code.r.hljs.remark-code:hover{
   width: 500px;
   border-style: solid;
 }
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 ```
 
 <style>
@@ -73,19 +84,31 @@ code.r.hljs.remark-code:hover{
 </style>
 
 
+<div class="centered-content">
+  <h2> </h2>
+   <p>  Measuring Poverty <p>
+
+   <p>  Lorenz Curves <p>
+
+  <p>  The Gini Index <p>
+
+
+</div>
+
+
+
+
+---
+
 ## After this lecture you should be able to
 
 <br><br>
 
-How to measure poverty.
+1. Explain how to measure poverty.
 
-Explain basic inequality measures. 
+2. Explain basic inequality measures (Lorenz curves and Gini index).
 
-- Lorenz curves.
-
-- Gini index.
-
-Explain how to calculate these.
+3. Calculate these measures using R.
 
 
 
@@ -437,7 +460,7 @@ ylim(5,50)
 p1
 ```
 
-
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/tree/main/data" target="_blank">here</a>.
 
 
 ---
@@ -486,6 +509,7 @@ gini_plot <- ggplot(df, aes(x=country, y=gini)) +
 gini_plot
 ```
 
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/tree/main/data" target="_blank">here</a>.
 
 
 ---
@@ -511,9 +535,9 @@ cum_inc_share_c14 <-  cumsum(decs_c14) / total_inc_14
 ```
 
 
-`r chunk_reveal("chunk_11")`
+`r chunk_reveal("chunk_1")`
 
-```{r chunk_11, include = FALSE}
+```{r chunk_1, include = FALSE}
 # Loading data for China 1980 and 2014 
 read_excel("../data/GCIPrawdata.xlsx", skip = 2) %>% 
   filter(Country == 'China', Year %in% c(1980, 2014))
@@ -540,9 +564,9 @@ cum_inc_share_c14 <-  cumsum(decs_c14) / total_inc_14
 
 ---
 
-`r chunk_reveal("chunk_21")`
+`r chunk_reveal("chunk_2")`
 
-```{r chunk_21, include = FALSE}
+```{r chunk_2, include = FALSE}
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue", 
      lwd = 2, ylab = "Cumulative income share")  
@@ -558,9 +582,9 @@ title("Lorenz curve, China, 1980")
 
 
 ---
-`r chunk_reveal("chunk_31")`
+`r chunk_reveal("chunk_3")`
 
-```{r chunk_31, include = FALSE}
+```{r chunk_3, include = FALSE}
 # Plotting the data
 plot(cum_inc_share_c14, type = "l", col = "blue", 
      lwd = 2, ylab = "Cumulative income share")  
@@ -574,9 +598,9 @@ title("Lorenz curve, China, 2014")
 
 
 ---
-`r chunk_reveal("chunk_41")`
+`r chunk_reveal("chunk_4")`
 
-```{r chunk_41, include = FALSE}
+```{r chunk_4, include = FALSE}
 # Plotting the data
 plot(cum_inc_share_c80, type = "l", col = "blue", 
      lty = 2, lwd = 2, xlab = "Deciles", 
@@ -653,6 +677,8 @@ p1 <- ggplot(data = df, aes(x = year, y = gini))+
 ```{r dev.args = list(bg = 'transparent'), fig.align="center", echo=FALSE, message=FALSE, warning=FALSE, fig_caption= FALSE, fig.height = 9, fig.width = 14, fig.align="center"}
 p1
 ```
+
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/tree/main/data" target="_blank">here</a>.
 
 
 ---
@@ -742,7 +768,7 @@ p1 <- ggplot(data = df %>% filter(year>=1980), aes(x = year, y = value, color = 
 p1
 ```
 
-
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/tree/main/data" target="_blank">here</a>.
 
 
 ---
@@ -791,11 +817,13 @@ gini_plot <- ggplot(df, aes(x=country, y=gini)) +
 gini_plot
 ```
 
+Data available <a href="https://github.com/sebastianellingsen/economic_data_course/tree/main/data" target="_blank">here</a>.
+
 
 ---
-`r chunk_reveal("chunk_51")`
+`r chunk_reveal("chunk_5")`
 
-```{r chunk_51, include = FALSE}
+```{r chunk_5, include = FALSE}
 read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>% 
   select("Country Name", "2019") %>% 
   rename(country = "Country Name", 
@@ -810,9 +838,9 @@ read_csv("../data/API_SI.POV.GINI_DS2_en_csv_v2_5994673.csv", skip = 4) %>%
 
 
 ---
-`r chunk_reveal("chunk_61")`
+`r chunk_reveal("chunk_6")`
 
-```{r chunk_61, include = FALSE}
+```{r chunk_6, include = FALSE}
 ggplot(df, aes(x=country, y=gini)) +
   geom_linerange(aes(ymin=0, ymax=gini, alpha = 0.8)) +
   geom_hline(yintercept = 0)+
@@ -884,13 +912,17 @@ Measurement:
 
 ## Summary
 
-GDP is largely silent on the distribution of income across individuals. 
+<br><br>
 
-Data on economic inequality is an important input in policy.
+1. Explain how to measure poverty.
 
-Numerous ways to quantify inequality. 
+2. Explain basic inequality measures (Lorenz curves and Gini index).
 
-The most common is the Gini index and income shares.
+3. Calculate these measures using R.
+
+<br><br>
+
+Data for all charts available <a href="https://github.com/sebastianellingsen/economic_data_course/tree/main/data" target="_blank">here</a>.
 
 
 
