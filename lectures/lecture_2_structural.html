@@ -4,7 +4,7 @@
     <title>Quantitative Economic Geography</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2025-11-18" />
+    <meta name="date" content="2026-10-30" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2025-11-18
+### 2026-10-30
 ]
 
 ---
@@ -63,6 +63,10 @@ code.r.hljs.remark-code:hover{
   margin-bottom: auto;
 }
 
+.spacer {
+  margin-top: 2.5rem;
+}
+
 &lt;/style&gt;
 
 &lt;style type="text/css"&gt;
@@ -86,19 +90,15 @@ summary {
 ## Outline of the Lecture 
 
 
- &lt;br&gt;&lt;br&gt;
-  &lt;br&gt;&lt;br&gt;
+&lt;div class="spacer"&gt;&lt;/div&gt;
 
 Quantitative regional economics
-
 
 &lt;br&gt;
 
 A workhorse model
 
-
 &lt;br&gt;
-
 
 Applications and extensions
 
@@ -131,7 +131,7 @@ How can we incorporate all these forces into *tractable, quantitative models*?
 
 ---
 
-## 
+## Economic Activity in Europe
 
 &lt;img src="images/europe.png" style="width:50%; height:auto; display:block; margin:auto;" /&gt;
 
@@ -364,7 +364,7 @@ Therefore, an equilibrium exists and is unique when the dispersion force is larg
 
 ---
 
-##  
+## Equilibrium: Existence and Uniqueness
 
 &lt;img src="images/equilibrium.png" style="width:60%; height:auto; display:block; margin:auto;" /&gt;
 
@@ -392,7 +392,7 @@ We set `\(\sigma = 5\)`, `\(\alpha=0.5\)`, `\(\beta=-0.3\)`.
 
 
 
-##  
+## Model Inputs: Amenities and Productivity
 
 
 
@@ -405,7 +405,7 @@ We set `\(\sigma = 5\)`, `\(\alpha=0.5\)`, `\(\beta=-0.3\)`.
 
 ---
 
-##  
+## Equilibrium Outcomes: Population, Prices, Wages
 
 
 
@@ -422,11 +422,11 @@ We set `\(\sigma = 5\)`, `\(\alpha=0.5\)`, `\(\beta=-0.3\)`.
 
 ## Taking the model to the data 
 
-So what do we need to use this model for study counterfactuals in real data. 
+So what do we need to use this model to study counterfactuals in real data.
 
 We need estimates of the structural parameters. 
 
-How do we recover recovering model fundamentals `\(\mathcal{u}\)` and `\(\mathcal{A}\)`?
+How do we recover model fundamentals `\(\mathcal{u}\)` and `\(\mathcal{A}\)`?
 
 If we have data on `\(\{L\}_{i=1}^R\)` and `\(\{w\}_{i=1}^R\)` as is often the case, we can *invert* the model.
 
@@ -457,21 +457,106 @@ This then becomes a function of only `\(\mathcal{A}\)`, `\(\{L\}_{i=1}^R\)` and 
 
 We can use this to solve for `\(\mathcal{A}\)` and then the wage equation to solve for `\(\mathcal{u}\)`.
 
-&lt;!-- INSERT SOLUTION HERE  --&gt;
-
 
 
 ---
 
 ## Summary
 
-&lt;br&gt;&lt;br&gt;Summary, simple model, but tractable and allows a realistic geography, and we can do interesting counterfactuals 
+&lt;div class="spacer"&gt;&lt;/div&gt;
+
+Simple model, but tractable and allows a realistic geography, and we can do interesting counterfactuals 
 
 There are several extensions to the framework that are easy to incorporate. 
 
 We will turn to this next. 
 
 
+
+
+
+---
+
+## Spatial Empirics
+
+
+
+
+---
+
+## Spatial Empirics
+
+The baseline model nests several frameworks used in economic geography and urban economics. 
+
+It can also be used to highlight some key identification challenges in economics geography. 
+
+Key parameters we want to identify: The elasticity of popoulation and earnings to 
+
+- Changes in local amenities
+
+- Changes in local productivity. 
+
+
+We will explore this issue in this section.  
+
+
+
+---
+
+## A General Formulation of the Model
+
+Let `\(Y_i\)` be the total income in location `\(i\)` (this is `\(w_i L_i\)` form before).
+
+Let `\(T_{ji}\)` be the inverse economic distance from `\(j\)` to `\(i\)` (this is `\(\tau_{ji}^{1-\sigma}\)` from before).
+
+The we can define the *inward market access* as
+`\begin{equation}
+\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\end{equation}`
+`\begin{equation}
+\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\end{equation}`
+
+and the *outward market access* as
+
+
+---
+
+## A General Formulation of the Model
+
+The labor supply and demand functions in each location can then be written by (normalize `\(\bar{V} = 1\)` from the baseline model).
+
+`\begin{equation}
+\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\end{equation}`
+`\begin{equation}
+\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\end{equation}`
+
+Locations are linked to many challenges in estimating the elasticities using variation in amenities and wages/population. 
+
+
+---
+
+## A Shock to Local Amenities
+
+&lt;img src="images/amenity_shock_1.png" style="width:50%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+---
+
+## A Shock to Local Amenities
+
+&lt;img src="images/amenity_shock_2.png" style="width:70%; height:auto; display:block; margin:auto;" /&gt;
+
+
+
+---
+
+## A Shock to Local Amenities
+
+&lt;img src="images/amenity_shock_3.png" style="width:70%; height:auto; display:block; margin:auto;" /&gt;
 
 
 ---
@@ -509,7 +594,7 @@ Thus, cross-sectional comparisons are problematic, since cities differ in many c
 ---
 
 
-## 
+## West German Cities Near the Border
 
 
 &lt;img src="images/redding_sturm_fig_1.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
@@ -555,7 +640,7 @@ There are several compelling features:
 
 **Geography:**  
 
-- Fixed number `\(c\in\{1, \dots, C\}\)`, each with an exogenous stock of a non-tradeable amenity `\(H_c\)`.  
+- Fixed number of cities `\(c\in\{1, \dots, C\}\)`, each with an exogenous stock of a non-tradeable amenity `\(H_c\)`.  
 
 - Mass `\(L\)`, mobile workers across cities, each endowed with `\(1\)` unit of labor.
 
@@ -599,7 +684,7 @@ The equilibrium condition is therefore given by
 - `\(H_c\)`: price of the nontradeable amenity. &lt;br&gt;&lt;br&gt;
 
 
-Assume `\(\omega_i &gt; \omega_j\)`. What what are the underlying economic forces leading to adjustment? 
+Assume `\(\omega_i &gt; \omega_j\)`. What are the underlying economic forces leading to adjustment? 
 
 
 
@@ -608,7 +693,7 @@ Assume `\(\omega_i &gt; \omega_j\)`. What what are the underlying economic force
 
 ### Market Access and City Size
 
-Redding and Sturm rewerite the equilibrium population size in terms of firm and consumer market access: 
+Redding and Sturm rewrite the equilibrium population size in terms of firm and consumer market access: 
 `\begin{equation}
 \large L_c = \xi \left(FMA_c\right)^{\frac{\mu}{\sigma(1-\mu)}} \left(CMA_c\right)^{\frac{\mu}{\sigma(1-\mu)(\sigma-1)}} H_c\normalsize
 \end{equation}`
@@ -635,7 +720,9 @@ Congestion Effect:
 
 ## Model Predictions
 
-&lt;br&gt;&lt;br&gt;Parameters are chosen based on values from the literature.
+&lt;div class="spacer"&gt;&lt;/div&gt;
+
+Parameters are chosen based on values from the literature.
 
 `\(H\)` is calibrated so that the model exactly matches the observed population distribution in 1930.
 
@@ -650,7 +737,7 @@ Main Results:
 
 ---
 
-## 
+## Model Prediction: Population Change Near Border
 
 
 &lt;img src="images/redding_sturm_fig_2.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
@@ -660,7 +747,7 @@ Main Results:
 
 ---
 
-## 
+## Model Prediction: Smaller Cities, Larger Effects
 
 
 &lt;img src="images/redding_sturm_fig_3.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
@@ -698,26 +785,18 @@ The parameter of interest is `\(\gamma\)` which captures the differential impact
 
 &lt;!-- - `\(\gamma&lt;0\)`, smaller for larger cities than for smaller cities, esitmate seprately for the two samples  --&gt;
 
-&lt;!-- fix the specification  --&gt;
 
 
 
 
 
-
-
-&lt;!-- can these forces account for the reduced form effect --&gt;
-
-&lt;!-- what are the likely drivers here?  --&gt;
-
-&lt;!-- what trade costs and agglomeration forces is it that matters here? add the expressions.  --&gt;
 
 
 
 
 ---
 
-## 
+## Baseline Regression Results
 
 
 &lt;img src="images/redding_sturm_fig_4.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
@@ -727,7 +806,7 @@ The parameter of interest is `\(\gamma\)` which captures the differential impact
 
 ---
 
-## 
+## Results by City Size
 
 
 &lt;img src="images/redding_sturm_fig_5.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
@@ -738,10 +817,8 @@ The parameter of interest is `\(\gamma\)` which captures the differential impact
 
 ---
 
-## 
+## Robustness Checks
 
-
-&lt;!-- &lt;img src="images/redding_sturm_fig_6.png" style="width:80%; height:10%; display:block; margin:auto;" /&gt; --&gt;
 
 &lt;img src="images/redding_sturm_fig_6.png" style="width:47%; display:block; margin:auto;" /&gt;
 
@@ -774,10 +851,8 @@ What remains plausible channels are changes in consumer and firm market access?
 ---
 
 
-## 
+## Mechanisms: Market Access
 
-
-&lt;!-- &lt;img src="images/redding_sturm_fig_6.png" style="width:80%; height:10%; display:block; margin:auto;" /&gt; --&gt;
 
 &lt;img src="images/redding_sturm_fig_7.png" style="width:85%; display:block; margin:auto;" /&gt;
 
@@ -788,10 +863,8 @@ What remains plausible channels are changes in consumer and firm market access?
 
 
 
-## 
+## Mechanisms: Reunification
 
-
-&lt;!-- &lt;img src="images/redding_sturm_fig_6.png" style="width:80%; height:10%; display:block; margin:auto;" /&gt; --&gt;
 
 &lt;img src="images/redding_sturm_fig_8.png" style="width:85%; display:block; margin:auto;" /&gt;
 
@@ -808,7 +881,7 @@ What remains plausible channels are changes in consumer and firm market access?
 
 West German cities near the East-West border became economically peripheral after 1949.
 
-These cities experienced a less population growth, especially smaller ones.
+These cities experienced slower population growth, especially smaller ones.
 
 Effects match predictions from a quantitative spatial model.
 
@@ -839,7 +912,9 @@ class: inverse, center, middle
 
 ## Models with Comparative Advantage
 
-&lt;br&gt;&lt;br&gt;So far, trade between regions has been driven by preferences (love for variety).
+&lt;div class="spacer"&gt;&lt;/div&gt;
+
+So far, trade between regions has been driven by preferences (love for variety).
 
 Many applications in spatial economics consider the role of *comparative advantage* in driving patterns of trade.
 
@@ -1018,7 +1093,7 @@ G_{j}(p) = \mathbb{P}\left(p_{j}(\omega)&lt;p\right) = 1 - \text{exp}\left(-p^{\
 \end{equation}`
 where `\(\Phi_j = \sum_{i=1}^R T_i(c_i\tau_{ij})^{-\theta}\)`.
 
-This follows from properties of the Frechet distribution and that shocks are i.d.d. across locations. 
+This follows from properties of the Frechet distribution and that shocks are i.i.d. across locations. 
 
 From this, we can show that the price index in location `\(j\)` is given by
 `\begin{equation}
@@ -1059,24 +1134,15 @@ This is similar to the basic model but with trade elasticity `\(\theta\)` instea
 
 &lt;!-- Turns out that in this special case, thats the share of expenditure as well. --&gt;
 
-&lt;!-- PRODUCTIVITY TERM, CHECK NAGY, NOT T SHOULD BE A --&gt;
-
-&lt;!-- &lt;!-- There is perfect competition `\(\Rightarrow\)` `\(p(\omega) = A\)` --&gt; 
-
-&lt;!-- &lt;!-- then chooses min out of all the possible, from this the price index is ...  --&gt; 
-
-&lt;!-- &lt;!-- then the share of goods supplied by a country, this equals the share of expenditure ...  --&gt; 
-
-&lt;!-- &lt;!-- from this we have a gravity equation, that is very similar  --&gt; 
-
-&lt;!-- &lt;!-- so we are basically back to the standard case  --&gt; 
 
 
 ---
 
 ## General Equilibrium
 
-&lt;br&gt;&lt;br&gt;At this stage, we can again close the model like we did with the basic model. 
+&lt;div class="spacer"&gt;&lt;/div&gt;
+
+At this stage, we can again close the model like we did with the basic model. 
 
 - We add labor mobility, agglomeration/dispersion economies.
 
@@ -1271,7 +1337,7 @@ Combining 1. in the previous slide and a parameterization of trade costs gives
 
 ---
 
-## 
+## Railroads and Trade Costs: Estimates
 
 &lt;img src="images/trade_costs_donaldson.png" style="width:65%; display:block; margin:auto;" /&gt;
 
@@ -1295,7 +1361,7 @@ From data on bilateral trade for different commodities he obtain estimates `\(\h
 
 ---
 
-## 
+## Gravity Equation Estimates
 
 &lt;img src="images/donaldson_gravity.png" style="width:65%; display:block; margin:auto;" /&gt;
 
@@ -1313,7 +1379,7 @@ Assume that `\(\ln A_{ot}^k = \kappa \text{RAIN}_{ot}^k\)`.
 
 - Rainfall during growing season the main determinant for agricultural productivity. &lt;br&gt;&lt;br&gt;
 
-Define the variable `\(\ln \tilde{X}_{odt}^k = \ln X_{odt}^k  + \hat{\theta}^k \ln r_ot +\theta_k \hat{\delta} \text{LCRED}\left(\mathbf{R}_t, \mathbf{\hat{a}}\right)_{odt}\)`.
+Define the variable `\(\ln \tilde{X}_{odt}^k = \ln X_{odt}^k  + \hat{\theta}^k \ln r_{ot} +\theta_k \hat{\delta} \text{LCRED}\left(\mathbf{R}_t, \mathbf{\hat{a}}\right)_{odt}\)`.
 
 Then we get that 
 `\begin{equation}
@@ -1341,14 +1407,14 @@ where `\(\frac{r_{ot}}{\tilde{P}_{ot}}\)` measures real income.
 
 **Assumption**: Districts where not built in anticipation of real income growth. 
 
-He argues that the timing is primarliy driven by military considerations. 
+He argues that the timing is primarily driven by military considerations. 
 
 
 
 
 ---
 
-## 
+## Effect of Railroads on Real Income
 
 &lt;img src="images/effect_rail_donaldson.png" style="width:65%; display:block; margin:auto;" /&gt;
 
@@ -1370,7 +1436,7 @@ Uses all the estimated parameters to see if there is an effect of railroads once
 \end{equation}`
 `\(\hat{\pi}_{oo}^k\)` are found by solving the model for the given set of estimated parameters. 
 
-The suffciient statistic approach says that after controlling for productivity differences, the only way through which transportation costs matter are through the trade share. 
+The sufficient statistic approach says that after controlling for productivity differences, the only way through which transportation costs matter are through the trade share. 
 
 If this is true, then `\(\gamma\)` should be zero. 
 
@@ -1379,9 +1445,7 @@ If this is true, then `\(\gamma\)` should be zero.
 
 ---
 
-## 
-
-
+## Sufficient Statistic: Railroads and Gains from Trade
 
 &lt;img src="images/donaldson_headline.png" style="width:60%; display:block; margin:auto;" /&gt;
 
@@ -1393,7 +1457,9 @@ If this is true, then `\(\gamma\)` should be zero.
 
 ## Summary
 
-&lt;br&gt;&lt;br&gt; Gains from specialization appear to account for **around half** of the impact of railroads on real income.  
+&lt;div class="spacer"&gt;&lt;/div&gt;
+
+Gains from specialization appear to account for **around half** of the impact of railroads on real income.  
 
 - Other factors also play an important role.  
 
@@ -1414,7 +1480,9 @@ This provides a good example of how to combine quantitative spatial models with 
 
 ## Class of Spatial Models Used applied to Regions
 
-&lt;br&gt;&lt;br&gt;The main interactions between regions are trade and migration.  
+&lt;div class="spacer"&gt;&lt;/div&gt;
+
+The main interactions between regions are trade and migration.  
 
 Different underlying drivers of trade can help rationalize the observed spatial distribution of economic activity.  
 

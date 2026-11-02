@@ -23,11 +23,7 @@ options(htmltools.dir.version = FALSE)
 library(xaringanthemer)
 style_mono_accent(base_color = "#43418A")
 
-options(htmltools.dir.version = FALSE)
-
-# This is a recommended set up for flipbooks
 knitr::opts_chunk$set(fig.width = 6, small.mar=TRUE, fig.retina = 5,message = FALSE, warning = FALSE, comment = "", cache = F)
-library(flipbookr)
 library(tidyverse)
 library(readxl)
 library(scales)
@@ -67,6 +63,10 @@ code.r.hljs.remark-code:hover{
   margin-bottom: auto;
 }
 
+.spacer {
+  margin-top: 2.5rem;
+}
+
 ```
 
 
@@ -76,16 +76,13 @@ code.r.hljs.remark-code:hover{
 ## Outline of the Lecture 
 
 
- <br><br>
-  <br><br>
+<div class="spacer"></div>
 
-What is this unit about?  
+What is this unit about?
 
+<br>
 
-<br><br>  
-
-
-How is the unit organized?  
+How is the unit organized?
 
 
 
@@ -104,15 +101,14 @@ class: inverse, center, middle
 
 ## Motivation
 
- <br><br>
-  <br><br>
+<div class="spacer"></div>
 
 Production, trade and income are highly unevenly distributed across space.
 
 - Agglomeration in cities (∼50 per cent of the world’s population, expected to sharply increase)
 - Geographical sectoral specialization (e.g. soybean production in Brazil, Silicon Valley in the US, manufacturing in China, ...)
 
-Since the mid-1990s, an ever-growing number of studies established the field of spatial economics
+Since the mid-1990s, an ever-growing body of research has established spatial economics as a major field
 
 
 
@@ -126,6 +122,7 @@ Since the mid-1990s, an ever-growing number of studies established the field of 
 
 
 
+
 ---
 
 ## 
@@ -135,11 +132,13 @@ Since the mid-1990s, an ever-growing number of studies established the field of 
 
 
 
+
 ---
 
 ## 
 
-<img src="images/nighlights_us.png" style="width:80%; height:auto; display:block; margin:auto;" />
+<img src="images/nightlights_us.png" style="width:80%; height:auto; display:block; margin:auto;" />
+
 
 
 ---
@@ -198,7 +197,7 @@ Since the mid-1990s, an ever-growing number of studies established the field of 
 
 <br>
 
-**Second-nature characteristcs**
+**Second-nature characteristics**
 
 - Market access
 - Infrastructure (roads, cities, ports)
@@ -323,7 +322,7 @@ Modern spatial economics borrows heavily from international trade, which has lon
 
 ## What is this Unit About?
 
-<br><br>
+<div class="spacer"></div>
 
 We will focus on **three main objectives**:
 
@@ -353,7 +352,7 @@ class: inverse, center, middle
 - Workhorse model: Allen & Arkolakis (2014)
 - Applications:
   - Redding & Sturm (2008)
-  - Donaldson (2016)
+  - Donaldson (2018)
   - Identification: Allen & Arkolakis (2022)
 
 <br>
@@ -408,6 +407,8 @@ Option 2: Referee Report
 Ahlfeldt, Gabriel M., Stephen J. Redding, Daniel M. Sturm, and Nikolaus Wolf. 2015. “The Economics of Density: Evidence From the Berlin Wall.” *Econometrica* 83 (6): 2127–89. 
 
 Allen, Treb, and Costas Arkolakis. 2014. “Trade and the Topography of the Spatial Economy.” *The Quarterly Journal of Economics* 129 (3): 1085–1140.
+
+Allen, Treb, and Costas Arkolakis. 2022. “[Add title].” *[Add journal/working paper]*.
 
 Donaldson, Dave. 2018. “Railroads of the Raj: Estimating the Impact of Transportation Infrastructure.” *American Economic Review* 108 (4-5): 899–934.
 

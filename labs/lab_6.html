@@ -438,7 +438,7 @@ this exercise. You can find these
 <summary>
 Some <code>dplyr</code> functions
 </summary>
-<p><code>%&gt;%</code> pipe, read as “then do”.</p>
+<p><code>|&gt;</code> pipe, read as “then do”.</p>
 <p><code>mutate()</code>: create new column or manipulate existing
 column.</p>
 <p><code>select()</code>: select columns to keep in the dataframe.</p>
@@ -459,20 +459,20 @@ file.</p></li>
 script.</p></li>
 <li><p>Keep the columns <code>geo</code>, <code>TIME_PERIOD</code>,
 <code>OBS_VALUE</code>, and <code>coicop</code>. <strong>Hint</strong>:
-Use <code>select()</code> and <code>%&gt;%</code>.</p></li>
+Use <code>select()</code> and <code>|&gt;</code>.</p></li>
 <li><p>Rename the columns to more informative names.
 <strong>Hint</strong>: Use <code>rename()</code> and
-<code>%&gt;%</code>.</p></li>
+<code>|&gt;</code>.</p></li>
 <li><p>Make the column containing the time variable as a date.
-<strong>Hint</strong>: Use <code>mutate()</code>, <code>%&gt;%</code>,
+<strong>Hint</strong>: Use <code>mutate()</code>, <code>|&gt;</code>,
 and the code from the previous lab.</p></li>
 <li><p>Group the dataset by the variable denoting the series.
 <strong>Hint</strong>: Use <code>group_by()</code>.</p></li>
 <li><p>Calculate the growth rate of prices by series.
-<strong>Hint</strong>: Use <code>mutate()</code>, <code>%&gt;%</code>,
+<strong>Hint</strong>: Use <code>mutate()</code>, <code>|&gt;</code>,
 and the code from the previous lab.</p></li>
 <li><p>Keep only observations after January 2018. <strong>Hint</strong>:
-Use <code>filter()</code> and <code>%&gt;%</code>.</p></li>
+Use <code>filter()</code> and <code>|&gt;</code>.</p></li>
 <li><p>Construct the below plot.</p></li>
 </ul>
 <pre class="r"><code># Define colors for the different series
