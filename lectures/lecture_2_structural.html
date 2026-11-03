@@ -4,7 +4,7 @@
     <title>Quantitative Economic Geography</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2026-10-30" />
+    <meta name="date" content="2026-11-03" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2026-10-30
+### 2026-11-03
 ]
 
 ---
@@ -129,6 +129,10 @@ How can we incorporate all these forces into *tractable, quantitative models*?
 
 
 
+
+
+
+
 ---
 
 ## Economic Activity in Europe
@@ -149,9 +153,28 @@ class: inverse, center, middle
 
 ---
 
+
+## A Benchmark Model
+
+In what follows, I introduce the basics of the spatial model of Allen and Arkolakis 2014.
+
+The model makes several structural assumptions governing the first and second nature forces above.
+
+However, it has several strengths:
+
+- It nests a range of more complex economic geography models. 
+
+- It remains fairly tractable 
+
+
+We will use the model to conduct counterfactuals and highlight identification challenges.
+
+
+
+---
+
 ## Geography
 
-&lt;!-- In what follows, I introduce the basics of the spatial model of Allen and Arkolakis 2014. --&gt;
 
 There are `\(R\)` regions indexed by `\(i\)` or `\(j\)` (e.g. states, municipalities, or counties).&lt;br&gt;&lt;br&gt;
 
@@ -397,7 +420,7 @@ We set `\(\sigma = 5\)`, `\(\alpha=0.5\)`, `\(\beta=-0.3\)`.
 
 
 
-&lt;img src="lecture_2_structural_files/figure-html/unnamed-chunk-4-1.png" width="1008" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_2_structural_files/figure-html/unnamed-chunk-4-1.png" width="864" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -410,7 +433,7 @@ We set `\(\sigma = 5\)`, `\(\alpha=0.5\)`, `\(\beta=-0.3\)`.
 
 
 
-&lt;img src="lecture_2_structural_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_2_structural_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -424,13 +447,13 @@ We set `\(\sigma = 5\)`, `\(\alpha=0.5\)`, `\(\beta=-0.3\)`.
 
 So what do we need to use this model to study counterfactuals in real data.
 
-We need estimates of the structural parameters. 
+We need estimates of the structural parameters (more on this below). 
 
 How do we recover model fundamentals `\(\mathcal{u}\)` and `\(\mathcal{A}\)`?
 
 If we have data on `\(\{L\}_{i=1}^R\)` and `\(\{w\}_{i=1}^R\)` as is often the case, we can *invert* the model.
 
-This means solving for `\(\mathcal{u}\)` and `\(\mathcal{A}\)` that rationalizes `\(\{L\}_{i=1}^R\)` and `\(\{w\}_{i=1}^R\)` as an equilibrium. 
+This means solving for `\(\mathcal{U}\)` and `\(\mathcal{A}\)` that rationalizes `\(\{L\}_{i=1}^R\)` and `\(\{w\}_{i=1}^R\)` as an equilibrium. 
 
 This is a good starting point for a counterfactual exercise. 
 
@@ -461,23 +484,19 @@ We can use this to solve for `\(\mathcal{A}\)` and then the wage equation to sol
 
 ---
 
-## Summary
+## Taking Stock
 
 &lt;div class="spacer"&gt;&lt;/div&gt;
 
-Simple model, but tractable and allows a realistic geography, and we can do interesting counterfactuals 
+Simple model, but tractable and allows a realistic geography, and we can do interesting counterfactuals.
+
+If we have the structural parameters, we can now use the model for counterfactuals.
 
 There are several extensions to the framework that are easy to incorporate. 
 
-We will turn to this next. 
+We will turn to this soon. 
 
 
-
-
-
----
-
-## Spatial Empirics
 
 
 
@@ -499,6 +518,7 @@ Key parameters we want to identify: The elasticity of popoulation and earnings t
 
 We will explore this issue in this section.  
 
+- We use a slightly more general formulation to make a more general point (have a look at the Appendix of Allen and Arkolakis 2022 for the exact mapping).
 
 
 ---
@@ -509,31 +529,47 @@ Let `\(Y_i\)` be the total income in location `\(i\)` (this is `\(w_i L_i\)` for
 
 Let `\(T_{ji}\)` be the inverse economic distance from `\(j\)` to `\(i\)` (this is `\(\tau_{ji}^{1-\sigma}\)` from before).
 
-The we can define the *inward market access* as
+Then we can define the inward and outward market access of location `\(i\)` as
 `\begin{equation}
-\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\large MA_i^{out} = \sum_{j} T_{ij}\frac{Y_j}{MA_j^{in}} \normalsize,
 \end{equation}`
 `\begin{equation}
-\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\large MA_i^{in} = \sum_{j} T_{ji}\frac{Y_j}{MA_j^{out}} \normalsize,
 \end{equation}`
+`\(MA_i^{out}\)` denotes how good the access to markets of firms in location `\(i\)` is (close to rich places with few options).
 
-and the *outward market access* as
+`\(MA_i^{in}\)` denotes how good access consumers in `\(j\)` are to sellers of goods (close to places with high output but few options to sell). 
+
 
 
 ---
 
 ## A General Formulation of the Model
 
-The labor supply and demand functions in each location can then be written by (normalize `\(\bar{V} = 1\)` from the baseline model).
-
+The labor supply and demand functions in each location can then be written as
 `\begin{equation}
-\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\large \text{ln } w_{i} =  \varepsilon_{local}^{S} \text{ln }L_{i} +\text{ln }\varepsilon_{global}^{S} MA_i^{out} - \text{ln } C_i^{S} \normalsize,
 \end{equation}`
 `\begin{equation}
-\large L_i^{\tilde{\sigma}\gamma_1} = \normalsize,
+\large \text{ln } w_{i} =  \varepsilon_{local}^{D} \text{ln }L_{i} +\text{ln }\varepsilon_{global}^{D} MA_i^{in} + \text{ln } C_i^{D} \normalsize,
 \end{equation}`
+The labor demand is a function of size, productiveness and access to other markets (outward market access). 
 
-Locations are linked to many challenges in estimating the elasticities using variation in amenities and wages/population. 
+The labor supply is a function of size, amenities and access to other markets (inward market access). 
+
+The elasitcies `\(\varepsilon^{a}_b\)` are key parameters of interest, they will have different structural interpretations depending on the model. 
+
+&lt;!-- Locations are linked to many challenges in estimating the elasticities using variation in amenities and wages/population.  --&gt;
+
+To understand the dynamics and the implications for estimation of `\(\varepsilon^{a}_b\)` lets consider a local amenity shock. 
+
+
+
+
+
+
+
+
 
 
 ---
@@ -561,6 +597,14 @@ Locations are linked to many challenges in estimating the elasticities using var
 
 ---
 
+
+## Estimation
+
+Assume we have data on amenities and L, want to estimate epsilon.
+
+
+
+---
 
 class: inverse, center, middle
 
@@ -597,7 +641,7 @@ Thus, cross-sectional comparisons are problematic, since cities differ in many c
 ## West German Cities Near the Border
 
 
-&lt;img src="images/redding_sturm_fig_1.png" style="width:80%; height:auto; display:block; margin:auto;" /&gt;
+&lt;img src="images/redding_sturm_fig_1.png" style="width:70%; height:auto; display:block; margin:auto;" /&gt;
 
 
 

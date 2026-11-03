@@ -16,7 +16,7 @@
 # The tidyverse is a collection of packages that share a common design.
 # It includes dplyr (data manipulation) and ggplot2 (visualisation).
 
-library(tidyverse)
+library(dplyr)
 
 # We will also use the gapminder package, which contains data on GDP per
 # capita, population, and life expectancy for 142 countries, 1952-2007.
