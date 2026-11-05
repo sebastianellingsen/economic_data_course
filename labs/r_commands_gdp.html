@@ -229,7 +229,40 @@
   <tr><td><code>decade_avg(df, 1990)</code></td><td>Average GDP during the 1990s</td></tr>
 </table>
 
-<p class="note">Last updated: October 2026</p>
+<!-- ── 13. DPLYR ── -->
+<h2>13. Data Manipulation with dplyr</h2>
+<p class="intro">dplyr is a package for data manipulation. Install it once with <code>install.packages("dplyr")</code>, then load it with <code>library(dplyr)</code>. All dplyr functions take a data frame as their first argument and return a data frame.</p>
+
+<div class="note">
+  <strong>The pipe operator <code>|&gt;</code>.</strong> The pipe passes the result on the left as the first argument to the function on the right. So <code>df |&gt; filter(year &gt;= 2000)</code> is the same as <code>filter(df, year &gt;= 2000)</code>. Pipes let you chain several steps together without creating intermediate objects.
+</div>
+
+<table>
+  <tr><th>Command</th><th>Description</th></tr>
+
+  <tr><td><code>library(dplyr)</code></td><td>Load the dplyr package</td></tr>
+
+  <tr><td><code>filter(df, year &gt;= 2000)</code></td><td>Keep only rows where year is 2000 or later</td></tr>
+  <tr><td><code>filter(df, year &gt;= 1990 &amp; year &lt;= 1999)</code></td><td>Keep only rows from the 1990s</td></tr>
+  <tr><td><code>filter(df, gdp &gt; 15)</code></td><td>Keep only rows where GDP exceeds 15</td></tr>
+
+  <tr><td><code>select(df, year, gdp)</code></td><td>Keep only the year and gdp columns</td></tr>
+  <tr><td><code>select(df, -decade)</code></td><td>Drop the decade column, keep everything else</td></tr>
+
+  <tr><td><code>mutate(df, gdp_log = log(gdp))</code></td><td>Add a new column with the log of GDP</td></tr>
+  <tr><td><code>mutate(df,<br>&nbsp;&nbsp;gdp_growth = c(NA, diff(gdp) / gdp[-n()] * 100))</code></td><td>Add a GDP growth rate column</td></tr>
+
+  <tr><td><code>arrange(df, gdp)</code></td><td>Sort rows by GDP ascending</td></tr>
+  <tr><td><code>arrange(df, desc(gdp))</code></td><td>Sort rows by GDP descending</td></tr>
+
+  <tr><td><code>summarise(df, mean_gdp = mean(gdp),<br>&nbsp;&nbsp;sd_gdp = sd(gdp))</code></td><td>Compute summary statistics for the whole dataset</td></tr>
+
+  <tr><td><code>df |&gt;<br>&nbsp;&nbsp;group_by(decade) |&gt;<br>&nbsp;&nbsp;summarise(mean_gdp = mean(gdp))</code></td><td>Compute mean GDP separately for each decade</td></tr>
+
+  <tr><td><code>df |&gt;<br>&nbsp;&nbsp;filter(year &gt;= 2000) |&gt;<br>&nbsp;&nbsp;mutate(gdp_log = log(gdp)) |&gt;<br>&nbsp;&nbsp;select(year, gdp, gdp_log)</code></td><td>Chain multiple steps: filter to post-2000, add log GDP, keep three columns</td></tr>
+</table>
+
+<p class="note">Last updated: November 2026</p>
 
 </body>
 </html>
