@@ -720,6 +720,8 @@ Then calculate the geometric mean
 \text{Index} = \left(\Pi_{k = 1}^N I^k\right)^{\frac{1}{N}}
 \end{equation}
 
+**Practical note**: If $Y^k_{\text{min}}$ and $Y^k_{\text{max}}$ are taken from the data, the worst-performing observation always scores $I^k = 0$, which collapses the geometric mean to zero regardless of its scores on other dimensions. To avoid this, set the min and max to fixed values outside the observed range.
+
 In the lab, you will explore the evolution of your own development index.
 
 
