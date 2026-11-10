@@ -645,9 +645,106 @@ To understand the dynamics and the implications for estimation of $\varepsilon^{
 ---
 
 
-## Estimation
+## Estimation Setup
 
-Assume we have data on amenities and L, want to estimate epsilon.
+Assume we have data on $L_i$, $w_i$, $T_{ij}$. 
+
+Our task is to estimate $\varepsilon_{local}^{S}, \varepsilon_{global}^{S}, \varepsilon_{local}^{D}, \varepsilon_{global}^{D}$.
+
+The starting point is a regression of the following form: 
+\begin{equation}
+\large w_i = \theta_0 + \theta_1 L_i + \gamma X_i + \lambda_i \normalsize
+\end{equation}
+How do we estimate the equation if we want to identify the structural supply elasticities? 
+
+
+
+
+
+---
+
+
+## Estimation 1
+
+We want to estimate a supply and demand system. 
+
+Luckily this is a very well understood problem in economics! 
+
+To identify $\varepsilon_{local}^{S}$ we need an instrument for $L_i$. 
+
+This needs to be a productivity shifter (uncorrelated to the local amenities).
+
+**Example**: 
+
+- Bustos et al (2016) argue that soy suitability, combined with global demand shocks for soy, identifies a local productivity shifter. 
+
+- Needs to be uncorrelated with local amenities. 
+
+- In general, agroclimatic suitability will be correlated with both amenities and productivity.
+
+
+
+
+---
+
+
+## Estimation 2
+
+Assume we have an instrument (some sort of exogenous productivity shock).
+
+The second thing we need to consider is to account for $MA_i^{out}$. 
+
+Using data on $L_i$, $w_i$, $T_{ij}$, we can calculate the market access $MA_i^{out}$ and $MA_i^{in}$.
+
+- Need fairly readily available data on economic linkages.
+
+Ignoring this would lead to a bias since productivity shocks will be correlated with $MA_i^{out}$ and $MA_i^{in}$.
+
+This remedy is seemingly straight forward though. 
+
+
+
+---
+
+## Estimation 3
+
+However, $MA_i^{out}$ will be correlated with unobserved amenities in the location as well. 
+
+This is because $MA_i^{out}$ depends on the size of the location itself (the amount of goods with no trade costs).
+
+We therefore also need an instrument for local market access. 
+
+- Changes in transportation infrastructure or various macro-political shocks. 
+
+- Model implied instruments (Allen and Arkolakis 2022).
+
+Finally, local productivity and amenities are likely to be spatially correlated. 
+
+Need to account for this when doing inference.
+
+
+Once this is done, we can use the model for counterfactual analysis!
+
+
+
+
+
+---
+
+
+## Taking Stock
+
+We have seen a simple spatial model that nests many well-known spatial models. 
+
+We have characterized the existence and uniqueness as a function of model parameters.
+
+To use the model for counterfactual analysis, we need to know a range of parameters. 
+
+We can *invert* the model to capture amenities and productivities. 
+
+We can estimate parameters of models using reduced-form methods under some assumptions.
+
+
 
 
 
@@ -945,7 +1042,7 @@ What remains plausible channels are changes in consumer and firm market access?
 ## Mechanisms: Market Access
 
 
-<img src="images/redding_sturm_fig_7.png" style="width:85%; display:block; margin:auto;" />
+<img src="images/redding_sturm_fig_7.png" style="width:80%; display:block; margin:auto;" />
 
 
 
@@ -954,14 +1051,23 @@ What remains plausible channels are changes in consumer and firm market access?
 
 
 
-## Mechanisms: Reunification
+## Mechanisms: Market Access
 
 
-<img src="images/redding_sturm_fig_8.png" style="width:85%; display:block; margin:auto;" />
+<img src="images/redding_sturm_fig_8.png" style="width:80%; display:block; margin:auto;" />
 
 
 ---
 
+
+
+## Mechanisms: Market Access
+
+
+<img src="images/redding_sturm_fig_9.png" style="width:80%; display:block; margin:auto;" />
+
+
+---
 
 
 
@@ -1350,7 +1456,7 @@ Donaldson (2018) explores whether **specialization** is a key driver of gains of
 
 **Technology**: $z_o^k(j)$ denotes the amount of variety $j$ of commodity $k$ that can be produced with one unit of $L_o$.
 - Assume that $z_o^k \sim F_o^k(z) = e^{-A_{o}^kz^{-\theta_k}}$ where $A_{o}>0$ and $\theta_k>0$. 
-- There is perfect among many small firms: $p_{oo}^k(j) = \frac{r_o}{z_o^k(j)}$.<br><br>
+- There is perfect competition among many small firms: $p_{oo}^k(j) = \frac{r_o}{z_o^k(j)}$.<br><br>
 
 
 **Trade**: All goods can be transported subject to iceberg trade costs $T_{od}^k$. 
@@ -1363,7 +1469,7 @@ Donaldson (2018) explores whether **specialization** is a key driver of gains of
 
 Consumers value all varieties of each good, but they don’t care where a variety is produced. 
 
-They buy from the region that can deliver it at the lowest cost.
+They buy from the region that can deliver it at the lowest cost (like Eaton and Kortum 2002).
 
 $p_{od}^k(j)$ is therefore a realization of $P_{od}^k$ with CDF 
 \begin{equation}
@@ -1628,6 +1734,10 @@ They also map closely to reduced-form parameters, bridging theory and empirics.
 
 Allen, Treb, and Costas Arkolakis. 2014. “Trade and the Topography of the Spatial Economy.” *The Quarterly Journal of Economics* 129 (3): 1085–1140.
 
+Allen, Treb, and Costas Arkolakis. 2022. “Economic Activity across Space: A Supply and Demand Approach” *Journal of Economic Perspectives* 37 (2): 3–28.
+
+Bustos, P., B. Caprettini, and J. Ponticelli (2016): “Agricultural productivity and structural transformation: Evidence from Brazil,” *American Economic Review*, 106(6), 1320–65.
+
 Donaldson, Dave. 2018. “Railroads of the Raj: Estimating the Impact of Transportation Infrastructure.” *American Economic Review* 108 (4-5): 899–934.
 
 Eaton, Jonathan, and Samuel Kortum. 2002. “Technology, Geography, and Trade.” *Econometrica* 70 (5): 1741–79.
@@ -1636,9 +1746,14 @@ Redding, Stephen J, and Daniel M Sturm. 2008. “The Costs of Remoteness: Eviden
 
 Nagy, David. 2022. “Quantitative Economic Geography Meets History: Questions, Answers and Challenges.” *Regional Science and Urban Economics* 94 (103675):1-14.
 
+
+---
+
+
+## References
+
+
 Head, Keith, and Thierry Mayer. 2014. “Gravity Equations: Workhorse, Toolkit, and Cookbook.” *Handbook of International Economics* Vol 4: 131-195
-
-
 
 
 
