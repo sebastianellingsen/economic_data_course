@@ -600,7 +600,7 @@ The labor supply and demand functions in each location can then be written as
 \begin{equation}
 \large \text{ln } w_{i} =  \varepsilon_{local}^{D} \text{ln }L_{i} +\text{ln }\varepsilon_{global}^{D} MA_i^{in} + \text{ln } C_i^{D} \normalsize,
 \end{equation}
-The labor demand is a function of size, productiveness and access to other markets (outward market access). 
+The labor demand is a function of size, productivity and access to other markets (outward market access). 
 
 The labor supply is a function of size, amenities and access to other markets (inward market access). 
 
@@ -647,14 +647,16 @@ To understand the dynamics and the implications for estimation of $\varepsilon^{
 
 ## Estimation Setup
 
-Assume we have data on $L_i$, $w_i$, $T_{ij}$. 
+Assume we have data on $L_i$, $w_i$, and $T_{ij}$. 
 
 Our task is to estimate $\varepsilon_{local}^{S}, \varepsilon_{global}^{S}, \varepsilon_{local}^{D}, \varepsilon_{global}^{D}$.
 
 The starting point is a regression of the following form: 
 \begin{equation}
-\large w_i = \theta_0 + \theta_1 L_i + \gamma X_i + \lambda_i \normalsize
+\large w_i = \theta_0 + \theta_1 L_i + \gamma X_i + \lambda_i, \normalsize
 \end{equation}
+where $X_i$ is a vector of covariates and $\lambda_i$ is an unobserved error term. 
+
 How do we estimate the equation if we want to identify the structural supply elasticities? 
 
 
@@ -718,10 +720,12 @@ We therefore also need an instrument for local market access.
 
 - Model implied instruments (Allen and Arkolakis 2022).
 
-Finally, local productivity and amenities are likely to be spatially correlated. 
 
-Need to account for this when doing inference.
+Further issues:
 
+- Local productivity and amenities are likely to be spatially correlated $\Rightarrow$ Need to account for this wrt. inference.
+
+- Spillovers might lead to SUTVA violations $\Rightarrow$ Need to think carefully about constructing control groups. 
 
 Once this is done, we can use the model for counterfactual analysis!
 

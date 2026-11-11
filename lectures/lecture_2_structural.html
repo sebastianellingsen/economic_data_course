@@ -4,7 +4,7 @@
     <title>Quantitative Economic Geography</title>
     <meta charset="utf-8" />
     <meta name="author" content="School of Economics - University of Bristol" />
-    <meta name="date" content="2026-11-10" />
+    <meta name="date" content="2026-11-11" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### School of Economics - University of Bristol
 ]
 .date[
-### 2026-11-10
+### 2026-11-11
 ]
 
 ---
@@ -553,7 +553,7 @@ The labor supply and demand functions in each location can then be written as
 `\begin{equation}
 \large \text{ln } w_{i} =  \varepsilon_{local}^{D} \text{ln }L_{i} +\text{ln }\varepsilon_{global}^{D} MA_i^{in} + \text{ln } C_i^{D} \normalsize,
 \end{equation}`
-The labor demand is a function of size, productiveness and access to other markets (outward market access). 
+The labor demand is a function of size, productivity and access to other markets (outward market access). 
 
 The labor supply is a function of size, amenities and access to other markets (inward market access). 
 
@@ -600,14 +600,16 @@ To understand the dynamics and the implications for estimation of `\(\varepsilon
 
 ## Estimation Setup
 
-Assume we have data on `\(L_i\)`, `\(w_i\)`, `\(T_{ij}\)`. 
+Assume we have data on `\(L_i\)`, `\(w_i\)`, and `\(T_{ij}\)`. 
 
 Our task is to estimate `\(\varepsilon_{local}^{S}, \varepsilon_{global}^{S}, \varepsilon_{local}^{D}, \varepsilon_{global}^{D}\)`.
 
 The starting point is a regression of the following form: 
 `\begin{equation}
-\large w_i = \theta_0 + \theta_1 L_i + \gamma X_i + \lambda_i \normalsize
+\large w_i = \theta_0 + \theta_1 L_i + \gamma X_i + \lambda_i, \normalsize
 \end{equation}`
+where `\(X_i\)` is a vector of covariates and `\(\lambda_i\)` is an unobserved error term. 
+
 How do we estimate the equation if we want to identify the structural supply elasticities? 
 
 
@@ -671,10 +673,12 @@ We therefore also need an instrument for local market access.
 
 - Model implied instruments (Allen and Arkolakis 2022).
 
-Finally, local productivity and amenities are likely to be spatially correlated. 
 
-Need to account for this when doing inference.
+Further issues:
 
+- Local productivity and amenities are likely to be spatially correlated `\(\Rightarrow\)` Need to account for this wrt. inference.
+
+- Spillovers might lead to SUTVA violations `\(\Rightarrow\)` Need to think carefully about constructing control groups. 
 
 Once this is done, we can use the model for counterfactual analysis!
 
@@ -1377,7 +1381,7 @@ Donaldson (2018) explores whether **specialization** is a key driver of gains of
 
 **Technology**: `\(z_o^k(j)\)` denotes the amount of variety `\(j\)` of commodity `\(k\)` that can be produced with one unit of `\(L_o\)`.
 - Assume that `\(z_o^k \sim F_o^k(z) = e^{-A_{o}^kz^{-\theta_k}}\)` where `\(A_{o}&gt;0\)` and `\(\theta_k&gt;0\)`. 
-- There is perfect among many small firms: `\(p_{oo}^k(j) = \frac{r_o}{z_o^k(j)}\)`.&lt;br&gt;&lt;br&gt;
+- There is perfect competition among many small firms: `\(p_{oo}^k(j) = \frac{r_o}{z_o^k(j)}\)`.&lt;br&gt;&lt;br&gt;
 
 
 **Trade**: All goods can be transported subject to iceberg trade costs `\(T_{od}^k\)`. 
@@ -1390,7 +1394,7 @@ Donaldson (2018) explores whether **specialization** is a key driver of gains of
 
 Consumers value all varieties of each good, but they don’t care where a variety is produced. 
 
-They buy from the region that can deliver it at the lowest cost.
+They buy from the region that can deliver it at the lowest cost (like Eaton and Kortum 2002).
 
 `\(p_{od}^k(j)\)` is therefore a realization of `\(P_{od}^k\)` with CDF 
 `\begin{equation}
